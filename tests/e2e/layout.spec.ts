@@ -20,11 +20,15 @@ test('one viewport canvas keeps art, hit regions, HUD, and player identity align
     await expect.poll(async () => page.locator('.player-1').getAttribute('data-board-x')).not.toBeNull();
     const canvas = await page.locator('canvas').boundingBox();
     expect(canvas).toEqual({ x: 0, y: 0, width, height });
+    const bar = await page.getByRole('region', { name: 'Round standing' }).boundingBox();
+    expect(bar!.x).toBeGreaterThanOrEqual(0);
+    expect(bar!.x + bar!.width).toBeLessThanOrEqual(width);
     await expect(page.locator('.player-0 h2')).toHaveText('Andy');
     await expect(page.locator('.player-1 h2')).toHaveText('Sir Champignon');
     for (const id of [0, 1]) {
       const panel = page.locator(`.player-${id}`);
       const summary = await panel.locator('.player-summary').boundingBox();
+      expect(bar!.y + bar!.height).toBeLessThanOrEqual(summary!.y);
       expect(summary!.x + summary!.width / 2).toBeCloseTo(width * (id === 0 ? 0.25 : 0.75));
       const x = Number(await panel.getAttribute('data-board-x'));
       const y = Number(await panel.getAttribute('data-board-y'));

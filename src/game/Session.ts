@@ -1,6 +1,7 @@
 import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
+import { chooseHome } from './homes';
 import type { GameAction, GameEvent, MatchOptions, MatchState } from './types';
 
 export type Snapshot = { state: MatchState; events: GameEvent[] };
@@ -8,16 +9,20 @@ export type Snapshot = { state: MatchState; events: GameEvent[] };
 /** Local session boundary. An online session can later expose the same UI contract. */
 export class Session {
   readonly match: Match;
+  readonly home: ReturnType<typeof chooseHome>;
   private bot: Bot | null;
   private timer: ReturnType<typeof setInterval> | null = null;
   private listeners = new Set<() => void>();
   private snapshot: Snapshot;
   private sounds: Partial<Record<GameEvent['kind'], HTMLAudioElement>> = {};
   private lastSound = 0;
+  private music: HTMLAudioElement | null = null;
+  private musicWanted = false;
   muted = true;
 
   constructor(options: MatchOptions) {
     this.match = new Match(options);
+    this.home = chooseHome(options);
     this.bot = options.mode === 'ai' ? new Bot(options.difficulty, options.seed ^ 12345) : null;
     this.snapshot = this.read();
   }
@@ -32,6 +37,7 @@ export class Session {
   };
   private publish(): void {
     this.snapshot = this.read();
+    this.syncMusic();
     if (!this.muted) {
       const event = this.match.events.filter(item => item.id > this.lastSound).at(-1);
       const sound = event && this.sounds[event.kind];
@@ -52,6 +58,16 @@ export class Session {
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
     Object.values(this.sounds).forEach(sound => sound.pause());
+    this.music?.pause();
+    this.musicWanted = false;
+  }
+  private syncMusic(): void {
+    const state = this.match.state;
+    const wanted = !this.muted && !state.paused && (state.phase === 'playing' || state.phase === 'countdown');
+    if (wanted === this.musicWanted || !this.music) return;
+    this.musicWanted = wanted;
+    if (wanted) void this.music.play().catch(() => {});
+    else this.music.pause();
   }
   act(action: GameAction): void { this.match.action(action); this.publish(); }
   nextRound(): void { this.match.nextRound(); this.publish(); }
@@ -67,6 +83,9 @@ export class Session {
         hurt: new Audio('/assets/wrongHit.wav'),
       };
       Object.values(this.sounds).forEach(sound => { sound.volume = 0.3; sound.load(); });
+      this.music = new Audio(this.home.music);
+      this.music.loop = true;
+      this.music.volume = 0.12;
     }
     this.publish();
   }

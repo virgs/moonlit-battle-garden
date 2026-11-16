@@ -22,16 +22,17 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
   const short = height < 580;
   const landscape = single && width > height;
   const margin = width < 700 ? 12 : 24;
-  const top = single ? (short ? 131 : 185) : (short ? 115 : 151);
+  const barHeight = 28;
+  const top = (single ? (short ? 131 : 185) : (short ? 115 : 151)) + barHeight;
   const bottom = short ? 88 : 132;
   const laneWidth = width / (single ? 1 : 2);
   const sideHud = Math.min(230, width * 0.25);
   const availableWidth = landscape ? width - 2 * (sideHud + margin) - 16 : laneWidth - margin * 2;
-  const availableHeight = landscape ? height - 65 : height - top - bottom;
+  const availableHeight = landscape ? height - 65 - barHeight : height - top - bottom;
   const scale = Math.max(0.05, Math.min(availableWidth / gardenArt.width, availableHeight / gardenArt.height));
   const gardenWidth = gardenArt.width * scale;
   const gardenHeight = gardenArt.height * scale;
-  const y = landscape ? 57 : top + Math.max(0, (height - top - bottom - gardenHeight) / 2);
+  const y = landscape ? 57 + barHeight : top + Math.max(0, (height - top - bottom - gardenHeight) / 2);
   const gardens = (single ? [0] as const : [0, 1] as const).map(id => {
     // Visual side is determined by local identity, never by character or network seat.
     const x = laneWidth * id + (laneWidth - gardenWidth) / 2;
@@ -40,7 +41,7 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
     return {
       id, x, y, width: gardenWidth, height: gardenHeight, scale,
       lane: { x: laneWidth * id, y: 0, width: laneWidth, height },
-      header: { x: hudX, y: landscape ? 78 : single ? (short ? 76 : 100) : 57, width: hudWidth, height: short ? 48 : 78 },
+      header: { x: hudX, y: (landscape ? 78 : single ? (short ? 76 : 100) : 57) + barHeight, width: hudWidth, height: short ? 48 : 78 },
       footer: { x: landscape ? width - margin - hudWidth : hudX, y: height - bottom + 6, width: hudWidth, height: bottom - 12 },
       holes: gardenArt.holes.map(hole => ({
         feet: { x: x + hole.x * scale, y: y + hole.y * scale },
@@ -49,7 +50,7 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
     };
   });
   const opponent = !single ? null : landscape
-    ? { x: width - margin - sideHud, y: 78, width: sideHud, height: 34 }
-    : { x: 12, y: short ? 50 : 57, width: width - 24, height: short ? 22 : 34 };
+    ? { x: width - margin - sideHud, y: 78 + barHeight, width: sideHud, height: 34 }
+    : { x: 12, y: (short ? 50 : 57) + barHeight, width: width - 24, height: short ? 22 : 34 };
   return { width, height, single, landscape, opponent, gardens };
 }

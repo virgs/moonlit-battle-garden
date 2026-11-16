@@ -17,7 +17,7 @@ export function ArenaCanvas({ session, snapshot, layout, onLayout }: {
       type: Phaser.AUTO, parent: element, width: element.clientWidth, height: element.clientHeight,
       backgroundColor: '#10251f', pixelArt: true, audio: { noAudio: true }, banner: false,
       scale: { mode: Phaser.Scale.NONE },
-      scene: new GardenScene(() => latest.current.snapshot, () => latest.current.layout),
+      scene: new GardenScene(() => latest.current.snapshot, () => latest.current.layout, session.home),
     });
     const resize = () => {
       const { width, height } = element.getBoundingClientRect();

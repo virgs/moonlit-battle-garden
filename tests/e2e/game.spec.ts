@@ -41,5 +41,6 @@ test('local mode exposes both human boards and keyboard controls', async ({ page
   });
   await page.keyboard.press('Escape');
   await expect(page.getByRole('meter', { name: 'Your health', exact: true })).toHaveAttribute('aria-valuenow', '96');
+  await expect(page.getByRole('meter', { name: 'Blue versus red round advantage' })).toHaveAttribute('aria-valuenow', '48');
   await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
 });

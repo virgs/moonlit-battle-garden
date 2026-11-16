@@ -4,6 +4,7 @@
 .match-hud { z-index: 1; pointer-events: none; }
 .match-screen .match-toolbar { position: absolute; top: 0; left: 0; right: 0; height: 49px; padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left)); display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 10px; letter-spacing: 1px; background: #0e211bd9; border-bottom: 1px solid #c9e58618; pointer-events: auto; }
 .match-toolbar > div { display: flex; gap: 7px; }
+.home-label { display: block; font-size: 8px; letter-spacing: .3px; color: #b8c89c; text-align: center; margin-top: 3px; }
 .match-screen .text-button { background: #20392c; color: #dbe5ce; border: 1px solid #c9e58626; padding: 8px 11px; font-size: 11px; white-space: nowrap; }
 .match-screen .text-button:hover { background: #304b37; }
 .match-screen .text-button:disabled { opacity: .4; }
@@ -61,6 +62,7 @@
 @media (max-width: 700px) {
   .match-screen .match-toolbar { font-size: 9px; gap: 4px; }
   .match-screen .match-toolbar .muted { display: none; }
+  .home-label { display: none; }
   .match-screen .text-button { padding: 8px 7px; font-size: 9px; }
   .match-screen .keycap { display: none; }
   .match-screen.two-boards .avatar { display: none; }
