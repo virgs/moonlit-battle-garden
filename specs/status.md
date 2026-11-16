@@ -4,6 +4,8 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 
 ## Implemented
 
+- Public static website at https://virgs.github.io/moonlit-battle-garden/, automatically deployed from main. User authorized the public repository. Deployment checks and a live HTTPS invite/WebRTC/touch smoke test passed.
+
 - Private player-hosted online 1v1 with invite links, real WebRTC transport, local-side remapping, target-aware inputs, shared pause/round transitions, version/capacity checks, heartbeat RTT and 30-second transient reconnect grace.
 - Local two-player and three AI difficulties; Sir Champignon and Andy each have four functional spells.
 - Full-viewport canvas, HUD overlays, uniform sprite scale, measured hole anchors, and a fixed left/local player identity. Responsive single-board mobile presentation with opponent HUD.
@@ -18,7 +20,6 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 
 | Priority | Feature | Current gap |
 | --- | --- | --- |
-| 0 | Public website | GitHub Pages workflow and subpath-safe assets are ready and verified. GitHub rejected activation for the private repository on the current plan; publishing awaits an explicit visibility/plan choice. |
 | 1 | Internet/mobile online QA | Player-hosted online works in real two-browser desktop/mobile tests. Physical devices and different networks remain to test. No managed TURN relay is provisioned: restrictive networks may fail to connect. No prediction/rollback, host migration or page-refresh recovery. |
 | 2 | Balance | The harness exists, but balance is unfinished. Current wave run: Champignon wins 112/200 easy, 130/200 medium, 172/200 hard; Andy wins 88/70/22, with six hard matches unfinished at the diagnostic cap. Tune pacing/magic, examine bot-policy bias and long ties, then validate human keyboard/mouse/touch play. |
 | 3 | Final presentation files | Code is ready; 14 final files remain: two home backgrounds, two home music tracks, two portraits, and eight tier-specific cast sheets. They drop into stable configured paths; missing assets use current fallbacks. Richer spell effects can be added later. |
