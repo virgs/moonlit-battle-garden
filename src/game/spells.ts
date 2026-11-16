@@ -52,10 +52,14 @@ export function resolveSpells(state: MatchState): void {
         if (!stars) guard(caster, state.time);
       }
       // A stronger pressure spell replaces the weaker one, rather than stacking.
-      if (spell.tier === 2 && player.decoysUntil <= state.time) player.invasionUntil = state.time + config.spells.invasionMs;
+      if (spell.tier === 2 && player.decoysUntil <= state.time) {
+        player.invasionUntil = state.time + config.spells.invasionMs;
+        player.nextDecoy = state.time;
+      }
       if (spell.tier === 4) {
         player.invasionUntil = 0;
         player.decoysUntil = state.time + config.spells.decoysMs;
+        player.nextDecoy = state.time;
       }
     }
   }

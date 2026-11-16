@@ -19,10 +19,13 @@ This file records the discussion's current state. An accepted concept is not a c
 | D09 | Focus implementation and balancing on only two characters until the game is ready; extend the roster afterward. |
 | D10 | Keep specifications in the repository so future discussions and implementation retain decisions. |
 | D11 | Finish discussing the design before starting game code. |
+| D12 | User authorized starting implementation on 2026-11-16; document provisional defaults for remaining tuning. D11's discussion phase is complete. |
+| D13 | Name: **Moonlit Battle Garden**. Repository: `virgs/moonlit-battle-garden`. Keep frequent meaningful commits. |
+| D14 | Run offline AI battles and report character wins at easy, medium, and hard to evaluate balance. |
 
 ## Current proposals, not yet confirmed
 
-- Initial pair: **Sir Champignon and Andy**, to contrast defensive play with disruption and star manipulation. The user has confirmed two characters, but has not selected the pair.
+- Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
 - 3×3 boards, survival through health, and best-of-three matches, following the original game.
 - Four collectible stars maximum; one cast button uses the spell matching the current star count and consumes those stars.
 - PartyServer on Cloudflare Durable Objects, with one authoritative room per online match. This is the recommended backend, not a finalized hosting decision.
@@ -32,14 +35,18 @@ This file records the discussion's current state. An accepted concept is not a c
 
 ## Open before implementation
 
-1. Confirm the initial two characters.
-2. Confirm the baseline match rules and star/casting rules above.
+1. Playtest the initial two characters.
+2. Review the match rules and star/casting defaults in prototype.md.
 3. Define health, scoring, combos if any, spawn progression, and round/draw rules.
 4. Detail the first two characters' spells: durations, targeting, rewards, damage, counters, stacking, and star-steal behavior.
 5. Decide input bindings, mouse/touch support, simultaneous hits, and cross-device competitive policy.
 6. Confirm online backend and initial online flow (suggested: private invite rooms), disconnect handling, and timing tolerance.
 7. Confirm mobile delivery scope and minimum supported screen sizes/orientations.
 8. Define the completion criteria for the two-character release before expanding the roster.
+
+## Implementation status
+
+Local and AI play are implemented. See prototype.md for exact defaults and known imbalance. Balance runs use the real simulation, paired seeds, swapped sides, and tier-by-tier spell coverage. Online and PWA delivery remain pending.
 
 ## Research facts
 

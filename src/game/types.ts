@@ -14,6 +14,7 @@ export type Player = {
   holes: (Target | null)[];
   spawned: number;
   nextSpawn: number;
+  nextDecoy: number;
   nextCast: number;
   damageShield: number;
   shieldUntil: number;

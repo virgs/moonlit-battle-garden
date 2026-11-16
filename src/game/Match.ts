@@ -24,7 +24,7 @@ export class Match {
     return {
       character: this.options.characters[id], health: config.health, score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + 250,
-      nextCast: 0, damageShield: 0, shieldUntil: 0, magicShieldUntil: 0,
+      nextDecoy: 0, nextCast: 0, damageShield: 0, shieldUntil: 0, magicShieldUntil: 0,
       invasionUntil: 0, decoysUntil: 0, pending: [], message: '', messageUntil: 0,
     };
   }
@@ -56,6 +56,7 @@ export class Match {
       });
       if (player.shieldUntil <= state.time) player.damageShield = 0;
       if (state.time >= player.nextSpawn) this.spawn(player);
+      if ((player.invasionUntil > state.time || player.decoysUntil > state.time) && state.time >= player.nextDecoy) this.spawnDecoy(player);
     });
     this.checkOutcome();
   }
@@ -68,13 +69,20 @@ export class Match {
     player.nextSpawn = this.state.time + interval * (decoys ? 0.75 : 1);
     if (!empty.length) return;
     const hole = empty[Math.floor(this.random.next() * empty.length)];
-    const rabbitChance = decoys ? 0.46 : player.invasionUntil > this.state.time ? 0.4 : config.rabbitChance;
-    let kind: TargetKind = this.random.next() < rabbitChance ? 'rabbit' : 'mole';
+    let kind: TargetKind = this.random.next() < config.rabbitChance ? 'rabbit' : 'mole';
     if (++player.spawned % config.starEvery === 0) kind = 'star';
     player.holes[hole] = {
       id: ++this.targetId, kind, born: this.state.time,
       expires: this.state.time + config.targetLifeMs - progress * (config.targetLifeMs - config.minTargetLifeMs),
     };
+  }
+
+  private spawnDecoy(player: Player): void {
+    const empty = player.holes.flatMap((target, index) => target ? [] : [index]);
+    player.nextDecoy = this.state.time + (player.decoysUntil > this.state.time ? 650 : 950);
+    if (!empty.length) return;
+    const hole = empty[Math.floor(this.random.next() * empty.length)];
+    player.holes[hole] = { id: ++this.targetId, kind: 'rabbit', born: this.state.time, expires: this.state.time + 1450 };
   }
 
   action(action: GameAction): void {

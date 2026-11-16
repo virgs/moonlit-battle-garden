@@ -1,6 +1,6 @@
 # Characters and magic
 
-Status: all eight character concepts and the following four-tier spell proposals were adopted on 2026-11-16. Only two will be implemented initially; the pair remains unconfirmed. Spell names, numbers, durations, and detailed interactions are not final.
+Status: all eight concepts were adopted on 2026-11-16. Sir Champignon and Andy are the initial implemented pair. Spell names, numbers, durations, and interactions remain provisional; see prototype.md for actual behavior.
 
 These spell assignments are new remake designs. The original repository has named artwork but only generic test loadouts, so do not describe these as recovered historical kits.
 
@@ -34,9 +34,9 @@ Artwork source: https://github.com/virgs/digHoleBattleGarden/tree/master/Persona
 
 ## Initial two-character proposal
 
-**Sir Champignon and Andy** offer contrasting defense and disruption. This is a recommendation, not the user's selected pair.
+**Sir Champignon and Andy** offer contrasting defense and disruption and are the current implementation defaults following authorization to start coding.
 
-Before implementing this pair, resolve:
+The prototype resolves the following with provisional rules in prototype.md; revisit through playtesting:
 
 - Andy's one-star copying versus the proposed consume-all-stars rule: net charge, timing of cost/reward, and protection against repeated resource generation.
 - Andy's three-star steal cap, transfer rules, and behavior when the opponent has no stars.

@@ -7,6 +7,7 @@ export class Bot {
   private random: Random;
   private nextAction = 0;
   private considered = new Set<number>();
+  private desiredTier = 0;
 
   constructor(private difficulty: Difficulty, seed: number, private id: PlayerId = 1) {
     this.random = new Random(seed);
@@ -21,10 +22,22 @@ export class Bot {
     const activeIds = new Set(visible.map(target => target.id));
     this.considered = new Set([...this.considered].filter(id => activeIds.has(id)));
     if (player.stars && state.time >= player.nextCast) {
-      const emergency = player.character === 'champignon' && (player.pending.length > 0 || player.health < 40 || visible.length >= 3);
-      const threshold = this.difficulty === 'easy' ? 1 : player.character === 'andy' ? 2 : 4;
-      if (player.stars >= threshold || emergency) {
+      if (!this.desiredTier) {
+        const tiers = this.difficulty === 'easy' ? [1, 1, 2, 3, 4] : [1, 2, 3, 4, 4];
+        this.desiredTier = tiers[Math.floor(this.random.next() * tiers.length)];
+      }
+      const opponent = state.players[this.id === 0 ? 1 : 0];
+      const emergency = player.character === 'champignon' && (
+        (player.pending.length > 0 && player.stars === 3) ||
+        (player.health < 35 && player.damageShield === 0) ||
+        visible.filter(target => target.kind === 'mole').length >= 3
+      );
+      const canSteal = player.character === 'andy' && player.stars === 3 && opponent.stars >= 2;
+      const waitForWard = player.character === 'andy' && opponent.magicShieldUntil > state.time;
+      const alreadyGuarded = player.character === 'champignon' && player.stars === 1 && player.damageShield > 0 && player.shieldUntil > state.time;
+      if (!waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal)) {
         match.action({ type: 'cast', player: this.id });
+        this.desiredTier = 0;
         this.nextAction = state.time + tuning.intervalMs;
         return;
       }
