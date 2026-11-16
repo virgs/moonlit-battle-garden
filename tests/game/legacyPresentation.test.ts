@@ -25,7 +25,7 @@ it('eases in both directions and converges without overshoot', () => {
 it('reserves a single proportionally scaled bar and distinct board-local earth placements', () => {
   for (const [width, height] of [[320, 568], [390, 844], [844, 390], [1440, 900]]) {
     const area = scoreBarGeometry(width, height);
-    expect(area.width / (area.height - 40)).toBeCloseTo(499 / 45);
+    expect(area.width / area.artHeight).toBeCloseTo(499 / 45);
     expect(area.x).toBeGreaterThanOrEqual(0);
     expect(area.x + area.width).toBeLessThanOrEqual(width);
   }
@@ -48,4 +48,10 @@ it('recolors only the original green identity mask in the board base', async () 
     expect(get(1, 310)).toEqual([120, 100, 30, 255]);
     expect(get(0, 311)).toEqual([0, 255, 0, 0]);
   }
+});
+
+it('scales trophy dimensions and name fonts by two on phones and three on two-board desktop screens', () => {
+  const phone = scoreBarGeometry(390, 844), desktop = scoreBarGeometry(1440, 900);
+  expect(phone.trophyWidth).toBe(112); expect(phone.trophyHeight).toBe(56); expect(phone.nameSize).toBe(18);
+  expect(desktop.trophyWidth).toBe(168); expect(desktop.trophyHeight).toBe(84); expect(desktop.nameSize).toBe(30);
 });

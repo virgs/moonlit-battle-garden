@@ -15,9 +15,9 @@ describe.each(['ai', 'local', 'online'] as const)('%s viewport layout', mode => 
       expect(board.stars.y).toBeGreaterThanOrEqual(layout.score.y + layout.score.height);
       expect(board.stars.x + board.stars.width).toBeLessThanOrEqual(width);
       expect(board.stars.y + board.stars.height).toBeLessThanOrEqual(height);
-      if (board.horizontalStars) expect(board.stars.y).toBeGreaterThan(board.y + board.height);
+      if (board.starsBelow) expect(board.stars.y).toBeGreaterThan(board.y + board.height);
       else {
-        expect(board.stars.width / board.stars.height).toBeCloseTo(60 / 200);
+        expect(board.stars.width / board.stars.height).toBeCloseTo(board.horizontalStars ? 4 : 60 / 200);
         expect(board.id === 0 ? board.stars.x + board.stars.width < board.x : board.stars.x > board.x + board.width).toBe(true);
       }
       for (const { feet, hit } of board.holes) {

@@ -46,18 +46,18 @@ it('rejects stale target clicks and malformed holes; accepts a genuine empty hit
   expect(inputAction({ type: 'hit', hole: 12, target: null }, 1, snapshot)).toBeNull();
   expect(inputAction({ type: 'hit', hole: 0, target: null }, 1, snapshot)).toEqual({ type: 'hit', hole: 0, player: 1 });
 });
-it('replicates guest magic, pauses and next rounds; cannot act on the opponent board', () => {
+it('replicates guest magic and next rounds while rejecting online pause; cannot act on the opponent board', () => {
   const { host, guest, flush } = pair();
   host.match.state.phase = 'playing'; host.match.state.players[1].stars = 2;
   host.connection('connected'); flush();
   guest.act({ type: 'cast', player: 1 }); flush(); expect(host.match.state.players[1].stars).toBe(2);
   guest.act({ type: 'cast', player: 0 }); flush(); expect(host.match.state.players[1].stars).toBe(0);
   expect(guest.getSnapshot().events.at(-1)?.tier).toBe(2);
-  guest.togglePause(); flush(); expect(host.match.state.paused).toBe(true); expect(guest.getSnapshot().state.paused).toBe(true);
+  guest.togglePause(); host.togglePause(); flush(); expect(host.match.state.paused).toBe(false); expect(guest.getSnapshot().state.paused).toBe(false);
   host.match.state.phase = 'round-over'; host.connection('connected'); flush();
   guest.nextRound(); flush(); expect(host.match.state.round).toBe(2); expect(guest.match.state.round).toBe(2);
 });
-it('freezes on interruption and stays paused after reconnection until resumed', () => {
+it('freezes on interruption and resumes automatically after the ready handshake', () => {
   vi.useFakeTimers();
   const { host, guest, flush } = pair(); host.start(); guest.start(); flush();
   vi.advanceTimersByTime(4000); flush();
@@ -66,8 +66,16 @@ it('freezes on interruption and stays paused after reconnection until resumed', 
   vi.advanceTimersByTime(2000); expect(host.match.state.time).toBe(time);
   guest.act({ type: 'hit', player: 0, hole: 0 });
   host.receive({ kind: 'ready' }); guest.connection('connected'); flush();
-  expect(guest.getSnapshot().state.paused).toBe(true);
-  guest.togglePause(); flush(); vi.advanceTimersByTime(100); flush();
+  expect(guest.getSnapshot().state.paused).toBe(false);
+  vi.advanceTimersByTime(100); flush();
   expect(host.match.state.time).toBe(time + 100);
   host.stop(); guest.stop();
+});
+
+it('allows explicit pause only in AI and same-computer modes', () => {
+  for (const mode of ['ai', 'local'] as const) {
+    const session = new Session({ mode, characters: ['champignon', 'andy'], difficulty: 'easy', seed: 1 });
+    session.togglePause(); expect(session.match.state.paused).toBe(true);
+    session.togglePause(); expect(session.match.state.paused).toBe(false);
+  }
 });

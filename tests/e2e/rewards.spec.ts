@@ -81,3 +81,15 @@ test('reduced motion keeps original trophy and star art in a static pose', async
   await page.waitForTimeout(300);
   await expect(trophy).toHaveAttribute('data-frame', '2');
 });
+
+test('landscape victory and enlarged HUD trophies occupy separate areas', async ({ page }) => {
+  await page.setViewportSize({ width: 844, height: 390 });
+  await page.goto('/'); await page.getByRole('button', { name: 'Local two player' }).click();
+  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await loseRound(page, 0);
+  const bar = (await page.locator('.score-bar').boundingBox())!;
+  const award = (await page.locator('.celebration-trophy').boundingBox())!;
+  const card = (await page.locator('.result-card').boundingBox())!;
+  expect(award.y).toBeGreaterThan(bar.y + bar.height);
+  expect(card.y + card.height).toBeLessThanOrEqual(390);
+});

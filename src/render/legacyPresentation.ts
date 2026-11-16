@@ -10,9 +10,14 @@ export function easeLegacyBar(current: number, target: number): number {
   return current + Math.sign(delta) * Math.min(Math.abs(delta), Math.floor(Math.abs(delta) / 10) + 1);
 }
 export function scoreBarGeometry(width: number, height: number) {
+  const compact = width < 700 || (height < 500 && width < 1000);
+  const hudScale = compact ? 2 : 3;
   const barWidth = Math.min(width - 24, height < 580 ? 320 : 560);
-  const barHeight = barWidth * legacyBar.height / legacyBar.width;
-  return { x: (width - barWidth) / 2, y: 12, width: barWidth, height: barHeight + 40, reserve: Math.ceil(barHeight + 44) };
+  const artHeight = barWidth * legacyBar.height / legacyBar.width;
+  const nameSize = (width <= 500 ? 9 : 10) * hudScale;
+  const nameHeight = 12 * hudScale, trophyWidth = 56 * hudScale, trophyHeight = 28 * hudScale;
+  const total = artHeight + nameHeight + 2 + trophyHeight;
+  return { x: (width - barWidth) / 2, y: 12, width: barWidth, height: total, reserve: Math.ceil(total + 4), artHeight, nameSize, nameHeight, trophyWidth, trophyHeight };
 }
 
 // Fase.cpp: board origins were (50,200)/(450,200); earth origins

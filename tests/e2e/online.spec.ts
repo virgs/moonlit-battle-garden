@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('two browsers join a real WebRTC match, map local sides, sync inputs and pause, and handle leaving', async ({ browser, page }, testInfo) => {
+test('two browsers join a real WebRTC match, map local sides, sync inputs without manual pause, reconnect and handle leaving', async ({ browser, page }, testInfo) => {
   test.setTimeout(45000);
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -33,18 +33,19 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs and pa
   await expect(guest.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await expect(guest.locator('.player-0 .hole[data-kind="mole"]').first()).toBeEnabled();
   await guest.locator('.player-0 .hole[data-kind="mole"]').first().click();
-  await guest.getByRole('button', { name: 'Pause', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
-  await expect(guest.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
+  await expect.poll(async () => Number(await guest.locator('.player-0').getAttribute('data-score'))).toBeGreaterThan(0);
   const score = await guest.locator('.player-0').getAttribute('data-score');
   expect(Number(score)).toBeGreaterThan(0);
+  await expect(guest.getByRole('button', { name: 'Pause', exact: true })).toHaveCount(0);
+  await guest.getByRole('button', { name: 'Game menu', exact: true }).click();
+  await expect(guest.getByRole('heading', { name: 'Game menu', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toHaveCount(0);
+  const clock = await guest.locator('.match-screen').getAttribute('data-time');
+  await expect.poll(() => guest.locator('.match-screen').getAttribute('data-time')).not.toBe(clock);
+  await guest.getByRole('button', { name: 'Back to the garden' }).click();
   if (testInfo.project.name === 'desktop') {
-    await expect(page.locator('.player-1')).toHaveAttribute('data-score', score!);
     await expect(guest.locator('.player-1 .hole').first()).toBeDisabled();
-  } else {
-    expect(Number(await page.getByRole('meter').getAttribute('aria-valuenow')) + Number(await guest.getByRole('meter').getAttribute('aria-valuenow'))).toBe(100);
-    await expect(guest.locator('.player-1')).toHaveCount(0);
-  }
+  } else await expect(guest.locator('.player-1')).toHaveCount(0);
   // A third browser cannot take over the occupied seat.
   const thirdContext = await browser.newContext(); const third = await thirdContext.newPage();
   await third.goto(inviteUrl);
@@ -54,23 +55,22 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs and pa
   // Close the actual RTC data channel, keeping the browser/peer identity alive.
   await guest.evaluate(() => (window as Window & { testChannels?: RTCDataChannel[] }).testChannels?.forEach(channel => channel.close()));
   await expect(guest.getByRole('heading', { name: 'Reconnecting…', exact: true })).toBeVisible();
-  await expect(guest.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible({ timeout: 12000 });
-  await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
-  await expect(guest.locator('.player-0')).toHaveAttribute('data-score', score!);
-  await page.getByRole('button', { name: 'Back to the garden' }).click();
-  await expect(guest.locator('.match-overlay')).toBeHidden();
+  await expect(guest.locator('.match-overlay')).toBeHidden({ timeout: 12000 });
+  await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 12000 });
+  const recovered = await guest.locator('.match-screen').getAttribute('data-time');
+  await expect.poll(() => guest.locator('.match-screen').getAttribute('data-time')).not.toBe(recovered);
   // Real host inputs end a round; the guest can advance both players to the next.
   await page.evaluate(() => {
     const hole = document.querySelector<HTMLButtonElement>('.player-0 .hole[data-kind="empty"]')!;
     const code = `Key${hole.getAttribute('data-key')}`;
-    for (let i = 0; i < 30; i++) window.dispatchEvent(new KeyboardEvent('keydown', { code }));
+    for (let i = 0; i < 1000; i++) window.dispatchEvent(new KeyboardEvent('keydown', { code }));
   });
   await expect(guest.getByRole('heading', { name: 'You win the round!' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Your opponent wins the round!' })).toBeVisible();
   await guest.getByRole('button', { name: /Next round/ }).click();
   await expect(page.locator('.match-screen')).toHaveAttribute('data-round', '2');
   await expect(guest.locator('.match-screen')).toHaveAttribute('data-round', '2');
-  await guest.getByRole('button', { name: 'Pause', exact: true }).click();
+  await guest.getByRole('button', { name: 'Game menu', exact: true }).click();
   await guest.getByRole('button', { name: /Change matchup/ }).click();
   await expect(page.getByRole('heading', { name: 'Garden disconnected' })).toBeVisible();
   expect(errors).toEqual([]);

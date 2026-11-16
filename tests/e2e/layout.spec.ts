@@ -45,13 +45,13 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
   await page.screenshot({ path: testInfo.outputPath('minimal-wide.png') });
 });
 
-test('single board uses horizontal stars on a narrow portrait screen and the original vertical column in landscape/desktop', async ({ page }) => {
+test('single board uses horizontal stars on a narrow portrait screen with a side strip in landscape and the original column on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/'); await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.single-board .horizontal-stars')).toHaveCount(1);
   await expect(page.locator('.player-1')).toHaveCount(0);
   await page.setViewportSize({ width: 844, height: 390 });
-  await expect(page.locator('.single-board .vertical-stars')).toHaveCount(1);
+  await expect(page.locator('.single-board .horizontal-stars')).toHaveCount(1);
   await page.setViewportSize({ width: 1440, height: 900 });
   await expect(page.locator('.two-boards .vertical-stars')).toHaveCount(2);
   await expect(page.locator('canvas')).toHaveCount(1);

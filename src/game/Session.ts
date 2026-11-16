@@ -107,7 +107,7 @@ export class Session {
   }
   receive(message: Wire): void {
     if (!this.network) return;
-    if (message.kind === 'ready') { this.peerReady = true; this.linkState = 'connected'; this.publish(); }
+    if (message.kind === 'ready') { this.peerReady = true; this.linkState = 'connected'; if (this.network.seat === 0) this.match.state.paused = false; this.publish(); }
     if (this.network.seat === 1) {
       if (message.kind === 'state') {
         Object.assign(this.match.state, structuredClone(message.snapshot.state));
@@ -121,7 +121,6 @@ export class Session {
       const action = inputAction(message.input, 1, { state: this.match.state, events: this.match.events });
       if (action) { this.match.action(action); this.publish(); }
     }
-    if (message.kind === 'pause') this.togglePause();
     if (message.kind === 'next') this.nextRound();
   }
   connection(status: LinkState, rtt = this.rtt): void {
@@ -130,8 +129,7 @@ export class Session {
     this.publish();
   }
   togglePause(): void {
-    if (this.network && this.linkState !== 'connected') return;
-    if (this.network?.seat === 1) { this.network.send({ kind: 'pause' }); return; }
+    if (this.match.options.mode === 'online') return;
     if (['playing', 'countdown'].includes(this.match.state.phase)) this.match.state.paused = !this.match.state.paused;
     this.publish();
   }

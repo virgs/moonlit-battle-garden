@@ -1,14 +1,14 @@
 import { assetUrl } from '../assets/url';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { characters, config } from '../game/config';
 import { roundStanding } from '../game/standing';
 import type { MatchState } from '../game/types';
 import { barSourceOffset, easeLegacyBar, legacyBar } from '../render/legacyPresentation';
-import type { Rect } from '../render/layout';
+import type { ArenaLayout } from '../render/layout';
 import './score-bar.css';
 import { Trophy } from './LegacyRewards';
 
-export function ScoreBar({ state, area, onPause }: { state: MatchState; area: Rect; onPause?: () => void }) {
+export function ScoreBar({ state, area, onPause, controlLabel }: { state: MatchState; area: ArenaLayout['score']; onPause?: () => void; controlLabel?: string }) {
   const { bluePercent, leader } = roundStanding(state);
   const [paint, setPaint] = useState({ percent: 50, frame: 0 });
   const latest = useRef({ bluePercent, paused: state.paused, animate: state.phase === 'playing' });
@@ -29,7 +29,7 @@ export function ScoreBar({ state, area, onPause }: { state: MatchState; area: Re
   }, []);
   const names = state.players.map(player => characters[player.character].name);
   const description = leader === null ? 'Even match' : `${names[leader]} leads`;
-  return <section className="score-bar" aria-label="Round standing" style={{ left: area.x, top: area.y, width: area.width, height: area.height }}>
+  return <section className="score-bar" aria-label="Round standing" style={{ left: area.x, top: area.y, width: area.width, height: area.height, '--name-size': `${area.nameSize}px`, '--name-height': `${area.nameHeight}px`, '--trophy-width': `${area.trophyWidth}px`, '--trophy-height': `${area.trophyHeight}px` } as CSSProperties}>
     <div className="score-track" role="meter" aria-label="Blue versus red round advantage" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(bluePercent)} aria-valuetext={`${description}. Score lead ${Math.abs(state.players[0].score - state.players[1].score)} of ${config.winScoreDifference} points needed to win.`}>
       <svg className="legacy-score-art" viewBox="0 0 499 45" aria-hidden="true" data-frame={paint.frame} data-offset={barSourceOffset(paint.percent)}>
         <svg x="3" y="2" width="493" height="41" viewBox="0 0 493 41" overflow="hidden">
@@ -37,7 +37,7 @@ export function ScoreBar({ state, area, onPause }: { state: MatchState; area: Re
         </svg>
         <image href={assetUrl('/assets/legacy/bar-border.png')} width="499" height="45" />
       </svg>
-      {onPause && <button className="score-pause" aria-label={state.paused ? 'Resume' : 'Pause'} title="Tap the score bar or press Escape for game controls" onClick={onPause} />}
+      {onPause && <button className="score-pause" aria-label={controlLabel ?? (state.paused ? 'Resume' : 'Pause')} title="Tap the score bar or press Escape for game controls" onClick={onPause} />}
     </div>
     <div className="score-legend"><span>{names[0]}</span><span>{names[1]}</span></div>
     <div className="score-trophies" aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} />)}</div>

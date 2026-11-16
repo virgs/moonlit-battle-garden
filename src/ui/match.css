@@ -12,3 +12,16 @@
 .match-screen .overlay-card h2{color:var(--lime);font-size:clamp(28px,5vw,45px);margin:15px 0}.match-screen .overlay-card p{color:#a9bca0;font-size:12px;line-height:1.6;margin-bottom:20px}
 .pause-controls{display:flex;justify-content:center;gap:12px;margin-top:20px}.pause-controls .text-button{min-height:44px;background:#20392c;color:#dbe5ce;border:1px solid #c9e58626;padding:8px 12px}
 @media(max-height:579px){.match-screen .overlay-card{padding:16px 24px}.match-screen .overlay-card h2{margin:8px 0}.pause-controls{margin-top:12px}}
+
+@media(max-height:500px) and (min-width:600px){
+  .match-screen .match-overlay{padding-top:var(--score-bottom)}
+  .match-screen .overlay-card{max-height:calc(100dvh - var(--score-bottom) - 16px);overflow-y:auto}
+  .match-screen .overlay-card h2{font-size:28px;line-height:1.1}
+  .match-screen .result-card{display:grid;grid-template-columns:100px 1fr;column-gap:20px;align-items:center;width:min(660px,calc(100vw - 32px));max-width:calc(100vw - 32px);padding:12px 20px}
+  .match-screen .result-card>.celebration-trophy{grid-column:1;grid-row:1 / span 4;width:100px;height:50px;margin:0}
+  .result-card>.eyebrow,.result-card>h2,.result-card>.primary-button,.result-card>.pause-controls{grid-column:2}
+  .match-screen .result-card h2{font-size:24px;margin:8px 0}
+  .result-card>.primary-button{padding:10px 16px;min-height:36px}
+  .result-card>.pause-controls{margin-top:8px;gap:8px}
+  .result-card .pause-controls .text-button{min-height:36px}
+}
