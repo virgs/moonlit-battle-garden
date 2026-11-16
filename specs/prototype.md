@@ -17,6 +17,10 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 - Local identity is always rendered left on two-board views, regardless of character. Same-computer Player 1 is left. Online play must preserve that rule regardless of server seat; online transport is not implemented yet.
 - Boards preserve garden.png's 301×383 aspect ratio with one uniform scale. Every sprite and accessible hit region uses the same measured irregular source-art anchors in src/render/layout.ts. Resizing changes garden positions and a common scale, not independent x/y stretch factors.
 - Shared fixed-step simulation with seeded randomness and independent bot randomness; no renderer dependency.
+- Animated shared blue/red round-standing bar, based on health advantage with score as tie-break information. At round end it shows the actual result. This is HUD presentation, not a return to the original game's linked/zero-sum health rules.
+- Original animated dust/root decorations follow each garden's position and uniform scale.
+- Cosmetic home ownership is chosen from the current characters and stays fixed across rounds. Initial homes use tinted versions of the reused castle background and a shared temporary music track. Unique per-character artwork/music and cast animations remain pending. See presentation.md.
+- Wave pacing was agreed after the initial prototype; the engine still has the linear ramp above. See pacing.md for the accepted wave direction and identical reset across rounds.
 
 ## Exact initial spells
 

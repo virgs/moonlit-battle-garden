@@ -25,6 +25,10 @@ This file records the discussion's current state. An accepted concept is not a c
 | D15 | Matches use one canvas filling the viewport; all interface elements are HUD overlays. Preserve sprite aspect ratios; distribute/reposition gardens and HUDs on resize rather than stretching artwork. |
 | D16 | The local player is always on the left against AI or online opponents; same-computer Player 1 is always left. There is no side selector. A single visible mobile board represents the local player. Future online transport must map local identity to this presentation independently of network seat. |
 | D17 | Sprite feet and hit areas must share measured source-art hole anchors at every viewport size. |
+| D18 | Within each round, pacing rises gradually with waves of pressure and recovery. Every round restarts the same curve; round number and match score add no difficulty. See pacing.md; waves remain pending implementation. |
+| D19 | Restore the animated shared blue/red top bar. Numeric points are optional secondary information. Current presentation follows existing health-first round standing without changing victory mechanics. |
+| D20 | Restore dust/root decoration attached to boards. Each character should have a cosmetic home background and music; a match's home belongs to one of its participating characters. |
+| D21 | Character-specific spell-cast animations are wanted, but deferred until the character animation/art pass. |
 
 ## Current proposals, not yet confirmed
 
