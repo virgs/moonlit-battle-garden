@@ -1,3 +1,4 @@
+import { continueRound } from './continueRound';
 import { expect, test } from '@playwright/test';
 
 test('renders one original bar viewport, plays a single row at a time, and freezes on pause', async ({ page }) => {
@@ -21,7 +22,7 @@ test('renders one original bar viewport, plays a single row at a time, and freez
   await expect(page.locator('.health-track, .score-liquid')).toHaveCount(0);
 });
 
-test('a decisive score difference ends the round, fills one color, and resets to the middle', async ({ page }) => {
+test('a decisive score difference shows the round result and resets the bar to the middle next round', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
@@ -34,9 +35,8 @@ test('a decisive score difference ends the round, fills one color, and resets to
     for (let i = 0; i < 1000; i++) window.dispatchEvent(new KeyboardEvent('keydown', { code: `Key${key}`, key: key.toLowerCase(), bubbles: true }));
   });
   await expect(page.getByRole('heading', { name: 'Player 2 wins the round!' })).toBeVisible();
-  await expect(page.getByRole('meter')).toHaveAttribute('aria-valuenow', '0');
-  await expect(page.locator('.legacy-score-art')).toHaveAttribute('data-offset', '505');
-  await page.getByRole('button', { name: /Next round/ }).click();
+  await expect(page.getByRole('meter')).toHaveCount(0);
+  await continueRound(page);
   await expect(page.getByRole('meter')).toHaveAttribute('aria-valuenow', '50');
   await expect(page.locator('.legacy-score-art')).toHaveAttribute('data-offset', '255');
   await expect(page.locator('.player-0')).toHaveAttribute('data-score', '0');

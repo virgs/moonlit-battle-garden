@@ -5,7 +5,7 @@ import './match-end.css';
 export const MATCH_END_DELAY_MS = 4000;
 
 /** A fresh input after the victory hold dismisses the screen; the winning input never does. */
-export function MatchEnd({ winner, leave }: { winner: string; leave: () => void }) {
+export function MatchEnd({ winner, leave, round = false }: { winner: string; leave: () => void; round?: boolean }) {
   const [ready, setReady] = useState(false);
   useEffect(() => { const timer = setTimeout(() => setReady(true), MATCH_END_DELAY_MS); return () => clearTimeout(timer); }, []);
   useEffect(() => {
@@ -28,9 +28,9 @@ export function MatchEnd({ winner, leave }: { winner: string; leave: () => void 
     window.addEventListener('pointerdown', pointer);
     return () => { clearInterval(timer); window.removeEventListener('keydown', key); window.removeEventListener('pointerdown', pointer); };
   }, [ready, leave]);
-  return <main className="match-end" aria-label="Match result" data-ready={ready}>
+  return <main className="match-end" aria-label={round ? 'Round result' : 'Match result'} data-ready={ready}>
     <Trophy wins={1} celebration />
     <h1>{winner}</h1>
-    <p className={`continue-prompt ${ready ? 'ready' : ''}`} role="status" aria-hidden={!ready}>{ready ? 'Press any key or tap to return to the menu' : ''}</p>
+    <p className={`continue-prompt ${ready ? 'ready' : ''}`} role="status" aria-hidden={!ready}>{ready ? round ? 'Press any key or tap for the next round' : 'Press any key or tap to return to the menu' : ''}</p>
   </main>;
 }

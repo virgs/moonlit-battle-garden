@@ -1,3 +1,4 @@
+import { continueRound } from './continueRound';
 import { expect, test } from '@playwright/test';
 
 test('two browsers join a real WebRTC match, map local sides, sync inputs without manual pause, reconnect and handle leaving', async ({ browser, page }, testInfo) => {
@@ -67,7 +68,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   });
   await expect(guest.getByRole('heading', { name: 'You win the round!' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Your opponent wins the round!' })).toBeVisible();
-  await guest.getByRole('button', { name: /Next round/ }).click();
+  await continueRound(guest);
   await expect(page.locator('.match-screen')).toHaveAttribute('data-round', '2');
   await expect(guest.locator('.match-screen')).toHaveAttribute('data-round', '2');
   await guest.getByRole('button', { name: 'Game menu', exact: true }).click();

@@ -65,3 +65,10 @@ Audio starts enabled on Enter/Create/Join gestures. Web Audio is unlocked immedi
 A completed match replaces the arena with a trophy and winner text. It contains no buttons, score bar, boards, or menu controls. After four real-time seconds the smaller prompt “Press any key or tap to return to the menu” appears. A fresh key, left click/tap, or controller button then returns to setup. Early input and held/repeated keys do not dismiss it; held controller buttons must be released and pressed again. This terminal presentation takes priority over a peer leaving after the match. Ordinary between-round progression still uses Next round. Audio and network resources are released on return to setup.
 
 The selected pairing is Almendra for titles and character names, with Literata for menus, controls and supporting text. Fonts are bundled locally with their SIL Open Font Licenses, so loading them needs no external font service. Literata uses its variable weight/optical-size face; Almendra includes regular and bold.
+
+
+## Round results and menu panels (D34)
+
+Round and match victories share the same full-screen trophy/winner presentation. Both ignore early input and reveal the prompt after four seconds; a fresh key, tap/click or gamepad press then starts the next round or returns to setup respectively. Round results hide boards, score bar and controls, with won trophies preserved when gameplay returns. Either online player can advance; connection interruption still shows the recovery/exit screen.
+
+Setup, online and pause/countdown menu panels have transparent backgrounds, no borders and no shadows. Character cards also have transparent surfaces, with a selection outline identifying the chosen hero. Form controls and action buttons retain their visual affordances. The page/arena backdrop remains visible behind menus.

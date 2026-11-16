@@ -1,3 +1,4 @@
+import { continueRound } from './continueRound';
 import { expect, test, type Page } from '@playwright/test';
 async function lose(page: Page) {
   await expect(page.locator('.player-0 .hole[data-kind="empty"]').first()).toBeEnabled({ timeout:9000 });
@@ -6,7 +7,13 @@ async function lose(page: Page) {
 test('match victory has no buttons, ignores early input and returns to setup only after the delayed prompt', async ({ page }, testInfo) => {
   if(testInfo.project.name==='desktop')await page.addInitScript(()=>Object.defineProperty(navigator,'getGamepads',{value:()=>{throw new DOMException('Gamepad disabled','SecurityError')}}));
   await page.goto('/');await page.getByRole('button',{name:'Local two player'}).click();await page.getByRole('button',{name:/Enter the garden/}).click();
-  await lose(page);await page.getByRole('button',{name:/Next round/}).click();await lose(page);
+  await lose(page);
+  const round = page.getByRole('main', { name: 'Round result' });
+  await expect(round).toHaveAttribute('data-ready', 'false');
+  await expect(page.locator('button,canvas,.score-bar')).toHaveCount(0);
+  await page.keyboard.press('Enter'); await page.mouse.click(10,10);
+  await expect(round).toBeVisible();
+  await continueRound(page); await lose(page);
   const result=page.getByRole('main',{name:'Match result'});
   await expect(result).toHaveAttribute('data-ready','false');await expect(page.locator('button')).toHaveCount(0);
   await expect(page.getByRole('img',{name:'Round victory trophy'})).toBeVisible();
