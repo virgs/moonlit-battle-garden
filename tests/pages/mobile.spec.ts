@@ -9,10 +9,12 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await page.getByRole('button', { name: /Enter the garden/ }).tap();
   await expect(page.locator('canvas')).toBeVisible();
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
+  await page.getByRole('button', { name: 'Pause', exact: true }).tap();
   await page.getByRole('button', { name: 'Sound off', exact: true }).tap();
+  await page.getByRole('button', { name: 'Back to the garden' }).tap();
   const board = page.locator('.player-0');
   await expect(page.locator('.player-1')).toHaveCount(0);
-  await expect(page.locator('.mobile-opponent')).toBeVisible();
+  await expect(page.locator('.mobile-opponent')).toHaveCount(0);
   const star = board.locator('.hole[data-kind="star"]').first();
   await expect(star).toBeEnabled({ timeout: 8000 });
   await star.tap();
@@ -20,9 +22,8 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await expect(board.locator('.cast-button')).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath('phone-portrait.png') });
   await board.locator('.cast-button').tap();
-  await expect(page.locator('.cast-banner[data-tier="1"]')).toBeVisible();
+  await expect(page.locator('.cast-banner')).toHaveCount(0);
   await expect(board.locator('.stars')).toHaveAttribute('aria-label', '0 stars');
-  await expect(board.locator('.effect-tags')).toContainText('Guard');
   await page.getByRole('button', { name: 'Pause', exact: true }).tap();
   await page.addStyleTag({ content: '.match-overlay{visibility:hidden!important}' });
   for (const [width, height, filename] of [[320, 568, 'phone-small.png'], [844, 390, 'phone-landscape.png']] as const) {

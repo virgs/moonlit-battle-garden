@@ -5,7 +5,7 @@ async function loseRound(page: Page, loser: number) {
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 7000 });
   await page.evaluate(id => {
     const hole = document.querySelector(`.player-${id} .hole[data-kind="empty"]`)!;
-    const key = hole.querySelector('.keycap')!.textContent!;
+    const key = hole.getAttribute('data-key')!;
     const code = id === 0 ? `Key${key}` : `Numpad${key}`;
     for (let i = 0; i < 1000; i++) window.dispatchEvent(new KeyboardEvent('keydown', { code }));
   }, loser);
@@ -62,7 +62,7 @@ test('star artwork charges and clears when casting; pause freezes its animation'
   await page.waitForTimeout(250);
   await expect(stars).toHaveAttribute('data-frame', frozen!);
   await page.getByRole('button', { name: 'Back to the garden' }).click();
-  await board.getByRole('button', { name: /Cast: Mushroom Guard/ }).click();
+  await board.getByRole('button', { name: /Cast magic/ }).click();
   await expect(stars).toHaveAttribute('data-charge', '0');
   await expect(stars.locator('image').first()).toHaveAttribute('y', '0');
   await expect(page.locator('.stars .charged, .round-wins')).toHaveCount(0);

@@ -27,8 +27,8 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs and pa
   await guest.getByRole('button', { name: 'Join garden', exact: true }).click();
   await expect(page.locator('.match-screen')).toBeVisible({ timeout: 15000 });
   await expect(guest.locator('.match-screen')).toBeVisible({ timeout: 15000 });
-  await expect(page.locator('.player-0 h2')).toHaveText('Sir Champignon');
-  await expect(guest.locator('.player-0 h2')).toHaveText('Andy');
+  await expect(page.locator('.player-0')).toHaveAttribute('data-character', 'champignon');
+  await expect(guest.locator('.player-0')).toHaveAttribute('data-character', 'andy');
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await expect(guest.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await expect(guest.locator('.player-0 .hole[data-kind="mole"]').first()).toBeEnabled();
@@ -36,13 +36,13 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs and pa
   await guest.getByRole('button', { name: 'Pause', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
   await expect(guest.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
-  const score = await guest.locator('.player-0 .score').getAttribute('data-score');
+  const score = await guest.locator('.player-0').getAttribute('data-score');
   expect(Number(score)).toBeGreaterThan(0);
   if (testInfo.project.name === 'desktop') {
-    await expect(page.locator('.player-1 .score')).toHaveAttribute('data-score', score!);
+    await expect(page.locator('.player-1')).toHaveAttribute('data-score', score!);
     await expect(guest.locator('.player-1 .hole').first()).toBeDisabled();
   } else {
-    await expect(page.locator('.mobile-opponent')).toContainText(`${score} pts`);
+    expect(Number(await page.getByRole('meter').getAttribute('aria-valuenow')) + Number(await guest.getByRole('meter').getAttribute('aria-valuenow'))).toBe(100);
     await expect(guest.locator('.player-1')).toHaveCount(0);
   }
   // A third browser cannot take over the occupied seat.
@@ -56,20 +56,21 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs and pa
   await expect(guest.getByRole('heading', { name: 'Reconnecting…', exact: true })).toBeVisible();
   await expect(guest.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible({ timeout: 12000 });
   await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
-  await expect(guest.locator('.player-0 .score')).toHaveAttribute('data-score', score!);
+  await expect(guest.locator('.player-0')).toHaveAttribute('data-score', score!);
   await page.getByRole('button', { name: 'Back to the garden' }).click();
   await expect(guest.locator('.match-overlay')).toBeHidden();
   // Real host inputs end a round; the guest can advance both players to the next.
   await page.evaluate(() => {
     const hole = document.querySelector<HTMLButtonElement>('.player-0 .hole[data-kind="empty"]')!;
-    const code = `Key${hole.querySelector('.keycap')!.textContent}`;
+    const code = `Key${hole.getAttribute('data-key')}`;
     for (let i = 0; i < 30; i++) window.dispatchEvent(new KeyboardEvent('keydown', { code }));
   });
   await expect(guest.getByRole('heading', { name: 'You win the round!' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Your opponent wins the round!' })).toBeVisible();
   await guest.getByRole('button', { name: /Next round/ }).click();
-  await expect(page.locator('.match-toolbar')).toContainText('ROUND 2');
-  await expect(guest.locator('.match-toolbar')).toContainText('ROUND 2');
+  await expect(page.locator('.match-screen')).toHaveAttribute('data-round', '2');
+  await expect(guest.locator('.match-screen')).toHaveAttribute('data-round', '2');
+  await guest.getByRole('button', { name: 'Pause', exact: true }).click();
   await guest.getByRole('button', { name: /Change matchup/ }).click();
   await expect(page.getByRole('heading', { name: 'Garden disconnected' })).toBeVisible();
   expect(errors).toEqual([]);

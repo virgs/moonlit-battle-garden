@@ -14,8 +14,9 @@ for (const valid of [true, false]) test(`drop-in portrait/home art and ${valid ?
   const star = garden.locator('.hole[data-kind="star"]').first();
   await expect(star).toBeEnabled({ timeout: 12000 });
   await star.click();
-  await garden.getByRole('button', { name: /Mushroom Guard/ }).click();
+  await garden.getByRole('button', { name: /Cast magic/ }).click();
   const cast = page.locator('.cast-banner[data-character="champignon"]');
+  if (!valid) { await expect(cast).toHaveCount(0); expect(errors).toEqual([]); return; }
   await expect(cast).toHaveAttribute('data-tier', '1');
   await expect(cast).toHaveAttribute('data-asset', valid ? 'ready' : 'fallback');
   expect(await cast.evaluate(element => getComputedStyle(element).pointerEvents)).toBe('none');

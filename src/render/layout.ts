@@ -1,8 +1,6 @@
 import type { PlayerId } from '../game/types';
 import { scoreBarGeometry } from './legacyPresentation';
 
-// Source-image pixels, measured from garden.png (301 × 383), in keyboard order.
-// Feet sit at each cavity's lower lip; the irregular artwork is not a regular grid.
 export const gardenArt = {
   width: 301, height: 383, spriteSize: 90, spriteScale: 0.82,
   holes: [
@@ -13,47 +11,48 @@ export const gardenArt = {
 };
 export type Rect = { x: number; y: number; width: number; height: number };
 export type GardenLayout = Rect & {
-  id: PlayerId; scale: number; lane: Rect; header: Rect; footer: Rect;
+  id: PlayerId; scale: number; lane: Rect; stars: Rect; horizontalStars: boolean;
   holes: { feet: { x: number; y: number }; hit: Rect }[];
 };
-export type ArenaLayout = { width: number; height: number; single: boolean; landscape: boolean; score: Rect; opponent: Rect | null; gardens: GardenLayout[] };
+export type ArenaLayout = { width: number; height: number; single: boolean; landscape: boolean; score: Rect; gardens: GardenLayout[] };
 
 export function createArenaLayout(width: number, height: number, mode: 'ai' | 'local' | 'online'): ArenaLayout {
   const single = mode !== 'local' && (width < 700 || (height < 500 && width < 1000));
-  const short = height < 580;
   const landscape = single && width > height;
   const margin = width < 700 ? 12 : 24;
   const score = scoreBarGeometry(width, height);
-  const barHeight = score.reserve;
-  const top = (single ? (short ? 131 : 185) : (short ? 115 : 151)) + barHeight;
-  const bottom = single ? (short ? 104 : 144) : (short ? 88 : 132);
+  const top = score.y + score.height + 12;
+  const availableHeight = Math.max(1, height - top - margin);
   const laneWidth = width / (single ? 1 : 2);
-  const sideHud = Math.min(230, width * 0.25);
-  const availableWidth = landscape ? width - 2 * (sideHud + margin) - 16 : laneWidth - margin * 2;
-  const availableHeight = landscape ? height - 65 - barHeight : height - top - bottom;
-  const effectsTail = 22;
-  const scale = Math.max(0.05, Math.min(availableWidth / gardenArt.width, availableHeight / (gardenArt.height + effectsTail)));
-  const gardenWidth = gardenArt.width * scale;
-  const gardenHeight = gardenArt.height * scale;
-  const y = landscape ? 57 + barHeight : top + Math.max(0, (height - top - bottom - gardenHeight - effectsTail * scale) / 2);
+  // Keep the original column beside the board. Narrow portrait lanes can instead
+  // fit a horizontal strip below it without reducing the hole widths.
+  const horizontalStars = laneWidth < 440 && !landscape;
+  const starWidth = horizontalStars ? Math.min(240, laneWidth - 2 * margin) : Math.min(64, availableHeight * 0.24);
+  const starHeight = horizontalStars ? Math.max(44, starWidth / 4) : starWidth * 200 / 60;
+  const gap = width < 700 ? 12 : 20;
+  const availableWidth = laneWidth - margin * 2 - (horizontalStars ? 0 : starWidth + gap);
+  const boardSpace = availableHeight - (horizontalStars ? starHeight + gap : 0);
+  const scale = Math.max(0.05, Math.min(availableWidth / gardenArt.width, boardSpace / (gardenArt.height + 26)));
+  const boardWidth = gardenArt.width * scale;
+  const boardHeight = gardenArt.height * scale;
+  const tail = 22 * scale;
+  const groupHeight = 4 * scale + boardHeight + tail + (horizontalStars ? starHeight + gap : 0);
+  const y = top + 4 * scale + Math.max(0, (availableHeight - groupHeight) / 2);
   const gardens = (single ? [0] as const : [0, 1] as const).map(id => {
-    // Visual side is determined by local identity, never by character or network seat.
-    const x = laneWidth * id + (laneWidth - gardenWidth) / 2;
-    const hudWidth = landscape ? sideHud : Math.min(laneWidth - margin * 2, 540);
-    const hudX = landscape ? margin : laneWidth * id + (laneWidth - hudWidth) / 2;
+    const groupWidth = boardWidth + (horizontalStars ? 0 : starWidth + gap);
+    const groupX = laneWidth * id + (laneWidth - groupWidth) / 2;
+    const x = groupX + (!horizontalStars && id === 0 ? starWidth + gap : 0);
+    const stars = horizontalStars
+      ? { x: laneWidth * id + (laneWidth - starWidth) / 2, y: y + boardHeight + tail + gap, width: starWidth, height: starHeight }
+      : { x: id === 0 ? groupX : x + boardWidth + gap, y: y + (boardHeight - starHeight) / 2, width: starWidth, height: starHeight };
     return {
-      id, x, y, width: gardenWidth, height: gardenHeight, scale,
+      id, x, y, width: boardWidth, height: boardHeight, scale, stars, horizontalStars,
       lane: { x: laneWidth * id, y: 0, width: laneWidth, height },
-      header: { x: hudX, y: (landscape ? 78 : single ? (short ? 76 : 100) : 57) + barHeight, width: hudWidth, height: short ? 48 : 78 },
-      footer: { x: landscape ? width - margin - hudWidth : hudX, y: height - bottom + 6, width: hudWidth, height: bottom - 12 },
       holes: gardenArt.holes.map(hole => ({
         feet: { x: x + hole.x * scale, y: y + hole.y * scale },
         hit: { x: x + (hole.x - 39) * scale, y: y + (hole.y - 77) * scale, width: 78 * scale, height: 88 * scale },
       })),
     };
   });
-  const opponent = !single ? null : landscape
-    ? { x: width - margin - sideHud, y: 78 + barHeight, width: sideHud, height: 34 }
-    : { x: 12, y: (short ? 50 : 57) + barHeight, width: width - 24, height: short ? 22 : 34 };
-  return { width, height, single, landscape, score, opponent, gardens };
+  return { width, height, single, landscape, score, gardens };
 }

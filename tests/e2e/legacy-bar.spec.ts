@@ -29,7 +29,7 @@ test('a decisive score difference ends the round, fills one color, and resets to
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await page.evaluate(() => {
     const hole = document.querySelector('.player-0 .hole[data-kind="empty"]')!;
-    const key = hole.querySelector('.keycap')!.textContent!;
+    const key = hole.getAttribute('data-key')!;
     // Same valid keyboard action as a player; once the round ends further actions are ignored.
     for (let i = 0; i < 1000; i++) window.dispatchEvent(new KeyboardEvent('keydown', { code: `Key${key}`, key: key.toLowerCase(), bubbles: true }));
   });
@@ -39,5 +39,5 @@ test('a decisive score difference ends the round, fills one color, and resets to
   await page.getByRole('button', { name: /Next round/ }).click();
   await expect(page.getByRole('meter')).toHaveAttribute('aria-valuenow', '50');
   await expect(page.locator('.legacy-score-art')).toHaveAttribute('data-offset', '255');
-  await expect(page.getByLabel('Your score', { exact: true })).toHaveAttribute('data-score', '0');
+  await expect(page.locator('.player-0')).toHaveAttribute('data-score', '0');
 });

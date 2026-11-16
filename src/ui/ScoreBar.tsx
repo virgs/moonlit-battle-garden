@@ -8,7 +8,7 @@ import type { Rect } from '../render/layout';
 import './score-bar.css';
 import { Trophy } from './LegacyRewards';
 
-export function ScoreBar({ state, area }: { state: MatchState; area: Rect }) {
+export function ScoreBar({ state, area, onPause }: { state: MatchState; area: Rect; onPause?: () => void }) {
   const { bluePercent, leader } = roundStanding(state);
   const [paint, setPaint] = useState({ percent: 50, frame: 0 });
   const latest = useRef({ bluePercent, paused: state.paused, animate: state.phase === 'playing' });
@@ -37,8 +37,9 @@ export function ScoreBar({ state, area }: { state: MatchState; area: Rect }) {
         </svg>
         <image href={assetUrl('/assets/legacy/bar-border.png')} width="499" height="45" />
       </svg>
+      {onPause && <button className="score-pause" aria-label={state.paused ? 'Resume' : 'Pause'} title="Tap the score bar or press Escape for game controls" onClick={onPause} />}
     </div>
-    <div className="score-legend"><span>{names[0]}</span><span>{description}</span><span>{names[1]}</span></div>
+    <div className="score-legend"><span>{names[0]}</span><span>{names[1]}</span></div>
     <div className="score-trophies" aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} />)}</div>
   </section>;
 }

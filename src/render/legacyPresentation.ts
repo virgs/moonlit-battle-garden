@@ -12,7 +12,7 @@ export function easeLegacyBar(current: number, target: number): number {
 export function scoreBarGeometry(width: number, height: number) {
   const barWidth = Math.min(width - 24, height < 580 ? 320 : 560);
   const barHeight = barWidth * legacyBar.height / legacyBar.width;
-  return { x: (width - barWidth) / 2, y: 51, width: barWidth, height: barHeight + 40, reserve: Math.ceil(barHeight + 44) };
+  return { x: (width - barWidth) / 2, y: 12, width: barWidth, height: barHeight + 40, reserve: Math.ceil(barHeight + 44) };
 }
 
 // Fase.cpp: board origins were (50,200)/(450,200); earth origins

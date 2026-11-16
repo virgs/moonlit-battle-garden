@@ -1,91 +1,14 @@
-.match-screen { position: fixed; inset: 0; width: 100%; height: 100dvh; overflow: hidden; background: #10251f; isolation: isolate; }
-.arena-canvas, .match-hud { position: absolute; inset: 0; }
-.arena-canvas canvas { display: block; }
-.match-hud { z-index: 1; pointer-events: none; }
-.match-screen .match-toolbar { position: absolute; top: 0; left: 0; right: 0; height: 49px; padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left)); display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 10px; letter-spacing: 1px; background: #0e211bd9; border-bottom: 1px solid #c9e58618; pointer-events: auto; }
-.match-toolbar > div { display: flex; gap: 7px; }
-.home-label { display: block; font-size: 8px; letter-spacing: .3px; color: #b8c89c; text-align: center; margin-top: 3px; }
-.match-screen .text-button { background: #20392c; color: #dbe5ce; border: 1px solid #c9e58626; padding: 8px 11px; font-size: 11px; white-space: nowrap; }
-.match-screen .text-button:hover { background: #304b37; }
-.match-screen .text-button:disabled { opacity: .4; }
-.match-screen .muted { color: #84967d; }
-.match-screen .player-panel { position: absolute; inset: 0; min-width: 0; padding: 0; margin: 0; border: 0; border-radius: 0; background: none; overflow: visible; pointer-events: none; }
-.player-summary { position: absolute; padding: 8px 12px; background: #142b23d9; border: 1px solid #c9e58630; border-radius: 10px; }
-.player-1 .player-summary { border-color: #ffb27c40; }
-.match-screen .player-header { display: flex; align-items: center; gap: 10px; height: 35px; }
-.match-screen .avatar { flex-shrink: 0; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px; border: 1px solid #c9e58640; color: var(--lime); background: #3a4f31; font-size: 24px; }
-.match-screen .avatar.andy { color: var(--orange); background: #4b3b2c; border-color: #ffb27c40; }
-.player-name { min-width: 0; }
-.match-screen .player-header .eyebrow { font-size: 8px; letter-spacing: 1px; }
-.match-screen .player-header h2 { font-size: clamp(12px, 1.8vw, 21px); line-height: 1.1; margin: 2px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.match-screen .vitals { display: flex; align-items: center; gap: 8px; height: 18px; margin: 5px 0 0; }
-.match-screen .player-0 .score { color: #a9c5ff; }
-.match-screen .player-1 .score { color: #ffaaaa; }
-.match-screen .vitals strong, .match-screen .score { font-size: 12px; white-space: nowrap; }
-.match-screen .vitals small { font-size: 9px; color: #a1b090; }
-.match-screen .score { margin-left: 0; }
-.match-screen .hole-controls { position: absolute; inset: 0; display: block; height: auto; pointer-events: none; }
-.match-screen .hole { position: absolute; padding: 0; margin: 0; background: transparent; border: 0; border-radius: 45%; pointer-events: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
-.match-screen .hole:disabled { pointer-events: none; }
-.match-screen .hole:hover:not(:disabled) { background: #d1e58a0e; }
-.match-screen .hole:active:not(:disabled) { background: #d1e58a25; }
-.match-screen .hole:focus-visible { outline-offset: -2px; }
-.match-screen .keycap { position: absolute; right: 2px; bottom: 1px; padding: 2px 4px; font-size: 9px; color: #cbdbb0; background: #10251fcc; border: 1px solid #c9e58630; border-radius: 3px; }
-.match-screen .effect-tags { position: absolute; display: flex; justify-content: center; gap: 5px; pointer-events: none; }
-.match-screen .effect-tags span { background: #d1e58a; color: #21351e; font-size: 10px; padding: 4px 8px; border-radius: 12px; white-space: nowrap; }
-.match-screen .effect-tags .bad { background: #ffb27c; }
-.match-screen .magic-panel { position: absolute; padding: 8px 12px; border: 1px solid #c9e58625; background: #142b23e8; border-radius: 10px; }
-.match-screen .magic-meter { display: flex; align-items: center; justify-content: space-between; height: 20px; margin: 0 0 5px; }
-.match-screen .magic-meter .eyebrow { font-size: 8px; letter-spacing: 1.3px; }
-.match-screen .cast-button { pointer-events: auto; display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 34px; padding: 7px 10px; border: 1px solid #c9e586; background: var(--lime); color: #24371b; font-size: 12px; font-weight: 700; }
-.match-screen .cast-button > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.match-screen .cast-button:disabled { background: #ffffff08; color: #a2b197; border-color: #ffffff20; }
-.match-screen .cast-button:not(:disabled):hover { background: #e2f3ac; }
-.match-screen .cast-button kbd { margin-left: 5px; padding: 1px 4px; font: 10px sans-serif; border: 1px solid #0003; border-radius: 3px; }
-.match-screen .spell-description { min-height: 0; padding-top: 5px; font-size: 10px; line-height: 1.3; color: #a0b192; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.match-screen .board-message { min-height: 0; margin-top: 6px; padding-top: 5px; border-top: 1px solid #ffffff10; text-align: center; color: #bdcca9; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.versus-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 7px; background: #10251f; color: #b8c89c; font-size: 11px; letter-spacing: 2px; }
-.match-screen .mobile-opponent { position: absolute; display: flex; align-items: center; justify-content: space-between; top: 57px; left: 12px; right: 12px; height: 34px; margin: 0; padding: 7px 12px; border-radius: 8px; background: #2c3328e8; font-size: 10px; gap: 8px; }
-.match-screen .mobile-opponent strong { color: var(--orange); white-space: nowrap; }
-.landscape-board .mobile-opponent { flex-wrap: wrap; font-size: 9px; }
-.landscape-board .mobile-opponent > span:last-child { display: none; }
-.landscape-board .keycap { display: none; }
-.match-screen .match-overlay { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; background: #0d2018bb; backdrop-filter: blur(5px); border-radius: 0; }
-.match-screen .overlay-card { max-width: min(480px, calc(100vw - 32px)); padding: 28px; margin: 12px; border: 1px solid #bed49e55; background: #203a2e; box-shadow: 0 20px 70px #0004; border-radius: 16px; text-align: center; }
-.match-screen .overlay-card h2 { color: var(--lime); font-size: clamp(28px, 5vw, 45px); margin: 15px 0; }
-.match-screen .overlay-card p { color: #a9bca0; font-size: 12px; line-height: 1.6; margin-bottom: 20px; }
-@media (max-width: 700px) {
-  .match-screen .match-toolbar { font-size: 9px; gap: 4px; }
-  .match-screen .match-toolbar .muted { display: none; }
-  .home-label { display: none; }
-  .match-screen .text-button { padding: 8px 7px; font-size: 9px; }
-  .match-screen .keycap { display: none; }
-  .match-screen.two-boards .avatar { display: none; }
-  .match-screen.two-boards .player-summary { padding: 8px; }
-  .match-screen.two-boards .player-header { gap: 3px; }
-  .match-screen.two-boards .magic-meter .eyebrow, .match-screen.two-boards .vitals small { display: none; }
-  .match-screen.two-boards .magic-meter { justify-content: center; }
-  .match-screen.two-boards .cast-button { font-size: 10px; }
-  .match-screen.two-boards .magic-panel { padding: 8px; }
-}
-@media (max-height: 579px) {
-  .match-screen .player-summary { padding: 4px 9px; }
-  .match-screen .player-header { height: 21px; }
-  .match-screen .avatar { display: none; }
-  .match-screen .player-name { display: flex; align-items: baseline; gap: 8px; }
-  .match-screen .player-header h2 { font-size: 13px; }
-  .match-screen .vitals { margin-top: 0; height: 14px; }
-  .match-screen .vitals strong, .match-screen .score { font-size: 10px; }
-  .match-screen .magic-panel { padding: 4px 10px; }
-  .match-screen .magic-meter { height: 16px; margin-bottom: 3px; }
-  .match-screen .spell-description { display: none; }
-  .match-screen .board-message { margin-top: 3px; padding-top: 3px; font-size: 9px; }
-  .match-screen .mobile-opponent { top: 50px; height: 22px; padding: 3px 12px; }
-  .match-screen .overlay-card { padding: 18px 28px; }
-  .match-screen .overlay-card h2 { margin: 8px 0; }
-}
-
-@media (pointer: coarse) {
-  .match-screen .cast-button kbd { display: none; }
-  .single-board .cast-button { min-height: 44px; }
-}
+.match-screen{position:fixed;inset:0;width:100%;height:100dvh;overflow:hidden;background:#10251f;isolation:isolate}
+.arena-canvas,.match-hud{position:absolute;inset:0}.arena-canvas canvas{display:block}.match-hud{z-index:1;pointer-events:none}
+.match-screen .player-panel{position:absolute;inset:0;pointer-events:none}
+.match-screen .hole-controls{position:absolute;inset:0;pointer-events:none}
+.match-screen .hole{position:absolute;padding:0;margin:0;background:transparent;border:0;border-radius:45%;pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none}
+.match-screen .hole:disabled{pointer-events:none}.match-screen .hole:active:not(:disabled){background:#d1e58a25}.match-screen .hole:focus-visible{outline-offset:-2px}
+.match-screen .star-control{position:absolute;display:block;padding:0;margin:0;border:0;background:transparent;pointer-events:auto;touch-action:manipulation;border-radius:8px}
+.match-screen .star-control .sprite-stars{display:block;width:100%;height:100%;pointer-events:none}
+.match-screen .star-control:enabled{cursor:pointer}.match-screen .star-control:enabled:hover{filter:brightness(1.15)}.match-screen .star-control:enabled:active{filter:brightness(1.3)}
+.match-screen .match-overlay{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;background:#0d2018bb;backdrop-filter:blur(5px)}
+.match-screen .overlay-card{max-width:min(480px,calc(100vw - 32px));padding:28px;margin:12px;border:1px solid #bed49e55;background:#203a2e;box-shadow:0 20px 70px #0004;border-radius:16px;text-align:center}
+.match-screen .overlay-card h2{color:var(--lime);font-size:clamp(28px,5vw,45px);margin:15px 0}.match-screen .overlay-card p{color:#a9bca0;font-size:12px;line-height:1.6;margin-bottom:20px}
+.pause-controls{display:flex;justify-content:center;gap:12px;margin-top:20px}.pause-controls .text-button{min-height:44px;background:#20392c;color:#dbe5ce;border:1px solid #c9e58626;padding:8px 12px}
+@media(max-height:579px){.match-screen .overlay-card{padding:16px 24px}.match-screen .overlay-card h2{margin:8px 0}.pause-controls{margin-top:12px}}
