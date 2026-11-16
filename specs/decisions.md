@@ -38,6 +38,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D28 | Continue committing/pushing without waiting for each deployment. The user will request published-build testing when desired. |
 | D29 | Restore original star/container and trophy artwork/animations. Board-base green is replaced by left blue/right red; trophies fade in and spin at round victory and persist below each side of the shared bar as round-win counts. |
 | D30 | Minimal active-play HUD: shared bar, outer-end names, boards, trophies and original vertical star containers only; horizontal stars may be used in narrow portrait layouts. Hide permanent character/score panels, spell names/descriptions and wave text. Tap stars to cast; tap the bar/Escape to access paused controls. |
+| D31 | Enlarge names and per-side trophies 2× on phones and 3× on desktop; enlarge star controls responsively. Manual pause is limited to solo/AI and same-computer multiplayer. Online menus do not pause play; connection interruptions freeze and automatically recover via the ready handshake. Audit original target/charge animations. |
 
 ## Current proposals, not yet confirmed
 

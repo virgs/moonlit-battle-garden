@@ -16,16 +16,16 @@ Host owns targets, scores, stars, spells, clock, outcomes and round changes. The
 
 Snapshots arrive every simulation tick and after commands, including the recent event history for sound/cast playback. Superseded snapshots are dropped when the RTC send buffer exceeds 64 KiB. Inputs and control messages remain reliable. There is no rollback, prediction or guest clock advancement. High latency therefore affects guest responsiveness and favors the host; human internet playtesting remains necessary. Ping/pong provides round-trip latency feedback once per second.
 
-Either player can pause/resume, including Escape, and either can advance a finished round. Hiding either game tab requests shared pause. Sound/mute remains local. UI and Session prevent acting on the remote board. There is no public matchmaking, spectator mode, account system or anti-cheat.
+Either player can advance a finished round. Manual pause is limited to AI/local play. Online Escape/bar taps open a local sound/exit menu while simulation continues; tab visibility never requests a shared pause. The wire protocol no longer carries pause commands (version moonlit-2). Sound/mute remains local. UI and Session prevent acting on the remote board. There is no public matchmaking, spectator mode, account system or anti-cheat.
 
 ## Interruption and lifecycle
 
 - An explicit leave sends `bye` and closes resources. The other player sees that the match has ended.
 - A closed/errored data channel or 6 seconds without traffic freezes play. The guest attempts reconnection every 2.5 seconds using the same in-memory token. The host reserves the guest seat.
-- Recovery has a 30-second grace period. Both browsers retain the match; the host sends current state on rejoin. The game remains paused until a player resumes.
+- Recovery has a 30-second grace period. Both browsers retain the match; the host sends current state on rejoin. Once both sides complete the ready handshake, the host automatically resumes the frozen game.
 - After the grace period, the connection is closed and the user returns to setup to create another match. Initial join/registration attempts time out after 25 seconds; a registered host can wait indefinitely for an invite to be used.
 - Reloading either page loses its in-memory session/token. Host closure/refresh cannot be recovered; there is no host migration. A refreshed guest must start a new match rather than take over the reserved seat.
-- Browser background throttling/mobile suspension can interrupt the connection. Shared pause helps but does not replace physical-device testing.
+- Browser background throttling/mobile suspension can interrupt the connection. No visibility pause is requested online; physical-device/background-throttling testing remains necessary.
 
 ## Deployment configuration
 
@@ -37,7 +37,7 @@ A signaling server introduces browsers; STUN helps discover possible routes. Res
 
 ## Verification
 
-Unit tests cover host-only clock progression/readiness, seat/event/winner remapping, stale target rejection, guest spells, synchronized pause/round changes and reconnect freezing. Browser tests use actual PeerJS plus real RTC data channels between independent contexts through a local-only PeerServer. Desktop and mobile-sized cases cover invites, independent characters, synchronized hits/scores, opponent controls, capacity rejection, forced channel closure/recovery, round winners/advancement and leaving. The regular local/AI/presentation checks remain in the suite.
+Unit tests cover host-only clock progression/readiness, seat/event/winner remapping, stale target rejection, guest spells, rejection of manual online pause, synchronized round changes and automatic reconnect recovery. Browser tests use actual PeerJS plus real RTC data channels between independent contexts through a local-only PeerServer. Desktop and mobile-sized cases cover invites, independent characters, synchronized hits/scores, non-pausing online menus, opponent controls, capacity rejection, forced channel closure/automatic recovery, round winners/advancement and leaving. The regular local/AI/presentation checks remain in the suite.
 
 A production-build smoke test also registered a host through default public PeerJS Cloud signaling and connected a real guest, with no JavaScript errors. Both clients ran on this machine; this verifies the configured public service path, not different-network reachability.
 
