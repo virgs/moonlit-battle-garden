@@ -3,6 +3,7 @@ import { characters } from '../game/config';
 import type { Session, Snapshot } from '../game/Session';
 import type { GardenLayout, Rect } from '../render/layout';
 import { Portrait } from './Portrait';
+import { StarMeter } from './LegacyRewards';
 import { pacingAt } from '../game/pacing';
 
 const keys = [['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'], ['7', '8', '9', '4', '5', '6', '1', '2', '3']];
@@ -28,7 +29,6 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
       <header className="player-header">
         <div className={`avatar ${player.character}`} aria-hidden="true"><Portrait character={player.character} /></div>
         <div className="player-name"><span className="eyebrow">{bot ? `${session.match.options.difficulty} CPU` : remote ? 'Online rival' : session.match.options.mode === 'online' ? 'You' : `Player ${id + 1}`}</span><h2>{character.name}</h2></div>
-        <div className="round-wins" aria-label={`${player.wins} rounds won`}>{[0, 1].map(n => <span key={n} className={n < player.wins ? 'won' : ''}>◆</span>)}</div>
       </header>
       <div className="vitals"><strong className="score" aria-label={`${id === 0 ? 'Your' : 'Opponent'} score`} data-score={player.score}>{player.score.toLocaleString()}<small> points</small></strong></div>
     </div>
@@ -40,7 +40,7 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
     ><span className="keycap">{remote ? '' : keys[id][hole]}</span></button>)}</div>
     <div className="effect-tags" style={{ left: garden.x, top: garden.y + garden.height - 24, width: garden.width }}>{shield && <span>◇ Guard ×{player.mistakeShield}</span>}{ward && <span>✧ Spore Ward</span>}{active && <span className="bad">Rabbit invasion</span>}</div>
     <div className="magic-panel" style={position(garden.footer)}>
-      <div className="magic-meter"><span className="eyebrow">Magic charge</span><span className="stars" aria-label={`${player.stars} stars`}>{[0, 1, 2, 3].map(n => <span key={n} className={n < player.stars ? 'charged' : ''}>★</span>)}</span></div>
+      <div className="magic-meter"><span className="eyebrow">Magic charge</span><StarMeter count={player.stars} time={snapshot.state.time} /></div>
       <button className="cast-button" title={player.stars ? spell.description : 'Collect golden stars to charge magic'} disabled={!playing || bot || remote || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}><span>{player.stars ? `Cast: ${spell.name}` : 'Collect stars to cast'}</span><kbd>{id === 0 ? 'R' : '+'}</kbd></button>
       <p className="spell-description">{player.stars ? spell.description : 'Hit golden stars. Save for stronger magic, or cast early.'}</p>
       <div className="board-message" role="status">{player.messageUntil > snapshot.state.time ? player.message : `Wave ${pace.wave} · ${phaseLabel}`}</div>

@@ -18,8 +18,6 @@
 .player-name { min-width: 0; }
 .match-screen .player-header .eyebrow { font-size: 8px; letter-spacing: 1px; }
 .match-screen .player-header h2 { font-size: clamp(12px, 1.8vw, 21px); line-height: 1.1; margin: 2px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.match-screen .round-wins { margin-left: auto; display: flex; gap: 4px; font-size: 14px; color: #ffffff25; }
-.match-screen .round-wins .won { color: var(--lime); }
 .match-screen .vitals { display: flex; align-items: center; gap: 8px; height: 18px; margin: 5px 0 0; }
 .match-screen .player-0 .score { color: #a9c5ff; }
 .match-screen .player-1 .score { color: #ffaaaa; }
@@ -39,8 +37,6 @@
 .match-screen .magic-panel { position: absolute; padding: 8px 12px; border: 1px solid #c9e58625; background: #142b23e8; border-radius: 10px; }
 .match-screen .magic-meter { display: flex; align-items: center; justify-content: space-between; height: 20px; margin: 0 0 5px; }
 .match-screen .magic-meter .eyebrow { font-size: 8px; letter-spacing: 1.3px; }
-.match-screen .stars { display: flex; gap: 6px; font-size: 21px; line-height: 1; color: #ffffff20; }
-.match-screen .stars .charged { color: #f1d67e; text-shadow: 0 0 10px #f1d67e44; }
 .match-screen .cast-button { pointer-events: auto; display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 34px; padding: 7px 10px; border: 1px solid #c9e586; background: var(--lime); color: #24371b; font-size: 12px; font-weight: 700; }
 .match-screen .cast-button > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .match-screen .cast-button:disabled { background: #ffffff08; color: #a2b197; border-color: #ffffff20; }
@@ -67,12 +63,10 @@
   .match-screen.two-boards .avatar { display: none; }
   .match-screen.two-boards .player-summary { padding: 8px; }
   .match-screen.two-boards .player-header { gap: 3px; }
-  .match-screen.two-boards .round-wins { font-size: 9px; gap: 1px; }
   .match-screen.two-boards .magic-meter .eyebrow, .match-screen.two-boards .vitals small { display: none; }
   .match-screen.two-boards .magic-meter { justify-content: center; }
   .match-screen.two-boards .cast-button { font-size: 10px; }
   .match-screen.two-boards .magic-panel { padding: 8px; }
-  .match-screen .stars { gap: 4px; font-size: 19px; }
 }
 @media (max-height: 579px) {
   .match-screen .player-summary { padding: 4px 9px; }
@@ -84,7 +78,6 @@
   .match-screen .vitals strong, .match-screen .score { font-size: 10px; }
   .match-screen .magic-panel { padding: 4px 10px; }
   .match-screen .magic-meter { height: 16px; margin-bottom: 3px; }
-  .match-screen .stars { font-size: 17px; }
   .match-screen .spell-description { display: none; }
   .match-screen .board-message { margin-top: 3px; padding-top: 3px; font-size: 9px; }
   .match-screen .mobile-opponent { top: 50px; height: 22px; padding: 3px 12px; }

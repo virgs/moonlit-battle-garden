@@ -33,6 +33,6 @@ export function CastOverlay({ snapshot, garden }: { snapshot: Snapshot; garden: 
     {artReady ? <svg className="cast-art" viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow="hidden" aria-hidden="true">
       <image href={assetUrl(clip.src)} width={clip.columns * clip.frameWidth} height={Math.ceil(clip.frameCount / clip.columns) * clip.frameHeight} x={-(frame % clip.columns) * clip.frameWidth} y={-Math.floor(frame / clip.columns) * clip.frameHeight} />
     </svg> : <span className="cast-emblem" aria-hidden="true">{characters[character].emblem}</span>}
-    <div className="cast-caption"><small>{characters[character].name} · {'★'.repeat(event.tier)}</small><strong>{characters[character].spells[event.tier - 1].name}</strong></div>
+    <div className="cast-caption"><small>{characters[character].name} · Tier {event.tier}</small><strong>{characters[character].spells[event.tier - 1].name}</strong></div>
   </div>;
 }

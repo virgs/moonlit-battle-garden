@@ -10,6 +10,7 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 - Local two-player and three AI difficulties; Sir Champignon and Andy each have four functional spells.
 - Full-viewport canvas, HUD overlays, uniform sprite scale, measured hole anchors, and a fixed left/local player identity. Responsive single-board mobile presentation with opponent HUD.
 - One shared animated bar using the oldest efeitoLife.pcx and bordalife.pcx artwork, a moving source window, four frames at 12 fps, and the original incremental easing. No repeated/tiled mini-bars or separate player health meters. Numeric scores remain secondary; the bar is driven solely by score difference.
+- Original sprite-based star containers/charge animations, blue/red board-base palette replacement, spinning round-win trophies in the central verdict, and persistent 0/1/2 trophy rows below each side of the score bar.
 - Original board artwork and falling earth aligned at board-local coordinates. Different earth counts, positions, and animation phases on the two boards; the opponent's underground root strip is mirrored without moving its holes.
 - Cosmetic home selection constrained to the participating characters, and sound/mute/pause lifecycle.
 - Repeatable seeded offline AI tournaments, swapped sides, per-difficulty win reports, and spell-use coverage.

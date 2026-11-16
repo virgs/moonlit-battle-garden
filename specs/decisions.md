@@ -35,6 +35,8 @@ This file records the discussion's current state. An accepted concept is not a c
 | D25 | Online matches use one player’s browser as host over WebRTC. No dedicated gameplay server; cheating resistance is not a priority. Hosted signaling and optional relays are connection infrastructure. Host exit ends the match. |
 | D26 | Publish the static website with GitHub Pages. Mobile plays in ordinary browsers; PWA installation/offline caching is deferred and is not part of the current release work. Test small screens in portrait and landscape. |
 | D27 | User explicitly authorized making virgs/moonlit-battle-garden public and publishing its static website on GitHub Pages. Pages is enabled with automatic deployment from main. |
+| D28 | Continue committing/pushing without waiting for each deployment. The user will request published-build testing when desired. |
+| D29 | Restore original star/container and trophy artwork/animations. Board-base green is replaced by left blue/right red; trophies fade in and spin at round victory and persist below each side of the shared bar as round-win counts. |
 
 ## Current proposals, not yet confirmed
 

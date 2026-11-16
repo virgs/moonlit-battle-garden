@@ -8,6 +8,7 @@ import { ScoreBar } from './ScoreBar';
 import { CastOverlay } from './CastOverlay';
 import { pacingAt } from '../game/pacing';
 import { Portrait } from './Portrait';
+import { StarMeter, Trophy } from './LegacyRewards';
 import './match.css';
 
 export function Game({ session, leave }: { session: Session; leave: () => void }) {
@@ -44,13 +45,14 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
     <ScoreBar state={state} area={layout.score} />
     <div className="match-hud">
       <nav className="match-toolbar" aria-label="Match controls"><button className="text-button" onClick={leave}>← Change matchup</button><span>ROUND {state.round} <span className="muted">/ FIRST TO TWO</span><small className="home-label">{session.home.name} · {characters[session.home.owner].name}’s home</small></span><div><button className="text-button" onClick={() => session.toggleSound()}>{session.muted ? 'Sound off' : 'Sound on'}</button><button className="text-button" onClick={() => session.togglePause()} disabled={finished || disconnected}>{state.paused ? 'Resume' : 'Pause'}</button></div></nav>
-      {layout.opponent && <div className="mobile-opponent" style={{ left: layout.opponent.x, top: layout.opponent.y, width: layout.opponent.width, height: layout.opponent.height }}><span className="opponent-name"><span className="mini-avatar"><Portrait character={opponent.character} /></span>{characters[opponent.character].name}</span><strong>{opponent.score} pts</strong><span>{'★'.repeat(opponent.stars)} · {opponent.wins} wins</span></div>}
+      {layout.opponent && <div className="mobile-opponent" style={{ left: layout.opponent.x, top: layout.opponent.y, width: layout.opponent.width, height: layout.opponent.height }}><span className="opponent-name"><span className="mini-avatar"><Portrait character={opponent.character} /></span>{characters[opponent.character].name}</span><strong>{opponent.score} pts</strong><span className="opponent-charge"><StarMeter count={opponent.stars} time={state.time} compact /></span></div>}
       {layout.gardens.map(garden => <Board key={garden.id} session={session} snapshot={snapshot} garden={garden} />)}
       {layout.gardens.map(garden => <CastOverlay key={garden.id} snapshot={snapshot} garden={garden} />)}
       {!layout.single && <div className="versus-label" aria-hidden="true">VS</div>}
     </div>
     {link && <span className="online-status" role="status">{link.status === 'connected' ? `Online · ${session.match.options.mode === 'online' ? 'Peer hosted' : ''}${link.rtt === null ? '' : ` · ${link.rtt} ms`}` : link.status === 'ended' ? 'Connection ended' : 'Reconnecting…'}</span>}
     {(state.phase === 'countdown' || state.paused || finished || disconnected) && <div className="match-overlay"><div className="overlay-card">
+      {finished && !disconnected && state.winner !== null && <Trophy key={`${state.round}-${state.winner}`} wins={1} celebration />}
       <span className="eyebrow">{disconnected ? 'Connection interrupted' : finished ? 'Garden verdict' : state.paused ? 'Take a breather' : `Round ${state.round}`}</span>
       <h2>{disconnected ? link.status === 'ended' ? 'Garden disconnected' : 'Reconnecting…' : finished ? state.result : state.paused ? 'Paused' : Math.max(1, Math.ceil((state.countdownUntil - state.time) / 1000))}</h2>
       <p>{disconnected ? link.status === 'ended' ? 'The match has ended. Start a new garden to play again.' : 'Play is paused. Trying to reconnect for up to 30 seconds.' : finished ? 'A little rivalry. A lot of dirt.' : state.paused ? 'Your garden will be here when you’re ready.' : 'Moles: hit. Rabbits: spare. Stars: collect.'}</p>

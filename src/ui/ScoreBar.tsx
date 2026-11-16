@@ -6,6 +6,7 @@ import type { MatchState } from '../game/types';
 import { barSourceOffset, easeLegacyBar, legacyBar } from '../render/legacyPresentation';
 import type { Rect } from '../render/layout';
 import './score-bar.css';
+import { Trophy } from './LegacyRewards';
 
 export function ScoreBar({ state, area }: { state: MatchState; area: Rect }) {
   const { bluePercent, leader } = roundStanding(state);
@@ -37,6 +38,7 @@ export function ScoreBar({ state, area }: { state: MatchState; area: Rect }) {
         <image href={assetUrl('/assets/legacy/bar-border.png')} width="499" height="45" />
       </svg>
     </div>
-    <div className="score-legend"><span>◆ {names[0]}</span><span>{description}</span><span>{names[1]} ◆</span></div>
+    <div className="score-legend"><span>{names[0]}</span><span>{description}</span><span>{names[1]}</span></div>
+    <div className="score-trophies" aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} />)}</div>
   </section>;
 }
