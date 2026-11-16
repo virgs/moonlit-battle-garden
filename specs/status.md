@@ -14,6 +14,8 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 - Enlarged names/trophies (2× phone, 3× desktop) and larger responsive star controls. Target rising/hiding are ordered full-sheet sequences, idle/dancing loops, and independent hit feedback covers moles, stars and rabbit penalties.
 - Original sprite-based star containers/charge animations, blue/red board-base palette replacement, spinning round-win trophies in the central verdict, and persistent 0/1/2 trophy rows below each side of the score bar.
 - Original board artwork and falling earth aligned at board-local coordinates. Different earth counts, positions, and animation phases on the two boards; the opponent's underground root strip is mirrored without moving its holes.
+- All 33 recovered sound effects/variants and shared fallback music enabled on entry, with gesture unlocking, bounded overlapping playback, mute/pause/exit cleanup and native decoding/playback browser checks.
+- Button-free final-match trophy/winner screen with a four-second delayed fresh-key/tap/controller prompt back to setup.
 - Cosmetic home selection constrained to the participating characters, and sound/mute/pause lifecycle.
 - Repeatable seeded offline AI tournaments, swapped sides, per-difficulty win reports, and spell-use coverage.
 - Rising 25-second pressure/recovery waves, identical natural demand/reset between players and rounds, independent star opportunities, and explicit concurrency/reaction-window bounds.
