@@ -5,7 +5,7 @@ import type { PlayerId, TargetKind } from '../game/types';
 import { gardenArt } from './layout';
 import type { ArenaLayout } from './layout';
 import type { CharacterHome } from '../game/homes';
-import { earthPlacements, earthFrameSize, rootStripTop } from './legacyPresentation';
+import { earthPlacements, earthFrameSize, rootStripTop, recolorBoard } from './legacyPresentation';
 
 const offsets: Record<TargetKind, number> = { mole: 0, star: 8, rabbit: 16 };
 type GardenView = {
@@ -36,15 +36,23 @@ export class GardenScene extends Phaser.Scene {
     this.backdrop = this.add.graphics();
     this.background = this.add.image(0, 0, 'home').setTint(this.home.background.fallbackTint).setAlpha(this.home.background.fallbackOpacity);
     for (let id = 0; id < 2; id++) {
+      const source = this.textures.get('garden').getSourceImage() as HTMLImageElement;
+      const texture = this.textures.createCanvas(`garden-${id}`, source.width, source.height)!;
+      const context = texture.getContext();
+      context.drawImage(source, 0, 0);
+      const pixels = context.getImageData(0, 0, source.width, source.height);
+      recolorBoard(pixels.data, source.width, id as PlayerId);
+      context.putImageData(pixels, 0, 0); texture.refresh();
       this.gardens.push({
-        image: this.add.image(0, 0, 'garden').setOrigin(0).setCrop(0, 0, gardenArt.width, rootStripTop),
-        rootStrip: this.add.image(0, 0, 'garden').setOrigin(0).setCrop(0, rootStripTop, gardenArt.width, gardenArt.height - rootStripTop).setFlipX(id === 1),
+        image: this.add.image(0, 0, `garden-${id}`).setOrigin(0).setCrop(0, 0, gardenArt.width, rootStripTop),
+        rootStrip: this.add.image(0, 0, `garden-${id}`).setOrigin(0).setCrop(0, rootStripTop, gardenArt.width, gardenArt.height - rootStripTop).setFlipX(id === 1),
         sprites: Array.from({ length: 9 }, () => this.add.sprite(0, 0, 'targets').setOrigin(0.5, 1).setVisible(false)),
         dust: earthPlacements[id as PlayerId].map(() => this.add.sprite(0, 0, 'earth').setOrigin(0).setVisible(false)),
         flashes: Array.from({ length: 9 }, () => ({ until: 0, frame: 0 })),
         previous: Array.from({ length: 9 }, () => null),
       });
     }
+    this.game.canvas.dataset.boardColors = '000080,800000';
     this.game.canvas.setAttribute('aria-hidden', 'true');
     this.game.canvas.dataset.homeBackground = this.home.background.fallback;
     // Load final artwork after the playable scene is ready; a missing optional file

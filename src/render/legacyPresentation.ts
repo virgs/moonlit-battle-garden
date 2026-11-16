@@ -12,7 +12,7 @@ export function easeLegacyBar(current: number, target: number): number {
 export function scoreBarGeometry(width: number, height: number) {
   const barWidth = Math.min(width - 24, height < 580 ? 320 : 560);
   const barHeight = barWidth * legacyBar.height / legacyBar.width;
-  return { x: (width - barWidth) / 2, y: 51, width: barWidth, height: barHeight + 12, reserve: Math.ceil(barHeight + 16) };
+  return { x: (width - barWidth) / 2, y: 51, width: barWidth, height: barHeight + 40, reserve: Math.ceil(barHeight + 44) };
 }
 
 // Fase.cpp: board origins were (50,200)/(450,200); earth origins
@@ -23,3 +23,21 @@ export const earthPlacements: Record<PlayerId, { x: number; y: number; phase: nu
 };
 export const earthFrameSize = 45;
 export const rootStripTop = 320;
+
+export const sideColors = [0x000080, 0x800000] as const;
+export const legacyStars = { width: 60, height: 200, columns: 7, rows: 5, fps: 12 };
+export const legacyTrophy = { width: 150, height: 75, columns: 6, rows: 3, fps: 12 };
+/** Original Player::mudaCor changes only exact green pixels below row 310. */
+export function recolorBoard(pixels: Uint8ClampedArray, width: number, side: PlayerId): void {
+  for (let i = 310 * width * 4; i < pixels.length; i += 4) {
+    if (pixels[i] === 0 && pixels[i + 1] === 255 && pixels[i + 2] === 0 && pixels[i + 3]) {
+      const color = sideColors[side];
+      pixels[i] = color >> 16 & 255; pixels[i + 1] = color >> 8 & 255; pixels[i + 2] = color & 255;
+    }
+  }
+}
+export function legacyRewardFrame(elapsedMs: number, reduced = false): number {
+  if (reduced) return 2;
+  const step = Math.floor((Math.max(0, elapsedMs) + 0.000001) * 12 / 1000);
+  return step < 2 ? step : 2 + (step - 2) % 4;
+}
