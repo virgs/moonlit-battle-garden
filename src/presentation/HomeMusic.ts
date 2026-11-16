@@ -8,8 +8,9 @@ export class HomeMusic {
   private fallback = false;
   private disposed = false;
 
-  constructor(private asset: MusicAsset) {
-    this.audio = new Audio(assetUrl(asset.src));
+  constructor(private asset: MusicAsset, primed?: HTMLAudioElement) {
+    this.audio = primed ?? new Audio(assetUrl(asset.src));
+    if (primed) this.audio.src = assetUrl(asset.src);
     this.audio.volume = asset.volume;
     this.audio.loop = asset.loopStartMs === 0 && asset.loopEndMs === null;
     this.audio.addEventListener('error', this.useFallback);

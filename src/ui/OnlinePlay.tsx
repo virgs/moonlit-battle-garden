@@ -4,6 +4,7 @@ import type { Session } from '../game/Session';
 import { characters } from '../game/config';
 import type { CharacterId } from '../game/types';
 import './online.css';
+import { prepareAudio, discardPrimedMusic } from '../presentation/audioGesture';
 const Game = lazy(() => import('./Game').then(module => ({ default: module.Game })));
 
 export function OnlinePlay({ initialCharacter, leave }: { initialCharacter: CharacterId; leave: () => void }) {
@@ -14,13 +15,13 @@ export function OnlinePlay({ initialCharacter, leave }: { initialCharacter: Char
   const [busy, setBusy] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const room = useRef<PeerRoom | null>(null);
-  useEffect(() => () => room.current?.dispose(), []);
+  useEffect(() => () => { room.current?.dispose(); discardPrimedMusic(); }, []);
   const begin = (host: string | null) => {
-    room.current?.dispose(); setInvite(''); setBusy(true); setStatus('Connecting…');
+    room.current?.dispose(); prepareAudio(); setInvite(''); setBusy(true); setStatus('Connecting…');
     try {
       room.current = new PeerRoom(character, host, {
         invite: id => { if (!host) { const url = new URL(location.href); url.search = ''; url.hash = ''; url.searchParams.set('join', id); setInvite(url.toString()); } },
-        status: setStatus, start: setSession,
+        status: setStatus, start: next => { next.enableSound(); setSession(next); },
       });
     } catch { setStatus('Could not open a connection. Check your network settings and try again.'); setBusy(false); }
   };
@@ -40,7 +41,7 @@ export function OnlinePlay({ initialCharacter, leave }: { initialCharacter: Char
     <button className="primary-button" disabled={busy || !code.trim()} onClick={join}>Join garden</button>
     {invite && <label>Share this invite<input aria-label="Share this invite" readOnly value={invite} onFocus={event => event.target.select()} /><button className="text-button" onClick={() => { void navigator.clipboard?.writeText(invite).then(() => setStatus('Invite copied. Waiting for your opponent…')).catch(() => setStatus('Select the invite above to copy it.')); }}>Copy invite</button></label>}
     <p role="status">{status}</p>
-    {busy && <button className="text-button" onClick={() => { room.current?.dispose(); room.current = null; setBusy(false); setInvite(''); setStatus('Create a garden or join a friend’s invite.'); }}>Cancel / try again</button>}
+    {busy && <button className="text-button" onClick={() => { room.current?.dispose(); room.current = null; discardPrimedMusic(); setBusy(false); setInvite(''); setStatus('Create a garden or join a friend’s invite.'); }}>Cancel / try again</button>}
     <p className="online-note">The creator hosts the match. Keep both games open; closing the host ends play. Brief interruptions pause the match while reconnecting.</p>
   </main>;
 }

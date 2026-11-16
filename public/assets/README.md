@@ -18,3 +18,10 @@ The files under `legacy/` are PNG conversions of https://github.com/virgs/digHol
 - `trophy-sheet.png`: trofeu.bmp, 900×225; six 150×75 frames in each of three win-count rows.
 
 RGB pixels are preserved, with Allegro's magenta mask converted to transparency. Reproduce with `python3 scripts/import-legacy-art.py PATH_TO_OLDEST_REPO/Fx public/assets/legacy`. Original graphics are credited to Bruno Moraes in the oldest repository's README. Board-local attachment positions and bar source-window behavior come from Fase.cpp, Life.cpp, and Animacao.cpp. Player.cpp replaces the exact green board-base mask below row 310 with blue RGB(0,0,128) or red RGB(128,0,0); the renderer now does the same without altering the source PNG. Star containers, charge animations and trophy appearance/spin frames are reused from the original sheets. The later browser version also uses two charge transition frames followed by a four-frame idle loop at 12 fps.
+
+
+## Enabled sound effects
+
+`assets/sfx/` contains the 12 browser-version effect files from molecideGaiden/assets/sounds and all 21 WAV effects from digHoleBattleGarden/Sounds, copied unchanged (older files have an `original-` prefix). The 33-file bank covers spawn pops, all hit voice variations, impacts, rabbit hits, star appearance/collection, wrong empty hits, magic/cast, magical sweep and game-over cues. The manifest is `src/presentation/soundFiles.ts`; variation is cosmetic and does not consume game RNG. Missing a mole is distinct from hitting an empty hole and does not play the wrong-hit sound.
+
+Music and effects start enabled on match entry. The entry/Create/Join gesture unlocks Web Audio and primes the reusable music element. The existing shared MP3 is the home-music fallback; distinct final home tracks remain asset slots. Mute, pause, interruption and exit silence playback appropriately. Simultaneous spawn sounds are coalesced; at most 12 Web Audio voices overlap. The original MIDI collection is retained in the source reference repository rather than bundled as browser-playable music.

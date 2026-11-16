@@ -3,6 +3,7 @@ import { Session } from '../game/Session';
 import { characters } from '../game/config';
 import type { CharacterId, Difficulty, MatchOptions } from '../game/types';
 import { Portrait } from './Portrait';
+import { prepareAudio } from '../presentation/audioGesture';
 import './presentation.css';
 const OnlinePlay = lazy(() => import('./OnlinePlay').then(module => ({ default: module.OnlinePlay })));
 const Game = lazy(() => import('./Game').then(module => ({ default: module.Game })));
@@ -14,6 +15,12 @@ export function App() {
   const [mode, setMode] = useState<MatchOptions['mode']>(new URLSearchParams(location.search).has('join') ? 'online' : 'ai');
   const [online, setOnline] = useState(new URLSearchParams(location.search).has('join'));
   const [difficulty, setDifficulty] = useState<Difficulty>('medium');
+  const start = () => {
+    if (mode === 'online') { setOnline(true); return; }
+    prepareAudio();
+    const next = new Session({ characters: [character, opponent], mode, difficulty, seed: crypto.getRandomValues(new Uint32Array(1))[0] });
+    next.enableSound(); setSession(next);
+  };
   if (online) return <Suspense fallback={<p className="development-note">Opening online gardens…</p>}><OnlinePlay initialCharacter={character} leave={() => { setOnline(false); history.replaceState(null, '', location.pathname); }} /></Suspense>;
   if (session) return <Suspense fallback={<p className="development-note">Opening the garden…</p>}><Game session={session} leave={() => { session.stop(); setSession(null); }} /></Suspense>;
   return <div className="app-shell">
@@ -24,7 +31,7 @@ export function App() {
         <div className="mode-toggle" aria-label="Game mode"><button aria-pressed={mode === 'ai'} onClick={() => setMode('ai')}>Versus computer</button><button aria-pressed={mode === 'local'} onClick={() => setMode('local')}>Local two player</button><button aria-pressed={mode === 'online'} onClick={() => setMode('online')}>Online rival</button></div>
         <div className="character-selection"><span className="eyebrow">Your character · always left</span><div className="character-options">{(Object.keys(characters) as CharacterId[]).map(id => <button key={id} className={`character-card ${id} ${character === id ? 'selected' : ''}`} aria-pressed={character === id} onClick={() => { setCharacter(id); setOpponent(id === 'andy' ? 'champignon' : 'andy'); }}><span className="character-emblem"><Portrait character={id} /></span><strong>{characters[id].name}</strong><small>{characters[id].role}</small><span className="selection-indicator">{character === id ? 'SELECTED ✓' : 'CHOOSE CHARACTER'}</span></button>)}</div></div>
         <div className="setup-bottom">{mode !== 'online' && <label>Opponent<select value={opponent} onChange={event => setOpponent(event.target.value as CharacterId)}>{Object.entries(characters).map(([id, data]) => <option key={id} value={id}>{data.name}</option>)}</select></label>}{mode === 'ai' ? <label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}><option value="easy">Easy · warming up</option><option value="medium">Medium · a fair fight</option><option value="hard">Hard · quick hands</option></select></label> : mode === 'online' ? <p className="local-note">Create an invite or join a friend. Each player chooses their own character.</p> : <p className="local-note">Share a keyboard: QWE / ASD / ZXC and the number pad. Cast with R and numpad +.</p>}</div>
-        <button className="primary-button start-button" onClick={() => mode === 'online' ? setOnline(true) : setSession(new Session({ characters: [character, opponent], mode, difficulty, seed: crypto.getRandomValues(new Uint32Array(1))[0] }))}>Enter the garden <span>↗</span></button>
+        <button className="primary-button start-button" onClick={start}>Enter the garden <span>↗</span></button>
         <p className="setup-footnote">{mode === 'ai' ? 'Play offline. No account. Just a very determined opponent.' : mode === 'online' ? 'Private invites. No account. One player hosts.' : 'Two players. One computer. A very personal rivalry.'}</p>
       </section>
       <section className="how-to"><div><span>01</span><h3>Whack with care</h3><p>Hit moles before they hide. Empty hits and rabbit hits cost points.</p></div><div><span>02</span><h3>Pocket some magic</h3><p>Collect stars for four spells. Tap the star container or press R to cast.</p></div><div><span>03</span><h3>Outlast your rival</h3><p>Fill the bar to win; first to two rounds wins. Tap the bar or press Escape for controls.</p></div></section>

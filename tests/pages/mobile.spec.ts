@@ -9,9 +9,6 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await page.getByRole('button', { name: /Enter the garden/ }).tap();
   await expect(page.locator('canvas')).toBeVisible();
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
-  await page.getByRole('button', { name: 'Pause', exact: true }).tap();
-  await page.getByRole('button', { name: 'Sound off', exact: true }).tap();
-  await page.getByRole('button', { name: 'Back to the garden' }).tap();
   const board = page.locator('.player-0');
   await expect(page.locator('.player-1')).toHaveCount(0);
   await expect(page.locator('.mobile-opponent')).toHaveCount(0);
@@ -41,7 +38,7 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   }
   expect(errors).toEqual([]);
   expect(assets.every(asset => asset.path.startsWith('/moonlit-battle-garden/assets/'))).toBe(true);
-  for (const file of ['legacy/garden.png', 'characters.png', 'legacy/earth.png', 'legacy/bar-sheet.png', 'legacy/bar-border.png', 'background-castle.png', 'backgroundMusic.mp3', 'starHit.wav']) {
+  for (const file of ['legacy/garden.png', 'characters.png', 'legacy/earth.png', 'legacy/bar-sheet.png', 'legacy/bar-border.png', 'background-castle.png', 'backgroundMusic.mp3', 'sfx/starHit.wav']) {
     expect(assets.some(asset => asset.path.endsWith(`/assets/${file}`) && (asset.status === 200 || asset.status === 206)), file).toBe(true);
   }
 });

@@ -50,7 +50,7 @@ export class Match {
     state.players.forEach((player, id) => {
       player.holes.forEach((target, hole) => {
         if (target && target.expires <= state.time) {
-          if (target.kind === 'mole') this.penalize(id as PlayerId, config.penalties.miss);
+          if (target.kind === 'mole') this.penalize(id as PlayerId, config.penalties.miss, undefined, undefined, 'miss');
           player.holes[hole] = null;
         }
       });
@@ -71,10 +71,10 @@ export class Match {
     if (!Number.isInteger(action.hole) || action.hole < 0 || action.hole >= 9) return;
     const player = this.state.players[action.player];
     const target = player.holes[action.hole];
-    if (!target) this.penalize(action.player, config.penalties.empty);
+    if (!target) this.penalize(action.player, config.penalties.empty, undefined, undefined, 'empty');
     else {
       player.holes[action.hole] = null;
-      if (target.kind === 'rabbit') this.penalize(action.player, config.penalties.rabbit, action.hole, 'rabbit');
+      if (target.kind === 'rabbit') this.penalize(action.player, config.penalties.rabbit, action.hole, 'rabbit', 'rabbit');
       else {
         player.score += config.points[target.kind];
         if (target.kind === 'star') player.stars = Math.min(4, player.stars + 1);
@@ -84,20 +84,20 @@ export class Match {
     this.checkOutcome();
   }
 
-  private penalize(id: PlayerId, amount: number, hole?: number, targetKind?: TargetKind): void {
+  private penalize(id: PlayerId, amount: number, hole?: number, targetKind?: TargetKind, reason?: GameEvent['reason']): void {
     const player = this.state.players[id];
     if (player.mistakeShield > 0 && player.shieldUntil > this.state.time) {
       player.mistakeShield--;
       message(player, 'Guard absorbed a mistake', this.state.time);
-      this.emit(id, 'shield', hole, undefined, targetKind);
+      this.emit(id, 'shield', hole, undefined, targetKind, reason);
     } else {
       player.score -= amount;
-      this.emit(id, 'penalty', hole, undefined, targetKind);
+      this.emit(id, 'penalty', hole, undefined, targetKind, reason);
     }
   }
 
-  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number, tier?: number, targetKind?: TargetKind): void {
-    this.events.push({ id: ++this.eventId, time: this.state.time, round: this.state.round, player, kind, hole, tier, targetKind });
+  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number, tier?: number, targetKind?: TargetKind, reason?: GameEvent['reason']): void {
+    this.events.push({ id: ++this.eventId, time: this.state.time, round: this.state.round, player, kind, hole, tier, targetKind, reason });
     this.events = this.events.slice(-32);
   }
 

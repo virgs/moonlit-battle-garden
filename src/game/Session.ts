@@ -1,10 +1,10 @@
-import { assetUrl } from '../assets/url';
 import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
 import { chooseHome } from './homes';
 import { HomeMusic } from '../presentation/HomeMusic';
-import { presentation } from '../presentation/config';
+import { SoundEffects } from '../presentation/SoundEffects';
+import { takePrimedMusic } from '../presentation/audioGesture';
 import type { GameAction, GameEvent, MatchOptions, MatchState } from './types';
 import { inputAction, localView, type LinkState, type NetworkLink, type Wire } from '../network/protocol';
 
@@ -18,9 +18,7 @@ export class Session {
   private timer: ReturnType<typeof setInterval> | null = null;
   private listeners = new Set<() => void>();
   private snapshot: Snapshot;
-  private sounds: Partial<Record<GameEvent['kind'], HTMLAudioElement>> = {};
-  private castSounds = new Map<string, HTMLAudioElement>();
-  private lastSound = 0;
+  private effects: SoundEffects | null = null;
   private music: HomeMusic | null = null;
   private musicWanted = false;
   muted = true;
@@ -49,18 +47,8 @@ export class Session {
     this.snapshot = this.read();
     if (this.network?.seat === 0 && this.linkState === 'connected') this.network.send({ kind: 'state', snapshot: { state: structuredClone(this.match.state), events: [...this.match.events] } });
     this.syncMusic();
-    if (!this.muted) {
-      for (const event of this.match.events.filter(item => item.id > this.lastSound)) {
-        let sound = this.sounds[event.kind];
-        const clip = event.kind === 'cast' && event.tier ? presentation[this.match.state.players[event.player].character].casts[event.tier] : null;
-        if (clip?.sound) {
-          if (!this.castSounds.has(clip.sound)) { const audio = new Audio(assetUrl(clip.sound)); audio.volume = 0.3; this.castSounds.set(clip.sound, audio); }
-          sound = this.castSounds.get(clip.sound);
-        }
-        if (sound) { sound.currentTime = 0; void sound.play().catch(() => {}); }
-      }
-    }
-    this.lastSound = this.match.events.at(-1)?.id ?? 0;
+    this.effects?.setMuted(this.muted || this.match.state.paused || this.linkState !== 'connected');
+    this.effects?.sync({ state: this.match.state, events: this.match.events });
     this.listeners.forEach(listener => listener());
   }
   start(): void {
@@ -76,8 +64,7 @@ export class Session {
   stop(): void {
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
-    Object.values(this.sounds).forEach(sound => sound.pause());
-    this.castSounds.forEach(sound => sound.pause());
+    this.effects?.dispose();
     this.music?.dispose();
     this.musicWanted = false;
     this.network?.close();
@@ -133,20 +120,13 @@ export class Session {
     if (['playing', 'countdown'].includes(this.match.state.phase)) this.match.state.paused = !this.match.state.paused;
     this.publish();
   }
-  toggleSound(): void {
-    this.muted = !this.muted;
-    if (this.muted) {
-      Object.values(this.sounds).forEach(sound => sound.pause());
-      this.castSounds.forEach(sound => sound.pause());
-    }
-    if (!this.muted && !this.sounds.hit) {
-      this.sounds = {
-        hit: new Audio(assetUrl('/assets/die0.wav')), star: new Audio(assetUrl('/assets/starHit.wav')),
-        penalty: new Audio(assetUrl('/assets/wrongHit.wav')),
-      };
-      Object.values(this.sounds).forEach(sound => { sound.volume = 0.3; sound.load(); });
-      this.music = new HomeMusic(this.home.music);
-    }
+  enableSound(): void {
+    if (!this.effects) { this.effects = new SoundEffects(); this.effects.preload(); this.music = new HomeMusic(this.home.music, takePrimedMusic()); }
+    this.muted = false;
     this.publish();
+  }
+  toggleSound(): void {
+    if (this.muted) { this.enableSound(); return; }
+    this.muted = true; this.publish();
   }
 }

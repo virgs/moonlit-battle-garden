@@ -16,9 +16,6 @@ for (const available of [true, false]) test(`home music uses ${available ? 'the 
     : route.fulfill({ status: 404 }));
   await page.goto('/');
   await page.getByRole('button', { name: /Enter the garden/ }).click();
-  await page.getByRole('button', { name: 'Pause', exact: true }).click();
-  await page.getByRole('button', { name: 'Sound off', exact: true }).click();
-  await page.getByRole('button', { name: 'Back to the garden' }).click();
   const music = () => page.evaluate(() => {
     const elements = (window as Window & { __testAudio?: HTMLAudioElement[] }).__testAudio ?? [];
     const audio = elements.find(item => item.src.includes('/assets/homes/') || item.src.endsWith('/backgroundMusic.mp3'));
