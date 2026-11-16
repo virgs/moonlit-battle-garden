@@ -5,6 +5,9 @@ import { createArenaLayout } from '../render/layout';
 import { ArenaCanvas } from './ArenaCanvas';
 import { Board } from './Board';
 import { ScoreBar } from './ScoreBar';
+import { CastOverlay } from './CastOverlay';
+import { pacingAt } from '../game/pacing';
+import { Portrait } from './Portrait';
 import './match.css';
 
 export function Game({ session, leave }: { session: Session; leave: () => void }) {
@@ -33,13 +36,15 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
     return () => { session.stop(); window.removeEventListener('keydown', keyboard); document.removeEventListener('visibilitychange', visibility); };
   }, [session]);
 
-  return <main className={`match-screen ${layout.single ? 'single-board' : 'two-boards'} ${layout.landscape ? 'landscape-board' : ''} ${session.match.options.mode}`} aria-label="Battle arena" data-home-character={session.home.owner}>
+  const pace = pacingAt(state.time - state.roundStart);
+  return <main className={`match-screen ${layout.single ? 'single-board' : 'two-boards'} ${layout.landscape ? 'landscape-board' : ''} ${session.match.options.mode}`} aria-label="Battle arena" data-home-character={session.home.owner} data-wave={pace.wave} data-wave-phase={pace.phase}>
     <ArenaCanvas session={session} snapshot={snapshot} layout={layout} onLayout={setLayout} />
     <ScoreBar state={state} area={layout.score} />
     <div className="match-hud">
       <nav className="match-toolbar" aria-label="Match controls"><button className="text-button" onClick={leave}>← Change matchup</button><span>ROUND {state.round} <span className="muted">/ FIRST TO TWO</span><small className="home-label">{session.home.name} · {characters[session.home.owner].name}’s home</small></span><div><button className="text-button" onClick={() => session.toggleSound()}>{session.muted ? 'Sound off' : 'Sound on'}</button><button className="text-button" onClick={() => session.togglePause()} disabled={finished}>{state.paused ? 'Resume' : 'Pause'}</button></div></nav>
-      {layout.opponent && <div className="mobile-opponent" style={{ left: layout.opponent.x, top: layout.opponent.y, width: layout.opponent.width, height: layout.opponent.height }}><span>{characters[opponent.character].emblem} {characters[opponent.character].name}</span><strong>{opponent.score} pts</strong><span>{'★'.repeat(opponent.stars)} · {opponent.wins} wins</span></div>}
+      {layout.opponent && <div className="mobile-opponent" style={{ left: layout.opponent.x, top: layout.opponent.y, width: layout.opponent.width, height: layout.opponent.height }}><span className="opponent-name"><span className="mini-avatar"><Portrait character={opponent.character} /></span>{characters[opponent.character].name}</span><strong>{opponent.score} pts</strong><span>{'★'.repeat(opponent.stars)} · {opponent.wins} wins</span></div>}
       {layout.gardens.map(garden => <Board key={garden.id} session={session} snapshot={snapshot} garden={garden} />)}
+      {layout.gardens.map(garden => <CastOverlay key={garden.id} snapshot={snapshot} garden={garden} />)}
       {!layout.single && <div className="versus-label" aria-hidden="true">VS</div>}
     </div>
     {(state.phase === 'countdown' || state.paused || finished) && <div className="match-overlay"><div className="overlay-card">

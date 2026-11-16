@@ -29,11 +29,11 @@ export class GardenScene extends Phaser.Scene {
     this.load.image('garden', '/assets/legacy/garden.png');
     this.load.spritesheet('targets', '/assets/characters.png', { frameWidth: 90, frameHeight: 90 });
     this.load.spritesheet('earth', '/assets/legacy/earth.png', { frameWidth: earthFrameSize, frameHeight: earthFrameSize });
-    this.load.image('home', this.home.background);
+    this.load.image('home', this.home.background.fallback);
   }
   create(): void {
     this.backdrop = this.add.graphics();
-    this.background = this.add.image(0, 0, 'home').setTint(this.home.tint).setAlpha(0.22);
+    this.background = this.add.image(0, 0, 'home').setTint(this.home.background.fallbackTint).setAlpha(this.home.background.fallbackOpacity);
     for (let id = 0; id < 2; id++) {
       this.gardens.push({
         image: this.add.image(0, 0, 'garden').setOrigin(0).setCrop(0, 0, gardenArt.width, rootStripTop),
@@ -45,11 +45,21 @@ export class GardenScene extends Phaser.Scene {
       });
     }
     this.game.canvas.setAttribute('aria-hidden', 'true');
+    this.game.canvas.dataset.homeBackground = this.home.background.fallback;
+    // Load final artwork after the playable scene is ready; a missing optional file
+    // must not hold the loader or delay the countdown.
+    this.load.once('filecomplete-image-home-final', () => {
+      this.background.setTexture('home-final').clearTint().setAlpha(this.home.background.opacity);
+      this.game.canvas.dataset.homeBackground = this.home.background.src;
+      this.lastLayout = null;
+    });
+    this.load.image('home-final', this.home.background.src).start();
   }
   private arrange(layout: ArenaLayout): void {
     const { width, height } = layout;
-    const image = this.textures.get('home').getSourceImage();
-    this.background.setPosition(width / 2, height / 2).setScale(Math.max(width / image.width, height / image.height));
+    const image = this.background.texture.getSourceImage();
+    const scale = Math.max(width / image.width, height / image.height);
+    this.background.setPosition(width / 2 + (0.5 - this.home.background.focusX) * (image.width * scale - width), height / 2 + (0.5 - this.home.background.focusY) * (image.height * scale - height)).setScale(scale);
     this.backdrop.clear().fillStyle(0x10251f).fillRect(0, 0, width, height);
     for (let n = 0; n < 65; n++) {
       this.backdrop.fillStyle(0xd1e58a, 0.1 + (n % 3) * 0.06)

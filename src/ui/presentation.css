@@ -1,0 +1,17 @@
+.portrait { position: relative; display: inline-grid; place-items: center; width: 100%; height: 100%; overflow: hidden; }
+.portrait img { display: block; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.portrait img[hidden] { display: none; }
+.character-emblem { width: 90px; height: 100px; }
+.character-emblem:has(.portrait[data-state=ready]) { opacity: 1; }
+.opponent-name { display: flex; align-items: center; gap: 5px; min-width: 0; }
+.mini-avatar { width: 16px; height: 16px; flex-shrink: 0; }
+.cast-banner { position: absolute; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 5px 12px; pointer-events: none; background: linear-gradient(110deg, #182e25, #30402a); border: 1px solid var(--cast-color); border-radius: 10px; box-shadow: 0 0 18px color-mix(in srgb, var(--cast-color) 35%, transparent); animation: cast-arrive 200ms ease-out both; overflow: hidden; }
+.cast-art { display: block; height: 100%; width: auto; max-width: 30%; flex-shrink: 0; image-rendering: pixelated; }
+.cast-emblem { color: var(--cast-color); font-size: 34px; text-shadow: 0 0 18px var(--cast-color); width: 46px; text-align: center; }
+.cast-caption { min-width: 0; display: grid; gap: 4px; }
+.cast-caption small { color: var(--cast-color); font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cast-caption strong { color: #f1f3dd; font-family: 'Space Grotesk', sans-serif; font-size: clamp(11px, 1.4vw, 19px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cast-banner.paused { animation-play-state: paused; }
+@keyframes cast-arrive { from { filter: brightness(1.25); } to { filter: brightness(1); } }
+@media (max-width: 700px) { .two-boards .cast-banner { gap: 4px; padding: 5px; } .two-boards .cast-caption small { font-size: 7px; } .two-boards .cast-emblem { font-size: 22px; width: 24px; } }
+@media (prefers-reduced-motion: reduce) { .cast-banner { animation: none; } }

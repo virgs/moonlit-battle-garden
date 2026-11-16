@@ -4,7 +4,7 @@
 
 The repository's license is preserved in `MOLECIDE-LICENSE.txt`. Original Dig Hole Battle Garden graphics are credited to Bruno Moraes in its README. Complete per-asset provenance review before a public release; repository presence alone does not establish ownership of every sound or music track.
 
-No PixelLab generations have been made for this prototype. Character portraits remain placeholders. The castle and shared music are temporary home-stage assets; distinct per-character illustrations and soundtracks remain pending. The later root.png/life.png are retained as source references but are no longer rendered.
+No PixelLab generations have been made for this prototype. The final portrait, cast, and home asset slots now have working loaders/playback and safe fallbacks. See [ASSET-CONTRACT.md](ASSET-CONTRACT.md) for the 14 drop-in files and `pnpm assets:check`. The castle and shared music remain fallbacks. The later root.png/life.png are retained as source references but are no longer rendered.
 
 ## Oldest game assets restored
 

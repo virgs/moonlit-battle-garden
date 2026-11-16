@@ -1,12 +1,12 @@
 import type { CharacterId, MatchOptions } from './types';
+import { presentation } from '../presentation/config';
 
-export type CharacterHome = { owner: CharacterId; name: string; tint: number; background: string; music: string };
+export type CharacterHome = { owner: CharacterId } & typeof presentation[CharacterId]['home'];
 
-// Reused scene/music are temporary art-pass assets. Each home has its own identity;
-// unique illustrations and tracks can replace these paths without touching rules.
+// Per-character final paths and fallback assets come from the presentation manifest.
 export const homes: Record<CharacterId, CharacterHome> = {
-  champignon: { owner: 'champignon', name: 'Sporelight Keep', tint: 0xa7d6b0, background: '/assets/background-castle.png', music: '/assets/backgroundMusic.mp3' },
-  andy: { owner: 'andy', name: 'Moonlit Hideout', tint: 0xd5acc9, background: '/assets/background-castle.png', music: '/assets/backgroundMusic.mp3' },
+  champignon: { owner: 'champignon', ...presentation.champignon.home },
+  andy: { owner: 'andy', ...presentation.andy.home },
 };
 
 export function chooseHome(options: MatchOptions): CharacterHome {

@@ -9,7 +9,7 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 - 3×3 gardens, both scores start at zero, winning lead X=100 (configurable), first to two round wins, three-second countdown.
 - Empty hit: −4 points. Rabbit hit: −12. Missed mole: −8. Missing stars/rabbits is safe.
 - Mole hit: 10 score. Star hit: 25 score and one magic star, capped at four. No combos yet.
-- One star every five regular spawns. Regular spawn interval falls from 1150 to 470 ms over 120 seconds. Target lifetime falls from 2100 to 1150 ms.
+- 25-second build/peak/recovery waves over a rising 120-second baseline, with shared natural demand and bounded concurrency. Stars arrive independently at 5/14/22 seconds per wave. See pacing.md and game.yaml.
 - A score lead of at least X ends the round, with no real-time round limit. Simultaneous expiry penalties are resolved together before checking the difference. Ties continue with a centered bar. Scores/stars reset for the next round; round wins persist. The headless runner has a separate 30-minute total simulation cap to catch stalls; it does not award in-game wins.
 - Mouse/touch and original keyboard grids. R/numpad + casts; Escape pauses. Local modes pause on tab hiding.
 - One full-viewport Phaser canvas renders both gardens and the backdrop. React adds HUD and accessible hit areas over the canvas. Match play has no document scrolling or surrounding page header/footer.
@@ -19,8 +19,8 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 - Shared fixed-step simulation with seeded randomness and independent bot randomness; no renderer dependency.
 - Exactly one blue/red round-standing bar, using the oldest original sheet and border with a moving source window and 12 fps frames. Separate health is removed entirely. The bar maps score difference to progress toward X, reaching one color at a winning lead. Numeric scores remain secondary.
 - The oldest board's roots and falling-earth animation follow garden position/scale. Left/right have different earth positions, counts, frame timing, and underground root orientation; the hole anchors remain unchanged.
-- Cosmetic home ownership is chosen from the current characters and stays fixed across rounds. Initial homes use tinted versions of the reused castle background and a shared temporary music track. Unique per-character artwork/music and cast animations remain pending. See presentation.md.
-- Wave pacing was agreed after the initial prototype; the engine still has the linear ramp above. See pacing.md for the accepted wave direction and identical reset across rounds.
+- Cosmetic home ownership is chosen from the current characters and stays fixed across rounds. Distinct home background/music paths, portraits, and cast playback are prepared in presentation.yaml. Missing final files use the reused castle/music and emblem flourishes. Only final files remain for these presentation slots. See presentation.md.
+- Wave scheduling resets identically each round. Natural demand, independent star opportunities, and magical pressure have separate scheduling rules and random streams. See pacing.md.
 
 ## Exact initial spells
 
@@ -35,7 +35,7 @@ Casting consumes the exact current charge, with at least 1800 ms between casts. 
 | Andy 1 | Copy one available enemy star without removing it. Since one star was spent, this does not generate net charge. If no enemy star is available, gain a one-mistake guard instead. |
 | Andy 2 | Add extra rabbits for 7.5 seconds without replacing the normal mole/star spawn schedule. |
 | Andy 3 | Transfer up to two enemy stars, capped at four total. If none are available, gain a one-mistake guard instead. |
-| Andy 4 | Extra rabbits and 25% shorter regular spawn intervals for 8.5 seconds. |
+| Andy 4 | Extra rabbit-heavy magical waves for 8.5 seconds, with a 30% mole chance and bounded magical concurrency. The shared natural clock is unchanged. |
 
 Stronger pressure replaces weaker pressure; identical effects refresh duration rather than multiplying it. Extra rabbits only occupy empty holes. Shields cover missed moles, empty hits, and rabbit hits. Fresh guards replace existing guards rather than accumulating unlimited charges.
 
@@ -45,12 +45,12 @@ Stronger pressure replaces weaker pressure; identical effects refresh duration r
 
 Historical independent-health baseline Champignon win rates: 53% easy, 100% medium, 91% hard. Preserved in `reports/balance-baseline.*`. Medium/hard Andy never used tiers 1, 3, or 4; the first invasion also replaced moles with rabbits, easing an accurate defender's load.
 
-The first bot iteration varied seeded spell-saving thresholds, added resource/ward-aware decisions, and spawned extra rabbits without replacing normal targets. All tiers now receive coverage. The score-difference rules supersede those old health-based results. A new 600-match run gives Champignon 46.5% easy, 71.5% medium, and 95% hard. Balance is unfinished; consult the latest report and do not declare the game balanced.
+The first bot iteration varied seeded spell-saving thresholds, added resource/ward-aware decisions, and spawned extra rabbits without replacing normal targets. All tiers now receive coverage. The score-difference rules supersede those old health-based results. The pre-wave score run gave Champignon 46.5% easy, 71.5% medium, and 95% hard. Wave pacing supersedes that baseline; see balance-latest.md for the current results and unfinished-match diagnostics. Balance is unfinished; consult the latest report and do not declare the game balanced.
 
 ## Pending
 
 - Online authoritative rooms and network timing/disconnect policy.
 - Cached/installable PWA startup and native mobile packaging.
-- Character portraits, richer effects, and PixelLab additions.
+- Final home/portrait/cast files and richer spell effects. The configured playback/fallback pipeline is ready; no PixelLab generation has been done.
 - Final spell/bot balance, input rebinding, physical mobile testing, and release acceptance criteria.
 - Remaining six characters after the initial two-character game is ready.

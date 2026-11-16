@@ -1,6 +1,6 @@
 # Round pacing
 
-Status: direction agreed; wave implementation and final tuning pending.
+Status: implemented; final balance/tuning ongoing.
 
 ## Accepted direction
 
@@ -13,12 +13,20 @@ Status: direction agreed; wave implementation and final tuning pending.
 - Keep randomness bounded by minimum reaction windows and concurrency limits.
 - Stage ownership/background/music do not change pacing.
 
-## Starting proposal to tune
+## Implemented wave
 
-Approximately 25-second waves: 12 seconds of build, 5 seconds near peak, 8 seconds of recovery, with smooth transitions. Each successive wave has a higher baseline, so late-round recovery is harder than the opening. Exact durations and values require playtesting.
+25-second waves: 12 seconds of build, 5 seconds at peak, 8 seconds of recovery. Cubic smoothstep transitions avoid timing jumps at boundaries. A separate 120-second baseline ramp makes later waves harder; round number, score, character, home, and bot difficulty never affect that curve. Every round resets the same natural scheduling seed and curve. Hole-position streams continue so the board layout is not repeated.
 
-Consider scheduling star opportunities separately from ordinary spawns so accelerated play does not automatically accelerate magic charge. Some stars can arrive during recovery and others during pressure.
+Natural intervals start from 1350 ms and ramp toward 780 ms, multiplied by 1.1 in calm periods through 0.68 at peak. Shared ±8% timing jitter is clamped to a 500 ms minimum. Natural lifetimes start from 2200 ms and ramp toward 1500 ms, with calm/peak multipliers 1.08/0.88 and a 1150 ms floor. Deadlines are integer milliseconds to preserve exact round-relative timing.
 
-## Current implementation
+Natural concurrency starts at two targets, grows to four, and allows one extra near peaks. Rabbit probability rises gently from 10% toward 15%, plus at most 3% at peaks; natural rabbit streaks are capped at two. Both players receive the same natural type/time/lifetime offers; only hole placement differs. A player already at their natural concurrency cap may miss an offer until they clear space.
 
-The engine still uses the initial linear 120-second spawn/lifetime ramp and a star every five regular spawns. Its progress already uses round-relative time and resets each round. Do not describe the wave proposal or independent star scheduling as implemented yet. Re-run the offline AI balance suite when this changes.
+Stars have independent opportunities at 5, 14, and 22 seconds inside every wave, with a 2200 ms lifetime and at most one visible star per board. Faster ordinary spawning and magic never change star opportunities.
+
+Magic adds separately scheduled pressure, capped at two magical targets at once. Rabbit Riot adds rabbits; Double Trouble adds rabbit-heavy waves with a 30% mole chance. It no longer advances the shared natural clock. At most five natural targets, two magic targets, and one star can coexist. The ninth hole remains spare. This preserves readable bounds while attacks deliberately add work.
+
+All values live in src/assets/config/game.yaml. SpawnDirector separates shared scheduling randomness, each player's positions, and each player's magical target selection. Cosmetic asset loading cannot perturb these streams. Tests cover phase transitions, minimum windows, concurrency, shared demand, independent stars, and identical reset in later rounds.
+
+## Balance diagnostics
+
+Re-run the seeded tournament after tuning. Long score ties are allowed by the game, so the diagnostic cap records unfinished matches separately and never invents a winner/draw. `pnpm balance --fail-on-cap` enables a strict nonzero exit for such runs. Final balance remains open; see the latest report.

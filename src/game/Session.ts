@@ -2,6 +2,8 @@ import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
 import { chooseHome } from './homes';
+import { HomeMusic } from '../presentation/HomeMusic';
+import { presentation } from '../presentation/config';
 import type { GameAction, GameEvent, MatchOptions, MatchState } from './types';
 
 export type Snapshot = { state: MatchState; events: GameEvent[] };
@@ -15,8 +17,9 @@ export class Session {
   private listeners = new Set<() => void>();
   private snapshot: Snapshot;
   private sounds: Partial<Record<GameEvent['kind'], HTMLAudioElement>> = {};
+  private castSounds = new Map<string, HTMLAudioElement>();
   private lastSound = 0;
-  private music: HTMLAudioElement | null = null;
+  private music: HomeMusic | null = null;
   private musicWanted = false;
   muted = true;
 
@@ -39,9 +42,15 @@ export class Session {
     this.snapshot = this.read();
     this.syncMusic();
     if (!this.muted) {
-      const event = this.match.events.filter(item => item.id > this.lastSound).at(-1);
-      const sound = event && this.sounds[event.kind];
-      if (sound) { sound.currentTime = 0; void sound.play().catch(() => {}); }
+      for (const event of this.match.events.filter(item => item.id > this.lastSound)) {
+        let sound = this.sounds[event.kind];
+        const clip = event.kind === 'cast' && event.tier ? presentation[this.match.state.players[event.player].character].casts[event.tier] : null;
+        if (clip?.sound) {
+          if (!this.castSounds.has(clip.sound)) { const audio = new Audio(clip.sound); audio.volume = 0.3; this.castSounds.set(clip.sound, audio); }
+          sound = this.castSounds.get(clip.sound);
+        }
+        if (sound) { sound.currentTime = 0; void sound.play().catch(() => {}); }
+      }
     }
     this.lastSound = this.match.events.at(-1)?.id ?? 0;
     this.listeners.forEach(listener => listener());
@@ -58,7 +67,8 @@ export class Session {
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
     Object.values(this.sounds).forEach(sound => sound.pause());
-    this.music?.pause();
+    this.castSounds.forEach(sound => sound.pause());
+    this.music?.dispose();
     this.musicWanted = false;
   }
   private syncMusic(): void {
@@ -66,8 +76,7 @@ export class Session {
     const wanted = !this.muted && !state.paused && (state.phase === 'playing' || state.phase === 'countdown');
     if (wanted === this.musicWanted || !this.music) return;
     this.musicWanted = wanted;
-    if (wanted) void this.music.play().catch(() => {});
-    else this.music.pause();
+    this.music.setPlaying(wanted);
   }
   act(action: GameAction): void { this.match.action(action); this.publish(); }
   nextRound(): void { this.match.nextRound(); this.publish(); }
@@ -77,15 +86,17 @@ export class Session {
   }
   toggleSound(): void {
     this.muted = !this.muted;
+    if (this.muted) {
+      Object.values(this.sounds).forEach(sound => sound.pause());
+      this.castSounds.forEach(sound => sound.pause());
+    }
     if (!this.muted && !this.sounds.hit) {
       this.sounds = {
         hit: new Audio('/assets/die0.wav'), star: new Audio('/assets/starHit.wav'),
         penalty: new Audio('/assets/wrongHit.wav'),
       };
       Object.values(this.sounds).forEach(sound => { sound.volume = 0.3; sound.load(); });
-      this.music = new Audio(this.home.music);
-      this.music.loop = true;
-      this.music.volume = 0.12;
+      this.music = new HomeMusic(this.home.music);
     }
     this.publish();
   }

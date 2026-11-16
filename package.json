@@ -10,7 +10,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "e2e": "playwright test",
-    "balance": "vite-node scripts/balance.ts"
+    "balance": "vite-node scripts/balance.ts",
+    "assets:check": "vite-node scripts/check-assets.ts"
   },
   "dependencies": {
     "phaser": "^4.0.0",

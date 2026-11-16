@@ -20,10 +20,12 @@ Every character should eventually own a distinctive background and music track. 
 
 Current default: choose an eligible owner deterministically at match creation using a separate seed hash, and keep that home across the match's rounds. A future online server must announce the chosen home to both clients rather than deriving it from client-local player-side order.
 
-Initial home names are provisional: Sir Champignon's **Sporelight Keep** and Andy's **Moonlit Hideout**. Both currently reuse background-castle.png with different color tints and share backgroundMusic.mp3. These are temporary assets, not completed distinct home illustrations or soundtracks. Backgrounds scale uniformly to cover the viewport, cropping rather than stretching. Music starts only through the Sound control, loops quietly, pauses with the game/round end, and stops on exit or mute.
+Initial home names are provisional: Sir Champignon's **Sporelight Keep** and Andy's **Moonlit Hideout**. Each now has a distinct configured background/music path in src/assets/config/presentation.yaml. Final files are absent; background-castle.png and backgroundMusic.mp3 remain fallbacks. The final background loads asynchronously after the playable scene, then switches in without delaying the countdown. It uses uniform cover scaling with configurable focal cropping and opacity. Home music has its own source, shared fallback, volume, and optional intro/loop segment points. Missing/unsupported audio falls back once; mute, pause, round end, and exit control its lifecycle.
 
-Distinct artwork/music for the two initial characters remains for the asset pass; extend this system to the six remaining characters later.
+Code and browser/audio fallback tests are ready; distinct artwork/music files remain for the asset pass. Extend the same manifest to the other six characters later. See public/assets/ASSET-CONTRACT.md for exact paths and formats.
 
 ## Spell-cast character animation
 
-Character-specific cast animations are desired but explicitly deferred for now. Plan for a recognizable character flourish tied to the spell event. This pass does not generate character animation assets or replace them with claims of finished animations.
+The user authorized implementing the portrait/cast playback pipeline now, with final assets deferred. Portraits load in the lobby and player HUD, falling back to emblems. Each character/tier has its own cast sheet metadata: path, frame size/count/columns, fps, hold duration, and optional sound.
+
+A successful cast emits tier, player, logical time, and round before consuming stars. HUD cameo playback uses that event once, preserves aspect ratio, freezes on pause, clamps the final frame, and ignores old-round events. Reduced motion uses a static pose. The cameo occupies the player header and never covers holes, captures input, delays spells, or stops the simulation. Missing/invalid sheets show a short emblem/spell flourish. Browser tests supply valid/invalid synthetic sheets to verify both paths. Actual portraits and cast art are still absent.

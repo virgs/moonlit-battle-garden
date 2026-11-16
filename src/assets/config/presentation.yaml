@@ -1,0 +1,56 @@
+# Stable drop-in paths. Missing art/music uses the existing prototype fallbacks.
+castDefaults:
+  frameWidth: 128
+  frameHeight: 128
+  frameCount: 8
+  columns: 8
+  fps: 12
+  holdMs: 250
+  sound: null
+characters:
+  champignon:
+    portrait: /assets/characters/champignon/portrait.png
+    home:
+      name: Sporelight Keep
+      background:
+        src: /assets/homes/champignon/background.png
+        fallback: /assets/background-castle.png
+        opacity: 0.42
+        fallbackOpacity: 0.22
+        fallbackTint: 11065008
+        focusX: 0.5
+        focusY: 0.5
+      music:
+        src: /assets/homes/champignon/music.mp3
+        fallback: /assets/backgroundMusic.mp3
+        volume: 0.12
+        loopStartMs: 0
+        loopEndMs: null
+    casts:
+      1: { src: /assets/characters/champignon/cast-1.png }
+      2: { src: /assets/characters/champignon/cast-2.png }
+      3: { src: /assets/characters/champignon/cast-3.png }
+      4: { src: /assets/characters/champignon/cast-4.png }
+  andy:
+    portrait: /assets/characters/andy/portrait.png
+    home:
+      name: Moonlit Hideout
+      background:
+        src: /assets/homes/andy/background.png
+        fallback: /assets/background-castle.png
+        opacity: 0.42
+        fallbackOpacity: 0.22
+        fallbackTint: 14003401
+        focusX: 0.5
+        focusY: 0.5
+      music:
+        src: /assets/homes/andy/music.mp3
+        fallback: /assets/backgroundMusic.mp3
+        volume: 0.12
+        loopStartMs: 0
+        loopEndMs: null
+    casts:
+      1: { src: /assets/characters/andy/cast-1.png }
+      2: { src: /assets/characters/andy/cast-2.png }
+      3: { src: /assets/characters/andy/cast-3.png }
+      4: { src: /assets/characters/andy/cast-4.png }

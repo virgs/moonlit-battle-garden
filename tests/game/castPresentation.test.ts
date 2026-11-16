@@ -1,0 +1,28 @@
+import { expect, it } from 'vitest';
+import { Match } from '../../src/game/Match';
+import { config } from '../../src/game/config';
+import { presentation, clipDuration, clipFrame, validSheet } from '../../src/presentation/config';
+
+it('captures the tier and logical time before consuming stars, once per successful cast', () => {
+  for (const character of ['champignon', 'andy'] as const) for (const tier of [1, 2, 3, 4]) {
+    const match = new Match({ characters: [character, 'andy'], mode: 'local', difficulty: 'easy', seed: 42 });
+    match.advance(config.countdownMs);
+    match.state.players[0].stars = tier;
+    match.action({ type: 'cast', player: 0 });
+    expect(match.events.at(-1)).toMatchObject({ kind: 'cast', player: 0, time: match.state.time, round: 1, tier });
+    match.state.players[0].stars = tier;
+    match.action({ type: 'cast', player: 0 });
+    expect(match.events.filter(event => event.kind === 'cast')).toHaveLength(1);
+    const before = match.state.time; match.advance(500);
+    expect(match.state.time).toBe(before + 500);
+  }
+});
+it('supports grid sprite sheets, clamps the final frame, and honors reduced motion', () => {
+  const clip = { ...presentation.andy.casts[1], columns: 4 };
+  expect(validSheet(clip, 512, 256)).toBe(true);
+  expect(validSheet(clip, 128, 128)).toBe(false);
+  expect(clipFrame(clip, 0)).toBe(0);
+  expect(clipFrame(clip, 200)).toBeGreaterThan(0);
+  expect(clipFrame(clip, clipDuration(clip))).toBe(clip.frameCount - 1);
+  expect(clipFrame(clip, 200, true)).toBe(0);
+});

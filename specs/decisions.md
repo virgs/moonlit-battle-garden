@@ -25,12 +25,13 @@ This file records the discussion's current state. An accepted concept is not a c
 | D15 | Matches use one canvas filling the viewport; all interface elements are HUD overlays. Preserve sprite aspect ratios; distribute/reposition gardens and HUDs on resize rather than stretching artwork. |
 | D16 | The local player is always on the left against AI or online opponents; same-computer Player 1 is always left. There is no side selector. A single visible mobile board represents the local player. Future online transport must map local identity to this presentation independently of network seat. |
 | D17 | Sprite feet and hit areas must share measured source-art hole anchors at every viewport size. |
-| D18 | Within each round, pacing rises gradually with waves of pressure and recovery. Every round restarts the same curve; round number and match score add no difficulty. See pacing.md; waves remain pending implementation. |
+| D18 | Within each round, pacing rises gradually with waves of pressure and recovery. Every round restarts the same curve; round number and match score add no difficulty. See pacing.md; waves are now implemented. |
 | D19 | Restore the animated shared blue/red top bar. Numeric points are optional secondary information. The bar represents score difference; a lead of X ends the round and fills one color. Tied scores center it. |
 | D20 | Restore dust/root decoration attached to boards. Each character should have a cosmetic home background and music; a match's home belongs to one of its participating characters. |
-| D21 | Character-specific spell-cast animations are wanted, but deferred until the character animation/art pass. |
+| D21 | Character-specific cast art remains for the asset pass; portrait/cast playback code is now implemented per D24. |
 | D22 | Use the oldest version's actual bar/earth/board assets and animation behavior. Show exactly one shared bar; remove individual health meters. Root/earth placement must differ between boards while staying attached during resize. |
 | D23 | User clarified: scores are the only competitive resource. Equal scores center the bar; a lead of X fills it and wins the round. No separate health pool or old linked-life mechanic. X=100 is a provisional configurable default. |
+| D24 | Implement wave pacing and prepare distinct home backgrounds/music, portraits, and per-tier cast playback so only final asset files are needed. No final art/music generation requested in this pass. |
 
 ## Current proposals, not yet confirmed
 

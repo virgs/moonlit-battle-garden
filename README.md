@@ -19,11 +19,11 @@ Choose Sir Champignon or Andy, then play against an easy/medium/hard computer op
 
 Matches use one full-screen canvas with a HUD overlay. Artwork scales uniformly, with sprites and hit areas anchored to the actual holes. Desktop shows both gardens with you always on the left; same-computer Player 1 is always left. Mobile AI mode shows your garden and compact opponent status, with side HUDs in landscape. Local two-human mode keeps both gardens side by side on narrow screens.
 
-A single animated blue/red bar shows score difference, with blue on your side. Ties center it; reaching a lead of X points wins the round and fills one color (X=100 for now). Hits earn points and mistakes subtract points; there is no health pool. Dust/root effects move with each board. Matches choose one participating character's cosmetic home; current homes reuse tinted castle artwork and a shared music track. Enable music and SFX with the Sound control. Distinct character backgrounds, music, and spell-cast animations are still part of the upcoming art pass.
+A single animated blue/red bar shows score difference, with blue on your side. Ties center it; reaching a lead of X points wins the round and fills one color (X=100 for now). Hits earn points and mistakes subtract points; there is no health pool. Dust/root effects move with each board. Matches choose one participating character's cosmetic home; current homes reuse tinted castle artwork and a shared music track. Enable music and SFX with the Sound control. Each character has configured drop-in home backgrounds/music, portraits, and per-tier cast sheets; the playback/fallback code is ready and final files remain for the art pass. See [asset contract](public/assets/ASSET-CONTRACT.md).
 
 ## Current milestone
 
-Playable local/AI prototype using the original mole, rabbit, star, and garden artwork. Both initial characters have four spells, with early balance values in `src/assets/config/game.yaml`. Character portraits are placeholders. Online rooms, installable/offline-cached PWA delivery, native packaging, and six remaining characters are not implemented yet. A local server is currently required to load the game; loaded local/AI matches do not require an external service.
+Playable local/AI prototype using the original mole, rabbit, star, and garden artwork. Both initial characters have four spells, with early balance values in `src/assets/config/game.yaml`. Missing portraits/cast sheets use emblem fallbacks. Pacing runs in shared build/peak/recovery waves that restart identically each round, with independent stars and concurrency limits. Online rooms, installable/offline-cached PWA delivery, native packaging, and six remaining characters are not implemented yet. A local server is currently required to load the game; loaded local/AI matches do not require an external service.
 
 Stack: TypeScript, React, Phaser, Vite, pnpm, Vitest, and Playwright. Phaser loads when entering a match. Rules and bots run independently of rendering so the simulation can later run on an authoritative server.
 
@@ -35,9 +35,10 @@ pnpm build
 pnpm exec playwright install chromium
 pnpm e2e
 pnpm balance --seeds=100 --seed=20261116
+pnpm assets:check
 ```
 
-The balance command runs 600 best-of-three AI matches: 100 seeds, both player-side assignments, and three same-difficulty pairings. Reports include wins, draws, match duration, tier-by-tier cast coverage, and per-match JSON. These are diagnostics, not a claim that human play is balanced. See [latest results](reports/balance-latest.md).
+The balance command runs 600 best-of-three AI matches: 100 seeds, both player-side assignments, and three same-difficulty pairings. Reports include wins, draws, match duration, tier-by-tier cast coverage, and per-match JSON. Unfinished matches at the diagnostic cap are reported separately; --fail-on-cap makes them a strict failure. These are diagnostics, not a claim that human play is balanced. See [latest results](reports/balance-latest.md).
 
 ## Specifications
 
@@ -45,8 +46,8 @@ The balance command runs 600 best-of-three AI matches: 100 seeds, both player-si
 - [Game specification](specs/game.md): match rules, modes, presentation, AI, and technical direction.
 - [Characters and magic](specs/characters.md): adopted roster and initial spell designs.
 - [Prototype rules](specs/prototype.md): actual behavior, provisional tuning, and balance findings.
-- [Round pacing](specs/pacing.md): agreed wave direction and identical difficulty reset each round; implementation pending.
-- [Presentation](specs/presentation.md): shared bar, board effects, character homes, and deferred cast animations.
+- [Round pacing](specs/pacing.md): implemented pressure/recovery waves, independent stars, and identical reset each round.
+- [Presentation](specs/presentation.md): shared bar, board effects, asset-ready character homes, portraits, and cast playback.
 - [Implementation audit](specs/status.md): what works, what is missing, and the confirmed score-difference win rule.
 
 Preserve agreed decisions across chats; update these files when behavior or decisions change. Distinguish implementation defaults from confirmed requirements.

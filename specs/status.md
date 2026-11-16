@@ -10,17 +10,17 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 - Original board artwork and falling earth aligned at board-local coordinates. Different earth counts, positions, and animation phases on the two boards; the opponent's underground root strip is mirrored without moving its holes.
 - Cosmetic home selection constrained to the participating characters, and sound/mute/pause lifecycle.
 - Repeatable seeded offline AI tournaments, swapped sides, per-difficulty win reports, and spell-use coverage.
+- Rising 25-second pressure/recovery waves, identical natural demand/reset between players and rounds, independent star opportunities, and explicit concurrency/reaction-window bounds.
+- Asset-ready presentation manifest: character portraits in selection/player/opponent HUDs; per-tier cast sheets with event-driven playback; per-home background/music loading, focal cropping, volume/loop points, and fallbacks. Browser tests exercise valid and invalid temporary images. See public/assets/ASSET-CONTRACT.md.
 
 ## Missing from the initial two-character game
 
 | Priority | Feature | Current gap |
 | --- | --- | --- |
-| 1 | Pressure/recovery wave pacing | Still the linear spawn/lifetime ramp, with stars every fifth regular spawn. Smooth rising waves, explicit concurrency bounds, shared natural-pressure scheduling, and independent star opportunities remain to implement/tune. Round-relative difficulty already resets each round. |
-| 2 | Online 1v1 | No authoritative server/rooms, invite flow, action validation, latency policy, reconnect/disconnect handling, or cross-device online sessions yet. |
-| 3 | Balance | The harness exists, but balance is unfinished. Latest score-difference run gave Champignon 46.5% easy, 71.5% medium, and 95% hard. Repeat after pacing/magic changes, examine bot-policy bias, then validate human keyboard/mouse/touch play. Faster enemy spawning can also feed points to an accurate opponent under the new score model; attack spells need explicit evaluation. |
-| 4 | Distinct character homes | Home ownership works; both characters still use the castle illustration with different tints and the same temporary music. Each needs distinct final art and music. |
-| 5 | Installable/offline mobile delivery | Responsive browser play works; cached startup/PWA installation and physical mobile QA remain. Native packaging/store delivery is a later option, not implemented. |
-| 6 | Character presentation | Character portraits are still emblems. Character-specific spell-cast animations are explicitly deferred; distinct spell audiovisual effects remain an art/polish task. |
+| 1 | Online 1v1 | No authoritative server/rooms, invite flow, action validation, latency policy, reconnect/disconnect handling, or cross-device online sessions yet. |
+| 2 | Balance | The harness exists, but balance is unfinished. Current wave run: Champignon wins 112/200 easy, 130/200 medium, 172/200 hard; Andy wins 88/70/22, with six hard matches unfinished at the diagnostic cap. Tune pacing/magic, examine bot-policy bias and long ties, then validate human keyboard/mouse/touch play. |
+| 3 | Final presentation files | Code is ready; 14 final files remain: two home backgrounds, two home music tracks, two portraits, and eight tier-specific cast sheets. They drop into stable configured paths; missing assets use current fallbacks. Richer spell effects can be added later. |
+| 4 | Installable/offline mobile delivery | Responsive browser play works; cached startup/PWA installation and physical mobile QA remain. Native packaging/store delivery is a later option, not implemented. |
 
 ## Confirmed round mechanic
 
