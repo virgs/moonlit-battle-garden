@@ -32,13 +32,14 @@ This file records the discussion's current state. An accepted concept is not a c
 | D22 | Use the oldest version's actual bar/earth/board assets and animation behavior. Show exactly one shared bar; remove individual health meters. Root/earth placement must differ between boards while staying attached during resize. |
 | D23 | User clarified: scores are the only competitive resource. Equal scores center the bar; a lead of X fills it and wins the round. No separate health pool or old linked-life mechanic. X=100 is a provisional configurable default. |
 | D24 | Implement wave pacing and prepare distinct home backgrounds/music, portraits, and per-tier cast playback so only final asset files are needed. No final art/music generation requested in this pass. |
+| D25 | Online matches use one player’s browser as host over WebRTC. No dedicated gameplay server; cheating resistance is not a priority. Hosted signaling and optional relays are connection infrastructure. Host exit ends the match. |
 
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
 - 3×3 boards and best-of-three matches. Victory uses the user-confirmed score-difference threshold, not health.
 - Four collectible stars maximum; one cast button uses the spell matching the current star count and consumes those stars.
-- PartyServer on Cloudflare Durable Objects, with one authoritative room per online match. This is the recommended backend, not a finalized hosting decision.
+- The earlier PartyServer backend proposal is superseded by D25. Private invites use PeerJS signaling and player-hosted WebRTC matches; no gameplay backend is deployed.
 - Installable mobile browser game/PWA first; native store packaging later if requested.
 - Desktop shows both boards; mobile includes a compact opponent status strip.
 - Safe automatic clearing, readable spell warnings, limits on overlapping disruption, and distinct tactical roles for each spell tier. Exact rules remain to be specified.
@@ -50,14 +51,14 @@ This file records the discussion's current state. An accepted concept is not a c
 3. Tune the winning score difference X, point awards/penalties, and spawn progression.
 4. Detail the first two characters' spells: durations, targeting, rewards, damage, counters, stacking, and star-steal behavior.
 5. Decide input bindings, mouse/touch support, simultaneous hits, and cross-device competitive policy.
-6. Confirm online backend and initial online flow (suggested: private invite rooms), disconnect handling, and timing tolerance.
+6. Internet/mobile network playtesting, relay provisioning if needed, and competitive latency tuning. Private invites, 30-second reconnect grace, and host-exit behavior are implemented; see online.md.
 7. Confirm mobile delivery scope and minimum supported screen sizes/orientations.
 8. Define the completion criteria for the two-character release before expanding the roster.
 9. Score-difference semantics are now confirmed; X remains a provisional tuning value.
 
 ## Implementation status
 
-Local and AI play are implemented. See prototype.md for exact defaults and known imbalance. Balance runs use the real simulation, paired seeds, swapped sides, and tier-by-tier spell coverage. Online and PWA delivery remain pending.
+Local and AI play are implemented. See prototype.md for exact defaults and known imbalance. Balance runs use the real simulation, paired seeds, swapped sides, and tier-by-tier spell coverage. Private player-hosted online matches are implemented; real cross-network QA, optional relay provisioning, and PWA delivery remain pending.
 
 See status.md for the complete implementation audit and presentation.md for verified details from the oldest source code.
 

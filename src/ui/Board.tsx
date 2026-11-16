@@ -14,8 +14,9 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
   const player = snapshot.state.players[id];
   const character = characters[player.character];
   const bot = id === 1 && session.match.options.mode === 'ai';
+  const remote = id === 1 && session.match.options.mode === 'online';
   const spell = character.spells[Math.max(0, player.stars - 1)];
-  const playing = snapshot.state.phase === 'playing' && !snapshot.state.paused;
+  const playing = snapshot.state.phase === 'playing' && !snapshot.state.paused && (!snapshot.network || snapshot.network.status === 'connected');
   const active = player.invasionUntil > snapshot.state.time || player.decoysUntil > snapshot.state.time;
   const shield = player.mistakeShield > 0 && player.shieldUntil > snapshot.state.time;
   const ward = player.magicShieldUntil > snapshot.state.time;
@@ -26,21 +27,21 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
     <div className="player-summary" style={position(garden.header)}>
       <header className="player-header">
         <div className={`avatar ${player.character}`} aria-hidden="true"><Portrait character={player.character} /></div>
-        <div className="player-name"><span className="eyebrow">{bot ? `${session.match.options.difficulty} CPU` : `Player ${id + 1}`}</span><h2>{character.name}</h2></div>
+        <div className="player-name"><span className="eyebrow">{bot ? `${session.match.options.difficulty} CPU` : remote ? 'Online rival' : session.match.options.mode === 'online' ? 'You' : `Player ${id + 1}`}</span><h2>{character.name}</h2></div>
         <div className="round-wins" aria-label={`${player.wins} rounds won`}>{[0, 1].map(n => <span key={n} className={n < player.wins ? 'won' : ''}>◆</span>)}</div>
       </header>
       <div className="vitals"><strong className="score" aria-label={`${id === 0 ? 'Your' : 'Opponent'} score`} data-score={player.score}>{player.score.toLocaleString()}<small> points</small></strong></div>
     </div>
     <div className="hole-controls">{player.holes.map((target, hole) => <button
       key={hole} type="button" className="hole" aria-label={`${target?.kind ?? 'Empty'} hole ${hole + 1}`}
-      style={position(garden.holes[hole].hit)} data-kind={target?.kind ?? 'empty'} disabled={!playing || bot}
+      style={position(garden.holes[hole].hit)} data-kind={target?.kind ?? 'empty'} disabled={!playing || bot || remote}
       onPointerDown={event => { if (event.button === 0) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
       onKeyDown={event => { if ((event.key === 'Enter' || event.key === ' ') && !event.repeat) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
-    ><span className="keycap">{keys[id][hole]}</span></button>)}</div>
+    ><span className="keycap">{remote ? '' : keys[id][hole]}</span></button>)}</div>
     <div className="effect-tags" style={{ left: garden.x, top: garden.y + garden.height - 24, width: garden.width }}>{shield && <span>◇ Guard ×{player.mistakeShield}</span>}{ward && <span>✧ Spore Ward</span>}{active && <span className="bad">Rabbit invasion</span>}</div>
     <div className="magic-panel" style={position(garden.footer)}>
       <div className="magic-meter"><span className="eyebrow">Magic charge</span><span className="stars" aria-label={`${player.stars} stars`}>{[0, 1, 2, 3].map(n => <span key={n} className={n < player.stars ? 'charged' : ''}>★</span>)}</span></div>
-      <button className="cast-button" title={player.stars ? spell.description : 'Collect golden stars to charge magic'} disabled={!playing || bot || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}><span>{player.stars ? spell.name : 'Collect stars to cast'}</span><kbd>{id === 0 ? 'R' : '+'}</kbd></button>
+      <button className="cast-button" title={player.stars ? spell.description : 'Collect golden stars to charge magic'} disabled={!playing || bot || remote || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}><span>{player.stars ? spell.name : 'Collect stars to cast'}</span><kbd>{id === 0 ? 'R' : '+'}</kbd></button>
       <p className="spell-description">{player.stars ? spell.description : 'Hit golden stars. Save for stronger magic, or cast early.'}</p>
       <div className="board-message" role="status">{player.messageUntil > snapshot.state.time ? player.message : `Wave ${pace.wave} · ${phaseLabel}`}</div>
     </div>

@@ -9,7 +9,7 @@ pnpm install
 pnpm dev
 ```
 
-Choose Sir Champignon or Andy, then play against an easy/medium/hard computer opponent or a second human on the same computer. First to two round wins takes the match.
+Choose Sir Champignon or Andy, then play against an easy/medium/hard computer opponent, a second human on the same computer, or an online rival by invite. First to two round wins takes the match.
 
 - Player 1: QWE / ASD / ZXC. Cast with R.
 - Player 2: numpad 789 / 456 / 123. Cast with numpad +.
@@ -17,15 +17,25 @@ Choose Sir Champignon or Andy, then play against an easy/medium/hard computer op
 - Escape pauses. Local games also pause when the tab is hidden.
 - Hit moles and stars; avoid rabbits and empty holes. Collect up to four stars. The exact current star count selects your spell; casting consumes the charge.
 
-Matches use one full-screen canvas with a HUD overlay. Artwork scales uniformly, with sprites and hit areas anchored to the actual holes. Desktop shows both gardens with you always on the left; same-computer Player 1 is always left. Mobile AI mode shows your garden and compact opponent status, with side HUDs in landscape. Local two-human mode keeps both gardens side by side on narrow screens.
+Matches use one full-screen canvas with a HUD overlay. Artwork scales uniformly, with sprites and hit areas anchored to the actual holes. Desktop shows both gardens with you always on the left; same-computer Player 1 is always left. Mobile AI/online mode shows your garden and compact opponent status, with side HUDs in landscape. Local two-human mode keeps both gardens side by side on narrow screens.
 
 A single animated blue/red bar shows score difference, with blue on your side. Ties center it; reaching a lead of X points wins the round and fills one color (X=100 for now). Hits earn points and mistakes subtract points; there is no health pool. Dust/root effects move with each board. Matches choose one participating character's cosmetic home; current homes reuse tinted castle artwork and a shared music track. Enable music and SFX with the Sound control. Each character has configured drop-in home backgrounds/music, portraits, and per-tier cast sheets; the playback/fallback code is ready and final files remain for the art pass. See [asset contract](public/assets/ASSET-CONTRACT.md).
 
 ## Current milestone
 
-Playable local/AI prototype using the original mole, rabbit, star, and garden artwork. Both initial characters have four spells, with early balance values in `src/assets/config/game.yaml`. Missing portraits/cast sheets use emblem fallbacks. Pacing runs in shared build/peak/recovery waves that restart identically each round, with independent stars and concurrency limits. Online rooms, installable/offline-cached PWA delivery, native packaging, and six remaining characters are not implemented yet. A local server is currently required to load the game; loaded local/AI matches do not require an external service.
+Playable local/AI prototype using the original mole, rabbit, star, and garden artwork. Both initial characters have four spells, with early balance values in `src/assets/config/game.yaml`. Missing portraits/cast sheets use emblem fallbacks. Pacing runs in shared build/peak/recovery waves that restart identically each round, with independent stars and concurrency limits. Private player-hosted online matches are implemented. Installable/offline-cached PWA delivery, native packaging, and six remaining characters are not implemented yet. A local server is currently required to load the game; loaded local/AI matches do not require an external service.
 
-Stack: TypeScript, React, Phaser, Vite, pnpm, Vitest, and Playwright. Phaser loads when entering a match. Rules and bots run independently of rendering so the simulation can later run on an authoritative server.
+Stack: TypeScript, React, Phaser, Vite, pnpm, Vitest, and Playwright. Phaser loads when entering a match. Rules and bots run independently of rendering with the same simulation used by local play, AI diagnostics, and the hosting browser.
+
+## Online play without a game server
+
+Choose **Online rival → Enter the garden → Create online garden**, then share the invite link. Your friend opens it, chooses their character and joins. Both players see themselves on the left (or on their own single mobile board). Only the creator runs the simulation; the other browser sends hit/cast inputs. Scores, targets, magic, round outcomes and pauses come from the host. Mouse, touch and QWE/ASD/ZXC + R work for your own board.
+
+The static site can be deployed over HTTPS. There is no dedicated gameplay backend, account system, or matchmaking service. PeerJS Cloud provides signaling by default; WebRTC carries gameplay directly between browsers. Some mobile/corporate networks require a TURN relay. No managed relay is configured yet, so connections on those networks can fail. Optional signaling/ICE overrides are documented in `.env.example`; browser configuration is public and must not contain permanent TURN secrets. See [online architecture](specs/online.md).
+
+Either player can pause/resume or start the next round. Hiding a game tab requests a shared pause. Brief link interruptions freeze play and retry for up to 30 seconds with the same browser identity; recovered games wait for Resume. Leaving, reloading, or closing the host ends the match. There is no host migration or recovery across a page refresh. Guest inputs use target IDs so delayed clicks cannot hit a replacement mole; there is no rollback/prediction and the host retains a latency advantage.
+
+Browser tests use a **local-only** PeerServer on port 9000 and an isolated Vite preview on 4174. They exercise real RTC data channels between browser contexts without relying on public signaling. These are test processes, not a required deployment backend. Local/AI play never contacts PeerJS.
 
 ## Checks and AI balance
 
@@ -48,6 +58,7 @@ The balance command runs 600 best-of-three AI matches: 100 seeds, both player-si
 - [Prototype rules](specs/prototype.md): actual behavior, provisional tuning, and balance findings.
 - [Round pacing](specs/pacing.md): implemented pressure/recovery waves, independent stars, and identical reset each round.
 - [Presentation](specs/presentation.md): shared bar, board effects, asset-ready character homes, portraits, and cast playback.
+- [Online architecture](specs/online.md): player-hosted matches, signaling/relay configuration, reconnect behavior and limits.
 - [Implementation audit](specs/status.md): what works, what is missing, and the confirmed score-difference win rule.
 
 Preserve agreed decisions across chats; update these files when behavior or decisions change. Distinguish implementation defaults from confirmed requirements.

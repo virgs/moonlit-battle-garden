@@ -15,12 +15,12 @@ Proposed magic economy: collectible stars charge a meter capped at four. Casting
 | Mode | Presentation | Connection |
 | --- | --- | --- |
 | Local human versus human | Two boards on one computer | Offline |
-| Online human versus human | Proposed two-board desktop layout; own board on mobile | Online |
+| Online human versus human | Two-board desktop layout; own board on mobile | Online |
 | Human versus AI | Device-appropriate layout | Offline supported |
 
 Mobile must prioritize large touch targets and the player's board, score, stars, and casting control. Proposed opponent strip: portrait, score, stars, and rounds won. Cross-device matches are intended; input fairness needs playtesting and a policy decision.
 
-Matches fill the viewport with one canvas; menus, status, controls, and pause/results UI are HUD overlays. Preserve image proportions with uniform scaling and responsive positioning. Sprite feet and hit areas share measured source-art anchors. On two-board views, the local player is always left, and same-computer Player 1 is always left. No side selector is needed. Future online transport must map server player identity into this local presentation. Single-board mobile views show the local player; phone landscape can place HUDs beside the board to keep targets large.
+Matches fill the viewport with one canvas; menus, status, controls, and pause/results UI are HUD overlays. Preserve image proportions with uniform scaling and responsive positioning. Sprite feet and hit areas share measured source-art anchors. On two-board views, the local player is always left, and same-computer Player 1 is always left. No side selector is needed. Online transport maps network seat into this local presentation. Single-board mobile views show the local player; phone landscape can place HUDs beside the board to keep targets large.
 
 Original direct keyboard layout is a starting proposal: QWE/ASD/ZXC for one player and numpad 789/456/123 for the other. Casting keys, rebinding, mouse, gamepad, and touch details are not finalized. Keyboard-mapping shuffle is excluded.
 
@@ -40,9 +40,9 @@ Proposed fairness constraints: bots react only after targets become visible, obe
 
 Frontend: TypeScript, React, Phaser, Vite, pnpm; follow shinobi-arena's tooling conventions, including Vitest and Playwright where appropriate. React handles menus/room screens; Phaser handles board rendering, animation, and effects. No physics requirement has been identified.
 
-Proposed architecture: a shared TypeScript rules simulation independent of rendering. Offline modes run locally. Online matches run the rules on an authoritative server, with clients sending hit/cast actions. Render feedback locally while reconciling authoritative results. Server owns spawns, legal hits, scores, spell effects, and outcomes. Timing tolerance must account for network latency without blindly trusting client timestamps.
+Implemented architecture: shared TypeScript rules independent of rendering/networking. Local/AI matches run locally. Online matches run the same rules in the creator's browser; the guest sends target-identified hit/cast inputs and receives authoritative snapshots. Each client maps its own seat to the left. No cheating protection or dedicated gameplay server is required by the user.
 
-Recommended online infrastructure: PartyServer with Cloudflare Durable Objects, one room per match. Start with private invite rooms. Backend selection is still open. Networking services must not be required for local or AI matches.
+PeerJS Cloud signaling is the default; WebRTC data channels carry gameplay. Optional ICE overrides allow a managed TURN relay on networks where direct connection fails. Private invite links, version/config checks, two-player capacity, synchronized pause/round changes, heartbeat/latency feedback and 30-second reconnect grace are implemented. Host exit ends the match; no host migration or refresh recovery. See online.md for exact behavior and known limits. Networking services are never required for local/AI modes.
 
 Recommended mobile delivery: responsive browser game with PWA installation and offline caching. Native packaging is a later decision.
 
@@ -62,4 +62,4 @@ PixelLab fills specific asset gaps after the initial character and spell require
 
 ## Delivery scope
 
-First release focuses on two characters with complete magic kits, local versus, online versus, mobile presentation, and three AI difficulties. Exact release checks and sequencing are still open. Keep the other six character concepts documented for expansion after this version is ready. Local/AI play is now implemented; see prototype.md for actual defaults. Offline AI self-play at all three difficulties is required to evaluate balance. Online and PWA delivery remain pending.
+First release focuses on two characters with complete magic kits, local versus, online versus, mobile presentation, and three AI difficulties. Exact release checks and sequencing are still open. Keep the other six character concepts documented for expansion after this version is ready. Local/AI play is now implemented; see prototype.md for actual defaults. Offline AI self-play at all three difficulties is required to evaluate balance. Private online play is implemented; cross-network/mobile QA, optional relay provisioning, and PWA delivery remain pending.

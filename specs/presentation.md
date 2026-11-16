@@ -18,7 +18,7 @@ Fase.cpp places boards at (50,200)/(450,200) and earth at (110,560), (610,560), 
 
 Every character should eventually own a distinctive background and music track. A match's stage always belongs to one of the current participating characters and is purely cosmetic: no change to rules, pacing, spell strength, AI difficulty, score, or hit geometry.
 
-Current default: choose an eligible owner deterministically at match creation using a separate seed hash, and keep that home across the match's rounds. A future online server must announce the chosen home to both clients rather than deriving it from client-local player-side order.
+Current default: choose an eligible owner deterministically at match creation using a separate seed hash, and keep that home across the match's rounds. The online host announces raw match options to both clients; the shared seed and raw character order select the same home before local-side remapping.
 
 Initial home names are provisional: Sir Champignon's **Sporelight Keep** and Andy's **Moonlit Hideout**. Each now has a distinct configured background/music path in src/assets/config/presentation.yaml. Final files are absent; background-castle.png and backgroundMusic.mp3 remain fallbacks. The final background loads asynchronously after the playable scene, then switches in without delaying the countdown. It uses uniform cover scaling with configurable focal cropping and opacity. Home music has its own source, shared fallback, volume, and optional intro/loop segment points. Missing/unsupported audio falls back once; mute, pause, round end, and exit control its lifecycle.
 
