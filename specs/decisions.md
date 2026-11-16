@@ -37,6 +37,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D27 | User explicitly authorized making virgs/moonlit-battle-garden public and publishing its static website on GitHub Pages. Pages is enabled with automatic deployment from main. |
 | D28 | Continue committing/pushing without waiting for each deployment. The user will request published-build testing when desired. |
 | D29 | Restore original star/container and trophy artwork/animations. Board-base green is replaced by left blue/right red; trophies fade in and spin at round victory and persist below each side of the shared bar as round-win counts. |
+| D30 | Minimal active-play HUD: shared bar, outer-end names, boards, trophies and original vertical star containers only; horizontal stars may be used in narrow portrait layouts. Hide permanent character/score panels, spell names/descriptions and wave text. Tap stars to cast; tap the bar/Escape to access paused controls. |
 
 ## Current proposals, not yet confirmed
 
@@ -45,7 +46,7 @@ This file records the discussion's current state. An accepted concept is not a c
 - Four collectible stars maximum; one cast button uses the spell matching the current star count and consumes those stars.
 - The earlier PartyServer backend proposal is superseded by D25. Private invites use PeerJS signaling and player-hosted WebRTC matches; no gameplay backend is deployed.
 - Mobile delivery is the ordinary browser website per D26. PWA/native packaging is deferred.
-- Desktop shows both boards; mobile includes a compact opponent status strip.
+- Desktop shows both boards; D30 removes the mobile opponent statistics strip in favor of the shared bar/names/trophies.
 - Safe automatic clearing, readable spell warnings, limits on overlapping disruption, and distinct tactical roles for each spell tier. Exact rules remain to be specified.
 
 ## Open before implementation

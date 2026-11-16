@@ -18,7 +18,7 @@ Proposed magic economy: collectible stars charge a meter capped at four. Casting
 | Online human versus human | Two-board desktop layout; own board on mobile | Online |
 | Human versus AI | Device-appropriate layout | Offline supported |
 
-Mobile must prioritize large touch targets and the player's board, score, stars, and casting control. Proposed opponent strip: portrait, score, stars, and rounds won. Cross-device matches are intended; input fairness needs playtesting and a policy decision.
+Mobile must prioritize large touch targets and the player's board, score, stars, and casting control. D30 removes the opponent statistics strip; the shared bar and per-side trophies represent both players. Cross-device matches are intended; input fairness needs playtesting and a policy decision.
 
 Matches fill the viewport with one canvas; menus, status, controls, and pause/results UI are HUD overlays. Preserve image proportions with uniform scaling and responsive positioning. Sprite feet and hit areas share measured source-art anchors. On two-board views, the local player is always left, and same-computer Player 1 is always left. No side selector is needed. Online transport maps network seat into this local presentation. Single-board mobile views show the local player; phone landscape can place HUDs beside the board to keep targets large.
 
@@ -44,7 +44,7 @@ Implemented architecture: shared TypeScript rules independent of rendering/netwo
 
 PeerJS Cloud signaling is the default; WebRTC data channels carry gameplay. Optional ICE overrides allow a managed TURN relay on networks where direct connection fails. Private invite links, version/config checks, two-player capacity, synchronized pause/round changes, heartbeat/latency feedback and 30-second reconnect grace are implemented. Host exit ends the match; no host migration or refresh recovery. See online.md for exact behavior and known limits. Networking services are never required for local/AI modes.
 
-Confirmed mobile delivery: responsive browser website, hosted on GitHub Pages. PWA installation/offline caching and native packaging are deferred. Phone players tap holes and the dedicated Cast button; the star meter is informational.
+Confirmed mobile delivery: responsive browser website, hosted on GitHub Pages. PWA installation/offline caching and native packaging are deferred. Phone players tap holes and tap the star container to cast. Tap the bar or press Escape to pause/open controls.
 
 ## Art and sound
 

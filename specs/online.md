@@ -8,7 +8,7 @@ Implemented 2026-11-16 per D25. A dedicated gameplay server is deliberately unne
 - PeerJS Cloud is the default signaling service. WebRTC reliable ordered data channels carry inputs and full snapshots. The `peer` dev dependency is exclusively for local signaling in tests.
 - Each player chooses their character before connecting. Share a URL containing the host's peer ID (`?join=...`), or paste the ID/link into the join form. A ready handshake waits for the guest arena before advancing the first countdown.
 - Rooms accept only one guest token. Additional browsers are rejected. Wire protocol version and gameplay config/character definitions must match. The protocol version must be bumped when simulation or wire semantics change.
-- Both screens render the local player as blue/left. Guest snapshots swap players, winner, pending-spell senders, event identities and result wording. Home selection uses original match options on both devices. Mobile shows only the local board and opponent HUD.
+- Both screens render the local player as blue/left. Guest snapshots swap players, winner, pending-spell senders, event identities and result wording. Home selection uses original match options on both devices. Mobile shows only the local board and its star control; the shared bar/names/trophies represent both players.
 
 ## Input and timing
 

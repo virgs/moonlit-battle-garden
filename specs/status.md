@@ -8,14 +8,15 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 
 - Private player-hosted online 1v1 with invite links, real WebRTC transport, local-side remapping, target-aware inputs, shared pause/round transitions, version/capacity checks, heartbeat RTT and 30-second transient reconnect grace.
 - Local two-player and three AI difficulties; Sir Champignon and Andy each have four functional spells.
-- Full-viewport canvas, HUD overlays, uniform sprite scale, measured hole anchors, and a fixed left/local player identity. Responsive single-board mobile presentation with opponent HUD.
-- One shared animated bar using the oldest efeitoLife.pcx and bordalife.pcx artwork, a moving source window, four frames at 12 fps, and the original incremental easing. No repeated/tiled mini-bars or separate player health meters. Numeric scores remain secondary; the bar is driven solely by score difference.
+- Full-viewport canvas, HUD overlays, uniform sprite scale, measured hole anchors, and a fixed left/local player identity. Responsive single-board mobile presentation. D30 replaces permanent panels with a minimal HUD.
+- One shared animated bar using the oldest efeitoLife.pcx and bordalife.pcx artwork, a moving source window, four frames at 12 fps, and the original incremental easing. No repeated/tiled mini-bars or separate player health meters. Numeric scores are hidden; the bar is driven solely by score difference.
+- Minimal play HUD with no score/portrait/spell/wave panels; original vertical star containers cast on tap/click (horizontal on narrow portrait layouts), and tapping the bar/Escape opens pause controls.
 - Original sprite-based star containers/charge animations, blue/red board-base palette replacement, spinning round-win trophies in the central verdict, and persistent 0/1/2 trophy rows below each side of the score bar.
 - Original board artwork and falling earth aligned at board-local coordinates. Different earth counts, positions, and animation phases on the two boards; the opponent's underground root strip is mirrored without moving its holes.
 - Cosmetic home selection constrained to the participating characters, and sound/mute/pause lifecycle.
 - Repeatable seeded offline AI tournaments, swapped sides, per-difficulty win reports, and spell-use coverage.
 - Rising 25-second pressure/recovery waves, identical natural demand/reset between players and rounds, independent star opportunities, and explicit concurrency/reaction-window bounds.
-- Asset-ready presentation manifest: character portraits in selection/player/opponent HUDs; per-tier cast sheets with event-driven playback; per-home background/music loading, focal cropping, volume/loop points, and fallbacks. Browser tests exercise valid and invalid temporary images. See public/assets/ASSET-CONTRACT.md.
+- Asset-ready presentation manifest: character portraits in selection; per-tier cast sheets with event-driven playback; per-home background/music loading, focal cropping, volume/loop points, and fallbacks. Browser tests exercise valid and invalid temporary images. See public/assets/ASSET-CONTRACT.md.
 
 ## Missing from the initial two-character game
 
@@ -24,7 +25,7 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 | 1 | Internet/mobile online QA | Player-hosted online works in real two-browser desktop/mobile tests. Physical devices and different networks remain to test. No managed TURN relay is provisioned: restrictive networks may fail to connect. No prediction/rollback, host migration or page-refresh recovery. |
 | 2 | Balance | The harness exists, but balance is unfinished. Current wave run: Champignon wins 112/200 easy, 130/200 medium, 172/200 hard; Andy wins 88/70/22, with six hard matches unfinished at the diagnostic cap. Tune pacing/magic, examine bot-policy bias and long ties, then validate human keyboard/mouse/touch play. |
 | 3 | Final presentation files | Code is ready; 14 final files remain: two home backgrounds, two home music tracks, two portraits, and eight tier-specific cast sheets. They drop into stable configured paths; missing assets use current fallbacks. Richer spell effects can be added later. |
-| 4 | Small-screen/browser QA | Browser-based mobile is the current delivery target. Automated touch tests cover hitting stars, casting via a dedicated button, 320×568/390×844 portrait and 844×390 landscape. Physical-device and browser-chrome/safe-area QA remain. |
+| 4 | Small-screen/browser QA | Browser-based mobile is the current delivery target. Automated touch tests cover hitting stars, casting by tapping the star container, 320×568/390×844 portrait and 844×390 landscape. Physical-device and browser-chrome/safe-area QA remain. |
 
 ## Confirmed round mechanic
 

@@ -2,7 +2,7 @@
 
 ## Animated shared bar
 
-Restore the original shared blue/red presentation across the top HUD. Blue always represents the left/local player (Player 1 locally); red represents the opponent. Keep numeric points secondary.
+Restore the original shared blue/red presentation across the top HUD. Blue always represents the left/local player (Player 1 locally); red represents the opponent. Keep numeric points hidden. Names sit at the left/right extremes immediately below the bar; there is no center leader caption.
 
 The user clarified the mechanic: the bar represents the difference between two scores. Equal scores mean 50/50, and a lead of X ends the round with one color filling the bar. The current formula is bluePercent = clamp(50 + 50 × (blueScore − redScore) / X, 0, 100). X is configurable and starts at a provisional 100. Scores may be negative; absolute totals do not decide the round. There is no independent health or linked-life pool. Scores and bar reset each round. The finished bar remains visible above the results scrim while its original easing completes.
 
@@ -26,15 +26,22 @@ Code and browser/audio fallback tests are ready; distinct artwork/music files re
 
 ## Spell-cast character animation
 
-The user authorized implementing the portrait/cast playback pipeline now, with final assets deferred. Portraits load in the lobby and player HUD, falling back to emblems. Each character/tier has its own cast sheet metadata: path, frame size/count/columns, fps, hold duration, and optional sound.
+The user authorized implementing the portrait/cast playback pipeline now, with final assets deferred. Portraits load in the lobby, falling back to emblems. D30 removes persistent in-game portraits. Each character/tier has its own cast sheet metadata: path, frame size/count/columns, fps, hold duration, and optional sound.
 
-A successful cast emits tier, player, logical time, and round before consuming stars. HUD cameo playback uses that event once, preserves aspect ratio, freezes on pause, clamps the final frame, and ignores old-round events. Reduced motion uses a static pose. The cameo occupies the player header and never covers holes, captures input, delays spells, or stops the simulation. Missing/invalid sheets show a short emblem/spell flourish. Browser tests supply valid/invalid synthetic sheets to verify both paths. Actual portraits and cast art are still absent.
+A successful cast emits tier, player, logical time, and round before consuming stars. HUD cameo playback uses that event once, preserves aspect ratio, freezes on pause, clamps the final frame, and ignores old-round events. Reduced motion uses a static pose. The cameo is art-only and occupies the star-control region, never covering holes, capturing input, delaying spells or stopping the simulation. Spell/character captions and emblem fallbacks are removed from play; missing/invalid sheets render nothing. Browser tests supply valid/invalid synthetic sheets to verify both paths. Actual portraits and cast art are still absent.
 
 
 ## Star containers and round trophies
 
-Use the original estrelinhas.bmp sheet (seven 60×200 columns, five charge rows) with magenta transparency. The horizontal HUD recomposes the four source star/container slots, ordered from the first small star to the fourth large star, without stretching or cutting rotating tips. Each charge change plays frames 0–1 once, then loops frames 2–5 at 12 fps, matching Fase.cpp and the later browser SpecialBar. Frame 6 is the old active-magic red pose and is not used as a charge state. The compact mobile opponent HUD uses the same art. Star animations follow logical match time and freeze on pause; reduced motion selects static frame 2. The dedicated Cast button remains the casting control. There are no Unicode star replacements in the HUD or cast captions.
+Use the original estrelinhas.bmp sheet (seven 60×200 columns, five charge rows) with magenta transparency. The default HUD uses the intact original vertical 60×200 column, with charge building from the small bottom star toward the large top star. Narrow portrait lanes can recompose the four slots horizontally below the board, ordered from the first small star to the fourth large star, without stretching or cutting rotating tips. Each charge change plays frames 0–1 once, then loops frames 2–5 at 12 fps, matching Fase.cpp and the later browser SpecialBar. Frame 6 is the old active-magic red pose and is not used as a charge state. The mobile opponent statistics panel is removed. On a single-board view only the local star container is shown. Star animations follow logical match time and freeze on pause; reduced motion selects static frame 2. The star container itself is the casting button, including keyboard focus/activation; R/numpad+ still cast normally. There are no Unicode star replacements in the HUD or cast captions.
 
 Use the original trofeu.bmp sheet (six 150×75 columns, three rows representing 0/1/2 wins). A pair of trophy indicators sits immediately below the left/right ends of the shared score bar, replacing the player-header diamonds. The opponent frames are mirrored, matching the oldest game. Winning a round updates that player's trophy row; counts persist into subsequent rounds and reach two at match victory. Zero wins uses the blank row, not an invented placeholder. Layout permanently reserves this row so gaining a trophy never moves the boards.
 
 Every round/match verdict shows a large original trophy in the central result card. It fades in over 600 ms and plays appearance frames 0–1, then spins through frames 2–5 at 12 fps. Presentation time keeps it moving after the simulation stops at round end. HUD trophies pause with the game. Reduced motion removes the fade and keeps a static trophy pose. No trophy animation changes scores, adds a delay to magic, or advances rounds automatically.
+
+
+## Minimal play screen (D30)
+
+During active play the visible HUD contains only the shared bar, outer-end character names, per-side trophies and star controls alongside the board(s). Remove numeric score panels, portrait/name headers, spell names/descriptions, wave/messages, effect-tag text, keycaps, VS labels, online latency text and the permanent toolbar. The score bar doubles as the pause/menu control; Escape remains supported. Sound, exit and resume controls appear only in the pause/results overlay. Countdown, victory and connection-interruption overlays remain transient. The lobby explains tapping stars to cast and tapping the bar to pause.
+
+Layout uses the released header/footer space for uniformly larger boards. Desktop columns stand outside each player's board; narrow portrait layouts put the horizontal control below the board, with no overlap against holes, roots or trophies. Phone landscape retains a vertical star column. Source hit-region bleed above the garden is included in the top clearance even at 4K sizes. Cosmetic homes/music and character spell logic are unchanged.
