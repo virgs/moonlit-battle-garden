@@ -1,24 +1,24 @@
 # Offline AI balance report
 
-Generated: 2026-11-16T17:58:59.896Z
+Generated: 2026-11-16T19:14:41.873Z
 
-Revision: 2b51178. Config hash: 3171426f1e9c. Base seed: 20261116.
+Revision: a42c573. Config hash: 93aa290e19cd. Base seed: 20261116.
 
-100 seeds × two player-side assignments × three difficulties = 600 best-of-three matches. Both bots use the same difficulty. The engine and bots are identical to browser play. Command order alternates each tick.
+100 seeds × two player-side assignments × three difficulties = 600 best-of-three matches. Both bots use the same difficulty. The engine and bots are identical to browser play. Command order alternates each tick. Winning score difference: 100 points. No health pools or time-based round wins.
 
 | Difficulty | Matches | Champignon wins | Andy wins | Draws / capped | Champignon win % | Andy win % | Avg seconds |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| easy | 200 | 136 | 64 | 0 / 0 | 68.0 | 32.0 | 153.9 |
-| medium | 200 | 175 | 25 | 0 / 0 | 87.5 | 12.5 | 309.6 |
-| hard | 200 | 111 | 89 | 0 / 0 | 55.5 | 44.5 | 455.3 |
+| easy | 200 | 93 | 107 | 0 / 0 | 46.5 | 53.5 | 157.9 |
+| medium | 200 | 143 | 57 | 0 / 0 | 71.5 | 28.5 | 232.3 |
+| hard | 200 | 190 | 10 | 0 / 0 | 95.0 | 5.0 | 282.2 |
 
 ## Spell coverage
 
 Casts at tiers 1 / 2 / 3 / 4:
 
-- easy: Champignon 1829 / 420 / 241 / 60; Andy 976 / 484 / 479 / 206
-- medium: Champignon 3532 / 1570 / 1346 / 480; Andy 1061 / 1306 / 2334 / 1227
-- hard: Champignon 1456 / 2457 / 3540 / 1421; Andy 1700 / 2271 / 4740 / 1977
+- easy: Champignon 1660 / 483 / 303 / 88; Andy 1007 / 529 / 589 / 247
+- medium: Champignon 1389 / 1041 / 1073 / 407; Andy 794 / 923 / 1767 / 765
+- hard: Champignon 1014 / 1388 / 1880 / 696; Andy 1002 / 1289 / 2553 / 1110
 
 ## Interpretation
 
