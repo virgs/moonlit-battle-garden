@@ -5,10 +5,11 @@ import { chooseHome } from './homes';
 import { HomeMusic } from '../presentation/HomeMusic';
 import { presentation } from '../presentation/config';
 import type { GameAction, GameEvent, MatchOptions, MatchState } from './types';
+import { inputAction, localView, type LinkState, type NetworkLink, type Wire } from '../network/protocol';
 
-export type Snapshot = { state: MatchState; events: GameEvent[] };
+export type Snapshot = { state: MatchState; events: GameEvent[]; network?: { status: LinkState; rtt: number | null } };
 
-/** Local session boundary. An online session can later expose the same UI contract. */
+/** Shared local/online session boundary; network guests render host snapshots. */
 export class Session {
   readonly match: Match;
   readonly home: ReturnType<typeof chooseHome>;
@@ -22,8 +23,11 @@ export class Session {
   private music: HomeMusic | null = null;
   private musicWanted = false;
   muted = true;
+  private peerReady = false;
+  private linkState: LinkState = 'connected';
+  private rtt: number | null = null;
 
-  constructor(options: MatchOptions) {
+  constructor(options: MatchOptions, private network?: NetworkLink) {
     this.match = new Match(options);
     this.home = chooseHome(options);
     this.bot = options.mode === 'ai' ? new Bot(options.difficulty, options.seed ^ 12345) : null;
@@ -31,7 +35,9 @@ export class Session {
   }
 
   private read(): Snapshot {
-    return { state: structuredClone(this.match.state), events: [...this.match.events] };
+    const raw = { state: structuredClone(this.match.state), events: [...this.match.events] };
+    if (!this.network) return raw;
+    return { ...localView(raw, this.network.seat), network: { status: this.linkState, rtt: this.rtt } };
   }
   getSnapshot = (): Snapshot => this.snapshot;
   subscribe = (listener: () => void): (() => void) => {
@@ -40,6 +46,7 @@ export class Session {
   };
   private publish(): void {
     this.snapshot = this.read();
+    if (this.network?.seat === 0 && this.linkState === 'connected') this.network.send({ kind: 'state', snapshot: { state: structuredClone(this.match.state), events: [...this.match.events] } });
     this.syncMusic();
     if (!this.muted) {
       for (const event of this.match.events.filter(item => item.id > this.lastSound)) {
@@ -57,7 +64,9 @@ export class Session {
   }
   start(): void {
     if (this.timer) return;
+    if (this.network) this.network.send({ kind: 'ready' });
     this.timer = setInterval(() => {
+      if (this.network && (this.network.seat === 1 || !this.peerReady || this.linkState !== 'connected')) return;
       this.match.advance(config.tickMs);
       this.bot?.update(this.match);
       this.publish();
@@ -70,17 +79,58 @@ export class Session {
     this.castSounds.forEach(sound => sound.pause());
     this.music?.dispose();
     this.musicWanted = false;
+    this.network?.close();
   }
   private syncMusic(): void {
     const state = this.match.state;
-    const wanted = !this.muted && !state.paused && (state.phase === 'playing' || state.phase === 'countdown');
+    const wanted = !this.muted && !state.paused && this.linkState === 'connected' && (state.phase === 'playing' || state.phase === 'countdown');
     if (wanted === this.musicWanted || !this.music) return;
     this.musicWanted = wanted;
     this.music.setPlaying(wanted);
   }
-  act(action: GameAction): void { this.match.action(action); this.publish(); }
-  nextRound(): void { this.match.nextRound(); this.publish(); }
+  act(action: GameAction): void {
+    if (this.network) {
+      if (action.player !== 0 || this.linkState !== 'connected') return;
+      if (this.network.seat === 1) {
+        const target = this.snapshot.state.players[0].holes[action.type === 'hit' ? action.hole : 0];
+        this.network.send({ kind: 'input', input: action.type === 'cast' ? { type: 'cast' } : { type: 'hit', hole: action.hole, target: target?.id ?? null } });
+        return;
+      }
+    }
+    this.match.action(action); this.publish();
+  }
+  nextRound(): void {
+    if (this.network && this.linkState !== 'connected') return;
+    if (this.network?.seat === 1) { this.network.send({ kind: 'next' }); return; }
+    this.match.nextRound(); this.publish();
+  }
+  receive(message: Wire): void {
+    if (!this.network) return;
+    if (message.kind === 'ready') { this.peerReady = true; this.linkState = 'connected'; this.publish(); }
+    if (this.network.seat === 1) {
+      if (message.kind === 'state') {
+        Object.assign(this.match.state, structuredClone(message.snapshot.state));
+        this.match.events = structuredClone(message.snapshot.events);
+        this.publish();
+      }
+      return;
+    }
+    if (this.linkState !== 'connected') return;
+    if (message.kind === 'input' && message.input && typeof message.input === 'object') {
+      const action = inputAction(message.input, 1, { state: this.match.state, events: this.match.events });
+      if (action) { this.match.action(action); this.publish(); }
+    }
+    if (message.kind === 'pause') this.togglePause();
+    if (message.kind === 'next') this.nextRound();
+  }
+  connection(status: LinkState, rtt = this.rtt): void {
+    this.linkState = status; this.rtt = rtt;
+    if (status !== 'connected') { this.peerReady = false; this.match.state.paused = true; }
+    this.publish();
+  }
   togglePause(): void {
+    if (this.network && this.linkState !== 'connected') return;
+    if (this.network?.seat === 1) { this.network.send({ kind: 'pause' }); return; }
     if (['playing', 'countdown'].includes(this.match.state.phase)) this.match.state.paused = !this.match.state.paused;
     this.publish();
   }

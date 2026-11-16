@@ -18,7 +18,7 @@ export type GardenLayout = Rect & {
 };
 export type ArenaLayout = { width: number; height: number; single: boolean; landscape: boolean; score: Rect; opponent: Rect | null; gardens: GardenLayout[] };
 
-export function createArenaLayout(width: number, height: number, mode: 'ai' | 'local'): ArenaLayout {
+export function createArenaLayout(width: number, height: number, mode: 'ai' | 'local' | 'online'): ArenaLayout {
   const single = mode !== 'local' && (width < 700 || (height < 500 && width < 1000));
   const short = height < 580;
   const landscape = single && width > height;

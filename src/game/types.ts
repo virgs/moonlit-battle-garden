@@ -37,7 +37,7 @@ export type MatchState = {
 };
 export type MatchOptions = {
   characters: [CharacterId, CharacterId];
-  mode: 'ai' | 'local';
+  mode: 'ai' | 'local' | 'online';
   difficulty: Difficulty;
   seed: number;
 };
