@@ -1,18 +1,18 @@
 import { config } from './config';
-import { Random } from './random';
+import { SpawnDirector } from './SpawnDirector';
 import { castSpell, message, resolveSpells } from './spells';
-import type { GameAction, GameEvent, MatchOptions, MatchState, Player, PlayerId, TargetKind } from './types';
+import type { GameAction, GameEvent, MatchOptions, MatchState, Player, PlayerId } from './types';
 
 export class Match {
   readonly state: MatchState;
   events: GameEvent[] = [];
-  private random: Random;
-  private targetId = 0;
+  private spawns: SpawnDirector;
   private eventId = 0;
   private accumulator = 0;
 
   constructor(readonly options: MatchOptions) {
-    this.random = new Random(options.seed);
+    this.spawns = new SpawnDirector(options.seed);
+    this.spawns.reset(config.countdownMs);
     this.state = {
       phase: 'countdown', time: 0, round: 1, roundStart: config.countdownMs,
       countdownUntil: config.countdownMs, players: [this.createPlayer(0), this.createPlayer(1)],
@@ -23,7 +23,7 @@ export class Match {
   private createPlayer(id: PlayerId, wins = 0): Player {
     return {
       character: this.options.characters[id], score: 0, stars: 0, wins,
-      holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + 250,
+      holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + config.pacing.firstSpawnMs,
       nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldUntil: 0, magicShieldUntil: 0,
       invasionUntil: 0, decoysUntil: 0, pending: [], message: '', messageUntil: 0,
     };
@@ -55,41 +55,17 @@ export class Match {
         }
       });
       if (player.shieldUntil <= state.time) player.mistakeShield = 0;
-      if (state.time >= player.nextSpawn) this.spawn(player);
-      if ((player.invasionUntil > state.time || player.decoysUntil > state.time) && state.time >= player.nextDecoy) this.spawnDecoy(player);
     });
+    this.spawns.update(state);
     this.checkOutcome();
-  }
-
-  private spawn(player: Player): void {
-    const empty = player.holes.flatMap((target, index) => target ? [] : [index]);
-    const progress = Math.min(1, (this.state.time - this.state.roundStart) / config.spawnRampMs);
-    const decoys = player.decoysUntil > this.state.time;
-    const interval = config.spawnStartMs - progress * (config.spawnStartMs - config.spawnMinMs);
-    player.nextSpawn = this.state.time + interval * (decoys ? 0.75 : 1);
-    if (!empty.length) return;
-    const hole = empty[Math.floor(this.random.next() * empty.length)];
-    let kind: TargetKind = this.random.next() < config.rabbitChance ? 'rabbit' : 'mole';
-    if (++player.spawned % config.starEvery === 0) kind = 'star';
-    player.holes[hole] = {
-      id: ++this.targetId, kind, born: this.state.time,
-      expires: this.state.time + config.targetLifeMs - progress * (config.targetLifeMs - config.minTargetLifeMs),
-    };
-  }
-
-  private spawnDecoy(player: Player): void {
-    const empty = player.holes.flatMap((target, index) => target ? [] : [index]);
-    player.nextDecoy = this.state.time + (player.decoysUntil > this.state.time ? 650 : 950);
-    if (!empty.length) return;
-    const hole = empty[Math.floor(this.random.next() * empty.length)];
-    player.holes[hole] = { id: ++this.targetId, kind: 'rabbit', born: this.state.time, expires: this.state.time + 1450 };
   }
 
   action(action: GameAction): void {
     if (this.state.phase !== 'playing' || this.state.paused) return;
     if (action.player !== 0 && action.player !== 1) return;
     if (action.type === 'cast') {
-      if (castSpell(this.state, action.player)) this.emit(action.player, 'cast');
+      const tier = this.state.players[action.player].stars;
+      if (castSpell(this.state, action.player)) this.emit(action.player, 'cast', undefined, tier);
       return;
     }
     if (!Number.isInteger(action.hole) || action.hole < 0 || action.hole >= 9) return;
@@ -120,8 +96,8 @@ export class Match {
     }
   }
 
-  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number): void {
-    this.events.push({ id: ++this.eventId, player, kind, hole });
+  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number, tier?: number): void {
+    this.events.push({ id: ++this.eventId, time: this.state.time, round: this.state.round, player, kind, hole, tier });
     this.events = this.events.slice(-32);
   }
 
@@ -147,7 +123,8 @@ export class Match {
     this.state.result = '';
     this.state.countdownUntil = this.state.time + config.countdownMs;
     this.state.roundStart = this.state.countdownUntil;
-    this.state.players.forEach(player => { player.nextSpawn = this.state.roundStart + 250; });
+    this.state.players.forEach(player => { player.nextSpawn = this.state.roundStart + config.pacing.firstSpawnMs; });
+    this.spawns.reset(this.state.roundStart);
     this.accumulator = 0;
   }
 }

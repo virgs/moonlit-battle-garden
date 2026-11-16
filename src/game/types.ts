@@ -3,7 +3,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 export type PlayerId = 0 | 1;
 export type TargetKind = 'mole' | 'rabbit' | 'star';
 export type Phase = 'countdown' | 'playing' | 'round-over' | 'match-over';
-export type Target = { id: number; kind: TargetKind; born: number; expires: number };
+export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic' };
 export type PendingSpell = { tier: number; at: number; from: PlayerId };
 export type Player = {
   character: CharacterId;
@@ -42,4 +42,4 @@ export type MatchOptions = {
   seed: number;
 };
 export type GameAction = { type: 'hit'; player: PlayerId; hole: number } | { type: 'cast'; player: PlayerId };
-export type GameEvent = { id: number; player: PlayerId; kind: 'hit' | 'star' | 'penalty' | 'shield' | 'cast'; hole?: number };
+export type GameEvent = { id: number; time: number; round: number; player: PlayerId; kind: 'hit' | 'star' | 'penalty' | 'shield' | 'cast'; hole?: number; tier?: number };

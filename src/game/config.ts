@@ -5,8 +5,15 @@ import type { CharacterId, Difficulty } from './types';
 type BotConfig = { reactionMs: number; intervalMs: number; accuracy: number; rabbitMistake: number };
 type Config = {
   winScoreDifference: number; roundWins: number; tickMs: number; countdownMs: number; maxSimulationMs: number;
-  spawnStartMs: number; spawnMinMs: number; spawnRampMs: number;
-  targetLifeMs: number; minTargetLifeMs: number; starEvery: number; rabbitChance: number;
+  pacing: {
+    buildMs: number; peakMs: number; recoveryMs: number; rampMs: number; firstSpawnMs: number;
+    startIntervalMs: number; endIntervalMs: number; intervalCalm: number; intervalPeak: number;
+    minIntervalMs: number; jitter: number; startLifetimeMs: number; endLifetimeMs: number;
+    lifetimeCalm: number; lifetimePeak: number; minLifetimeMs: number;
+    startNaturalCap: number; endNaturalCap: number; peakExtraTarget: number; maxMagicTargets: number;
+    rabbitStart: number; rabbitEnd: number; rabbitPeakExtra: number; maxRabbitStreak: number;
+    starOffsetsMs: number[]; starLifetimeMs: number;
+  };
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
@@ -20,7 +27,12 @@ function validate(value: unknown, path: string): void {
   if (value && typeof value === 'object') Object.entries(value).forEach(([key, item]) => validate(item, `${path}.${key}`));
 }
 validate(config, 'game');
-if (!config.winScoreDifference || !config.maxSimulationMs || !config.tickMs || !config.starEvery || !config.spawnRampMs) throw new Error('Game limits and timings must be positive');
+if (!config.winScoreDifference || !config.maxSimulationMs || !config.tickMs) throw new Error('Game limits and timings must be positive');
+const pace = config.pacing;
+const waveMs = pace.buildMs + pace.peakMs + pace.recoveryMs;
+if ([pace.buildMs, pace.peakMs, pace.recoveryMs, pace.rampMs, pace.minIntervalMs, pace.minLifetimeMs].some(value => !value)) throw new Error('Pacing durations must be positive');
+if (pace.jitter > 0.25 || pace.endNaturalCap + pace.peakExtraTarget + pace.maxMagicTargets + 1 > 9) throw new Error('Pacing exceeds safe board limits');
+if (!pace.starOffsetsMs.length || pace.starOffsetsMs.some((time, index, values) => time <= (values[index - 1] ?? 0) || time >= waveMs)) throw new Error('Star opportunities must be ordered within the wave');
 
 export const characters: Record<CharacterId, { name: string; role: string; color: string; emblem: string; spells: { name: string; description: string }[] }> = {
   champignon: {

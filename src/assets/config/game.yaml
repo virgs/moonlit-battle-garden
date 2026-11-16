@@ -4,13 +4,33 @@ roundWins: 2
 tickMs: 50
 countdownMs: 3000
 maxSimulationMs: 1800000
-spawnStartMs: 1150
-spawnMinMs: 470
-spawnRampMs: 120000
-targetLifeMs: 2100
-minTargetLifeMs: 1150
-starEvery: 5
-rabbitChance: 0.14
+pacing:
+  buildMs: 12000
+  peakMs: 5000
+  recoveryMs: 8000
+  rampMs: 120000
+  firstSpawnMs: 250
+  startIntervalMs: 1350
+  endIntervalMs: 780
+  intervalCalm: 1.1
+  intervalPeak: 0.68
+  minIntervalMs: 500
+  jitter: 0.08
+  startLifetimeMs: 2200
+  endLifetimeMs: 1500
+  lifetimeCalm: 1.08
+  lifetimePeak: 0.88
+  minLifetimeMs: 1150
+  startNaturalCap: 2
+  endNaturalCap: 4
+  peakExtraTarget: 1
+  maxMagicTargets: 2
+  rabbitStart: 0.1
+  rabbitEnd: 0.15
+  rabbitPeakExtra: 0.03
+  maxRabbitStreak: 2
+  starOffsetsMs: [5000, 14000, 22000]
+  starLifetimeMs: 2200
 points:
   mole: 10
   star: 25
