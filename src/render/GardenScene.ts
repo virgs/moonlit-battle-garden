@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets/url';
 import Phaser from 'phaser';
 import type { Snapshot } from '../game/Session';
 import type { PlayerId, TargetKind } from '../game/types';
@@ -26,10 +27,10 @@ export class GardenScene extends Phaser.Scene {
 
   constructor(private getSnapshot: () => Snapshot, private getLayout: () => ArenaLayout, private home: CharacterHome) { super('gardens'); }
   preload(): void {
-    this.load.image('garden', '/assets/legacy/garden.png');
-    this.load.spritesheet('targets', '/assets/characters.png', { frameWidth: 90, frameHeight: 90 });
-    this.load.spritesheet('earth', '/assets/legacy/earth.png', { frameWidth: earthFrameSize, frameHeight: earthFrameSize });
-    this.load.image('home', this.home.background.fallback);
+    this.load.image('garden', assetUrl('/assets/legacy/garden.png'));
+    this.load.spritesheet('targets', assetUrl('/assets/characters.png'), { frameWidth: 90, frameHeight: 90 });
+    this.load.spritesheet('earth', assetUrl('/assets/legacy/earth.png'), { frameWidth: earthFrameSize, frameHeight: earthFrameSize });
+    this.load.image('home', assetUrl(this.home.background.fallback));
   }
   create(): void {
     this.backdrop = this.add.graphics();
@@ -53,7 +54,7 @@ export class GardenScene extends Phaser.Scene {
       this.game.canvas.dataset.homeBackground = this.home.background.src;
       this.lastLayout = null;
     });
-    this.load.image('home-final', this.home.background.src).start();
+    this.load.image('home-final', assetUrl(this.home.background.src)).start();
   }
   private arrange(layout: ArenaLayout): void {
     const { width, height } = layout;

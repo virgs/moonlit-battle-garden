@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets/url';
 import { useEffect, useRef, useState } from 'react';
 import { characters, config } from '../game/config';
 import { roundStanding } from '../game/standing';
@@ -31,9 +32,9 @@ export function ScoreBar({ state, area }: { state: MatchState; area: Rect }) {
     <div className="score-track" role="meter" aria-label="Blue versus red round advantage" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(bluePercent)} aria-valuetext={`${description}. Score lead ${Math.abs(state.players[0].score - state.players[1].score)} of ${config.winScoreDifference} points needed to win.`}>
       <svg className="legacy-score-art" viewBox="0 0 499 45" aria-hidden="true" data-frame={paint.frame} data-offset={barSourceOffset(paint.percent)}>
         <svg x="3" y="2" width="493" height="41" viewBox="0 0 493 41" overflow="hidden">
-          <image href="/assets/legacy/bar-sheet.png" width="1010" height="164" x={-barSourceOffset(paint.percent)} y={-paint.frame * legacyBar.frameHeight} />
+          <image href={assetUrl('/assets/legacy/bar-sheet.png')} width="1010" height="164" x={-barSourceOffset(paint.percent)} y={-paint.frame * legacyBar.frameHeight} />
         </svg>
-        <image href="/assets/legacy/bar-border.png" width="499" height="45" />
+        <image href={assetUrl('/assets/legacy/bar-border.png')} width="499" height="45" />
       </svg>
     </div>
     <div className="score-legend"><span>◆ {names[0]}</span><span>{description}</span><span>{names[1]} ◆</span></div>

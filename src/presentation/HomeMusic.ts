@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets/url';
 import type { MusicAsset } from './config';
 
 /** Native audio with optional loop points and a safe shared-track fallback. */
@@ -8,7 +9,7 @@ export class HomeMusic {
   private disposed = false;
 
   constructor(private asset: MusicAsset) {
-    this.audio = new Audio(asset.src);
+    this.audio = new Audio(assetUrl(asset.src));
     this.audio.volume = asset.volume;
     this.audio.loop = asset.loopStartMs === 0 && asset.loopEndMs === null;
     this.audio.addEventListener('error', this.useFallback);
@@ -30,7 +31,7 @@ export class HomeMusic {
   private useFallback = (): void => {
     if (this.fallback || this.disposed) return;
     this.fallback = true;
-    this.audio.src = this.asset.fallback;
+    this.audio.src = assetUrl(this.asset.fallback);
     this.audio.loop = true;
     this.audio.load();
     this.play();

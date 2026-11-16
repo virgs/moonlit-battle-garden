@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets/url';
 import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
@@ -53,7 +54,7 @@ export class Session {
         let sound = this.sounds[event.kind];
         const clip = event.kind === 'cast' && event.tier ? presentation[this.match.state.players[event.player].character].casts[event.tier] : null;
         if (clip?.sound) {
-          if (!this.castSounds.has(clip.sound)) { const audio = new Audio(clip.sound); audio.volume = 0.3; this.castSounds.set(clip.sound, audio); }
+          if (!this.castSounds.has(clip.sound)) { const audio = new Audio(assetUrl(clip.sound)); audio.volume = 0.3; this.castSounds.set(clip.sound, audio); }
           sound = this.castSounds.get(clip.sound);
         }
         if (sound) { sound.currentTime = 0; void sound.play().catch(() => {}); }
@@ -142,8 +143,8 @@ export class Session {
     }
     if (!this.muted && !this.sounds.hit) {
       this.sounds = {
-        hit: new Audio('/assets/die0.wav'), star: new Audio('/assets/starHit.wav'),
-        penalty: new Audio('/assets/wrongHit.wav'),
+        hit: new Audio(assetUrl('/assets/die0.wav')), star: new Audio(assetUrl('/assets/starHit.wav')),
+        penalty: new Audio(assetUrl('/assets/wrongHit.wav')),
       };
       Object.values(this.sounds).forEach(sound => { sound.volume = 0.3; sound.load(); });
       this.music = new HomeMusic(this.home.music);

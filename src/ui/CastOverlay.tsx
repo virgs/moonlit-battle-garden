@@ -1,3 +1,4 @@
+import { assetUrl } from '../assets/url';
 import { useEffect, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { characters } from '../game/config';
@@ -30,7 +31,7 @@ export function CastOverlay({ snapshot, garden }: { snapshot: Snapshot; garden: 
   const style = { left: garden.header.x, top: garden.header.y, width: garden.header.width, height: garden.header.height, '--cast-color': characters[character].color } as CSSProperties;
   return <div key={event.id} className={`cast-banner ${snapshot.state.paused ? 'paused' : ''}`} style={style} data-character={character} data-tier={event.tier} data-frame={frame} data-asset={artReady ? 'ready' : 'fallback'} aria-live="polite">
     {artReady ? <svg className="cast-art" viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow="hidden" aria-hidden="true">
-      <image href={clip.src} width={clip.columns * clip.frameWidth} height={Math.ceil(clip.frameCount / clip.columns) * clip.frameHeight} x={-(frame % clip.columns) * clip.frameWidth} y={-Math.floor(frame / clip.columns) * clip.frameHeight} />
+      <image href={assetUrl(clip.src)} width={clip.columns * clip.frameWidth} height={Math.ceil(clip.frameCount / clip.columns) * clip.frameHeight} x={-(frame % clip.columns) * clip.frameWidth} y={-Math.floor(frame / clip.columns) * clip.frameHeight} />
     </svg> : <span className="cast-emblem" aria-hidden="true">{characters[character].emblem}</span>}
     <div className="cast-caption"><small>{characters[character].name} · {'★'.repeat(event.tier)}</small><strong>{characters[character].spells[event.tier - 1].name}</strong></div>
   </div>;

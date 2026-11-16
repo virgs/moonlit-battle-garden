@@ -17,7 +17,7 @@ export function App() {
   if (online) return <Suspense fallback={<p className="development-note">Opening online gardens…</p>}><OnlinePlay initialCharacter={character} leave={() => { setOnline(false); history.replaceState(null, '', location.pathname); }} /></Suspense>;
   if (session) return <Suspense fallback={<p className="development-note">Opening the garden…</p>}><Game session={session} leave={() => { session.stop(); setSession(null); }} /></Suspense>;
   return <div className="app-shell">
-    <header className="site-header"><a className="wordmark" href="/" aria-label="Moonlit Battle Garden home"><span className="brand-mark">☾</span> MOONLIT BATTLE GARDEN<span className="prototype-tag">PROTOTYPE 01</span></a><span className="header-note">Quick hands. Questionable magic.</span></header>
+    <header className="site-header"><a className="wordmark" href={import.meta.env.BASE_URL} aria-label="Moonlit Battle Garden home"><span className="brand-mark">☾</span> MOONLIT BATTLE GARDEN<span className="prototype-tag">PROTOTYPE 01</span></a><span className="header-note">Quick hands. Questionable magic.</span></header>
     <main className="lobby">
       <section className="intro"><span className="eyebrow">A friendly garden rivalry</span><h1>Keep your garden.<br /><em>Ruin their day.</em></h1><p>A duel of moles, mischief, and perfectly timed magic.<br />Pick a side. Bring your fastest fingers.</p><div className="intro-pills"><span>1 vs 1</span><span>3 × 3 gardens</span><span>4 tiers of magic</span></div></section>
       <section className="match-setup" aria-label="Match setup"><div className="setup-heading"><span className="eyebrow">Make it personal</span><span className="step-label">01 / CHOOSE YOUR DUEL</span></div>
