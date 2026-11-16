@@ -1,0 +1,45 @@
+export type CharacterId = 'champignon' | 'andy';
+export type Difficulty = 'easy' | 'medium' | 'hard';
+export type PlayerId = 0 | 1;
+export type TargetKind = 'mole' | 'rabbit' | 'star';
+export type Phase = 'countdown' | 'playing' | 'round-over' | 'match-over';
+export type Target = { id: number; kind: TargetKind; born: number; expires: number };
+export type PendingSpell = { tier: number; at: number; from: PlayerId };
+export type Player = {
+  character: CharacterId;
+  health: number;
+  score: number;
+  stars: number;
+  wins: number;
+  holes: (Target | null)[];
+  spawned: number;
+  nextSpawn: number;
+  nextCast: number;
+  damageShield: number;
+  shieldUntil: number;
+  magicShieldUntil: number;
+  invasionUntil: number;
+  decoysUntil: number;
+  pending: PendingSpell[];
+  message: string;
+  messageUntil: number;
+};
+export type MatchState = {
+  phase: Phase;
+  time: number;
+  round: number;
+  roundStart: number;
+  countdownUntil: number;
+  players: [Player, Player];
+  winner: PlayerId | null;
+  result: string;
+  paused: boolean;
+};
+export type MatchOptions = {
+  characters: [CharacterId, CharacterId];
+  mode: 'ai' | 'local';
+  difficulty: Difficulty;
+  seed: number;
+};
+export type GameAction = { type: 'hit'; player: PlayerId; hole: number } | { type: 'cast'; player: PlayerId };
+export type GameEvent = { id: number; player: PlayerId; kind: 'hit' | 'star' | 'hurt' | 'shield' | 'cast'; hole?: number };

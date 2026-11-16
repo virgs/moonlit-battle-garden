@@ -1,0 +1,27 @@
+# Prototype balance, intentionally kept separate from the simulation.
+health: 100
+roundWins: 2
+tickMs: 50
+countdownMs: 3000
+maxRoundMs: 180000
+spawnStartMs: 1150
+spawnMinMs: 470
+spawnRampMs: 120000
+targetLifeMs: 2100
+minTargetLifeMs: 1150
+starEvery: 5
+rabbitChance: 0.14
+damage:
+  miss: 8
+  empty: 4
+  rabbit: 12
+spells:
+  cooldownMs: 1800
+  warningMs: 650
+  invasionMs: 7500
+  decoysMs: 8500
+  shieldMs: 12000
+ai:
+  easy: { reactionMs: 900, intervalMs: 600, accuracy: 0.72, rabbitMistake: 0.16 }
+  medium: { reactionMs: 560, intervalMs: 360, accuracy: 0.90, rabbitMistake: 0.06 }
+  hard: { reactionMs: 280, intervalMs: 220, accuracy: 0.97, rabbitMistake: 0.02 }
