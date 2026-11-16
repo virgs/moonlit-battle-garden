@@ -1,7 +1,7 @@
 import { config } from './config';
 import { SpawnDirector } from './SpawnDirector';
 import { castSpell, message, resolveSpells } from './spells';
-import type { GameAction, GameEvent, MatchOptions, MatchState, Player, PlayerId } from './types';
+import type { GameAction, GameEvent, MatchOptions, MatchState, Player, PlayerId, TargetKind } from './types';
 
 export class Match {
   readonly state: MatchState;
@@ -74,30 +74,30 @@ export class Match {
     if (!target) this.penalize(action.player, config.penalties.empty);
     else {
       player.holes[action.hole] = null;
-      if (target.kind === 'rabbit') this.penalize(action.player, config.penalties.rabbit);
+      if (target.kind === 'rabbit') this.penalize(action.player, config.penalties.rabbit, action.hole, 'rabbit');
       else {
         player.score += config.points[target.kind];
         if (target.kind === 'star') player.stars = Math.min(4, player.stars + 1);
-        this.emit(action.player, target.kind === 'star' ? 'star' : 'hit', action.hole);
+        this.emit(action.player, target.kind === 'star' ? 'star' : 'hit', action.hole, undefined, target.kind);
       }
     }
     this.checkOutcome();
   }
 
-  private penalize(id: PlayerId, amount: number): void {
+  private penalize(id: PlayerId, amount: number, hole?: number, targetKind?: TargetKind): void {
     const player = this.state.players[id];
     if (player.mistakeShield > 0 && player.shieldUntil > this.state.time) {
       player.mistakeShield--;
       message(player, 'Guard absorbed a mistake', this.state.time);
-      this.emit(id, 'shield');
+      this.emit(id, 'shield', hole, undefined, targetKind);
     } else {
       player.score -= amount;
-      this.emit(id, 'penalty');
+      this.emit(id, 'penalty', hole, undefined, targetKind);
     }
   }
 
-  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number, tier?: number): void {
-    this.events.push({ id: ++this.eventId, time: this.state.time, round: this.state.round, player, kind, hole, tier });
+  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number, tier?: number, targetKind?: TargetKind): void {
+    this.events.push({ id: ++this.eventId, time: this.state.time, round: this.state.round, player, kind, hole, tier, targetKind });
     this.events = this.events.slice(-32);
   }
 

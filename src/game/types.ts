@@ -42,4 +42,4 @@ export type MatchOptions = {
   seed: number;
 };
 export type GameAction = { type: 'hit'; player: PlayerId; hole: number } | { type: 'cast'; player: PlayerId };
-export type GameEvent = { id: number; time: number; round: number; player: PlayerId; kind: 'hit' | 'star' | 'penalty' | 'shield' | 'cast'; hole?: number; tier?: number };
+export type GameEvent = { id: number; time: number; round: number; player: PlayerId; kind: 'hit' | 'star' | 'penalty' | 'shield' | 'cast'; hole?: number; tier?: number; targetKind?: TargetKind };

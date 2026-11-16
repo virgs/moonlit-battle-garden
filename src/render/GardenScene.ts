@@ -7,13 +7,14 @@ import type { ArenaLayout } from './layout';
 import type { CharacterHome } from '../game/homes';
 import { earthPlacements, earthFrameSize, rootStripTop, recolorBoard } from './legacyPresentation';
 
-const offsets: Record<TargetKind, number> = { mole: 0, star: 8, rabbit: 16 };
+import { targetFrame, hitFrame, targetHitDuration } from './targetAnimation';
 type GardenView = {
   image: Phaser.GameObjects.Image;
   sprites: Phaser.GameObjects.Sprite[];
+  hitSprites: Phaser.GameObjects.Sprite[];
   rootStrip: Phaser.GameObjects.Image;
   dust: Phaser.GameObjects.Sprite[];
-  flashes: { until: number; frame: number }[];
+  flashes: { until: number; kind: TargetKind }[];
   previous: (TargetKind | null)[];
 };
 
@@ -47,8 +48,9 @@ export class GardenScene extends Phaser.Scene {
         image: this.add.image(0, 0, `garden-${id}`).setOrigin(0).setCrop(0, 0, gardenArt.width, rootStripTop),
         rootStrip: this.add.image(0, 0, `garden-${id}`).setOrigin(0).setCrop(0, rootStripTop, gardenArt.width, gardenArt.height - rootStripTop).setFlipX(id === 1),
         sprites: Array.from({ length: 9 }, () => this.add.sprite(0, 0, 'targets').setOrigin(0.5, 1).setVisible(false)),
+        hitSprites: Array.from({ length: 9 }, () => this.add.sprite(0, 0, 'targets').setOrigin(0.5, 1).setDepth(2).setVisible(false)),
         dust: earthPlacements[id as PlayerId].map(() => this.add.sprite(0, 0, 'earth').setOrigin(0).setVisible(false)),
-        flashes: Array.from({ length: 9 }, () => ({ until: 0, frame: 0 })),
+        flashes: Array.from({ length: 9 }, () => ({ until: 0, kind: 'mole' as const })),
         previous: Array.from({ length: 9 }, () => null),
       });
     }
@@ -80,7 +82,7 @@ export class GardenScene extends Phaser.Scene {
     this.gardens.forEach(view => {
       view.image.setVisible(false);
       view.rootStrip.setVisible(false);
-      [...view.sprites, ...view.dust].forEach(sprite => sprite.setVisible(false));
+      [...view.sprites, ...view.hitSprites, ...view.dust].forEach(sprite => sprite.setVisible(false));
     });
     for (const garden of layout.gardens) {
       const view = this.gardens[garden.id];
@@ -88,7 +90,7 @@ export class GardenScene extends Phaser.Scene {
       view.image.setPosition(garden.x, garden.y).setScale(garden.scale).setVisible(true);
       view.rootStrip.setPosition(garden.x, garden.y).setScale(garden.scale).setVisible(true);
       garden.holes.forEach((hole, index) => {
-        view.sprites[index].setPosition(hole.feet.x, hole.feet.y).setScale(garden.scale * gardenArt.spriteScale);
+        for (const sprite of [view.sprites[index], view.hitSprites[index]]) sprite.setPosition(hole.feet.x, hole.feet.y).setScale(garden.scale * gardenArt.spriteScale);
       });
       view.dust.forEach((dust, index) => {
         const placement = earthPlacements[garden.id][index];
@@ -110,8 +112,8 @@ export class GardenScene extends Phaser.Scene {
       });
       for (const event of events.filter(item => item.id > this.lastEvent && item.player === garden.id)) {
         if (event.hole !== undefined) {
-          const kind = view.previous[event.hole];
-          if (kind) view.flashes[event.hole] = { until: state.time + 400, frame: offsets[kind] };
+          const kind = event.targetKind ?? view.previous[event.hole];
+          if (kind) view.flashes[event.hole] = { until: event.time + targetHitDuration, kind };
         }
       }
       this.updateTargets(garden.id, state.time);
@@ -125,13 +127,12 @@ export class GardenScene extends Phaser.Scene {
       const flash = view.flashes[hole];
       view.previous[hole] = target?.kind ?? null;
       if (target) {
-        const age = time - target.born;
-        const row = age < 300 ? 3 : target.expires - time < 300 ? 2 : 0;
-        const frame = Math.floor((row === 3 ? age : time) / (row === 3 ? 40 : 90)) % 8;
-        sprite.setVisible(true).setFrame(row * 24 + offsets[target.kind] + frame);
-      } else if (flash.until > time) {
-        sprite.setVisible(true).setFrame(24 + flash.frame + Math.min(7, Math.floor((400 - flash.until + time) / 50)));
+        sprite.setVisible(true).setFrame(targetFrame(target, time, this.reducedMotion.matches));
       } else sprite.setVisible(false);
+      // Outgoing hit feedback must not hide or get cancelled by a new target.
+      const hit = view.hitSprites[hole];
+      if (flash.until > time) hit.setVisible(true).setAlpha(target ? 0.6 : 1).setFrame(hitFrame(flash.kind, targetHitDuration - (flash.until - time), this.reducedMotion.matches));
+      else hit.setVisible(false);
     });
   }
 }
