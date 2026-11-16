@@ -40,6 +40,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D30 | Minimal active-play HUD: shared bar, outer-end names, boards, trophies and original vertical star containers only; horizontal stars may be used in narrow portrait layouts. Hide permanent character/score panels, spell names/descriptions and wave text. Tap stars to cast; tap the bar/Escape to access paused controls. |
 | D31 | Enlarge names and per-side trophies 2× on phones and 3× on desktop; enlarge star controls responsively. Manual pause is limited to solo/AI and same-computer multiplayer. Online menus do not pause play; connection interruptions freeze and automatically recover via the ready handshake. Audit original target/charge animations. |
 | D32 | Enable recovered sound effects and music on match entry. Final match screen has only trophy/winner text, then a small fresh-input prompt after a few seconds (four-second default), returning to the menu without buttons. Keep font choice open to non-pixel/fancier free fonts. |
+| D33 | Use the selected Almendra + Literata pairing: Almendra titles/character names, Literata menu/body text. Self-host the free fonts with their licenses. |
 
 ## Current proposals, not yet confirmed
 

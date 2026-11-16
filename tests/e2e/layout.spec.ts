@@ -3,6 +3,10 @@ import { gardenArt } from '../../src/render/layout';
 
 test('minimal HUD keeps original board anchors, side names and star controls separated across screen sizes', async ({ page }, testInfo) => {
   await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator('.intro h1')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
+  await expect(page.locator('body')).toHaveCSS('font-family', 'Literata, Georgia, serif');
+  expect(await page.evaluate(() => document.fonts.check('400 30px Almendra') && document.fonts.check('400 15px Literata'))).toBe(true);
   await page.getByRole('button', { name: /Andy The star/ }).click();
   await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
@@ -20,6 +24,8 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
     await expect(page.getByRole('meter')).toHaveCount(1);
     await expect(page.locator('.score-legend>span').first()).toHaveText('Andy');
     await expect(page.locator('.score-legend>span').last()).toHaveText('Sir Champignon');
+    await expect(page.locator('.score-legend')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
+    expect(await page.locator('.score-legend>span').evaluateAll(names => names.every(name => name.scrollWidth <= name.clientWidth))).toBe(true);
     const left = (await page.locator('.score-legend>span').first().boundingBox())!;
     const right = (await page.locator('.score-legend>span').last().boundingBox())!;
     expect(left.x).toBeCloseTo(bar.x); expect(right.x + right.width).toBeCloseTo(bar.x + bar.width);

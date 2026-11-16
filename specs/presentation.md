@@ -64,4 +64,4 @@ Audio starts enabled on Enter/Create/Join gestures. Web Audio is unlocked immedi
 
 A completed match replaces the arena with a trophy and winner text. It contains no buttons, score bar, boards, or menu controls. After four real-time seconds the smaller prompt “Press any key or tap to return to the menu” appears. A fresh key, left click/tap, or controller button then returns to setup. Early input and held/repeated keys do not dismiss it; held controller buttons must be released and pressed again. This terminal presentation takes priority over a peer leaving after the match. Ordinary between-round progression still uses Next round. Audio and network resources are released on return to setup.
 
-Fancy font alternatives are under review (Almendra/Literata, Cinzel/Nunito Sans, Cormorant Garamond/Literata); the actual typeface awaits the user's selection.
+The selected pairing is Almendra for titles and character names, with Literata for menus, controls and supporting text. Fonts are bundled locally with their SIL Open Font Licenses, so loading them needs no external font service. Literata uses its variable weight/optical-size face; Almendra includes regular and bold.
