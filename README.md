@@ -19,7 +19,7 @@ Choose Sir Champignon or Andy, then play against an easy/medium/hard computer op
 
 Matches use one full-screen canvas with a HUD overlay. Artwork scales uniformly, with sprites and hit areas anchored to the actual holes. Desktop shows both gardens with you always on the left; same-computer Player 1 is always left. Mobile AI mode shows your garden and compact opponent status, with side HUDs in landscape. Local two-human mode keeps both gardens side by side on narrow screens.
 
-An animated blue/red bar shows round standing, with blue on your side. Dust/root effects move with each board. Matches choose one participating character's cosmetic home; current homes reuse tinted castle artwork and a shared music track. Enable music and SFX with the Sound control. Distinct character backgrounds, music, and spell-cast animations are still part of the upcoming art pass.
+A single animated blue/red bar shows score difference, with blue on your side. Ties center it; reaching a lead of X points wins the round and fills one color (X=100 for now). Hits earn points and mistakes subtract points; there is no health pool. Dust/root effects move with each board. Matches choose one participating character's cosmetic home; current homes reuse tinted castle artwork and a shared music track. Enable music and SFX with the Sound control. Distinct character backgrounds, music, and spell-cast animations are still part of the upcoming art pass.
 
 ## Current milestone
 
@@ -47,6 +47,7 @@ The balance command runs 600 best-of-three AI matches: 100 seeds, both player-si
 - [Prototype rules](specs/prototype.md): actual behavior, provisional tuning, and balance findings.
 - [Round pacing](specs/pacing.md): agreed wave direction and identical difficulty reset each round; implementation pending.
 - [Presentation](specs/presentation.md): shared bar, board effects, character homes, and deferred cast animations.
+- [Implementation audit](specs/status.md): what works, what is missing, and the confirmed score-difference win rule.
 
 Preserve agreed decisions across chats; update these files when behavior or decisions change. Distinguish implementation defaults from confirmed requirements.
 

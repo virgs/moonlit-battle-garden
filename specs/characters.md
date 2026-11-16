@@ -25,12 +25,12 @@ Artwork source: https://github.com/virgs/digHoleBattleGarden/tree/master/Persona
 | --- | --- | --- | --- | --- |
 | Andy | Copy one enemy star | Rabbit invasion | Steal a limited number of stars | Burst of decoy-heavy target waves |
 | Capitão Katyroba | Block the next mistake's damage | Give enemy moles helmets | Absorb several mistakes temporarily | Short wave of heavily armored enemy moles |
-| Dindo | Mark the next enemy mole; missing it hurts more | Brief target camouflage | Successful hits gradually restore health | Curse several upcoming enemy moles with extra miss damage |
+| Dindo | Mark the next enemy mole; missing it hurts more | Brief target camouflage | Successful hits gradually recover points | Curse several upcoming enemy moles with larger miss penalties |
 | E-Mailson | Extend current targets' lifetimes | Safely automate one column | Cancel an incoming debuff | Brief automation of mole clearing across the board |
 | Ming-Ding-Go | Slow own spawns | Extend a protective timing window | Give enemy moles timed shields | Greatly slow own garden for a short recovery period |
 | Ninja Miyaya | Automatically strike one mole | Brief rabbit invasion | Short, fast enemy target wave | Clear own board and launch a counterattack wave |
 | Sir Champignon | Block one mistake | Sweep own board | Protect against the next hostile spell | Clear own board and grant a temporary shield |
-| Urthgar | Restore a little health | Gain healing from the next few successful hits | Send armored enemy moles | Feast rewards sustained accurate play with healing |
+| Urthgar | Recover some points | Gain bonus points from the next few successful hits | Send armored enemy moles | Feast rewards sustained accurate play with bonus points |
 
 ## Initial two-character proposal
 

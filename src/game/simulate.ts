@@ -20,7 +20,7 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   const casts: [number[], number[]] = [[0, 0, 0, 0], [0, 0, 0, 0]];
   const scores: [number, number] = [0, 0];
   // A cap catches stalemates/regressions rather than allowing a batch to hang.
-  const capMs = (config.maxRoundMs + config.countdownMs) * 12;
+  const capMs = config.maxSimulationMs;
   while (match.state.phase !== 'match-over' && match.state.time < capMs) {
     if (match.state.phase === 'round-over') {
       for (const id of [0, 1] as const) scores[id] += match.state.players[id].score;

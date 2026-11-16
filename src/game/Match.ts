@@ -22,9 +22,9 @@ export class Match {
 
   private createPlayer(id: PlayerId, wins = 0): Player {
     return {
-      character: this.options.characters[id], health: config.health, score: 0, stars: 0, wins,
+      character: this.options.characters[id], score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + 250,
-      nextDecoy: 0, nextCast: 0, damageShield: 0, shieldUntil: 0, magicShieldUntil: 0,
+      nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldUntil: 0, magicShieldUntil: 0,
       invasionUntil: 0, decoysUntil: 0, pending: [], message: '', messageUntil: 0,
     };
   }
@@ -50,11 +50,11 @@ export class Match {
     state.players.forEach((player, id) => {
       player.holes.forEach((target, hole) => {
         if (target && target.expires <= state.time) {
-          if (target.kind === 'mole') this.damage(id as PlayerId, config.damage.miss);
+          if (target.kind === 'mole') this.penalize(id as PlayerId, config.penalties.miss);
           player.holes[hole] = null;
         }
       });
-      if (player.shieldUntil <= state.time) player.damageShield = 0;
+      if (player.shieldUntil <= state.time) player.mistakeShield = 0;
       if (state.time >= player.nextSpawn) this.spawn(player);
       if ((player.invasionUntil > state.time || player.decoysUntil > state.time) && state.time >= player.nextDecoy) this.spawnDecoy(player);
     });
@@ -95,12 +95,12 @@ export class Match {
     if (!Number.isInteger(action.hole) || action.hole < 0 || action.hole >= 9) return;
     const player = this.state.players[action.player];
     const target = player.holes[action.hole];
-    if (!target) this.damage(action.player, config.damage.empty);
+    if (!target) this.penalize(action.player, config.penalties.empty);
     else {
       player.holes[action.hole] = null;
-      if (target.kind === 'rabbit') this.damage(action.player, config.damage.rabbit);
+      if (target.kind === 'rabbit') this.penalize(action.player, config.penalties.rabbit);
       else {
-        player.score += target.kind === 'star' ? 25 : 10;
+        player.score += config.points[target.kind];
         if (target.kind === 'star') player.stars = Math.min(4, player.stars + 1);
         this.emit(action.player, target.kind === 'star' ? 'star' : 'hit', action.hole);
       }
@@ -108,15 +108,15 @@ export class Match {
     this.checkOutcome();
   }
 
-  private damage(id: PlayerId, amount: number): void {
+  private penalize(id: PlayerId, amount: number): void {
     const player = this.state.players[id];
-    if (player.damageShield > 0 && player.shieldUntil > this.state.time) {
-      player.damageShield--;
+    if (player.mistakeShield > 0 && player.shieldUntil > this.state.time) {
+      player.mistakeShield--;
       message(player, 'Guard absorbed a mistake', this.state.time);
       this.emit(id, 'shield');
     } else {
-      player.health = Math.max(0, player.health - amount);
-      this.emit(id, 'hurt');
+      player.score -= amount;
+      this.emit(id, 'penalty');
     }
   }
 
@@ -129,11 +129,10 @@ export class Match {
     const state = this.state;
     if (state.phase !== 'playing') return;
     const [a, b] = state.players;
-    const timedOut = state.time - state.roundStart >= config.maxRoundMs;
-    if (a.health > 0 && b.health > 0 && !timedOut) return;
-    const difference = a.health - b.health || (timedOut ? a.score - b.score : 0);
-    state.winner = difference === 0 ? null : difference > 0 ? 0 : 1;
-    if (state.winner !== null) state.players[state.winner].wins++;
+    const difference = a.score - b.score;
+    if (Math.abs(difference) < config.winScoreDifference) return;
+    state.winner = difference > 0 ? 0 : 1;
+    state.players[state.winner].wins++;
     state.phase = state.players.some(player => player.wins >= config.roundWins) ? 'match-over' : 'round-over';
     state.result = state.winner === null ? 'A draw! Play another round.' : `${state.winner === 0 ? 'Player 1' : 'Player 2'} wins ${state.phase === 'match-over' ? 'the match' : 'the round'}!`;
   }

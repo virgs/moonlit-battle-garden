@@ -1,9 +1,9 @@
 # Prototype balance, intentionally kept separate from the simulation.
-health: 100
+winScoreDifference: 100
 roundWins: 2
 tickMs: 50
 countdownMs: 3000
-maxRoundMs: 180000
+maxSimulationMs: 1800000
 spawnStartMs: 1150
 spawnMinMs: 470
 spawnRampMs: 120000
@@ -11,7 +11,10 @@ targetLifeMs: 2100
 minTargetLifeMs: 1150
 starEvery: 5
 rabbitChance: 0.14
-damage:
+points:
+  mole: 10
+  star: 25
+penalties:
   miss: 8
   empty: 4
   rabbit: 12

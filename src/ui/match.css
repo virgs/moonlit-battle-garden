@@ -21,12 +21,11 @@
 .match-screen .round-wins { margin-left: auto; display: flex; gap: 4px; font-size: 14px; color: #ffffff25; }
 .match-screen .round-wins .won { color: var(--lime); }
 .match-screen .vitals { display: flex; align-items: center; gap: 8px; height: 18px; margin: 5px 0 0; }
-.match-screen .health-track { height: 6px; flex: 1; border-radius: 5px; background: #0005; overflow: hidden; }
-.match-screen .health-track > div { height: 100%; background: var(--lime); transition: width .15s; }
-.match-screen .player-1 .health-track > div { background: var(--orange); }
+.match-screen .player-0 .score { color: #a9c5ff; }
+.match-screen .player-1 .score { color: #ffaaaa; }
 .match-screen .vitals strong, .match-screen .score { font-size: 12px; white-space: nowrap; }
 .match-screen .vitals small { font-size: 9px; color: #a1b090; }
-.match-screen .score { margin-left: 5px; }
+.match-screen .score { margin-left: 0; }
 .match-screen .hole-controls { position: absolute; inset: 0; display: block; height: auto; pointer-events: none; }
 .match-screen .hole { position: absolute; padding: 0; margin: 0; background: transparent; border: 0; border-radius: 45%; pointer-events: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
 .match-screen .hole:disabled { pointer-events: none; }

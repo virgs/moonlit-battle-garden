@@ -3,28 +3,33 @@ import { Match } from '../../src/game/Match';
 import { roundStanding } from '../../src/game/standing';
 import { chooseHome } from '../../src/game/homes';
 import type { MatchOptions } from '../../src/game/types';
+import { config } from '../../src/game/config';
 
 const options: MatchOptions = { characters: ['champignon', 'andy'], mode: 'local', difficulty: 'medium', seed: 1234 };
 function state() { const match = new Match(options); match.state.phase = 'playing'; return match.state; }
 
-it('starts level and prioritizes health over points in the shared bar', () => {
+it('starts centered and uses only score difference', () => {
   const match = state();
   expect(roundStanding(match)).toEqual({ bluePercent: 50, leader: null });
-  match.players[0].health = 80;
-  match.players[0].score = 1000;
-  match.players[1].score = 10;
+  match.players[0].score = 10;
+  match.players[1].score = 20;
   expect(roundStanding(match).leader).toBe(1);
   expect(roundStanding(match).bluePercent).toBeLessThan(50);
 });
-it('uses score to show a small lead when health is tied', () => {
+it('scales linearly from a tie through half the winning lead to a full bar', () => {
   const match = state();
-  match.players[0].score = 25;
+  match.players[0].score = config.winScoreDifference / 2;
   const standing = roundStanding(match);
   expect(standing.leader).toBe(0);
-  expect(standing.bluePercent).toBeGreaterThan(50);
-  expect(standing.bluePercent).toBeLessThan(60);
+  expect(standing.bluePercent).toBe(75);
+  match.players[0].score = config.winScoreDifference;
+  expect(roundStanding(match).bluePercent).toBe(100);
+  match.players[0].score = -config.winScoreDifference;
+  expect(roundStanding(match).bluePercent).toBe(0);
+  match.players[1].score = -config.winScoreDifference;
+  expect(roundStanding(match)).toEqual({ bluePercent: 50, leader: null });
 });
-it('settles on the authoritative round result, including simultaneous-death draws', () => {
+it('settles on the authoritative round result', () => {
   const match = state();
   match.phase = 'round-over'; match.players[0].score = 500;
   expect(roundStanding(match)).toEqual({ bluePercent: 50, leader: null });
@@ -34,7 +39,7 @@ it('settles on the authoritative round result, including simultaneous-death draw
   expect(roundStanding(match)).toEqual({ bluePercent: 100, leader: 0 });
 });
 it('resets the indicator for a new round countdown', () => {
-  const match = state(); match.players[0].health = 1; match.phase = 'countdown';
+  const match = state(); match.players[0].score = 99; match.phase = 'countdown';
   expect(roundStanding(match)).toEqual({ bluePercent: 50, leader: null });
 });
 it('selects one participating character home deterministically without consuming gameplay random state', () => {

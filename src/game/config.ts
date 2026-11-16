@@ -4,10 +4,11 @@ import type { CharacterId, Difficulty } from './types';
 
 type BotConfig = { reactionMs: number; intervalMs: number; accuracy: number; rabbitMistake: number };
 type Config = {
-  health: number; roundWins: number; tickMs: number; countdownMs: number; maxRoundMs: number;
+  winScoreDifference: number; roundWins: number; tickMs: number; countdownMs: number; maxSimulationMs: number;
   spawnStartMs: number; spawnMinMs: number; spawnRampMs: number;
   targetLifeMs: number; minTargetLifeMs: number; starEvery: number; rabbitChance: number;
-  damage: { miss: number; empty: number; rabbit: number };
+  points: { mole: number; star: number };
+  penalties: { miss: number; empty: number; rabbit: number };
   spells: { cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
@@ -19,7 +20,7 @@ function validate(value: unknown, path: string): void {
   if (value && typeof value === 'object') Object.entries(value).forEach(([key, item]) => validate(item, `${path}.${key}`));
 }
 validate(config, 'game');
-if (!config.tickMs || !config.starEvery || !config.spawnRampMs) throw new Error('Game timing values must be positive');
+if (!config.winScoreDifference || !config.maxSimulationMs || !config.tickMs || !config.starEvery || !config.spawnRampMs) throw new Error('Game limits and timings must be positive');
 
 export const characters: Record<CharacterId, { name: string; role: string; color: string; emblem: string; spells: { name: string; description: string }[] }> = {
   champignon: {

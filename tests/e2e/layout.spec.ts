@@ -23,6 +23,9 @@ test('one viewport canvas keeps art, hit regions, HUD, and player identity align
     const bar = await page.getByRole('region', { name: 'Round standing' }).boundingBox();
     expect(bar!.x).toBeGreaterThanOrEqual(0);
     expect(bar!.x + bar!.width).toBeLessThanOrEqual(width);
+    const art = await page.locator('.legacy-score-art').boundingBox();
+    expect(art!.width / art!.height).toBeCloseTo(499 / 45, 1);
+    await expect(page.getByRole('meter')).toHaveCount(1);
     await expect(page.locator('.player-0 h2')).toHaveText('Andy');
     await expect(page.locator('.player-1 h2')).toHaveText('Sir Champignon');
     for (const id of [0, 1]) {

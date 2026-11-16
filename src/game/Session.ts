@@ -80,7 +80,7 @@ export class Session {
     if (!this.muted && !this.sounds.hit) {
       this.sounds = {
         hit: new Audio('/assets/die0.wav'), star: new Audio('/assets/starHit.wav'),
-        hurt: new Audio('/assets/wrongHit.wav'),
+        penalty: new Audio('/assets/wrongHit.wav'),
       };
       Object.values(this.sounds).forEach(sound => { sound.volume = 0.3; sound.load(); });
       this.music = new Audio(this.home.music);

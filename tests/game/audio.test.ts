@@ -26,7 +26,7 @@ it('starts home music only on sound opt-in, and pauses it for pause, mute, round
   session.toggleSound(); expect(music.paused).toBe(true);
   session.toggleSound(); expect(music.paused).toBe(false);
   session.match.state.phase = 'playing';
-  session.match.state.players[1].health = 1;
+  session.match.state.players[0].score = 99;
   session.act({ type: 'hit', player: 1, hole: 0 });
   expect(session.match.state.phase).toBe('round-over'); expect(music.paused).toBe(true);
   session.nextRound(); expect(music.paused).toBe(false);

@@ -23,59 +23,64 @@ describe('match rules', () => {
   it('ignores actions during countdown and pause', () => {
     const match = new Match({ characters: ['champignon', 'andy'], mode: 'local', difficulty: 'easy', seed: 1 });
     match.action({ type: 'hit', player: 0, hole: 0 });
-    match.state.paused = true;
-    match.advance(10000);
-    expect(match.state.time).toBe(0);
-    expect(match.state.players[0].health).toBe(config.health);
+    match.state.paused = true; match.advance(10000);
+    expect(match.state.time).toBe(0); expect(match.state.players[0].score).toBe(0);
   });
-  it('distinguishes moles, rabbits, stars and empty hits', () => {
+  it('awards hits and stars, and subtracts points for rabbits and empty hits', () => {
     const match = create(); const player = match.state.players[0];
     target(match, 'mole'); match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.score).toBeGreaterThan(0);
-    expect(player.health).toBe(config.health);
     target(match, 'star'); match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.stars).toBe(1);
+    const earned = player.score;
     target(match, 'rabbit'); match.action({ type: 'hit', player: 0, hole: 0 });
-    const health = player.health;
-    expect(health).toBeLessThan(config.health);
+    expect(player.score).toBeLessThan(earned);
+    const afterRabbit = player.score;
     match.action({ type: 'hit', player: 0, hole: 0 });
-    expect(player.health).toBeLessThan(health);
+    expect(player.score).toBeLessThan(afterRabbit);
   });
-  it('only missed moles damage health', () => {
+  it('only missed moles subtract points', () => {
     const match = create();
     target(match, 'star', 0, 0); target(match, 'rabbit', 0, 1);
     match.advance(2000);
-    expect(match.state.players[0].health).toBe(config.health);
+    expect(match.state.players[0].score).toBe(0);
     target(match, 'mole', 0, 0); match.advance(2000);
-    expect(match.state.players[0].health).toBeLessThan(config.health);
+    expect(match.state.players[0].score).toBeLessThan(0);
   });
-  it('awards rounds, resets boards and finishes at two wins', () => {
+  it('wins at X points of lead, resets scores, and finishes at two round wins', () => {
     const match = create();
     for (let i = 0; i < 2; i++) {
-      match.state.players[1].health = 1;
-      match.state.players[1].holes[0] = null;
-      match.action({ type: 'hit', player: 1, hole: 0 });
+      match.state.players[0].score = config.winScoreDifference - config.points.mole;
+      target(match, 'mole'); match.action({ type: 'hit', player: 0, hole: 0 });
       expect(match.state.players[0].wins).toBe(i + 1);
       if (!i) {
-        expect(match.state.phase).toBe('round-over');
-        match.nextRound();
-        expect(match.state.players[1].health).toBe(config.health);
+        expect(match.state.phase).toBe('round-over'); match.nextRound();
+        expect(match.state.players.map(p => p.score)).toEqual([0, 0]);
         match.advance(config.countdownMs);
       }
     }
-    expect(match.state.phase).toBe('match-over');
-    match.nextRound();
+    expect(match.state.phase).toBe('match-over'); match.nextRound();
     expect(match.state.phase).toBe('match-over');
   });
-  it('handles simultaneous lethal misses as a draw', () => {
+  it('resolves simultaneous equal misses together without falsely awarding a round', () => {
     const match = create();
-    for (const player of match.state.players) {
-      player.health = 1;
-      player.holes[0] = { id: 1, kind: 'mole', born: 0, expires: match.state.time + config.tickMs };
-    }
+    for (const player of match.state.players) player.holes[0] = { id: 1, kind: 'mole', born: 0, expires: match.state.time + config.tickMs };
     match.advance(config.tickMs);
-    expect(match.state.winner).toBeNull();
-    expect(match.state.players.map(p => p.wins)).toEqual([0, 0]);
+    expect(match.state.phase).toBe('playing'); expect(match.state.winner).toBeNull();
+    expect(match.state.players[0].score).toBe(match.state.players[1].score);
+  });
+  it('a penalty can give the opponent the winning lead, even with negative scores', () => {
+    const match = create();
+    match.state.players[1].score = config.winScoreDifference - config.penalties.empty;
+    match.action({ type: 'hit', player: 0, hole: 0 });
+    expect(match.state.winner).toBe(1); expect(match.state.phase).toBe('round-over');
+    expect(match.state.players[0].score).toBeLessThan(0);
+  });
+  it('absolute score and elapsed time cannot end a tied round', () => {
+    const match = create();
+    match.state.players.forEach(player => { player.score = 10000; player.nextSpawn = Infinity; });
+    match.advance(181000);
+    expect(match.state.phase).toBe('playing'); expect(match.state.winner).toBeNull();
   });
 });
 
@@ -87,15 +92,15 @@ describe('magic', () => {
     match.action({ type: 'cast', player: 0 });
     expect(player.holes.slice(0, 2)).toEqual([null, null]);
     expect(player.holes[2]?.kind).toBe('star');
-    expect(player.stars).toBe(0); expect(player.score).toBe(0); expect(player.health).toBe(config.health);
+    expect(player.stars).toBe(0); expect(player.score).toBe(0);
   });
   it('a mistake guard absorbs one hit then expires', () => {
     const match = create(); const player = match.state.players[0];
     player.stars = 1; match.action({ type: 'cast', player: 0 });
     match.action({ type: 'hit', player: 0, hole: 0 });
-    expect(player.health).toBe(config.health);
+    expect(player.score).toBe(0);
     match.action({ type: 'hit', player: 0, hole: 0 });
-    expect(player.health).toBeLessThan(config.health);
+    expect(player.score).toBeLessThan(0);
   });
   it('warns before applying an invasion and lets a ward block it', () => {
     const match = create(); const [guardian, andy] = match.state.players;
@@ -115,13 +120,14 @@ describe('magic', () => {
   it('copying cannot generate stars without an opponent resource; empty targets give guard', () => {
     const match = create(); const andy = match.state.players[1];
     andy.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.warningMs);
-    expect(andy.stars).toBe(0); expect(andy.damageShield).toBe(1);
+    expect(andy.stars).toBe(0); expect(andy.mistakeShield).toBe(1);
   });
   it('four-star cleanup grants three mistake blocks', () => {
     const match = create(); const player = match.state.players[0];
     player.stars = 4; match.action({ type: 'cast', player: 0 });
     for (let i = 0; i < 3; i++) match.action({ type: 'hit', player: 0, hole: 0 });
-    expect(player.health).toBe(config.health); expect(player.damageShield).toBe(0);
+    expect(player.score).toBe(0);
+    expect(player.mistakeShield).toBe(0);
   });
   it('copy preserves opponent stars and does not net extra charge', () => {
     const match = create(); const [guardian, andy] = match.state.players;

@@ -26,14 +26,16 @@ This file records the discussion's current state. An accepted concept is not a c
 | D16 | The local player is always on the left against AI or online opponents; same-computer Player 1 is always left. There is no side selector. A single visible mobile board represents the local player. Future online transport must map local identity to this presentation independently of network seat. |
 | D17 | Sprite feet and hit areas must share measured source-art hole anchors at every viewport size. |
 | D18 | Within each round, pacing rises gradually with waves of pressure and recovery. Every round restarts the same curve; round number and match score add no difficulty. See pacing.md; waves remain pending implementation. |
-| D19 | Restore the animated shared blue/red top bar. Numeric points are optional secondary information. Current presentation follows existing health-first round standing without changing victory mechanics. |
+| D19 | Restore the animated shared blue/red top bar. Numeric points are optional secondary information. The bar represents score difference; a lead of X ends the round and fills one color. Tied scores center it. |
 | D20 | Restore dust/root decoration attached to boards. Each character should have a cosmetic home background and music; a match's home belongs to one of its participating characters. |
 | D21 | Character-specific spell-cast animations are wanted, but deferred until the character animation/art pass. |
+| D22 | Use the oldest version's actual bar/earth/board assets and animation behavior. Show exactly one shared bar; remove individual health meters. Root/earth placement must differ between boards while staying attached during resize. |
+| D23 | User clarified: scores are the only competitive resource. Equal scores center the bar; a lead of X fills it and wins the round. No separate health pool or old linked-life mechanic. X=100 is a provisional configurable default. |
 
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
-- 3×3 boards, survival through health, and best-of-three matches, following the original game.
+- 3×3 boards and best-of-three matches. Victory uses the user-confirmed score-difference threshold, not health.
 - Four collectible stars maximum; one cast button uses the spell matching the current star count and consumes those stars.
 - PartyServer on Cloudflare Durable Objects, with one authoritative room per online match. This is the recommended backend, not a finalized hosting decision.
 - Installable mobile browser game/PWA first; native store packaging later if requested.
@@ -44,16 +46,19 @@ This file records the discussion's current state. An accepted concept is not a c
 
 1. Playtest the initial two characters.
 2. Review the match rules and star/casting defaults in prototype.md.
-3. Define health, scoring, combos if any, spawn progression, and round/draw rules.
+3. Tune the winning score difference X, point awards/penalties, and spawn progression.
 4. Detail the first two characters' spells: durations, targeting, rewards, damage, counters, stacking, and star-steal behavior.
 5. Decide input bindings, mouse/touch support, simultaneous hits, and cross-device competitive policy.
 6. Confirm online backend and initial online flow (suggested: private invite rooms), disconnect handling, and timing tolerance.
 7. Confirm mobile delivery scope and minimum supported screen sizes/orientations.
 8. Define the completion criteria for the two-character release before expanding the roster.
+9. Score-difference semantics are now confirmed; X remains a provisional tuning value.
 
 ## Implementation status
 
 Local and AI play are implemented. See prototype.md for exact defaults and known imbalance. Balance runs use the real simulation, paired seeds, swapped sides, and tier-by-tier spell coverage. Online and PWA delivery remain pending.
+
+See status.md for the complete implementation audit and presentation.md for verified details from the oldest source code.
 
 ## Research facts
 

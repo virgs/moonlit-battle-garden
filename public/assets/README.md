@@ -4,4 +4,15 @@
 
 The repository's license is preserved in `MOLECIDE-LICENSE.txt`. Original Dig Hole Battle Garden graphics are credited to Bruno Moraes in its README. Complete per-asset provenance review before a public release; repository presence alone does not establish ownership of every sound or music track.
 
-No PixelLab generations have been made for this prototype. Character portraits remain placeholders. The castle and shared music are temporary home-stage assets; distinct per-character illustrations and soundtracks remain pending. Root and life sheets supply the original board decoration and animated bar texture; tinting is applied at render time.
+No PixelLab generations have been made for this prototype. Character portraits remain placeholders. The castle and shared music are temporary home-stage assets; distinct per-character illustrations and soundtracks remain pending. The later root.png/life.png are retained as source references but are no longer rendered.
+
+## Oldest game assets restored
+
+The files under `legacy/` are PNG conversions of https://github.com/virgs/digHoleBattleGarden/tree/master/Fx:
+
+- `bar-sheet.png`: efeitoLife.pcx, 1010×164, four animation rows.
+- `bar-border.png`: bordalife.pcx, 499×45.
+- `earth.png`: terra.pcx, four 45×45 frames.
+- `garden.png`: TabuleiroProfissional.pcx, 301×383 with its original root artwork.
+
+RGB pixels are preserved, with Allegro's magenta mask converted to transparency. Reproduce with `python3 scripts/import-legacy-art.py PATH_TO_OLDEST_REPO/Fx public/assets/legacy`. Original graphics are credited to Bruno Moraes in the oldest repository's README. Board-local attachment positions and bar source-window behavior come from Fase.cpp, Life.cpp, and Animacao.cpp.

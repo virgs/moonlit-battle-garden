@@ -11,7 +11,7 @@ export function sweep(player: Player): void {
 }
 
 function guard(player: Player, time: number, charges = 1): void {
-  player.damageShield = charges;
+  player.mistakeShield = charges;
   player.shieldUntil = time + config.spells.shieldMs;
 }
 

@@ -40,7 +40,8 @@ test('local mode exposes both human boards and keyboard controls', async ({ page
     window.dispatchEvent(new KeyboardEvent('keydown', { code: `Key${key}`, key: key.toLowerCase(), bubbles: true }));
   });
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('meter', { name: 'Your health', exact: true })).toHaveAttribute('aria-valuenow', '96');
+  await expect(page.getByLabel('Your score', { exact: true })).toHaveAttribute('data-score', '-4');
   await expect(page.getByRole('meter', { name: 'Blue versus red round advantage' })).toHaveAttribute('aria-valuenow', '48');
+  await expect(page.getByRole('meter')).toHaveCount(1);
   await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
 });

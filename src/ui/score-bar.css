@@ -1,15 +1,8 @@
-.score-bar { position: absolute; top: 51px; left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); height: 26px; pointer-events: none; }
-.score-track { --bar-height: 12px; position: relative; display: flex; width: 100%; height: var(--bar-height); overflow: hidden; border: 1px solid #d3daba80; border-radius: 7px; box-shadow: 0 1px 5px #0008, 0 0 12px #577fbd22; background: #151c30; }
-.score-liquid { height: 100%; flex-shrink: 0; background-image: url('/assets/life.png'); background-size: auto calc(var(--bar-height) * 4); background-repeat: repeat-x; image-rendering: pixelated; animation: score-flow 520ms steps(4) infinite; transition: width 400ms cubic-bezier(.16, 1, .3, 1); }
-.score-liquid.blue { width: var(--blue-share); background-color: #315dd9; }
-.score-liquid.red { width: calc(100% - var(--blue-share)); background-color: #315dd9; filter: hue-rotate(125deg) saturate(1.3); }
-.score-midpoint { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #fff6; }
-.score-boundary { position: absolute; top: -1px; bottom: -1px; left: var(--blue-share); width: 3px; transform: translateX(-50%); background: #fbf2cb; box-shadow: 0 0 8px #fff7d5; transition: left 400ms cubic-bezier(.16, 1, .3, 1); }
+.score-bar { position: absolute; z-index: 4; pointer-events: none; }
+.score-track { width: 100%; line-height: 0; }
+.legacy-score-art { display: block; width: 100%; height: auto; aspect-ratio: 499 / 45; image-rendering: pixelated; filter: drop-shadow(0 2px 3px #0008); }
 .score-legend { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 2px; color: #c3ceba; font-size: 8px; line-height: 10px; }
 .score-legend > span:first-child { color: #a9c5ff; }
 .score-legend > span:last-child { color: #ffaaaa; text-align: right; }
 .score-legend > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.score-bar.still .score-liquid { animation-play-state: paused; }
-@keyframes score-flow { to { background-position-y: calc(var(--bar-height) * -4); } }
 @media (max-width: 500px) { .score-legend { font-size: 7px; } .score-legend > span:nth-child(2) { display: none; } }
-@media (prefers-reduced-motion: reduce) { .score-liquid { animation: none; transition: none; } .score-boundary { transition: none; } }

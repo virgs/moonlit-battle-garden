@@ -4,13 +4,15 @@
 
 Restore the original shared blue/red presentation across the top HUD. Blue always represents the left/local player (Player 1 locally); red represents the opponent. Keep numeric points secondary.
 
-The original Life.cpp animates a shared life meter; Fase.cpp links the old players' life totals. The remake currently has independent health and health-first win rules. The restored HUD does not silently change those mechanics: it shows health advantage, using a small score-based displacement when health is tied. At round end it settles on the actual winner, or the center for a draw. It resets to the center for the next countdown.
+The user clarified the mechanic: the bar represents the difference between two scores. Equal scores mean 50/50, and a lead of X ends the round with one color filling the bar. The current formula is bluePercent = clamp(50 + 50 × (blueScore − redScore) / X, 0, 100). X is configurable and starts at a provisional 100. Scores may be negative; absolute totals do not decide the round. There is no independent health or linked-life pool. Scores and bar reset each round. The finished bar remains visible above the results scrim while its original easing completes.
 
-The bar reuses Molecide's four-frame life.png texture, with a red tint for the opponent, a smoothly moving boundary, and a fixed center marker. Pause freezes the liquid animation. Reduced-motion preferences disable it. Layout reserves a dedicated strip below match controls on every viewport.
+The bar now uses the oldest game's actual efeitoLife.pcx (1010×164, four 41-pixel rows) and bordalife.pcx (499×45), converted to PNG with Allegro's magenta transparency mask. Life.cpp reveals a single 493-pixel source window at x=5+500×(1-blueShare), not tiled images or separate blue/red strips. The source window shifts through the original joined blue/red sheet, with the four animation frames at the original 12 fps and incremental smoothing. The border and viewport scale together uniformly, keeping one bar at its native aspect ratio. Pause freezes animation; reduced motion uses a static frame and immediate updates. Separate per-player health bars are removed; numeric points remain.
 
 ## Board decoration
 
-Reuse the original 16-frame root.png sheet as four four-frame dust/root motifs attached beneath each visible board. Decorations follow the board's position and uniform scale. They have no collision, hit areas, or influence on randomness. Animation follows simulation time so pause freezes it; reduced-motion mode uses static poses.
+The oldest version draws static roots within TabuleiroProfissional.pcx and overlays terra.pcx falling earth (four 45×45 frames). Both originals are now used, replacing the misplaced animated root.png motifs from the later game.
+
+Fase.cpp places boards at (50,200)/(450,200) and earth at (110,560), (610,560), and (710,560). Therefore the restored board-local earth positions are left (60,360), right (160,360) and (260,360). The left sequence is reversed and the right sequences are offset, matching the old code. The opponent's underground strip is mirrored so root placement also differs, while the upper board and hole geometry remain unchanged. Earth and roots scale uniformly with the board; layout reserves the falling-earth tail before the bottom HUD. They have no collision or influence on game randomness. Pause/reduced motion freeze decorative animation.
 
 ## Character homes
 

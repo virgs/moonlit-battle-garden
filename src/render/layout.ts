@@ -1,4 +1,5 @@
 import type { PlayerId } from '../game/types';
+import { scoreBarGeometry } from './legacyPresentation';
 
 // Source-image pixels, measured from garden.png (301 × 383), in keyboard order.
 // Feet sit at each cavity's lower lip; the irregular artwork is not a regular grid.
@@ -15,24 +16,26 @@ export type GardenLayout = Rect & {
   id: PlayerId; scale: number; lane: Rect; header: Rect; footer: Rect;
   holes: { feet: { x: number; y: number }; hit: Rect }[];
 };
-export type ArenaLayout = { width: number; height: number; single: boolean; landscape: boolean; opponent: Rect | null; gardens: GardenLayout[] };
+export type ArenaLayout = { width: number; height: number; single: boolean; landscape: boolean; score: Rect; opponent: Rect | null; gardens: GardenLayout[] };
 
 export function createArenaLayout(width: number, height: number, mode: 'ai' | 'local'): ArenaLayout {
   const single = mode !== 'local' && (width < 700 || (height < 500 && width < 1000));
   const short = height < 580;
   const landscape = single && width > height;
   const margin = width < 700 ? 12 : 24;
-  const barHeight = 28;
+  const score = scoreBarGeometry(width, height);
+  const barHeight = score.reserve;
   const top = (single ? (short ? 131 : 185) : (short ? 115 : 151)) + barHeight;
   const bottom = short ? 88 : 132;
   const laneWidth = width / (single ? 1 : 2);
   const sideHud = Math.min(230, width * 0.25);
   const availableWidth = landscape ? width - 2 * (sideHud + margin) - 16 : laneWidth - margin * 2;
   const availableHeight = landscape ? height - 65 - barHeight : height - top - bottom;
-  const scale = Math.max(0.05, Math.min(availableWidth / gardenArt.width, availableHeight / gardenArt.height));
+  const effectsTail = 22;
+  const scale = Math.max(0.05, Math.min(availableWidth / gardenArt.width, availableHeight / (gardenArt.height + effectsTail)));
   const gardenWidth = gardenArt.width * scale;
   const gardenHeight = gardenArt.height * scale;
-  const y = landscape ? 57 + barHeight : top + Math.max(0, (height - top - bottom - gardenHeight) / 2);
+  const y = landscape ? 57 + barHeight : top + Math.max(0, (height - top - bottom - gardenHeight - effectsTail * scale) / 2);
   const gardens = (single ? [0] as const : [0, 1] as const).map(id => {
     // Visual side is determined by local identity, never by character or network seat.
     const x = laneWidth * id + (laneWidth - gardenWidth) / 2;
@@ -52,5 +55,5 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
   const opponent = !single ? null : landscape
     ? { x: width - margin - sideHud, y: 78 + barHeight, width: sideHud, height: 34 }
     : { x: 12, y: (short ? 50 : 57) + barHeight, width: width - 24, height: short ? 22 : 34 };
-  return { width, height, single, landscape, opponent, gardens };
+  return { width, height, single, landscape, score, opponent, gardens };
 }

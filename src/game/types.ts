@@ -7,7 +7,6 @@ export type Target = { id: number; kind: TargetKind; born: number; expires: numb
 export type PendingSpell = { tier: number; at: number; from: PlayerId };
 export type Player = {
   character: CharacterId;
-  health: number;
   score: number;
   stars: number;
   wins: number;
@@ -16,7 +15,7 @@ export type Player = {
   nextSpawn: number;
   nextDecoy: number;
   nextCast: number;
-  damageShield: number;
+  mistakeShield: number;
   shieldUntil: number;
   magicShieldUntil: number;
   invasionUntil: number;
@@ -43,4 +42,4 @@ export type MatchOptions = {
   seed: number;
 };
 export type GameAction = { type: 'hit'; player: PlayerId; hole: number } | { type: 'cast'; player: PlayerId };
-export type GameEvent = { id: number; player: PlayerId; kind: 'hit' | 'star' | 'hurt' | 'shield' | 'cast'; hole?: number };
+export type GameEvent = { id: number; player: PlayerId; kind: 'hit' | 'star' | 'penalty' | 'shield' | 'cast'; hole?: number };

@@ -22,7 +22,7 @@ export function App() {
         <button className="primary-button start-button" onClick={() => setSession(new Session({ characters: [character, opponent], mode, difficulty, seed: crypto.getRandomValues(new Uint32Array(1))[0] }))}>Enter the garden <span>↗</span></button>
         <p className="setup-footnote">{mode === 'ai' ? 'Play offline. No account. Just a very determined opponent.' : 'Two players. One computer. A very personal rivalry.'}</p>
       </section>
-      <section className="how-to"><div><span>01</span><h3>Whack with care</h3><p>Hit moles before they hide. Empty hits and rabbit hits cost health.</p></div><div><span>02</span><h3>Pocket some magic</h3><p>Collect stars for four different spells. Cast now or save for something bigger.</p></div><div><span>03</span><h3>Outlast your rival</h3><p>Protect your garden and disrupt theirs. First to win two rounds takes the match.</p></div></section>
+      <section className="how-to"><div><span>01</span><h3>Whack with care</h3><p>Hit moles before they hide. Empty hits and rabbit hits cost points.</p></div><div><span>02</span><h3>Pocket some magic</h3><p>Collect stars for four different spells. Cast now or save for something bigger.</p></div><div><span>03</span><h3>Outlast your rival</h3><p>Build a decisive score lead to fill the bar. First to win two rounds takes the match.</p></div></section>
       <p className="development-note">First playable · Local and AI matches available · Online rooms are next</p>
     </main>
     <div className="site-footer"><span>GROWN FROM DIG HOLE BATTLE GARDEN · 2009 → 2026</span><a href="https://github.com/virgs/molecideGaiden" target="_blank" rel="noreferrer">Original art & sounds ↗</a></div>
