@@ -41,7 +41,7 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
     <div className="effect-tags" style={{ left: garden.x, top: garden.y + garden.height - 24, width: garden.width }}>{shield && <span>◇ Guard ×{player.mistakeShield}</span>}{ward && <span>✧ Spore Ward</span>}{active && <span className="bad">Rabbit invasion</span>}</div>
     <div className="magic-panel" style={position(garden.footer)}>
       <div className="magic-meter"><span className="eyebrow">Magic charge</span><span className="stars" aria-label={`${player.stars} stars`}>{[0, 1, 2, 3].map(n => <span key={n} className={n < player.stars ? 'charged' : ''}>★</span>)}</span></div>
-      <button className="cast-button" title={player.stars ? spell.description : 'Collect golden stars to charge magic'} disabled={!playing || bot || remote || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}><span>{player.stars ? spell.name : 'Collect stars to cast'}</span><kbd>{id === 0 ? 'R' : '+'}</kbd></button>
+      <button className="cast-button" title={player.stars ? spell.description : 'Collect golden stars to charge magic'} disabled={!playing || bot || remote || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}><span>{player.stars ? `Cast: ${spell.name}` : 'Collect stars to cast'}</span><kbd>{id === 0 ? 'R' : '+'}</kbd></button>
       <p className="spell-description">{player.stars ? spell.description : 'Hit golden stars. Save for stronger magic, or cast early.'}</p>
       <div className="board-message" role="status">{player.messageUntil > snapshot.state.time ? player.message : `Wave ${pace.wave} · ${phaseLabel}`}</div>
     </div>

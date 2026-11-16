@@ -33,6 +33,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D23 | User clarified: scores are the only competitive resource. Equal scores center the bar; a lead of X fills it and wins the round. No separate health pool or old linked-life mechanic. X=100 is a provisional configurable default. |
 | D24 | Implement wave pacing and prepare distinct home backgrounds/music, portraits, and per-tier cast playback so only final asset files are needed. No final art/music generation requested in this pass. |
 | D25 | Online matches use one player’s browser as host over WebRTC. No dedicated gameplay server; cheating resistance is not a priority. Hosted signaling and optional relays are connection infrastructure. Host exit ends the match. |
+| D26 | Publish the static website with GitHub Pages. Mobile plays in ordinary browsers; PWA installation/offline caching is deferred and is not part of the current release work. Test small screens in portrait and landscape. |
 
 ## Current proposals, not yet confirmed
 
@@ -40,7 +41,7 @@ This file records the discussion's current state. An accepted concept is not a c
 - 3×3 boards and best-of-three matches. Victory uses the user-confirmed score-difference threshold, not health.
 - Four collectible stars maximum; one cast button uses the spell matching the current star count and consumes those stars.
 - The earlier PartyServer backend proposal is superseded by D25. Private invites use PeerJS signaling and player-hosted WebRTC matches; no gameplay backend is deployed.
-- Installable mobile browser game/PWA first; native store packaging later if requested.
+- Mobile delivery is the ordinary browser website per D26. PWA/native packaging is deferred.
 - Desktop shows both boards; mobile includes a compact opponent status strip.
 - Safe automatic clearing, readable spell warnings, limits on overlapping disruption, and distinct tactical roles for each spell tier. Exact rules remain to be specified.
 
@@ -58,7 +59,7 @@ This file records the discussion's current state. An accepted concept is not a c
 
 ## Implementation status
 
-Local and AI play are implemented. See prototype.md for exact defaults and known imbalance. Balance runs use the real simulation, paired seeds, swapped sides, and tier-by-tier spell coverage. Private player-hosted online matches are implemented; real cross-network QA, optional relay provisioning, and PWA delivery remain pending.
+Local and AI play are implemented. See prototype.md for exact defaults and known imbalance. Balance runs use the real simulation, paired seeds, swapped sides, and tier-by-tier spell coverage. Private player-hosted online matches are implemented; real cross-network QA, optional relay provisioning remain pending. PWA delivery is deferred.
 
 See status.md for the complete implementation audit and presentation.md for verified details from the oldest source code.
 

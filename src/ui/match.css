@@ -91,3 +91,8 @@
   .match-screen .overlay-card { padding: 18px 28px; }
   .match-screen .overlay-card h2 { margin: 8px 0; }
 }
+
+@media (pointer: coarse) {
+  .match-screen .cast-button kbd { display: none; }
+  .single-board .cast-button { min-height: 44px; }
+}

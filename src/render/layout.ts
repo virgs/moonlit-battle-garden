@@ -26,7 +26,7 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
   const score = scoreBarGeometry(width, height);
   const barHeight = score.reserve;
   const top = (single ? (short ? 131 : 185) : (short ? 115 : 151)) + barHeight;
-  const bottom = short ? 88 : 132;
+  const bottom = single ? (short ? 104 : 144) : (short ? 88 : 132);
   const laneWidth = width / (single ? 1 : 2);
   const sideHud = Math.min(230, width * 0.25);
   const availableWidth = landscape ? width - 2 * (sideHud + margin) - 16 : laneWidth - margin * 2;

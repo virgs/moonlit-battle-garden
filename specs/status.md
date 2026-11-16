@@ -18,15 +18,18 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 
 | Priority | Feature | Current gap |
 | --- | --- | --- |
+| 0 | Public website | GitHub Pages workflow and subpath-safe assets are ready and verified. GitHub rejected activation for the private repository on the current plan; publishing awaits an explicit visibility/plan choice. |
 | 1 | Internet/mobile online QA | Player-hosted online works in real two-browser desktop/mobile tests. Physical devices and different networks remain to test. No managed TURN relay is provisioned: restrictive networks may fail to connect. No prediction/rollback, host migration or page-refresh recovery. |
 | 2 | Balance | The harness exists, but balance is unfinished. Current wave run: Champignon wins 112/200 easy, 130/200 medium, 172/200 hard; Andy wins 88/70/22, with six hard matches unfinished at the diagnostic cap. Tune pacing/magic, examine bot-policy bias and long ties, then validate human keyboard/mouse/touch play. |
 | 3 | Final presentation files | Code is ready; 14 final files remain: two home backgrounds, two home music tracks, two portraits, and eight tier-specific cast sheets. They drop into stable configured paths; missing assets use current fallbacks. Richer spell effects can be added later. |
-| 4 | Installable/offline mobile delivery | Responsive browser play works; cached startup/PWA installation and physical mobile QA remain. Native packaging/store delivery is a later option, not implemented. |
+| 4 | Small-screen/browser QA | Browser-based mobile is the current delivery target. Automated touch tests cover hitting stars, casting via a dedicated button, 320×568/390×844 portrait and 844×390 landscape. Physical-device and browser-chrome/safe-area QA remain. |
 
 ## Confirmed round mechanic
 
 The user clarified that the bar represents score difference, with a winning threshold X. This now replaces the earlier independent-health scaffold. Hits earn points, mistakes subtract points, equal scores center the bar, and a lead of X wins the round and fills one color. X=100 is provisional and configurable. No separate health, linked-life pool, or time-based round winner remains. Scores and pacing restart each round. The 30-minute cap belongs only to offline diagnostic simulations.
 
 ## Intentionally later
+
+PWA installation/offline startup caching and native/store packaging are deferred by user request; they are not release blockers.
 
 The other six adopted characters and their spell sets stay deferred until the initial two-character game is ready. Keyboard-mapping shuffle remains excluded. No PixelLab-generated character or home assets have been created yet.
