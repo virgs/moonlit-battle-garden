@@ -1,0 +1,8 @@
+.match-end{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;padding:24px;background:radial-gradient(ellipse at center,#284332,#10251f 70%);color:var(--cream);text-align:center;overflow:hidden}
+.match-end>.celebration-trophy{width:clamp(160px,32vw,320px);height:auto;flex:none;margin:0}
+.match-end h1{font-size:clamp(28px,5vw,56px);line-height:1.15;max-width:1000px;color:var(--lime)}
+.continue-prompt{min-height:24px;font-size:clamp(13px,2vw,18px);color:#b6c8a6;line-height:1.4}
+.continue-prompt.ready{animation:prompt-arrival .3s ease-out both}
+@keyframes prompt-arrival{from{opacity:0}to{opacity:1}}
+@media(max-height:500px){.match-end{gap:12px;padding:16px}.match-end>.celebration-trophy{width:160px;height:80px}.match-end h1{font-size:32px}}
+@media(prefers-reduced-motion:reduce){.continue-prompt.ready{animation:none}}

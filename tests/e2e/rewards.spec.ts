@@ -43,8 +43,9 @@ test('original trophy sheets celebrate each round and retain the correct per-sid
   await page.getByRole('button', { name: /Next round/ }).click();
   await loseRound(page, 0);
   await expect(page.getByRole('heading', { name: 'Player 2 wins the match!' })).toBeVisible();
-  await expect(trophies.nth(1)).toHaveAttribute('data-wins', '2');
-  await expect(trophies.nth(1).locator('image')).toHaveAttribute('y', '-150');
+  await expect(page.getByRole('main', { name:'Match result' })).toBeVisible();
+  await expect(page.locator('button')).toHaveCount(0);
+  await expect(page.locator('.score-bar')).toHaveCount(0);
 });
 
 test('star artwork charges and clears when casting; pause freezes its animation', async ({ page }, testInfo) => {
