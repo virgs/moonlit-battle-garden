@@ -1,16 +1,14 @@
-import { useEffect, useRef } from 'react';
-import Phaser from 'phaser';
-import { GardenScene } from '../render/GardenScene';
+import type { CSSProperties } from 'react';
 import { characters } from '../game/config';
 import type { Session, Snapshot } from '../game/Session';
-import type { PlayerId } from '../game/types';
+import type { GardenLayout, Rect } from '../render/layout';
 
 const keys = [['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'], ['7', '8', '9', '4', '5', '6', '1', '2', '3']];
+const position = (rect: Rect): CSSProperties => ({ left: rect.x, top: rect.y, width: rect.width, height: rect.height });
 
-export function Board({ session, snapshot, id }: { session: Session; snapshot: Snapshot; id: PlayerId }) {
-  const host = useRef<HTMLDivElement>(null);
-  const latest = useRef(snapshot);
-  latest.current = snapshot;
+/** Only HUD and accessible hit regions; all artwork lives in the shared canvas. */
+export function Board({ session, snapshot, garden }: { session: Session; snapshot: Snapshot; garden: GardenLayout }) {
+  const id = garden.id;
   const player = snapshot.state.players[id];
   const character = characters[player.character];
   const bot = id === 1 && session.match.options.mode === 'ai';
@@ -20,37 +18,27 @@ export function Board({ session, snapshot, id }: { session: Session; snapshot: S
   const shield = player.damageShield > 0 && player.shieldUntil > snapshot.state.time;
   const ward = player.magicShieldUntil > snapshot.state.time;
 
-  useEffect(() => {
-    const game = new Phaser.Game({
-      type: Phaser.AUTO, parent: host.current!, width: 360, height: 390,
-      transparent: true, pixelArt: true, audio: { noAudio: true },
-      scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
-      scene: new GardenScene(() => latest.current, id), banner: false,
-    });
-    return () => game.destroy(true);
-  }, [session, id]);
-
-  return <section className={`player-panel player-${id} ${active ? 'cursed' : ''}`} aria-label={`${bot ? 'Computer' : `Player ${id + 1}`} garden`}>
-    <header className="player-header">
-      <div className={`avatar ${player.character}`} aria-hidden="true">{character.emblem}</div>
-      <div><span className="eyebrow">{bot ? `${session.match.options.difficulty} CPU` : `Player ${id + 1}`}</span><h2>{character.name}</h2></div>
-      <div className="round-wins" aria-label={`${player.wins} rounds won`}>{[0, 1].map(n => <span key={n} className={n < player.wins ? 'won' : ''}>◆</span>)}</div>
-    </header>
-    <div className="vitals"><div className="health-track" role="meter" aria-label={`${id === 0 ? 'Your' : 'Opponent'} health`} aria-valuenow={player.health} aria-valuemin={0} aria-valuemax={100}><div style={{ width: `${player.health}%` }} /></div><strong>{player.health}<small> HP</small></strong><span className="score">{player.score.toLocaleString()}<small> score</small></span></div>
-    <div className={`garden-wrap ${shield || ward ? 'protected' : ''}`}>
-      <div className="phaser-host" ref={host} />
-      <div className="hole-controls">{player.holes.map((target, hole) => <button
-        key={hole} type="button" className="hole" aria-label={`${target?.kind ?? 'Empty'} hole ${hole + 1}`}
-        data-kind={target?.kind ?? 'empty'} disabled={!playing || bot}
-        onPointerDown={event => { if (event.button === 0) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
-        onKeyDown={event => { if ((event.key === 'Enter' || event.key === ' ') && !event.repeat) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
-      ><span className="keycap">{keys[id][hole]}</span></button>)}</div>
-      <div className="effect-tags">{shield && <span>◇ Guard ×{player.damageShield}</span>}{ward && <span>✧ Spore Ward</span>}{active && <span className="bad">Rabbit invasion</span>}</div>
+  return <section className={`player-panel player-${id} ${active ? 'cursed' : ''}`} aria-label={`${bot ? 'Computer' : `Player ${id + 1}`} garden`} data-board-x={garden.x} data-board-y={garden.y} data-board-scale={garden.scale}>
+    <div className="player-summary" style={position(garden.header)}>
+      <header className="player-header">
+        <div className={`avatar ${player.character}`} aria-hidden="true">{character.emblem}</div>
+        <div className="player-name"><span className="eyebrow">{bot ? `${session.match.options.difficulty} CPU` : `Player ${id + 1}`}</span><h2>{character.name}</h2></div>
+        <div className="round-wins" aria-label={`${player.wins} rounds won`}>{[0, 1].map(n => <span key={n} className={n < player.wins ? 'won' : ''}>◆</span>)}</div>
+      </header>
+      <div className="vitals"><div className="health-track" role="meter" aria-label={`${id === 0 ? 'Your' : 'Opponent'} health`} aria-valuenow={player.health} aria-valuemin={0} aria-valuemax={100}><div style={{ width: `${player.health}%` }} /></div><strong>{player.health}<small> HP</small></strong><span className="score">{player.score.toLocaleString()}<small> score</small></span></div>
     </div>
-    <div className="magic-panel"><div className="magic-meter"><span className="eyebrow">Magic charge</span><span className="stars" aria-label={`${player.stars} stars`}>{[0, 1, 2, 3].map(n => <span key={n} className={n < player.stars ? 'charged' : ''}>★</span>)}</span></div>
-      <button className="cast-button" disabled={!playing || bot || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}><span>{player.stars ? spell.name : 'Collect stars to cast'}</span><kbd>{id === 0 ? 'R' : '+'}</kbd></button>
+    <div className="hole-controls">{player.holes.map((target, hole) => <button
+      key={hole} type="button" className="hole" aria-label={`${target?.kind ?? 'Empty'} hole ${hole + 1}`}
+      style={position(garden.holes[hole].hit)} data-kind={target?.kind ?? 'empty'} disabled={!playing || bot}
+      onPointerDown={event => { if (event.button === 0) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
+      onKeyDown={event => { if ((event.key === 'Enter' || event.key === ' ') && !event.repeat) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
+    ><span className="keycap">{keys[id][hole]}</span></button>)}</div>
+    <div className="effect-tags" style={{ left: garden.x, top: garden.y + garden.height - 24, width: garden.width }}>{shield && <span>◇ Guard ×{player.damageShield}</span>}{ward && <span>✧ Spore Ward</span>}{active && <span className="bad">Rabbit invasion</span>}</div>
+    <div className="magic-panel" style={position(garden.footer)}>
+      <div className="magic-meter"><span className="eyebrow">Magic charge</span><span className="stars" aria-label={`${player.stars} stars`}>{[0, 1, 2, 3].map(n => <span key={n} className={n < player.stars ? 'charged' : ''}>★</span>)}</span></div>
+      <button className="cast-button" title={player.stars ? spell.description : 'Collect golden stars to charge magic'} disabled={!playing || bot || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}><span>{player.stars ? spell.name : 'Collect stars to cast'}</span><kbd>{id === 0 ? 'R' : '+'}</kbd></button>
       <p className="spell-description">{player.stars ? spell.description : 'Hit golden stars. Save for stronger magic, or cast early.'}</p>
+      <div className="board-message" role="status">{player.messageUntil > snapshot.state.time ? player.message : character.role}</div>
     </div>
-    <div className="board-message" role="status">{player.messageUntil > snapshot.state.time ? player.message : character.role}</div>
   </section>;
 }

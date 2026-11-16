@@ -17,7 +17,7 @@ Choose Sir Champignon or Andy, then play against an easy/medium/hard computer op
 - Escape pauses. Local games also pause when the tab is hidden.
 - Hit moles and stars; avoid rabbits and empty holes. Collect up to four stars. The exact current star count selects your spell; casting consumes the charge.
 
-Desktop shows both gardens. Mobile AI mode shows your garden and compact opponent status. Local two-human mode keeps both gardens available on narrow screens.
+Matches use one full-screen canvas with a HUD overlay. Artwork scales uniformly, with sprites and hit areas anchored to the actual holes. Desktop shows both gardens with you always on the left; same-computer Player 1 is always left. Mobile AI mode shows your garden and compact opponent status, with side HUDs in landscape. Local two-human mode keeps both gardens side by side on narrow screens.
 
 ## Current milestone
 

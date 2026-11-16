@@ -22,6 +22,9 @@ This file records the discussion's current state. An accepted concept is not a c
 | D12 | User authorized starting implementation on 2026-11-16; document provisional defaults for remaining tuning. D11's discussion phase is complete. |
 | D13 | Name: **Moonlit Battle Garden**. Repository: `virgs/moonlit-battle-garden`. Keep frequent meaningful commits. |
 | D14 | Run offline AI battles and report character wins at easy, medium, and hard to evaluate balance. |
+| D15 | Matches use one canvas filling the viewport; all interface elements are HUD overlays. Preserve sprite aspect ratios; distribute/reposition gardens and HUDs on resize rather than stretching artwork. |
+| D16 | The local player is always on the left against AI or online opponents; same-computer Player 1 is always left. There is no side selector. A single visible mobile board represents the local player. Future online transport must map local identity to this presentation independently of network seat. |
+| D17 | Sprite feet and hit areas must share measured source-art hole anchors at every viewport size. |
 
 ## Current proposals, not yet confirmed
 

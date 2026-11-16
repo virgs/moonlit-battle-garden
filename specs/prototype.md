@@ -12,7 +12,10 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 - One star every five regular spawns. Regular spawn interval falls from 1150 to 470 ms over 120 seconds. Target lifetime falls from 2100 to 1150 ms.
 - Round limit: 180 seconds; compare health, then score at timeout. Exact ties replay with no win. Simultaneous lethal expiry damage is a draw. Draws preserve previous round wins.
 - Mouse/touch and original keyboard grids. R/numpad + casts; Escape pauses. Local modes pause on tab hiding.
-- Desktop shows both boards. Mobile AI mode shows only the human board plus opponent status; narrow-screen local versus still exposes both boards.
+- One full-viewport Phaser canvas renders both gardens and the backdrop. React adds HUD and accessible hit areas over the canvas. Match play has no document scrolling or surrounding page header/footer.
+- Desktop shows both boards. Mobile AI mode shows only the human board plus opponent status; narrow-screen local versus exposes both boards side by side. Short landscape single-board views move HUD panels to the sides to preserve playable target size.
+- Local identity is always rendered left on two-board views, regardless of character. Same-computer Player 1 is left. Online play must preserve that rule regardless of server seat; online transport is not implemented yet.
+- Boards preserve garden.png's 301×383 aspect ratio with one uniform scale. Every sprite and accessible hit region uses the same measured irregular source-art anchors in src/render/layout.ts. Resizing changes garden positions and a common scale, not independent x/y stretch factors.
 - Shared fixed-step simulation with seeded randomness and independent bot randomness; no renderer dependency.
 
 ## Exact initial spells

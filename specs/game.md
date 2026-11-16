@@ -20,6 +20,8 @@ Proposed magic economy: collectible stars charge a meter capped at four. Casting
 
 Mobile must prioritize large touch targets and the player's board, score, health, stars, and casting control. Proposed opponent strip: portrait, health, stars, and rounds won. Cross-device matches are intended; input fairness needs playtesting and a policy decision.
 
+Matches fill the viewport with one canvas; menus, status, controls, and pause/results UI are HUD overlays. Preserve image proportions with uniform scaling and responsive positioning. Sprite feet and hit areas share measured source-art anchors. On two-board views, the local player is always left, and same-computer Player 1 is always left. No side selector is needed. Future online transport must map server player identity into this local presentation. Single-board mobile views show the local player; phone landscape can place HUDs beside the board to keep targets large.
+
 Original direct keyboard layout is a starting proposal: QWE/ASD/ZXC for one player and numpad 789/456/123 for the other. Casting keys, rebinding, mouse, gamepad, and touch details are not finalized. Keyboard-mapping shuffle is excluded.
 
 ## AI
