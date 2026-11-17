@@ -179,3 +179,12 @@ Arrow buttons, focused Left/Right keys and horizontal swipes wrap through the cu
 In solo, the computer has a second editable carousel and starts ready; changing its choice requires reconfirmation. Same-computer players confirm independently. Offline Enter the garden enables when both are ready. Online, the rival carousel mirrors live changes and is read-only. Both confirmed picks trigger a 1200 ms host hold for the existing celebration clips, then create the authoritative match. Losing the pre-match connection clears readiness and reconnects; both must confirm again. Closing/cancelling cleans up pending launch timers and the peer room.
 
 Result dismissal uses a completed click/tap rather than pointer-down so its release cannot activate a newly mounted mode choice underneath.
+
+
+## Menu language and action keys (D52)
+
+Modes are Night Watch (computer opponent), Garden Grudge (shared keyboard), and Beyond the Hedge (online invite). Garden Shed contains settings; Field Notes contains help. Internal mode IDs and rules are unchanged. The main menu keeps short Solo/Local/Online descriptions so the themed names remain clear.
+
+Character selection uses only the current mode as its heading. Visible You/Rival/Player labels, Choosing instructions and repeated rival-ready messages are removed; blue/red names and placement retain identity, with contextual labels preserved for assistive technology. A confirmed character shows Ready once. Routine connected-lobby instructions stay hidden; waiting/reconnect/error messages and Starting remain visible when meaningful.
+
+Existing CraftPix key sprites accompany actions: R confirms/changes the first slot, numpad + the second editable slot, Enter starts when both offline slots are ready, and Esc returns to the menu. Carousel arrows use the pack's Left/Right keycaps and work whenever their carousel has focus. Enter also appears with main-menu and form actions, using ordinary focused-button activation. Esc returns the main menu to the title; Escape does not reopen the title's menu. Keyboard-only hints hide on touch-primary devices while tappable arrow buttons remain. The unmodified keyboard atlas is reused without generation.

@@ -61,3 +61,5 @@ D49 defers further asset/animation creation during screen work. Simple semi-tran
 D50 replaces the website-style setup page with a full-screen title and main menu. AI/local character setup and online create/join/invites share the main menu; Options persists sound and How to Play explains controls. Direct invites bypass the title. Existing castle/hero art is reused without generation. Responsive and keyboard/touch flow checks are included.
 
 D51 separates mode/options from a dedicated two-carousel character screen. Solo keeps an editable bot carousel; local players confirm independently; online highlights and ready states synchronize live before match creation. Existing idle slots/still fallbacks and one-shot victory sheets are used without asset generation. Pre-match reconnect clears readiness and pending starts.
+
+D52 renames the modes to Night Watch / Garden Grudge / Beyond the Hedge, with Garden Shed and Field Notes for settings/help. Selection copy is reduced to one Ready marker per hero; redundant instructions and visible player-role labels are removed. Existing CraftPix key icons are paired with working confirmation/start/back controls.

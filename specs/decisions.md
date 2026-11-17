@@ -66,6 +66,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D51 | Separate main-menu mode/options selection from character selection. Always show two independent character carousels in solo, local and online modes. Browsing uses idle art (still fallback while absent); confirming plays the existing victory clip once and marks Ready. Online highlights/readiness synchronize live, with the local player always left; both must confirm before match creation. No new assets/animations are generated. |
 
+| D52 | Use Night Watch (solo), Garden Grudge (shared keyboard), Beyond the Hedge (online), Garden Shed (settings), and Field Notes (help), with brief mode descriptions in the main menu. Remove redundant selection instructions/player-role labels and show Ready once per confirmed hero. Reuse CraftPix key art beside keyboard actions, with real R/numpad+ confirmation, Enter start and Esc back shortcuts; hide keyboard-only hints on touch-primary devices. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

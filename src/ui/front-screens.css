@@ -12,3 +12,9 @@
 
 .mode-art-placeholder{height:clamp(100px,22vh,220px);width:100%;background:#9cb7c622;margin:20px 0}.front-panel>.front-action{margin-top:18px}
 @media(max-height:520px){.mode-art-placeholder{height:70px;margin:10px 0}.front-panel>.front-action{margin-top:8px}}
+
+.front-nav button{display:flex;align-items:center;justify-content:space-between;gap:12px}.front-nav .key-hint{visibility:hidden}.front-nav button[aria-pressed=true] .key-hint,.front-nav button:focus-visible .key-hint{visibility:visible}.front-action:has(>.key-hint),.front-link:has(>.key-hint),.front-footer button:has(>.key-hint){display:inline-flex;align-items:center;gap:12px}.front-footer button:has(>.key-hint){gap:8px}.front-menu .online-lobby .front-action{justify-content:flex-start}.front-link .key-hint{--control-size:22px}
+@media(max-height:520px){.key-hint{--control-size:22px}.front-action:has(>.key-hint),.front-link:has(>.key-hint){gap:8px}}
+
+@media(min-width:701px) and (min-height:521px){.front-nav button{font-size:clamp(30px,3.2vw,46px)}}
+@media(max-width:1000px),(max-height:520px){.front-nav .key-hint{display:none}}

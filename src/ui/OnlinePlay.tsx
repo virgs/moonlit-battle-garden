@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { PeerRoom } from '../network/PeerRoom';
 import type { Session } from '../game/Session';
+import { KeyHint } from './ControlKey';
+import { menuLabels } from './menuContent';
 import { CharacterSelection } from './CharacterSelection';
 import type { SelectionView } from '../network/selection';
 import type { CharacterId } from '../game/types';
@@ -36,18 +38,18 @@ export function OnlinePlay({ initialCharacter, leave, renderLobby, sound, change
   };
   if (session) return <Suspense fallback={<p className="development-note">Opening the garden…</p>}><Game session={session} leave={() => { session.stop(); leave(session.muted); }} /></Suspense>;
   const cancel=()=>{room.current?.dispose();room.current=null;discardPrimedMusic();setBusy(false);setInvite('');setSelecting(false);setSelection(null);setStatus('Create a garden or join a friend’s invite.');};
-  const share=invite&&!selection?.connected&&<div className="selection-share"><label>Share this invite<input aria-label="Share this invite" readOnly value={invite} onFocus={event=>event.target.select()} /></label><button className="front-link" onClick={async()=>{try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(invite);setStatus('Invite copied. Waiting for your opponent…');}catch{setStatus('Select the invite above to copy it.');}}}>Copy invite</button></div>;
+  const share=invite&&!selection?.connected&&<div className="selection-share"><label>Share this invite<input aria-label="Share this invite" readOnly value={invite} onFocus={event=>event.target.select()} /></label><button className="front-link" onClick={async()=>{try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(invite);setStatus('Invite copied. Waiting for your opponent…');}catch{setStatus('Select the invite above to copy it.');}}}><KeyHint label="Enter" />Copy invite</button></div>;
   if(selecting)return <CharacterSelection mode="online" slots={[
     {character:selection?.players[0].character??character,ready:selection?.players[0].ready??false,controlled:true,canConfirm:!!selection?.connected,label:'You'},
     {character:selection?.players[1]?.character??null,ready:selection?.players[1]?.ready??false,controlled:false,label:'Rival'},
-  ]} pick={(_id,value)=>{setCharacter(value);changeCharacter(value);room.current?.select(value,false);}} ready={(_id,value)=>{if(value&&sound)prepareAudio();room.current?.select(character,value);}} back={cancel} footer={share} status={status} />;
+  ]} pick={(_id,value)=>{setCharacter(value);changeCharacter(value);room.current?.select(value,false);}} ready={(_id,value)=>{if(value&&sound)prepareAudio();room.current?.select(character,value);}} back={cancel} footer={share} status={selection?.connected?(selection.players.every(pick=>pick?.ready)?'Starting…':undefined):status} />;
   return renderLobby(<div className="online-lobby">
-    <span className="eyebrow">A garden for two</span><h2>Invite a rival</h2>
-    <p className="front-note">Create a garden or join a friend. You’ll choose your champions together before the match.</p>
-    <button className="front-action" disabled={busy} onClick={()=>begin(null)}>Create online garden</button>
+    <h2>{menuLabels.online}</h2>
+    <p className="front-note">Online · Invite a friend to a private garden.</p>
+    <button className="front-action" disabled={busy} onClick={()=>begin(null)}><KeyHint label="Enter" />Create online garden</button>
     <label>Friend’s invite<input aria-label="Friend’s invite" disabled={busy} value={code} onKeyDown={event=>{if(event.key==='Enter'&&!event.repeat&&!busy&&code.trim()){event.preventDefault();join();}}} onChange={event=>setCode(event.target.value)} placeholder="Paste an invite link or room ID" /></label>
-    <button className="front-action" disabled={busy||!code.trim()} onClick={join}>Join garden</button>
-    <p role="status">{status}</p>
+    <button className="front-action" disabled={busy||!code.trim()} onClick={join}><KeyHint label="Enter" />Join garden</button>
+    {status!=='Create a garden or join a friend’s invite.'&&<p role="status">{status}</p>}
     <p className="online-note">The creator hosts the match. Keep both games open; closing the host ends play.</p>
   </div>);
 }

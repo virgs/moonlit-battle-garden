@@ -1,4 +1,6 @@
 import { useEffect, useRef, type ReactNode, type KeyboardEvent } from 'react';
+import { KeyHint } from './ControlKey';
+import { menuLabels } from './menuContent';
 import { assetUrl } from '../assets/url';
 import { characters } from '../game/config';
 import type { CharacterId } from '../game/types';
@@ -7,15 +9,15 @@ import './front-screens.css';
 
 export type MenuPane = 'ai' | 'local' | 'online' | 'options' | 'help';
 const choices: { id: MenuPane; label: string }[] = [
-  { id:'ai', label:'Versus computer' }, { id:'local', label:'Local two player' },
-  { id:'online', label:'Online rival' }, { id:'options', label:'Options' }, { id:'help', label:'How to play' },
+  { id:'ai', label:menuLabels.ai }, { id:'local', label:menuLabels.local },
+  { id:'online', label:menuLabels.online }, { id:'options', label:menuLabels.options }, { id:'help', label:menuLabels.help },
 ];
 export function Backdrop() { return <img className="front-backdrop" src={assetUrl('/assets/background-castle.png')} alt="" aria-hidden="true" />; }
 
 export function TitleScreen({ enter }: { enter: () => void }) {
   useEffect(() => {
     const key = (event: globalThis.KeyboardEvent) => {
-      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || ['Tab','Shift','Control','Alt','Meta'].includes(event.key)) return;
+      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || ['Tab','Escape','Shift','Control','Alt','Meta'].includes(event.key)) return;
       event.preventDefault(); enter();
     };
     window.addEventListener('keydown',key); return () => window.removeEventListener('keydown',key);
@@ -37,13 +39,13 @@ export function FrontMenu({ pane, choose, activate, title, children }: { pane: M
     }
     if (event.key === 'ArrowRight') { event.preventDefault(); panel.current?.querySelector<HTMLElement>('button:not(:disabled),input:not(:disabled),select:not(:disabled)')?.focus(); }
   };
-  return <main className="front-screen front-menu" aria-label="Main menu" onKeyDown={event => { if(event.key==='Escape') { event.preventDefault();nav.current?.querySelector<HTMLButtonElement>('[aria-pressed="true"]')?.focus(); } }}><Backdrop />
+  return <main className="front-screen front-menu" aria-label="Main menu" onKeyDown={event => { if(event.key==='Escape') { event.preventDefault();title(); } }}><Backdrop />
     <header className="front-heading"><a href={import.meta.env.BASE_URL} aria-label="Moonlit Battle Garden home">Moonlit <span>Battle Garden</span></a></header>
     <div className="front-content">
-      <nav ref={nav} className="front-nav" aria-label="Game mode" onKeyDown={navigate}>{choices.map(choice => <button key={choice.id} aria-pressed={pane===choice.id} onClick={()=>activate(choice.id)}>{choice.label}</button>)}</nav>
+      <nav ref={nav} className="front-nav" aria-label="Game mode" onKeyDown={navigate}>{choices.map(choice => <button key={choice.id} aria-pressed={pane===choice.id} onClick={()=>activate(choice.id)}><span>{choice.label}</span><KeyHint label="Enter" /></button>)}</nav>
       <section ref={panel} className="front-panel" aria-label="Game setup" key={pane}>{children}</section>
     </div>
-    <footer className="front-footer"><button onClick={title}>Back to title</button></footer>
+    <footer className="front-footer"><button aria-label="Back to title" onClick={title}><KeyHint label="Esc" />Title</button></footer>
   </main>;
 }
 

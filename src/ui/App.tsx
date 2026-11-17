@@ -2,6 +2,8 @@ import { lazy, Suspense, useCallback, useEffect, useState, type ReactNode } from
 import { Session } from '../game/Session';
 import type { CharacterId, Difficulty } from '../game/types';
 import { prepareAudio } from '../presentation/audioGesture';
+import { menuLabels } from './menuContent';
+import { KeyHint } from './ControlKey';
 import { CharacterSelection } from './CharacterSelection';
 import { FrontMenu, TitleScreen, type MenuPane } from './FrontScreens';
 import './presentation.css';
@@ -37,11 +39,11 @@ export function App() {
   ]} pick={(id,value)=>{if(id===0)setCharacter(value);else setOpponent(value);setReady(previous=>id===0?[false,previous[1]]:[previous[0],false]);}}
     ready={(id,value)=>setReady(previous=>id===0?[value,previous[1]]:[previous[0],value])} back={()=>setSelecting(false)} start={start} difficulty={difficulty} changeDifficulty={setDifficulty} />;
   if(pane==='online')return <Suspense fallback={menu(<p role="status">Opening online gardens…</p>)}><OnlinePlay initialCharacter={character} sound={sound} changeCharacter={setCharacter} renderLobby={menu} leave={muted=>{if(typeof muted==='boolean')setSound(!muted);history.replaceState(null,'',location.pathname);setPane('ai');}} /></Suspense>;
-  if(pane==='options')return menu(<><p className="eyebrow">Make yourself at home</p><h2>Options</h2><label className="sound-option"><input type="checkbox" checked={sound} onChange={event=>setSound(event.target.checked)} />Enable sound and music</label><p className="front-note">You can also mute or unmute from the pause menu.</p></>);
-  if(pane==='help')return menu(<><p className="eyebrow">Quick hands. A little magic.</p><h2>How to play</h2><div className="front-instructions"><h3>Whack with care</h3><p>Hit moles and stars. Avoid rabbits and empty holes. A lead of 100 points wins the round; first to two rounds wins the match.</p><h3>Spend your stars</h3><p>Collect up to four stars. Tap the star container or press your cast key to use the spell at that tier. Casting briefly freezes both boards.</p><h3>Your controls</h3><p>Player 1: QWE / ASD / ZXC. Magic: R.<br />Player 2: numpad 789 / 456 / 123. Magic: numpad +.<br />Mouse or phone: tap the holes and stars.</p><h3>Take a breather</h3><p>Escape or the score bar opens the menu. Solo and local play pause; online play continues. Connection loss freezes the match while it reconnects.</p></div></>);
-  return menu(<><p className="eyebrow">A garden for two</p><h2>{pane==='ai'?'Versus computer':'Local two player'}</h2>
+  if(pane==='options')return menu(<><h2>{menuLabels.options}</h2><label className="sound-option"><input type="checkbox" checked={sound} onChange={event=>setSound(event.target.checked)} />Enable sound and music</label><p className="front-note">You can also mute or unmute from the pause menu.</p></>);
+  if(pane==='help')return menu(<><h2>{menuLabels.help}</h2><div className="front-instructions"><h3>Whack with care</h3><p>Hit moles and stars. Avoid rabbits and empty holes. A lead of 100 points wins the round; first to two rounds wins the match.</p><h3>Spend your stars</h3><p>Collect up to four stars. Tap the star container or press your cast key to use the spell at that tier. Casting briefly freezes both boards.</p><h3>Your controls</h3><p>Player 1: QWE / ASD / ZXC. Magic: R.<br />Player 2: numpad 789 / 456 / 123. Magic: numpad +.<br />Mouse or phone: tap the holes and stars.</p><h3>Take a breather</h3><p>Escape or the score bar opens the menu. Solo and local play pause; online play continues. Connection loss freezes the match while it reconnects.</p></div></>);
+  return menu(<><h2>{menuLabels[pane]}</h2>
     <div className="mode-art-placeholder" aria-hidden="true" />
-    <p className="front-note">{pane==='ai'?'Pick two champions and face an easy, medium or hard rival. Quick hands meet garden magic.':'Two champions. Two gardens. Share a keyboard, or use the mouse alongside it.'}</p>
-    <button className="front-action" onClick={()=>activate(pane)}>Choose characters</button>
+    <p className="front-note">{pane==='ai'?'Solo · Face a computer opponent. Choose your champions and difficulty.':'Local · Two players, one keyboard. Settle it in the garden.'}</p>
+    <button className="front-action" onClick={()=>activate(pane)}><KeyHint label="Enter" />Choose characters</button>
   </>);
 }

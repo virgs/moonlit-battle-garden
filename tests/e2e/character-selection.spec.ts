@@ -4,11 +4,13 @@ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['la
   await page.setViewportSize({width,height});await openSelection(page,'local');
   const first=page.locator('.carousel-side-0'),second=page.locator('.carousel-side-1');
   await expect(page.locator('.character-carousel')).toHaveCount(2);
+  await expect(page.getByText('Choose your champions',{exact:true})).toHaveCount(0);
+  await expect(page.locator('.carousel-player h2,.carousel-remote-note')).toHaveCount(0);
   await expect(first).toHaveAttribute('data-character','champignon');await expect(second).toHaveAttribute('data-character','andy');
   await first.focus();await page.keyboard.press('ArrowRight');await expect(first).toHaveAttribute('data-character','andy');
   await expect(second).toHaveAttribute('data-character','andy');
   await page.keyboard.press('ArrowLeft');await expect(first).toHaveAttribute('data-character','champignon');
-  await page.getByRole('button',{name:'Confirm Player 1'}).click();
+  await page.keyboard.press('KeyR');
   await expect(first.locator('.carousel-art')).toHaveAttribute('data-animation','victory');
   const clip=first.locator('.victory-sheet');await expect(clip).toBeVisible();
   await expect.poll(()=>clip.getAttribute('data-frame')).toBe('8');
@@ -21,7 +23,7 @@ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['la
   expect(await page.locator('.selection-carousels').evaluate(element=>element.scrollWidth<=element.clientWidth)).toBe(true);
   await page.getByRole('button',{name:'Change selection for Player 1'}).click();
   await expect(first.locator('.carousel-art')).toHaveAttribute('data-animation','idle');
-  await page.getByRole('button',{name:'Back to menu'}).click();await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
+  await page.keyboard.press('Escape');await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
 });
 test('single player still shows a second editable opponent carousel',async({page},testInfo)=>{
   await openSelection(page);await expect(page.locator('.character-carousel')).toHaveCount(2);
@@ -38,4 +40,7 @@ test('single player still shows a second editable opponent carousel',async({page
   await page.getByRole('button',{name:'Next character for Computer'}).click();
   await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');
   await expect(page.getByRole('button',{name:'Enter the garden'})).toBeDisabled();
+  await page.keyboard.press('NumpadAdd');await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','true');
+  await page.keyboard.press('KeyR');await expect(page.locator('.carousel-side-0')).toHaveAttribute('data-ready','true');await page.keyboard.press('Enter');
+  await expect(page.locator('.match-screen')).toBeVisible();
 });

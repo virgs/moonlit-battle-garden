@@ -7,3 +7,5 @@ Keyboard: PNG/Kb_buttons_standart_frame_white.png, 16×16 light keycaps. Mouse: 
 Original License.txt is preserved. Freebie game-use terms: https://craftpix.net/file-licenses/ (section 2). Assets are integrated game controls, not an asset-export feature. No generation was used.
 
 The blank cap is cropped from Kb_blank_buttons_animation_white.png. A code-drawn plus marks the numpad casting key, avoiding the source atlas’s combined plus/equals symbol.
+
+Menu controls reuse the unmodified standard-frame atlas as menu-keys.png: Esc (0,0,16×16), Enter (64,96,32×16), Left/Right (0/16,80,16×16), rendered through clipped SVG viewports. No new image was drawn. Decorative key hints are hidden on touch-primary devices; arrow buttons remain usable.

@@ -7,7 +7,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await openMainMenu(page);
-  await page.getByRole('button', { name: 'Online rival' }).click();
+  await page.getByRole('button', { name: 'Beyond the Hedge' }).click();
   await page.getByRole('button', { name: 'Create online garden' }).click();
   const invite = page.getByRole('textbox', { name: 'Share this invite' });
   await expect(invite).toBeVisible({ timeout: 12000 });

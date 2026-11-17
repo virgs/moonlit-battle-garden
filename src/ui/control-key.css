@@ -1,0 +1,2 @@
+.control-key{position:relative;display:inline-block;flex:none;width:var(--control-size,26px);height:var(--control-size,26px);padding:0;border:0;background:none;line-height:0}.control-key img,.atlas-key>svg{display:block;width:100%;height:100%;image-rendering:pixelated}.atlas-key>svg{overflow:hidden}.key-symbol{position:absolute;inset:0;width:100%;height:100%;fill:#252c46;shape-rendering:crispEdges}.key-hint{--control-size:26px;display:inline-flex;align-items:center;vertical-align:middle;flex:none;line-height:0}
+@media(pointer:coarse){.key-hint{display:none}}

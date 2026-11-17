@@ -5,7 +5,7 @@ test('start a match, hit a visible mole, pause, and return to setup', async ({ p
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await openSelection(page);
-  await expect(page.getByRole('heading', { name: /Choose your champions/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Night Watch/ })).toBeVisible();
   await enterMatch(page);
   const garden = page.getByRole('region', { name: 'Player 1 garden', exact: true });
   await expect(page.locator('.arena-canvas canvas')).toBeVisible();
