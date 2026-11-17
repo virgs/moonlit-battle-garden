@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-17",
+  "productionRevision": "179c8cb",
+  "scope": "Fresh QR session opened on the physical phone, following cellular/Wi-Fi-off instructions. Browser model and OS were not collected.",
+  "result": {
+    "phase": "passed",
+    "status": "Connection check passed. You can close this page.",
+    "hits": [
+      11,
+      10
+    ],
+    "casts": [
+      1,
+      1
+    ],
+    "recovery": true,
+    "elapsedSeconds": 20,
+    "route": {
+      "connectionState": "connected",
+      "localCandidateType": "host",
+      "remoteCandidateType": "srflx",
+      "protocol": "udp",
+      "rttMs": 36
+    }
+  }
+}
