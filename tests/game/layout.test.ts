@@ -40,3 +40,8 @@ describe.each(['ai', 'local', 'online'] as const)('%s viewport layout', mode => 
  expect(board.stars.x+board.stars.width).toBeLessThan(board.x);
  expect(board.stars.width/board.stars.height).toBeCloseTo(60/200);
  });
+
+it('keeps landscape phone hit targets at least 44px with the centered header',()=>{
+  const {gardens}=createArenaLayout(844,390,'ai');
+  for(const {hit} of gardens[0].holes){expect(hit.width).toBeGreaterThanOrEqual(44);expect(hit.height).toBeGreaterThanOrEqual(44);}
+});

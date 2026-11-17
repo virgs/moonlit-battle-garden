@@ -49,7 +49,7 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
   return <main className={`match-screen ${layout.single ? 'single-board' : 'two-boards'} ${layout.landscape ? 'landscape-board' : ''} ${session.match.options.mode}`} style={{ '--score-bottom': `${layout.score.y + layout.score.height + 8}px` } as CSSProperties} aria-label="Battle arena" data-home-character={session.home.owner} data-round={state.round} data-phase={state.phase} data-time={state.time}>
     <ArenaCanvas session={session} snapshot={snapshot} layout={layout} onLayout={setLayout} />
     <ScoreBar state={state} area={layout.score} trophyCenters={!layout.single && layout.gardens.every(garden => !garden.horizontalStars) ? layout.gardens.map(garden => garden.stars.x + garden.stars.width / 2 - layout.score.x) : undefined} opponentStars={layout.single ? state.players[1].stars : undefined} onPause={disconnected || finished || state.paused || menuOpen ? undefined : openControls} controlLabel={online ? 'Game menu' : undefined} />
-    {!state.paused&&!menuOpen&&!disconnected&&<MatchMeta state={state} mode={session.match.options.mode} area={layout.score} />}
+    {!state.paused&&!menuOpen&&!disconnected&&<MatchMeta state={state} mode={session.match.options.mode} />}
     <div className="match-hud">
       {layout.gardens.map(garden => <Board key={garden.id} session={session} snapshot={snapshot} garden={garden} />)}
       {layout.gardens.map(garden => <SpellEffects key={garden.id} snapshot={snapshot} garden={garden} />)}

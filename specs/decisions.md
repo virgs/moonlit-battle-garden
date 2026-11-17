@@ -71,6 +71,8 @@ This file records the discussion's current state. An accepted concept is not a c
 | D53 | Enlarge keyboard action hints/key glyphs. Use the explicit Back to title label. Replace numeric spell tiers in selection and pause with 1–4 original star sprites, and identify modes with consistent icons across menu, selection, gameplay and pause. No new generated art. |
 | D54 | Add the mode, current round number and round clock to gameplay. Implementation default: elapsed active round time in mm:ss, reset each round, frozen during pauses, cast freezes and connection recovery. Victory remains score-difference based; this adds no time limit. |
 
+| D55 | Center mode/icon, round number and clock at the very top on all gameplay layouts, above the score bar. Display just the round numeral, keeping its accessible Round N label. Enlarge gameplay header text roughly 2×, adapting to narrow screens. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

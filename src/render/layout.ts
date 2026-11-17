@@ -19,10 +19,10 @@ export type ArenaLayout = { width: number; height: number; single: boolean; land
 export function createArenaLayout(width: number, height: number, mode: 'ai' | 'local' | 'online'): ArenaLayout {
   const single = mode !== 'local' && (width < 700 || (height < 500 && width < 1000));
   const landscape = single && width > height;
-  const margin = width < 700 ? 12 : landscape ? 24 : 36;
+  const margin = landscape ? 8 : width < 700 ? 12 : 36;
   const score = scoreBarGeometry(width, height);
   if (single && !landscape) { score.height += 28; score.reserve += 28; }
-  const top = score.y + score.height + 12;
+  const top = score.y + score.height + (landscape ? 0 : 12);
   const availableHeight = Math.max(1, height - top - margin);
   const laneWidth = width / (single ? 1 : 2);
   // Use a vertical column beside the board, including centered phone landscape.

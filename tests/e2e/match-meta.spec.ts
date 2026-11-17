@@ -16,11 +16,14 @@ test('round clock follows active time and HUD clears the score bar on desktop an
     await page.clock.runFor(50);
     await expect(page.locator('.match-meta .mode-icon')).toHaveAttribute('data-mode','ai');
     await expect(page.locator('.match-mode-name')).toHaveText('Night Watch');
+    await expect(page.locator('.match-round-number')).toHaveText('1');
+    await expect(page.locator('.match-round-number')).toHaveAttribute('aria-label','Round 1');
+    expect(await clock.evaluate(element=>parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(24);
     // ResizeObserver and React commit asynchronously, independently of the mocked clock.
     await expect.poll(()=>page.evaluate(()=>{
       const meta=document.querySelector('.match-meta')!.getBoundingClientRect();
       const bar=document.querySelector('.legacy-score-art')!.getBoundingClientRect();
-      return meta.x>=0&&meta.right<=innerWidth&&(meta.bottom<=bar.top||meta.right<=bar.left);
+      return meta.x>=0&&meta.right<=innerWidth&&Math.abs(meta.x+meta.width/2-innerWidth/2)<1&&meta.bottom<=bar.top;
     })).toBe(true);
   }
   await page.getByRole('button',{name:'Pause',exact:true}).click();
