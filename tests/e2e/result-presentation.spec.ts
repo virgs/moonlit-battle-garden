@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test';
+import { png } from './assetFixtures';
 import { expectClearResult } from './resultPresentation';
 
 for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,844],['phone-landscape',844,390]] as const) {
   test(`${name}: large countdown and transparent round result preserve the frozen arena`,async({page},testInfo)=>{
     await page.emulateMedia({reducedMotion:"reduce"});
     await page.setViewportSize({width,height});
+    await page.route(/\/assets\/characters\/[^/]+\/icon\.png$/, route => route.fulfill({ contentType:'image/png', body:png(64,64) }));
     await page.goto('/');
     // AI mode exercises the single-board phone presentation.
     await page.getByRole('button',{name:/Enter the garden/}).click();
@@ -25,6 +27,11 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     await page.evaluate(()=>{const key=document.querySelector('.player-0 .hole[data-kind="empty"]')!.getAttribute('data-key');for(let i=0;i<1000;i++)window.dispatchEvent(new KeyboardEvent('keydown',{code:`Key${key}`}));});
     const result=page.getByRole('region',{name:'Round result'});
     await expect(result).toBeVisible();
+    const icon = result.locator('.character-icon');
+    await expect(icon).toBeVisible();
+    await expect(icon).toHaveAttribute('data-character', 'andy');
+    const iconBox = (await icon.boundingBox())!;
+    expect(iconBox.x).toBeGreaterThanOrEqual(0); expect(iconBox.x + iconBox.width).toBeLessThanOrEqual(width);
     expect(await original!.evaluate(canvas=>canvas===document.querySelector('canvas'))).toBe(true);
     const time=await page.locator('.match-screen').getAttribute('data-time');
     await expectClearResult(page);

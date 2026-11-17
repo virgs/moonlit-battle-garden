@@ -1,9 +1,10 @@
 # Drop-in character assets
 
-The playback code is ready. Both victory sheets are bundled; 14 other final files remain. The eight configured slots for each of `champignon` and `andy` are listed below (16 total). Add or replace files, then reload the game:
+The playback code is ready. Both victory sheets are bundled; 16 other final files remain. The nine configured slots for each of `champignon` and `andy` are listed below (18 total). Add or replace files, then reload the game:
 
 ```text
 public/assets/characters/CHARACTER/portrait.png
+public/assets/characters/CHARACTER/icon.png
 public/assets/characters/CHARACTER/victory.png
 public/assets/characters/CHARACTER/cast-1.png
 public/assets/characters/CHARACTER/cast-2.png
@@ -16,6 +17,7 @@ public/assets/homes/CHARACTER/music.mp3
 | Asset | Default contract |
 | --- | --- |
 | Portrait | Transparent PNG, recommended 256×256. Other aspect ratios are contained without stretching. Used in character selection; the minimal match HUD has no persistent portraits. |
+| Character icon | Transparent square PNG, recommended 128×128 with consistent head/bust framing and padding across characters. Pause reference shows both icons above their names; round result shows the winner’s icon next to the verdict. Missing icons stay hidden. Separate from selection portraits and victory sheets; PixelLab generation is deferred. |
 | Cast sheets 1–4 | One PNG per star tier. Each is **1024×128**: eight 128×128 frames, left to right, no gutters. 12 fps, play once, hold the final frame for 250 ms. Transparent background. |
 | Victory sheet | Bundled transparent 1152×160 PNG: nine 128×160 frames, 8 fps, looping. Missing/invalid sheets use a still recovered hero illustration. Reduced motion uses frame 0. |
 | Home background | PNG, recommended 1920×1080 or larger. Uniform cover scaling with cropping on narrow screens. Keep important details near the configured focal point. |

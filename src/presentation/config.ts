@@ -7,6 +7,7 @@ export type BackgroundAsset = { src: string; fallback: string; opacity: number; 
 export type CastClip = { src: string; frameWidth: number; frameHeight: number; frameCount: number; columns: number; fps: number; holdMs: number; sound: string | null };
 export type CharacterPresentation = {
   portrait: string;
+  icon: string;
   victory: CastClip;
   home: { name: string; background: BackgroundAsset; music: MusicAsset };
   casts: Record<number, CastClip>;
@@ -22,7 +23,7 @@ export const presentation = Object.fromEntries(Object.entries(raw.characters).ma
 
 for (const id of ['champignon', 'andy'] as const) {
   const value = presentation[id];
-  if (!value || !value.portrait.startsWith('/assets/')) throw new Error(`Missing presentation: ${id}`);
+  if (!value || ![value.portrait, value.icon].every(path => path.startsWith('/assets/'))) throw new Error(`Missing presentation: ${id}`);
   for (const [key, clip] of Object.entries({ ...value.casts, victory: value.victory })) {
     if (!clip?.src.startsWith('/assets/') || [clip.frameWidth, clip.frameHeight, clip.frameCount, clip.columns].some(n => !Number.isInteger(n) || n <= 0) || clip.fps <= 0 || clip.holdMs < 0) throw new Error(`Invalid presentation clip: ${id}/${key}`);
   }

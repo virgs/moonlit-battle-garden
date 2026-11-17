@@ -3,6 +3,7 @@ import { assetUrl } from '../assets/url';
 import type { Session, Snapshot } from '../game/Session';
 import { characters } from '../game/config';
 import { keyboardLayouts } from '../game/controls';
+import { CharacterIcon } from './CharacterIcon';
 import { ControlKey } from './ControlKey';
 import './game-menu.css';
 
@@ -43,7 +44,7 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
         const layout = keyboardLayouts[id];
         const character = characters[player.character];
         return <section key={id} className={`menu-hero side-${id} ${controlled ? 'with-controls' : 'rival-hero'}`}>
-          <h3>{character.name}<small>{controlled ? id === 0 ? 'Player 1' : 'Player 2 · numpad' : 'Rival'}</small></h3>
+          <CharacterIcon character={player.character} /><h3>{character.name}<small>{controlled ? id === 0 ? 'Player 1' : 'Player 2 · numpad' : 'Rival'}</small></h3>
           <div className="hero-reference-body">
             {controlled && <div className="keyboard-reference">
               <div className="board-key-grid" role="group" aria-label={`Player ${id + 1} hole keys`}>{layout.labels.map(label => <ControlKey key={label} label={label} />)}</div>

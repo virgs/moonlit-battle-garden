@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { CharacterId } from '../game/types';
 import { VictoryHero } from './VictoryHero';
+import { CharacterIcon } from './CharacterIcon';
 import { Trophy } from './LegacyRewards';
 import './match-end.css';
 
@@ -32,7 +33,7 @@ export function MatchEnd({ winner, leave, round = false, character }: { winner: 
   }, [ready, leave]);
   return <section role="region" className="match-end" aria-label={round ? 'Round result' : 'Match result'} data-ready={ready}>
     {round || !character ? <Trophy wins={1} celebration /> : <VictoryHero character={character} />}
-    <h1>{winner}</h1>
+    <div className="result-winner">{round && character && <CharacterIcon character={character} />}<h1>{winner}</h1></div>
     <p className={`continue-prompt ${ready ? 'ready' : ''}`} role="status" aria-hidden={!ready}>{ready ? round ? 'Press any key or tap for the next round' : 'Press any key or tap to return to the menu' : ''}</p>
   </section>;
 }

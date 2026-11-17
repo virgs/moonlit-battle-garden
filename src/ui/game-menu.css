@@ -25,3 +25,7 @@
 .control-key{position:relative}.key-symbol{position:absolute;inset:0;width:100%;height:100%;fill:#252c46;shape-rendering:crispEdges}
 
 .menu-heading:has(.menu-status) h2{font-size:clamp(32px,5vw,72px)}
+
+.menu-hero>.character-icon{margin-bottom:8px}
+@media(max-width:700px) and (orientation:portrait){.rival-hero{justify-self:stretch}.menu-hero>.character-icon{width:36px;height:36px}}
+@media(max-height:520px){.menu-hero>.character-icon{width:32px;height:32px}}

@@ -135,3 +135,8 @@ The Cinzel PAUSE title is reduced to up to 104 px desktop, 60 px portrait and 56
 Desktop/landscape references use their actual content width and align to the right edge of the centered menu; options start at its left edge. This removes unused space after the spell list and matches visible text margins on both sides. Tablet references stack when necessary.
 
 Portrait phones use a full-width top row of Resume/Mute/Quit beneath the title, with the control/spell reference anchored toward the bottom. Key maps sit left and spell titles align right within that lower region. On short phones only the lower reference region scrolls; actions stay reachable. Left/Right navigate the horizontal action row, alongside the existing Up/Down keys. Browser checks compare both container and actual text margins at desktop, tablet and phone sizes.
+
+
+## Character icons (D46)
+
+Both portrait pause headings share the same left edge, including an AI/online rival without a key map; spell lists remain right aligned. Each character has a separate `/assets/characters/CHARACTER/icon.png` slot. Supplied icons appear above the pause reference name and beside the round winner text; the spinning round trophy remains. Match victory keeps its animated hero sprite. Missing icon art is hidden without a substitute or broken image. Recommended transparent 128×128 head/bust icons will be generated in the deferred PixelLab pass, with matching framing/padding across heroes.

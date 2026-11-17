@@ -11,3 +11,5 @@
 @media(max-height:500px){.victory-hero{height:120px;width:130px}}
 @media(prefers-reduced-motion:reduce){.victory-hero{animation:none}}
 .victory-sheet{animation:none}
+
+.result-winner{display:flex;align-items:center;justify-content:center;gap:12px;max-width:100%;min-width:0}.result-winner .character-icon{width:clamp(40px,6vw,64px);height:clamp(40px,6vw,64px)}

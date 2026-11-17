@@ -6,6 +6,7 @@ let missing = 0, invalid = 0, present = 0;
 for (const [id, character] of Object.entries(presentation)) {
   const expected = [
     { path: character.portrait, clip: null },
+    { path: character.icon, clip: null },
     { path: character.victory.src, clip: character.victory },
     { path: character.home.background.src, clip: null },
     { path: character.home.music.src, clip: null },

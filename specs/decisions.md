@@ -1,6 +1,6 @@
 # Decisions and open questions
 
-Last updated: 2026-11-16.
+Last updated: 2026-11-17.
 
 This file records the discussion's current state. An accepted concept is not a claim that its numerical balance or implementation details are final. Revisit settled decisions only when the user requests a change or a concrete implementation/playtest finding warrants it.
 
@@ -53,6 +53,8 @@ This file records the discussion's current state. An accepted concept is not a c
 | D43 | Remove the Esc/Back menu hint and increase spacing between control keys and magic names across layouts. |
 | D44 | Increase menu option sizes and make the active brush highlight opaque. Give PAUSE a larger distinct title font (bundled Cinzel), and reduce magic-name text and key sprite sizes while preserving responsive spacing. |
 | D45 | Make PAUSE slightly smaller. Match the options’ left outer margin with the control/spell content’s right outer margin. On portrait phones, put options at the top and controls/magic near the bottom; keep larger-screen left/right composition. |
+
+| D46 | Align both character names on portrait pause screens. Each character gets a dedicated icon for pause references and round results, separate from the match victory animation. Prepare drop-in paths now; defer PixelLab generation with the rest of the asset pass. |
 
 ## Current proposals, not yet confirmed
 
