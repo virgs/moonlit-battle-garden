@@ -30,3 +30,10 @@ All values live in src/assets/config/game.yaml. SpawnDirector separates shared s
 ## Balance diagnostics
 
 Re-run the seeded tournament after tuning. Long score ties are allowed by the game, so the diagnostic cap records unfinished matches separately and never invents a winner/draw. `pnpm balance --fail-on-cap` enables a strict nonzero exit for such runs. Final balance remains open; see the latest report.
+
+
+## Oldest-code comparison: score-linked pressure
+
+Verified in digHoleBattleGarden commit 39984888c3a9d2de2a77bedecad7d841a92ea55a: Fase.cpp lines 213–216 derive each player's spawn delay from the opponent's semTop plus the shared wave speed. semTop increases toward 100 for the losing side, so the losing player receives the smaller delay. Player.cpp lines 121–133 use that delay for spawn cadence and target lifetime; the star counter advances per spawn (one star about every 30 offers), so faster spawning also speeds up star opportunities. The integer division makes the original score adjustment stepwise.
+
+The remake currently uses shared natural offers and independent positions, and does not yet apply score-linked pressure. The user proposed restoring faster spawns and shorter reaction windows on the losing board. This is a proposed rule revision to discuss/tune; it has not been silently added as part of the text-outline change. A bounded score-based modifier would preserve each round's identical baseline wave while giving the trailing player more scoring/magic opportunities and more demanding reactions.

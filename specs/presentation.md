@@ -96,3 +96,6 @@ Eight directional dark shadows plus a lower soft shadow outline match/lobby text
 On desktop with vertical star columns, round trophy centers use the same horizontal coordinates as their corresponding columns, beneath the score/name line. The desktop outer margin reserves room for the enlarged trophy width. Phone portrait keeps trophy positions beneath the bar. Phone landscape centers the board itself in the viewport and places a vertical original star column to its left, preserving uniform scales and hole anchors.
 
 Match wins play the bundled 9-frame 128×160 transparent sprite sheets at 8 fps, with articulated pose changes. There is no CSS translation/rotation animation. Reduced motion holds frame 0. PixelLab provenance, job IDs and original artwork references are in assets/characters/victory-provenance.json. Raw generated frames can be repacked using scripts/pack-victory-sprites.mjs.
+
+
+Text outline width is now 2 px in each of the eight directions (doubled from 1 px), with a 4 px offset / 6 px blur lower shadow.

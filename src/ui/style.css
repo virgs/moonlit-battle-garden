@@ -9,6 +9,6 @@
 
 .mode-toggle{grid-template-columns:repeat(3,1fr)}@media(max-width:620px){.mode-toggle button{font-size:10px;padding:11px 5px}}
 
-:root{--text-outline:-1px -1px 0 #07110c,0 -1px 0 #07110c,1px -1px 0 #07110c,-1px 0 0 #07110c,1px 0 0 #07110c,-1px 1px 0 #07110c,0 1px 0 #07110c,1px 1px 0 #07110c,0 2px 3px #000}
+:root{--text-outline:-2px -2px 0 #07110c,0 -2px 0 #07110c,2px -2px 0 #07110c,-2px 0 0 #07110c,2px 0 0 #07110c,-2px 2px 0 #07110c,0 2px 0 #07110c,2px 2px 0 #07110c,0 4px 6px #000}
 .app-shell,.match-screen{ text-shadow:var(--text-outline) }
 .primary-button,select,input{ text-shadow:none }

@@ -26,6 +26,7 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
     await expect(page.locator('.score-legend>span').last()).toHaveText('Sir Champignon');
     await expect(page.locator('.score-legend')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
     expect(await page.locator('.score-legend').evaluate(element=>(getComputedStyle(element).textShadow.match(/rgb\(/g) ?? []).length)).toBeGreaterThanOrEqual(8);
+    expect(await page.locator('.score-legend').evaluate(element=>getComputedStyle(element).textShadow)).toContain(' -2px -2px 0px');
     expect(await page.locator('.score-legend>span').evaluateAll(names => names.every(name => name.scrollWidth <= name.clientWidth))).toBe(true);
     if(await page.locator('.score-trophies.column-aligned').count()) {
       for(const id of [0,1]) {
