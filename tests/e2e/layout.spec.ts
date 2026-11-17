@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { gardenArt } from '../../src/render/layout';
 
-test('minimal HUD keeps original board anchors, side names and star controls separated across screen sizes', async ({ page }, testInfo) => {
+const resizeGroups = { phones:[[320,568],[390,844],[844,390]], tablets:[[768,1024],[1024,600],[1024,1000]], desktops:[[1440,900],[2560,1080],[3840,2160]] };
+for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD preserves anchors, names and stars through ${group} resizes`, async ({ page }, testInfo) => {
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
   await expect(page.locator('.intro h1')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
@@ -14,58 +15,64 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
   await page.addStyleTag({ content: '.match-overlay{visibility:hidden!important}' });
-  for (const [width, height] of [[320, 568], [390, 844], [844, 390], [768, 1024], [1024, 600], [1024, 1000], [1440, 900], [2560, 1080], [3840, 2160]]) {
+  for (const [width, height] of sizes) {
     await page.setViewportSize({ width, height });
     await expect(page.locator('canvas')).toHaveAttribute('width', String(width));
     await expect(page.locator('canvas')).toHaveAttribute('height', String(height));
-    if(width===844 && height===390)await expect(page.locator('.player-panel .vertical-stars')).toHaveCount(2);
-    const bar = (await page.locator('.score-bar').boundingBox())!;
-    const art = (await page.locator('.legacy-score-art').boundingBox())!;
-    expect(art.width / art.height).toBeCloseTo(499 / 45, 1);
-    await expect(page.getByRole('meter')).toHaveCount(1);
-    await expect(page.locator('.score-legend>span').first()).toHaveText('Andy');
-    await expect(page.locator('.score-legend>span').last()).toHaveText('Sir Champignon');
-    await expect(page.locator('.score-legend')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
-    expect(await page.locator('.score-legend').evaluate(element=>(getComputedStyle(element).textShadow.match(/rgb\(/g) ?? []).length)).toBeGreaterThanOrEqual(8);
-    expect(await page.locator('.score-legend').evaluate(element=>getComputedStyle(element).textShadow)).toContain(' -2px -2px 0px');
-    expect(await page.locator('.score-legend>span').evaluateAll(names => names.every(name => name.scrollWidth <= name.clientWidth))).toBe(true);
-    if(await page.locator('.score-trophies.column-aligned').count()) {
-      for(const id of [0,1]) {
-        const trophy=(await page.locator('.score-trophies .trophy-art').nth(id).boundingBox())!;
-        const stars=(await page.locator(`.player-${id} .star-control`).boundingBox())!;
+    // Read one consistent frame. Hundreds of separate DevTools geometry calls
+    // were competing with software WebGL redraws, especially at 4K on CI.
+    const geometry = await page.evaluate(() => {
+      const bounds = (element: Element) => {
+        const { x,y,width,height } = element.getBoundingClientRect();
+        return { x,y,width,height };
+      };
+      const rect = (selector: string, root: ParentNode = document) => bounds(root.querySelector(selector)!);
+      const legend = document.querySelector('.score-legend')!;
+      return {
+        bar:rect('.score-bar'), art:rect('.legacy-score-art'),
+        meters:document.querySelectorAll('[role="meter"]').length,
+        verticalStars:document.querySelectorAll('.player-panel .vertical-stars').length,
+        legendFont:getComputedStyle(legend).fontFamily, shadow:getComputedStyle(legend).textShadow,
+        names:[...legend.children].map(element => ({ text:element.textContent, fits:element.scrollWidth<=element.clientWidth, ...bounds(element) })),
+        columnAligned:!!document.querySelector('.score-trophies.column-aligned'),
+        trophies:[...document.querySelectorAll('.score-trophies .trophy-art')].map(element => { const {x,y,width,height}=element.getBoundingClientRect();return {x,y,width,height}; }),
+        panels:[...document.querySelectorAll('.player-panel')].map(panel => ({
+          x:Number(panel.getAttribute('data-board-x')), y:Number(panel.getAttribute('data-board-y')), scale:Number(panel.getAttribute('data-board-scale')),
+          stars:rect('.star-control',panel), holes:[...panel.querySelectorAll('.hole')].map(element => { const {x,y,width,height}=element.getBoundingClientRect();return {x,y,width,height}; }),
+        })),
+        obsolete:document.querySelectorAll('.player-summary,.magic-panel,.board-message,.spell-description,.keycap,.versus-label,.online-status').length,
+        fits:document.documentElement.scrollHeight<=innerHeight&&document.documentElement.scrollWidth<=innerWidth,
+      };
+    });
+    const {bar,art}=geometry;
+    expect(art.width/art.height).toBeCloseTo(499/45,1); expect(geometry.meters).toBe(1);
+    if(width===844&&height===390)expect(geometry.verticalStars).toBe(2);
+    expect(geometry.names.map(name=>name.text)).toEqual(['Andy','Sir Champignon']);
+    expect(geometry.legendFont).toBe('Almendra, Georgia, serif');
+    expect((geometry.shadow.match(/rgb\(/g)??[]).length).toBeGreaterThanOrEqual(8);
+    expect(geometry.shadow).toContain(' -2px -2px 0px'); expect(geometry.names.every(name=>name.fits)).toBe(true);
+    for(const id of [0,1]) {
+      const trophy=geometry.trophies[id], label=geometry.names[id], panel=geometry.panels[id], stars=panel.stars;
+      if(geometry.columnAligned) {
         expect(trophy.x+trophy.width/2).toBeCloseTo(stars.x+stars.width/2,0);
         expect(trophy.y+trophy.height).toBeLessThanOrEqual(stars.y);
         expect(trophy.x).toBeGreaterThanOrEqual(0);expect(trophy.x+trophy.width).toBeLessThanOrEqual(width);
       }
-    }
-    for(const id of [0,1]) {
-      const label=(await page.locator('.score-legend>span').nth(id).boundingBox())!;
-      const trophy=(await page.locator('.score-trophies .trophy-art').nth(id).boundingBox())!;
       expect(label.y+label.height).toBeLessThanOrEqual(trophy.y);
       expect(label.x+label.width/2).toBeCloseTo(trophy.x+trophy.width/2,0);
       expect(label.x).toBeGreaterThanOrEqual(0);expect(label.x+label.width).toBeLessThanOrEqual(width);
       expect(label.y+label.height).toBeLessThanOrEqual(bar.y+bar.height);
-    }
-    for (const id of [0, 1]) {
-      const panel = page.locator(`.player-${id}`);
-      const x = Number(await panel.getAttribute('data-board-x'));
-      const y = Number(await panel.getAttribute('data-board-y'));
-      const scale = Number(await panel.getAttribute('data-board-scale'));
-      expect(y).toBeGreaterThanOrEqual(bar.y + bar.height);
-      const stars = (await panel.locator('.star-control').boundingBox())!;
-      expect(stars.x).toBeGreaterThanOrEqual(0); expect(stars.x + stars.width).toBeLessThanOrEqual(width);
-      expect(stars.y + stars.height).toBeLessThanOrEqual(height);
-      for (let hole = 0; hole < 9; hole++) {
-        const box = (await panel.locator('.hole').nth(hole).boundingBox())!;
-        expect(box.x + box.width / 2).toBeCloseTo(x + gardenArt.holes[hole].x * scale, 0);
-        expect(box.y + 77 * scale).toBeCloseTo(y + gardenArt.holes[hole].y * scale, 0);
-        expect(box.x >= stars.x + stars.width || box.x + box.width <= stars.x || box.y + box.height <= stars.y).toBe(true);
+      expect(panel.y).toBeGreaterThanOrEqual(bar.y+bar.height);
+      expect(stars.x).toBeGreaterThanOrEqual(0);expect(stars.x+stars.width).toBeLessThanOrEqual(width);expect(stars.y+stars.height).toBeLessThanOrEqual(height);
+      for(const [hole,box] of panel.holes.entries()) {
+        expect(box.x+box.width/2).toBeCloseTo(panel.x+gardenArt.holes[hole].x*panel.scale,0);
+        expect(box.y+77*panel.scale).toBeCloseTo(panel.y+gardenArt.holes[hole].y*panel.scale,0);
+        expect(box.x>=stars.x+stars.width||box.x+box.width<=stars.x||box.y+box.height<=stars.y).toBe(true);
       }
     }
-    await expect(page.locator('.player-summary,.magic-panel,.board-message,.spell-description,.keycap,.versus-label,.online-status')).toHaveCount(0);
-    expect(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight && document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    expect(geometry.obsolete).toBe(0);expect(geometry.fits).toBe(true);
   }
-  await page.screenshot({ path: testInfo.outputPath('minimal-wide.png') });
+  await page.screenshot({ path: testInfo.outputPath(`minimal-${group}.png`) });
 });
 
 test('single board uses horizontal stars on a narrow portrait screen with a vertical left column and centered board in landscape and the original column on desktop', async ({ page }) => {

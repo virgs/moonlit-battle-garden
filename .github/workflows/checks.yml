@@ -4,6 +4,10 @@ on:
   pull_request:
 jobs:
   game:
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop, mobile]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,12 +21,12 @@ jobs:
       - run: pnpm build
       - run: pnpm assets:check
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm e2e
+      - run: pnpm e2e --project=${{ matrix.project }}
       - run: pnpm balance --seeds=30
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: game-reports
+          name: game-reports-${{ matrix.project }}
           path: |
             reports/balance-latest.*
             test-results/
