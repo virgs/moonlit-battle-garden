@@ -188,3 +188,9 @@ Modes are Night Watch (computer opponent), Garden Grudge (shared keyboard), and 
 Character selection uses only the current mode as its heading. Visible You/Rival/Player labels, Choosing instructions and repeated rival-ready messages are removed; blue/red names and placement retain identity, with contextual labels preserved for assistive technology. A confirmed character shows Ready once. Routine connected-lobby instructions stay hidden; waiting/reconnect/error messages and Starting remain visible when meaningful.
 
 Existing CraftPix key sprites accompany actions: R confirms/changes the first slot, numpad + the second editable slot, Enter starts when both offline slots are ready, and Esc returns to the menu. Carousel arrows use the pack's Left/Right keycaps and work whenever their carousel has focus. Enter also appears with main-menu and form actions, using ordinary focused-button activation. Esc returns the main menu to the title; Escape does not reopen the title's menu. Keyboard-only hints hide on touch-primary devices while tappable arrow buttons remain. The unmodified keyboard atlas is reused without generation.
+
+### Mode and round clock
+
+Menus, selection, gameplay and pause reuse pixel-style mode icons. Spell costs in selection and pause use original filled star sprites rather than numeric tiers. Keyboard action hints are enlarged, including their embedded glyphs. The return action reads Back to title.
+
+Gameplay shows the mode name/icon, Round N and elapsed active round time (mm:ss; hours if needed). It derives from simulation time minus round start, resets each round, and follows gameplay freezes. Portrait layouts reserve a slim row above the score bar; wide/short screens place it beside the bar to preserve board/touch-target sizes. Pause repeats mode/round/time in its header. No timed victory condition is introduced.

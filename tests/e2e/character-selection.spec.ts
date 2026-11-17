@@ -4,6 +4,7 @@ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['la
   await page.setViewportSize({width,height});await openSelection(page,'local');
   const first=page.locator('.carousel-side-0'),second=page.locator('.carousel-side-1');
   await expect(page.locator('.character-carousel')).toHaveCount(2);
+  expect(await page.locator('.spell-tier-stars').evaluateAll(stars=>stars.map(star=>star.getAttribute('data-stars')))).toEqual(['1','2','3','4','1','2','3','4']);
   await expect(page.getByText('Choose your champions',{exact:true})).toHaveCount(0);
   await expect(page.locator('.carousel-player h2,.carousel-remote-note')).toHaveCount(0);
   await expect(first).toHaveAttribute('data-character','champignon');await expect(second).toHaveAttribute('data-character','andy');

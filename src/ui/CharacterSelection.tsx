@@ -1,4 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
+import { ModeIcon } from './ModeIcon';
+import { SpellStars } from './LegacyRewards';
 import { KeyHint, ControlKey } from './ControlKey';
 import { menuLabels } from './menuContent';
 import { characters } from '../game/config';
@@ -29,7 +31,7 @@ export function CharacterSelection({ mode, slots, pick, ready, back, start, diff
     window.addEventListener('keydown',key);return ()=>window.removeEventListener('keydown',key);
   },[slots,ready,back,start]);
   return <main ref={root} className={`front-screen selection-screen selection-${mode}`} aria-label="Character selection"><Backdrop />
-    <header className="selection-heading"><h1>{menuLabels[mode]}</h1></header>
+    <header className="selection-heading"><h1><ModeIcon mode={mode} decorative /><span>{menuLabels[mode]}</span></h1></header>
     <div className="selection-carousels">{slots.map((slot,id)=><Carousel key={id} slot={slot} id={id as PlayerId} pick={character=>pick(id as PlayerId,character)} ready={value=>ready(id as PlayerId,value)} />)}</div>
     <footer className="selection-footer">
       {status&&<p role="status" className="selection-status">{status}</p>}
@@ -54,7 +56,7 @@ function Carousel({slot,id,pick,ready}:{slot:CarouselSlot;id:PlayerId;pick:(char
     </div>
     <h3 className="carousel-name">{slot.character?characters[slot.character].name:'—'}</h3>
     <p className="carousel-position">{slot.character?`${roster.indexOf(slot.character)+1} / ${roster.length}`:'—'}</p>
-    <ol className="carousel-spells" aria-label={`${slot.label} magic`}>{slot.character?characters[slot.character].spells.map((spell,tier)=><li key={spell.name}><span>{tier+1}</span>{spell.name}</li>):[1,2,3,4].map(tier=><li key={tier} className="spell-placeholder"><span>{tier}</span><i /></li>)}</ol>
+    <ol className="carousel-spells" aria-label={`${slot.label} magic`}>{slot.character?characters[slot.character].spells.map((spell,tier)=><li key={spell.name} aria-label={`${tier+1} ${tier?'stars':'star'}: ${spell.name}`}><SpellStars count={tier+1} />{spell.name}</li>):[1,2,3,4].map(tier=><li key={tier} className="spell-placeholder"><SpellStars count={tier} /><i /></li>)}</ol>
     {slot.controlled&&slot.character?<button className="carousel-confirm front-action" disabled={slot.canConfirm===false} aria-label={slot.ready?`Change selection for ${slot.label}`:`Confirm ${slot.label}`} aria-pressed={slot.ready} onClick={()=>ready(!slot.ready)}><KeyHint label={id===0?'R':'+'} />{slot.ready?'Change':'Choose'}</button>:<div className="carousel-action-space" aria-hidden="true" />}
   </section>;
 }

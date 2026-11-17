@@ -9,6 +9,8 @@ test('start a match, hit a visible mole, pause, and return to setup', async ({ p
   await enterMatch(page);
   const garden = page.getByRole('region', { name: 'Player 1 garden', exact: true });
   await expect(page.locator('.arena-canvas canvas')).toBeVisible();
+  await expect(page.locator('.match-meta .mode-icon')).toHaveAttribute('data-mode','ai');
+  await expect(page.locator('.match-round-clock')).toContainText('Round 1');
   await expect(page.locator('canvas')).toHaveCount(1);
   const mole = garden.locator('button[data-kind="mole"]').first();
   await expect(mole).toBeEnabled({ timeout: 10000 });
@@ -20,8 +22,12 @@ test('start a match, hit a visible mole, pause, and return to setup', async ({ p
   await expect(page.getByRole('button', { name: 'Mute', exact: true })).toBeVisible();
   await expect(page.getByRole('listitem', { name: '1 star: Mushroom Guard' })).toBeVisible();
   await expect(page.getByRole('listitem', { name: '4 stars: Double Trouble' })).toBeVisible();
+  const clock = page.getByRole('timer', { name:'Round elapsed time' });
+  const frozenClock = await clock.getAttribute('data-elapsed-ms');
+  await expect(clock).toHaveText(/^\d{2}:\d{2}$/);
   const pausedTime = await page.locator('.match-screen').getAttribute('data-time');
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(250);
+  await expect(clock).toHaveAttribute('data-elapsed-ms',frozenClock!);
   await expect(page.locator('.match-screen')).toHaveAttribute('data-time', pausedTime!);
   await page.getByRole('button', { name: 'Resume', exact: true }).click();
   if (testInfo.project.name === 'mobile') {
@@ -55,7 +61,11 @@ test('local mode exposes both human boards and keyboard controls', async ({ page
   await expect(page.getByRole('button', { name: 'Mute', exact: true })).toBeVisible();
   await expect(page.getByRole('listitem', { name: '1 star: Mushroom Guard' })).toBeVisible();
   await expect(page.getByRole('listitem', { name: '4 stars: Double Trouble' })).toBeVisible();
+  const clock = page.getByRole('timer', { name:'Round elapsed time' });
+  const frozenClock = await clock.getAttribute('data-elapsed-ms');
+  await expect(clock).toHaveText(/^\d{2}:\d{2}$/);
   const pausedTime = await page.locator('.match-screen').getAttribute('data-time');
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(250);
+  await expect(clock).toHaveAttribute('data-elapsed-ms',frozenClock!);
   await expect(page.locator('.match-screen')).toHaveAttribute('data-time', pausedTime!);
 });

@@ -17,7 +17,8 @@ export function scoreBarGeometry(width: number, height: number) {
   const nameSize = (width <= 500 ? 9 : 10) * hudScale;
   const nameHeight = compact ? 24 : 66, trophyWidth = 56 * hudScale, trophyHeight = 28 * hudScale;
   const total = artHeight + nameHeight + 2 + trophyHeight;
-  return { viewportWidth: width, x: (width - barWidth) / 2, y: 12, width: barWidth, height: total, reserve: Math.ceil(total + 4), artHeight, nameSize, nameHeight, trophyWidth, trophyHeight };
+  const metaAside = width >= 1000 || (height < 500 && width > height);
+  return { viewportWidth: width, metaAside, x: (width - barWidth) / 2, y: metaAside ? 12 : 40, width: barWidth, height: total, reserve: Math.ceil(total + 4), artHeight, nameSize, nameHeight, trophyWidth, trophyHeight };
 }
 
 // Fase.cpp: board origins were (50,200)/(450,200); earth origins

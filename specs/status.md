@@ -63,3 +63,7 @@ D50 replaces the website-style setup page with a full-screen title and main menu
 D51 separates mode/options from a dedicated two-carousel character screen. Solo keeps an editable bot carousel; local players confirm independently; online highlights and ready states synchronize live before match creation. Existing idle slots/still fallbacks and one-shot victory sheets are used without asset generation. Pre-match reconnect clears readiness and pending starts.
 
 D52 renames the modes to Night Watch / Garden Grudge / Beyond the Hedge, with Garden Shed and Field Notes for settings/help. Selection copy is reduced to one Ready marker per hero; redundant instructions and visible player-role labels are removed. Existing CraftPix key icons are paired with working confirmation/start/back controls.
+
+### Mode identification and round clock
+
+Implemented: consistent mode icons across menus, character selection, gameplay and pause; enlarged keyboard hints; explicit Back to title action; original star sprites for spell costs. Gameplay and pause show mode, Round N and elapsed active round time. It resets each round and freezes with gameplay; score-difference victory remains unchanged. Verified with unit checks, production/Pages build and desktop/mobile browser checks for clock progression, pause/cast freezes, round reset and responsive layout clearance.

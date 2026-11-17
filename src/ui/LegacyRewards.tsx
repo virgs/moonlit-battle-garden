@@ -41,3 +41,11 @@ export function CastStars({ count, time, reduced }: { count: number; time: numbe
     </svg>)}
   </svg>;
 }
+
+/** Static, filled cost stars from the original charge atlas; optional blank space aligns spell names. */
+export function SpellStars({ count, minSlots=count }: { count:number; minSlots?:number }) {
+  const columns=Math.max(count,minSlots);
+  return <svg className="spell-tier-stars" style={{'--spell-star-columns':columns} as CSSProperties} viewBox={`0 0 ${columns*60} 60`} data-stars={count} aria-hidden="true">
+    {Array.from({length:count},(_,index)=><svg key={index} x={index*60} y="3" width="60" height="54" viewBox="0 15 60 54" overflow="hidden"><image href={assetUrl('/assets/legacy/star-meter.png')} width="420" height="1000" x="-120" y="-800" /></svg>)}
+  </svg>;
+}

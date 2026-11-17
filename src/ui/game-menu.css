@@ -29,3 +29,9 @@
 .menu-hero>.character-icon{margin-bottom:8px}
 @media(max-width:700px) and (orientation:portrait){.rival-hero{justify-self:stretch}.menu-hero>.character-icon{width:36px;height:36px}}
 @media(max-height:520px){.menu-hero>.character-icon{width:32px;height:32px}}
+
+.game-menu{--control-size:48px}.hero-reference-body{grid-template-columns:214px max-content}.hero-spells li{align-items:center}.hero-spells .spell-tier-stars{--spell-star-size:18px}
+@media(max-width:700px) and (orientation:portrait){.game-menu{--control-size:30px}.hero-reference-body{grid-template-columns:136px minmax(0,1fr);gap:16px}.rival-hero .hero-reference-body{grid-template-columns:1fr}.hero-spells .spell-tier-stars{--spell-star-size:12px}}
+@media(min-width:701px) and (max-width:1000px) and (min-height:521px){.hero-reference-body{grid-template-columns:1fr}}
+@media(max-width:360px) and (orientation:portrait){.hero-reference-body{grid-template-columns:1fr;gap:18px}}
+@media(max-height:520px){.game-menu{--control-size:30px}.hero-reference-body{grid-template-columns:1fr}.hero-spells .spell-tier-stars{--spell-star-size:12px}}

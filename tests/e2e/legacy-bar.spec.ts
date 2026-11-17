@@ -40,4 +40,6 @@ test('a decisive score difference shows the round result and resets the bar to t
   await expect(page.getByRole('meter')).toHaveAttribute('aria-valuenow', '50');
   await expect(page.locator('.legacy-score-art')).toHaveAttribute('data-offset', '255');
   await expect(page.locator('.player-0')).toHaveAttribute('data-score', '0');
+  await expect(page.locator('.match-round-clock')).toContainText('Round 2');
+  await expect(page.getByRole('timer')).toHaveText('00:00');
 });

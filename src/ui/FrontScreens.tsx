@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode, type KeyboardEvent } from 'react';
+import { ModeIcon } from './ModeIcon';
 import { KeyHint } from './ControlKey';
 import { menuLabels } from './menuContent';
 import { assetUrl } from '../assets/url';
@@ -42,10 +43,10 @@ export function FrontMenu({ pane, choose, activate, title, children }: { pane: M
   return <main className="front-screen front-menu" aria-label="Main menu" onKeyDown={event => { if(event.key==='Escape') { event.preventDefault();title(); } }}><Backdrop />
     <header className="front-heading"><a href={import.meta.env.BASE_URL} aria-label="Moonlit Battle Garden home">Moonlit <span>Battle Garden</span></a></header>
     <div className="front-content">
-      <nav ref={nav} className="front-nav" aria-label="Game mode" onKeyDown={navigate}>{choices.map(choice => <button key={choice.id} aria-pressed={pane===choice.id} onClick={()=>activate(choice.id)}><span>{choice.label}</span><KeyHint label="Enter" /></button>)}</nav>
+      <nav ref={nav} className="front-nav" aria-label="Game mode" onKeyDown={navigate}>{choices.map(choice => <button key={choice.id} aria-pressed={pane===choice.id} onClick={()=>activate(choice.id)}><ModeIcon mode={choice.id} decorative /><span>{choice.label}</span><KeyHint label="Enter" /></button>)}</nav>
       <section ref={panel} className="front-panel" aria-label="Game setup" key={pane}>{children}</section>
     </div>
-    <footer className="front-footer"><button aria-label="Back to title" onClick={title}><KeyHint label="Esc" />Title</button></footer>
+    <footer className="front-footer"><button aria-label="Back to title" onClick={title}><KeyHint label="Esc" />Back to title</button></footer>
   </main>;
 }
 

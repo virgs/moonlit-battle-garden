@@ -4,6 +4,9 @@ import type { Session, Snapshot } from '../game/Session';
 import { characters } from '../game/config';
 import { keyboardLayouts } from '../game/controls';
 import { CharacterIcon } from './CharacterIcon';
+import { MatchMeta } from './MatchMeta';
+import { ModeIcon } from './ModeIcon';
+import { SpellStars } from './LegacyRewards';
 import { ControlKey } from './ControlKey';
 import './game-menu.css';
 
@@ -30,7 +33,8 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
     }
   };
   return <div className="match-overlay menu-overlay"><section ref={dialog} className="game-menu" role="dialog" aria-modal="true" aria-labelledby="game-menu-title" onKeyDown={keyboard}>
-    <header className="menu-heading"><h2 id="game-menu-title">{heading}</h2>
+    <header className="menu-heading"><h2 id="game-menu-title"><ModeIcon mode={session.match.options.mode} decorative /><span>{heading}</span></h2>
+      <MatchMeta state={snapshot.state} mode={session.match.options.mode} paused />
       {(disconnected || online) && <p className="menu-status" role="status">{disconnected ? ended ? 'The connection has ended.' : 'Reconnecting automatically. The game is frozen.' : 'The online match keeps running.'}</p>}
     </header>
     <nav ref={actions} className="menu-actions" aria-label="Match controls">
@@ -50,7 +54,7 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
               <div className="board-key-grid" role="group" aria-label={`Player ${id + 1} hole keys`}>{layout.labels.map(label => <ControlKey key={label} label={label} />)}</div>
               <div className="cast-key"><ControlKey label={layout.castLabel} /><span>Magic</span></div>
             </div>}
-            <ol className="hero-spells" aria-label={`${character.name} magic`}>{character.spells.map((spell, tier) => <li key={spell.name} aria-label={`${tier + 1} ${tier ? 'stars' : 'star'}: ${spell.name}`}><span className="spell-tier">{tier + 1}</span><span>{spell.name}</span></li>)}</ol>
+            <ol className="hero-spells" aria-label={`${character.name} magic`}>{character.spells.map((spell, tier) => <li key={spell.name} aria-label={`${tier + 1} ${tier ? 'stars' : 'star'}: ${spell.name}`}><SpellStars count={tier+1} minSlots={4} /><span>{spell.name}</span></li>)}</ol>
           </div>
         </section>;
       })}</div>

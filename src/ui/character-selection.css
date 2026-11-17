@@ -10,3 +10,8 @@
 @media(max-width:700px) and (orientation:portrait) and (max-height:740px){.carousel-action-space{height:32px;margin-top:6px}}
 
 .character-carousel[data-ready=true]:focus-visible{outline:none}
+
+.carousel-arrow .control-key{--control-size:40px}.carousel-confirm{font-size:33px}.selection-actions .front-link{font-size:18px}.selection-actions .front-action{font-size:32px}.carousel-spells .spell-tier-stars{--spell-star-size:18px}.carousel-spells li{align-items:center}
+@media(max-width:700px) and (orientation:portrait){.carousel-arrow .control-key{--control-size:30px}.carousel-confirm{font-size:25px}.carousel-spells .spell-tier-stars{--spell-star-size:12px}.selection-actions .front-link{font-size:16px}.selection-actions .key-hint{--control-size:28px}}
+@media(max-height:520px){.carousel-arrow .control-key{--control-size:32px}.carousel-spells .spell-tier-stars{--spell-star-size:12px}.carousel-confirm{font-size:25px}.selection-actions .front-link{font-size:14px}.selection-actions .front-action{font-size:27px}}
+@media(max-width:700px) and (orientation:portrait) and (max-height:740px){.carousel-confirm{font-size:22px}.carousel-spells .spell-tier-stars{--spell-star-size:10px}}

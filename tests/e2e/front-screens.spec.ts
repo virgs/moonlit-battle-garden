@@ -14,6 +14,8 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     else await page.keyboard.press('Enter');
     await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
     await expect(page.locator('.match-screen')).toHaveCount(0);
+    await expect(page.locator('.front-nav .mode-icon')).toHaveCount(5);
+    await expect(page.getByRole('button',{name:'Back to title',exact:true})).toContainText('Back to title');
     for(const option of ['Night Watch','Garden Grudge','Beyond the Hedge','Garden Shed','Field Notes'])await expect(page.getByRole('button',{name:option,exact:true})).toBeInViewport();
     await expect(page.getByRole('heading',{name:'Night Watch',exact:true})).toBeVisible();
     await page.screenshot({path:testInfo.outputPath(`${name}-menu.png`)});

@@ -27,9 +27,11 @@ for (const valid of [true, false]) test(`drop-in idle/home art and ${valid ? 'va
   await expect(cast.locator('.cast-stars image')).toHaveCount(1);
   await expect(garden.locator('.stars')).toHaveAttribute('data-charge', '0');
   const time = await page.locator('.match-screen').getAttribute('data-time');
+  const elapsed = await page.getByRole('timer').getAttribute('data-elapsed-ms');
   await expect(garden.locator('.hole:enabled')).toHaveCount(0);
   await page.clock.runFor(200);
   await expect(page.locator('.match-screen')).toHaveAttribute('data-time', time!);
+  await expect(page.getByRole('timer')).toHaveAttribute('data-elapsed-ms',elapsed!);
   expect(await cast.evaluate(element => getComputedStyle(element).pointerEvents)).toBe('none');
   if (valid) await expect(cast.locator('.cast-art image')).toHaveAttribute('href', '/assets/characters/champignon/cast-1.png');
   await page.getByRole('button', { name: 'Pause', exact: true }).click();

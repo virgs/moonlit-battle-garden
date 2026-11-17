@@ -14,6 +14,8 @@ test('pause has left actions, board-shaped sprite key maps and spell titles on t
   await openMenu(page);
   await expect(page.getByText('Block the next mistake for 12 seconds.', { exact: true })).toHaveCount(0);
   await expect(page.locator('.hero-spells li')).toHaveCount(8);
+  expect(await page.locator('.hero-spells .spell-tier-stars').evaluateAll(stars=>stars.map(star=>star.getAttribute('data-stars')))).toEqual(['1','2','3','4','1','2','3','4']);
+  await expect(page.locator('.menu-heading .mode-icon')).toHaveAttribute('data-mode','local');
   for (const [width, height] of [[1440, 900], [1024, 768], [768, 1024], [390, 844], [320, 568], [844, 390], [667, 375]]) {
     await page.setViewportSize({ width, height });
     await page.evaluate(() => document.fonts.ready);
@@ -22,7 +24,7 @@ test('pause has left actions, board-shaped sprite key maps and spell titles on t
     const hierarchy = await page.evaluate(() => ({ title: parseFloat(getComputedStyle(document.querySelector('.menu-heading h2')!).fontSize), action: parseFloat(getComputedStyle(document.querySelector('.menu-actions button')!).fontSize), spell: parseFloat(getComputedStyle(document.querySelector('.hero-spells li')!).fontSize), key: document.querySelector('.control-key')!.getBoundingClientRect().width }));
     expect(hierarchy.title).toBeGreaterThan(hierarchy.action);
     expect(hierarchy.action).toBeGreaterThan(hierarchy.spell * 1.5);
-    expect(hierarchy.key).toBeLessThanOrEqual(width > 700 && height > 520 ? 40 : 24);
+    expect(hierarchy.key).toBeLessThanOrEqual(width > 700 && height > 520 ? 48 : 30);
     expect(await page.getByRole('button', { name: 'Resume', exact: true }).evaluate(element => getComputedStyle(element, '::before').opacity)).toBe('1');
     const actions = (await page.locator('.menu-actions').boundingBox())!;
     const reference = (await page.locator('.menu-reference').boundingBox())!;

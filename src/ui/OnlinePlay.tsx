@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { PeerRoom } from '../network/PeerRoom';
 import type { Session } from '../game/Session';
+import { ModeIcon } from './ModeIcon';
 import { KeyHint } from './ControlKey';
 import { menuLabels } from './menuContent';
 import { CharacterSelection } from './CharacterSelection';
@@ -44,7 +45,7 @@ export function OnlinePlay({ initialCharacter, leave, renderLobby, sound, change
     {character:selection?.players[1]?.character??null,ready:selection?.players[1]?.ready??false,controlled:false,label:'Rival'},
   ]} pick={(_id,value)=>{setCharacter(value);changeCharacter(value);room.current?.select(value,false);}} ready={(_id,value)=>{if(value&&sound)prepareAudio();room.current?.select(character,value);}} back={cancel} footer={share} status={selection?.connected?(selection.players.every(pick=>pick?.ready)?'Starting…':undefined):status} />;
   return renderLobby(<div className="online-lobby">
-    <h2>{menuLabels.online}</h2>
+    <h2 className="mode-title"><ModeIcon mode="online" decorative />{menuLabels.online}</h2>
     <p className="front-note">Online · Invite a friend to a private garden.</p>
     <button className="front-action" disabled={busy} onClick={()=>begin(null)}><KeyHint label="Enter" />Create online garden</button>
     <label>Friend’s invite<input aria-label="Friend’s invite" disabled={busy} value={code} onKeyDown={event=>{if(event.key==='Enter'&&!event.repeat&&!busy&&code.trim()){event.preventDefault();join();}}} onChange={event=>setCode(event.target.value)} placeholder="Paste an invite link or room ID" /></label>

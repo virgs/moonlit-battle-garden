@@ -68,6 +68,9 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D52 | Use Night Watch (solo), Garden Grudge (shared keyboard), Beyond the Hedge (online), Garden Shed (settings), and Field Notes (help), with brief mode descriptions in the main menu. Remove redundant selection instructions/player-role labels and show Ready once per confirmed hero. Reuse CraftPix key art beside keyboard actions, with real R/numpad+ confirmation, Enter start and Esc back shortcuts; hide keyboard-only hints on touch-primary devices. |
 
+| D53 | Enlarge keyboard action hints/key glyphs. Use the explicit Back to title label. Replace numeric spell tiers in selection and pause with 1–4 original star sprites, and identify modes with consistent icons across menu, selection, gameplay and pause. No new generated art. |
+| D54 | Add the mode, current round number and round clock to gameplay. Implementation default: elapsed active round time in mm:ss, reset each round, frozen during pauses, cast freezes and connection recovery. Victory remains score-difference based; this adds no time limit. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
