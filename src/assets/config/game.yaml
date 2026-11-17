@@ -21,6 +21,8 @@ pacing:
   lifetimeCalm: 1.08
   lifetimePeak: 0.88
   minLifetimeMs: 1150
+  scoreIntervalReduction: 0.10
+  scoreLifetimeReduction: 0.10
   startNaturalCap: 2
   endNaturalCap: 4
   peakExtraTarget: 1

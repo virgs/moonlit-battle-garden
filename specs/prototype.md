@@ -9,7 +9,7 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 - 3×3 gardens, both scores start at zero, winning lead X=100 (configurable), first to two round wins, three-second countdown.
 - Empty hit: −4 points. Rabbit hit: −12. Missed mole: −8. Missing stars/rabbits is safe.
 - Mole hit: 10 score. Star hit: 25 score and one magic star, capped at four. No combos yet.
-- 25-second build/peak/recovery waves over a rising 120-second baseline, with shared natural demand and bounded concurrency. Stars arrive independently at 5/14/22 seconds per wave. See pacing.md and game.yaml.
+- 25-second build/peak/recovery waves over a rising 120-second baseline, with independent natural clocks and bounded concurrency. Star opportunities use baseline virtual-clock offsets 5/14/22 seconds per wave, accelerated on the trailing board. See pacing.md and game.yaml.
 - A score lead of at least X ends the round, with no real-time round limit. Simultaneous expiry penalties are resolved together before checking the difference. Ties continue with a centered bar. Scores/stars reset for the next round; round wins persist. The headless runner has a separate 30-minute total simulation cap to catch stalls; it does not award in-game wins.
 - Mouse/touch and original keyboard grids. R/numpad + casts; Escape pauses. Local modes pause on tab hiding.
 - One full-viewport Phaser canvas renders both gardens and the backdrop. React adds HUD and accessible hit areas over the canvas. Match play has no document scrolling or surrounding page header/footer.
@@ -35,7 +35,7 @@ Casting consumes the exact current charge, with at least 1800 ms between casts. 
 | Andy 1 | Copy one available enemy star without removing it. Since one star was spent, this does not generate net charge. If no enemy star is available, gain a one-mistake guard instead. |
 | Andy 2 | Add extra rabbits for 7.5 seconds without replacing the normal mole/star spawn schedule. |
 | Andy 3 | Transfer up to two enemy stars, capped at four total. If none are available, gain a one-mistake guard instead. |
-| Andy 4 | Extra rabbit-heavy magical waves for 8.5 seconds, with a 30% mole chance and bounded magical concurrency. The shared natural clock is unchanged. |
+| Andy 4 | Extra rabbit-heavy magical waves for 8.5 seconds, with a 30% mole chance and bounded magical concurrency. Natural clocks and the score-pressure modifier are unchanged by the attack. |
 
 Stronger pressure replaces weaker pressure; identical effects refresh duration rather than multiplying it. Extra rabbits only occupy empty holes. Shields cover missed moles, empty hits, and rabbit hits. Fresh guards replace existing guards rather than accumulating unlimited charges.
 
@@ -51,6 +51,9 @@ The first bot iteration varied seeded spell-saving thresholds, added resource/wa
 
 - Online authoritative rooms and network timing/disconnect policy.
 - Cached/installable PWA startup and native mobile packaging.
-- Final home/portrait/cast files and richer spell effects. The configured playback/fallback pipeline is ready; no PixelLab generation has been done.
+- Final home/portrait/cast files and richer spell effects. The configured playback/fallback pipeline is ready; existing victory sprites are retained; further sprite generation is deferred until remaining development is complete.
 - Final spell/bot balance, input rebinding, physical mobile testing, and release acceptance criteria.
 - Remaining six characters after the initial two-character game is ready.
+
+
+Score pressure now uses independent board clocks and up to 10% shorter natural/star intervals and new target lifetimes on the trailing board. Shared wave phases and all round resets remain identical. See pacing.md and reports/balance-score-pressure-comparison.md; Medium/Hard remain Champignon-favored, and three final Hard diagnostics were unfinished.

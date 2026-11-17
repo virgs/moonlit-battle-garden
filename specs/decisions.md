@@ -45,6 +45,8 @@ This file records the discussion's current state. An accepted concept is not a c
 | D35 | Preserve the final arena behind round/match results. Show rival stars on single-board screens. Expand Escape/tap-bar menus with resume, mute, quit, key maps and both spell lists; connection loss uses the same menu with recovery status. Match wins show the winning hero animation instead of a spinning trophy. |
 | D36 | Result overlays must be fully transparent so the frozen arena remains clearly visible. Enlarge round label/countdown about 5×, fitting short screens, with rendered-pixel Playwright regression checks and desktop/phone screenshots. |
 | D37 | Outline game text with multidirectional shadows. Align desktop trophy centers above the star columns. Center the board itself on landscape phones with a vertical star control to its left. Match victory must animate actual sprite frames, with no whole-image wiggle. |
+| D38 | Restore independent per-player clocks and bounded current-score pressure: the trailing board gets faster natural/star opportunities and shorter new target windows. Preserve shared waves, safety floors, concurrency bounds and identical per-round resets. Evaluate through paired AI runs. Initial default after diagnostics: up to 10% shorter intervals/windows. |
+| D39 | Defer all further sprite creation/PixelLab generation until remaining game development is finished. Retain the existing generated victory sprites. |
 
 ## Current proposals, not yet confirmed
 

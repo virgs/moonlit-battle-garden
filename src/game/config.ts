@@ -10,6 +10,7 @@ type Config = {
     startIntervalMs: number; endIntervalMs: number; intervalCalm: number; intervalPeak: number;
     minIntervalMs: number; jitter: number; startLifetimeMs: number; endLifetimeMs: number;
     lifetimeCalm: number; lifetimePeak: number; minLifetimeMs: number;
+    scoreIntervalReduction: number; scoreLifetimeReduction: number;
     startNaturalCap: number; endNaturalCap: number; peakExtraTarget: number; maxMagicTargets: number;
     rabbitStart: number; rabbitEnd: number; rabbitPeakExtra: number; maxRabbitStreak: number;
     starOffsetsMs: number[]; starLifetimeMs: number;
@@ -31,6 +32,7 @@ if (!config.winScoreDifference || !config.maxSimulationMs || !config.tickMs) thr
 const pace = config.pacing;
 const waveMs = pace.buildMs + pace.peakMs + pace.recoveryMs;
 if ([pace.buildMs, pace.peakMs, pace.recoveryMs, pace.rampMs, pace.minIntervalMs, pace.minLifetimeMs].some(value => !value)) throw new Error('Pacing durations must be positive');
+if ([pace.scoreIntervalReduction, pace.scoreLifetimeReduction].some(value => value > 0.3)) throw new Error('Score pressure reductions must be bounded at 30%');
 if (pace.jitter > 0.25 || pace.endNaturalCap + pace.peakExtraTarget + pace.maxMagicTargets + 1 > 9) throw new Error('Pacing exceeds safe board limits');
 if (!pace.starOffsetsMs.length || pace.starOffsetsMs.some((time, index, values) => time <= (values[index - 1] ?? 0) || time >= waveMs)) throw new Error('Star opportunities must be ordered within the wave');
 

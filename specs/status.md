@@ -39,3 +39,6 @@ The user clarified that the bar represents score difference, with a winning thre
 PWA installation/offline startup caching and native/store packaging are deferred by user request; they are not release blockers.
 
 The other six adopted characters and their spell sets stay deferred until the initial two-character game is ready. Keyboard-mapping shuffle remains excluded. PixelLab victory sprite animations are bundled for both initial heroes; final portraits, cast art and home assets remain.
+
+
+D38: per-player score pressure and independent natural clocks are implemented. The 10%/10% default improves Hard relative to the old synchronized baseline but does not balance Medium/Hard. Paired diagnostic results, a no-pressure control and the rejected stronger feedback are preserved in reports/balance-score-pressure-comparison.md. D39 defers all new sprite generation until remaining game development is finished.

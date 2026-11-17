@@ -21,3 +21,17 @@ export function pacingAt(elapsedMs: number) {
     rabbitChance: blend(tuning.rabbitStart, tuning.rabbitEnd, progress) + pressure * tuning.rabbitPeakExtra,
   };
 }
+
+/** A lead never slows the winner; only the trailing board gets bounded extra opportunity/pressure. */
+export function playerPacingAt(elapsedMs: number, score: number, opponentScore: number) {
+  const base = pacingAt(elapsedMs);
+  const deficit = Math.max(0, Math.min(1, (opponentScore - score) / config.winScoreDifference));
+  const intervalScale = 1 - tuning.scoreIntervalReduction * deficit;
+  const lifetimeScale = 1 - tuning.scoreLifetimeReduction * deficit;
+  return {
+    ...base, deficit, clockRate: 1 / intervalScale,
+    intervalMs: Math.max(tuning.minIntervalMs, base.intervalMs * intervalScale),
+    lifetimeMs: Math.max(tuning.minLifetimeMs, base.lifetimeMs * lifetimeScale),
+    starLifetimeMs: Math.max(tuning.minLifetimeMs, tuning.starLifetimeMs * lifetimeScale),
+  };
+}

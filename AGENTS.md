@@ -9,3 +9,5 @@ Read README.md and specs/decisions.md before changing the game. Consult specs/ga
 - Run relevant simulation tests and the production build. Run browser checks for user-facing changes and balance simulations for bot/magic/tuning changes.
 - Preserve significant balance findings. Do not tune toward a bot-only 50% result without examining spell coverage and strategy bias. Human playtesting remains required.
 - Initial scope is Sir Champignon and Andy. Preserve the other six characters in specs for later expansion.
+
+- Defer all new sprite/PixelLab generation until the remaining game development work is complete. Keep existing assets and focus on mechanics, balance, networking and usability.
