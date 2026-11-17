@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { supplyFinalArt } from './assetFixtures';
 
 for (const valid of [true, false]) test(`drop-in portrait/home art and ${valid ? 'valid' : 'invalid'} cast sheet playback`, async ({ page }) => {
+  await page.clock.install();
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await supplyFinalArt(page, valid);
@@ -15,7 +16,6 @@ for (const valid of [true, false]) test(`drop-in portrait/home art and ${valid ?
   await expect(star).toBeEnabled({ timeout: 12000 });
   await star.click();
   // Hold at exact simulation ticks: a guard can be legitimately consumed immediately after the cast.
-  await page.clock.install();
   await page.clock.pauseAt(new Date(await page.evaluate(() => Date.now()) + 100));
   await garden.getByRole('button', { name: /Cast magic/ }).click();
   const cast = page.locator('.cast-banner[data-character="champignon"]');

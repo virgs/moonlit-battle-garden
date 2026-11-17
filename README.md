@@ -50,6 +50,8 @@ The static site can be deployed over HTTPS. There is no dedicated gameplay backe
 
 Either player can start the next round. Online matches cannot be manually paused: opening the local menu or hiding a tab does not ask the other browser to stop. Brief link interruptions freeze play and retry for up to 30 seconds with the same browser identity; the ready handshake resumes recovered games automatically. Leaving, reloading, or closing the host ends the match. There is no host migration or recovery across a page refresh. Guest inputs use target IDs so delayed clicks cannot hit a replacement mole; there is no rollback/prediction and the host retains a latency advantage.
 
+Session timing catches up delayed timer callbacks in fixed 50 ms steps, with one bot update per step and a 250 ms catch-up limit. Paused/disconnected time is discarded. CI browser tests run one worker to avoid competing software-rendered arenas and allow 60 seconds per test; assertion deadlines remain unchanged.
+
 Browser tests use a **local-only** PeerServer on port 9000 and an isolated Vite preview on 4174. They exercise real RTC data channels between browser contexts without relying on public signaling. These are test processes, not a required deployment backend. Local/AI play never contacts PeerJS.
 
 ## Checks and AI balance

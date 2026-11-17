@@ -25,6 +25,8 @@ export class Session {
   private peerReady = false;
   private linkState: LinkState = 'connected';
   private rtt: number | null = null;
+  private lastTick = 0;
+  private elapsed = 0;
 
   constructor(options: MatchOptions, private network?: NetworkLink) {
     this.match = new Match(options);
@@ -51,13 +53,27 @@ export class Session {
     this.effects?.sync({ state: this.match.state, events: this.match.events });
     this.listeners.forEach(listener => listener());
   }
+  private resetClock(): void {
+    this.lastTick = performance.now();
+    this.elapsed = 0;
+  }
   start(): void {
     if (this.timer) return;
+    this.resetClock();
     if (this.network) this.network.send({ kind: 'ready' });
     this.timer = setInterval(() => {
-      if (this.network && (this.network.seat === 1 || !this.peerReady || this.linkState !== 'connected')) return;
-      this.match.advance(config.tickMs);
-      this.bot?.update(this.match);
+      const now = performance.now();
+      const delta = Math.max(0, Math.min(250, now - this.lastTick));
+      this.lastTick = now;
+      if (this.match.state.paused || (this.network && (this.network.seat === 1 || !this.peerReady || this.linkState !== 'connected'))) { this.elapsed = 0; return; }
+      // Timer callbacks can arrive late under rendering load. Catch up in fixed
+      // steps, including one bot decision per step, without a long-stall burst.
+      this.elapsed += delta;
+      while (this.elapsed >= config.tickMs) {
+        this.elapsed -= config.tickMs;
+        this.match.advance(config.tickMs);
+        this.bot?.update(this.match);
+      }
       this.publish();
     }, config.tickMs);
   }
@@ -90,11 +106,11 @@ export class Session {
   nextRound(): void {
     if (this.network && this.linkState !== 'connected') return;
     if (this.network?.seat === 1) { this.network.send({ kind: 'next' }); return; }
-    this.match.nextRound(); this.publish();
+    this.match.nextRound(); this.resetClock(); this.publish();
   }
   receive(message: Wire): void {
     if (!this.network) return;
-    if (message.kind === 'ready') { this.peerReady = true; this.linkState = 'connected'; if (this.network.seat === 0) this.match.state.paused = false; this.publish(); }
+    if (message.kind === 'ready') { this.peerReady = true; this.linkState = 'connected'; if (this.network.seat === 0) this.match.state.paused = false; this.resetClock(); this.publish(); }
     if (this.network.seat === 1) {
       if (message.kind === 'state') {
         Object.assign(this.match.state, structuredClone(message.snapshot.state));
@@ -111,13 +127,14 @@ export class Session {
     if (message.kind === 'next') this.nextRound();
   }
   connection(status: LinkState, rtt = this.rtt): void {
+    if (status !== this.linkState) this.resetClock();
     this.linkState = status; this.rtt = rtt;
     if (status !== 'connected') { this.peerReady = false; this.match.state.paused = true; }
     this.publish();
   }
   togglePause(): void {
     if (this.match.options.mode === 'online') return;
-    if (['playing', 'countdown'].includes(this.match.state.phase)) this.match.state.paused = !this.match.state.paused;
+    if (['playing', 'countdown'].includes(this.match.state.phase)) { this.match.state.paused = !this.match.state.paused; this.resetClock(); }
     this.publish();
   }
   enableSound(): void {
