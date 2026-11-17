@@ -41,7 +41,7 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
     for(const id of [0,1]) {
       const label=(await page.locator('.score-legend>span').nth(id).boundingBox())!;
       const trophy=(await page.locator('.score-trophies .trophy-art').nth(id).boundingBox())!;
-      expect(label.y).toBeGreaterThanOrEqual(trophy.y+trophy.height);
+      expect(label.y+label.height).toBeLessThanOrEqual(trophy.y);
       expect(label.x+label.width/2).toBeCloseTo(trophy.x+trophy.width/2,0);
       expect(label.x).toBeGreaterThanOrEqual(0);expect(label.x+label.width).toBeLessThanOrEqual(width);
       expect(label.y+label.height).toBeLessThanOrEqual(bar.y+bar.height);

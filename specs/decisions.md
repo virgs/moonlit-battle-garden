@@ -48,6 +48,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D38 | Restore independent per-player clocks and bounded current-score pressure: the trailing board gets faster natural/star opportunities and shorter new target windows. Preserve shared waves, safety floors, concurrency bounds and identical per-round resets. Evaluate through paired AI runs. Initial default after diagnostics: up to 10% shorter intervals/windows. |
 | D39 | Defer all further sprite creation/PixelLab generation until remaining game development is finished. Retain the existing generated victory sprites. |
 | D40 | Place character names below and centered with their round trophies. Desktop names follow the trophy/star columns; compact layouts keep the paired HUD below the score bar. Preserve full labels and responsive clearance. |
+| D41 | Revise D40: character names sit above their trophies, centered on the same columns, beneath the score bar. |
 
 ## Current proposals, not yet confirmed
 

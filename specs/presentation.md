@@ -42,7 +42,7 @@ Every round verdict shows a large original trophy in the central overlay; match 
 
 ## Minimal play screen (D30)
 
-During active play the visible HUD contains only the shared bar, character names beneath trophies, per-side trophies and star controls alongside the board(s). Remove numeric score panels, portrait/name headers, spell names/descriptions, wave/messages, effect-tag text, keycaps, VS labels, online latency text and the permanent toolbar. The score bar doubles as the menu control; Escape remains supported. AI/local modes pause, while online menus keep the match running. Sound, exit and resume controls appear only in the pause/results overlay. Countdown, victory and connection-interruption overlays remain transient. The lobby explains tapping stars to cast and tapping the bar to pause.
+During active play the visible HUD contains only the shared bar, character names above trophies, per-side trophies and star controls alongside the board(s). Remove numeric score panels, portrait/name headers, spell names/descriptions, wave/messages, effect-tag text, keycaps, VS labels, online latency text and the permanent toolbar. The score bar doubles as the menu control; Escape remains supported. AI/local modes pause, while online menus keep the match running. Sound, exit and resume controls appear only in the pause/results overlay. Countdown, victory and connection-interruption overlays remain transient. The lobby explains tapping stars to cast and tapping the bar to pause.
 
 Layout uses the released header/footer space for uniformly larger boards. Desktop columns stand outside each player's board; narrow portrait layouts put the horizontal control below the board, with no overlap against holes, roots or trophies. Phone landscape uses a vertical star column to the left of the horizontally centered board. Source hit-region bleed above the garden is included in the top clearance even at 4K sizes. Cosmetic homes/music and character spell logic are unchanged.
 
@@ -101,9 +101,9 @@ Match wins play the bundled 9-frame 128×160 transparent sprite sheets at 8 fps,
 Text outline width is now 2 px in each of the eight directions (doubled from 1 px), with a 4 px offset / 6 px blur lower shadow.
 
 
-## Names below trophies (D40)
+## Names and trophies (D40, revised D41)
 
-The order is score bar → round trophies → character names. Each name is centered on its own trophy. Desktop trophy/star column alignment is preserved; phone names use the corresponding compact trophy positions. Name widths respect viewport edges and the opposing label; desktop reserves room for a two-line long name on narrow column layouts. Name text does not truncate or stretch. Portrait rival stars remain below the names; landscape rival charge remains beside the bar.
+The current order is score bar → character names → round trophies (D41 supersedes D40). Each name is centered on its own trophy. Desktop trophy/star column alignment is preserved; phone names use the corresponding compact trophy positions. Name widths respect viewport edges and the opposing label; desktop reserves room for a two-line long name on narrow column layouts. Name text does not truncate or stretch. Portrait rival stars remain below the names; landscape rival charge remains beside the bar.
 
 Previewed at 1440×900 desktop, 768×1024 tablet, 390×844 and 320×568 portrait, 844×390 landscape, plus narrow local two-player layouts in both orientations. Preview-only staged state uses one win per player and three/four stars, without adding production debug controls.
 
