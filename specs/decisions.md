@@ -52,6 +52,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D42 | Redesign pause/menu after the Shinobi Arena reference: centered top title, large vertical Resume/Mute/Quit actions left, current control keys in board-shaped 3×3 layouts and only selected heroes’ spell titles right. Reuse the supplied CraftPix input artwork; no generation. Keep actions visible while references scroll on small screens. |
 | D43 | Remove the Esc/Back menu hint and increase spacing between control keys and magic names across layouts. |
 | D44 | Increase menu option sizes and make the active brush highlight opaque. Give PAUSE a larger distinct title font (bundled Cinzel), and reduce magic-name text and key sprite sizes while preserving responsive spacing. |
+| D45 | Make PAUSE slightly smaller. Match the options’ left outer margin with the control/spell content’s right outer margin. On portrait phones, put options at the top and controls/magic near the bottom; keep larger-screen left/right composition. |
 
 ## Current proposals, not yet confirmed
 

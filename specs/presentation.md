@@ -126,3 +126,12 @@ The Esc/Back visual hint is removed; Escape still closes the menu. Keys and spel
 PAUSE uses locally bundled Cinzel variable (700 weight), uppercase and .08em tracking: up to 128 px desktop, 72 px portrait phones and 64 px short landscape. Connection/online status titles use a separate smaller responsive size. Action labels stay Almendra and scale with their sidebar (about 82 px at 1440 desktop, 35 px at 390 portrait, 48 px landscape). Selected/hovered brush highlights use fully opaque green with no opacity fade.
 
 Reference keycaps shrink to 40 px desktop and 24 px compact; spell titles shrink to at most 23 px desktop and 18 px compact. Portrait action columns get more width to keep larger labels readable, while the reference region retains independent scrolling. Existing key-to-magic spacing remains. The title font is self-hosted with its OFL license; no image/sprite generation is involved. Browser checks cover the hierarchy, highlight opacity, clipping, key layouts, navigation and production font loading.
+
+
+## Balanced menu composition (D45)
+
+The Cinzel PAUSE title is reduced to up to 104 px desktop, 60 px portrait and 56 px short landscape. Action labels and the opaque brush selection retain their D44 styling.
+
+Desktop/landscape references use their actual content width and align to the right edge of the centered menu; options start at its left edge. This removes unused space after the spell list and matches visible text margins on both sides. Tablet references stack when necessary.
+
+Portrait phones use a full-width top row of Resume/Mute/Quit beneath the title, with the control/spell reference anchored toward the bottom. Key maps sit left and spell titles align right within that lower region. On short phones only the lower reference region scrolls; actions stay reachable. Left/Right navigate the horizontal action row, alongside the existing Up/Down keys. Browser checks compare both container and actual text margins at desktop, tablet and phone sizes.

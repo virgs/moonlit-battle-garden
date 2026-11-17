@@ -13,7 +13,7 @@ test('pause has left actions, board-shaped sprite key maps and spell titles on t
   await openMenu(page);
   await expect(page.getByText('Block the next mistake for 12 seconds.', { exact: true })).toHaveCount(0);
   await expect(page.locator('.hero-spells li')).toHaveCount(8);
-  for (const [width, height] of [[1440, 900], [390, 844], [320, 568], [844, 390]]) {
+  for (const [width, height] of [[1440, 900], [1024, 768], [768, 1024], [390, 844], [320, 568], [844, 390], [667, 375]]) {
     await page.setViewportSize({ width, height });
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('.menu-heading h2')).toHaveCSS('font-family', 'Cinzel, Georgia, serif');
@@ -25,11 +25,20 @@ test('pause has left actions, board-shaped sprite key maps and spell titles on t
     expect(await page.getByRole('button', { name: 'Resume', exact: true }).evaluate(element => getComputedStyle(element, '::before').opacity)).toBe('1');
     const actions = (await page.locator('.menu-actions').boundingBox())!;
     const reference = (await page.locator('.menu-reference').boundingBox())!;
-    expect(actions.x + actions.width).toBeLessThanOrEqual(reference.x);
+    if(width < 700 && height > width) expect(reference.y).toBeGreaterThanOrEqual(actions.y + actions.height);
+    else expect(actions.x + actions.width).toBeLessThanOrEqual(reference.x);
+    expect(width - reference.x - reference.width).toBeCloseTo(actions.x, 0);
+    const outerGaps = await page.evaluate(() => {
+      const range = document.createRange(); range.selectNodeContents(document.querySelector('.menu-actions button')!);
+      const left = range.getBoundingClientRect().left;
+      const right = Math.max(...[...document.querySelectorAll('.hero-spells li>span:last-child')].map(element => { const span=document.createRange(); span.selectNodeContents(element); return span.getBoundingClientRect().right; }));
+      return { left, right: innerWidth - right };
+    });
+    expect(Math.abs(outerGaps.left - outerGaps.right)).toBeLessThanOrEqual(1);
     for (const name of ['Resume', 'Mute', 'Quit']) {
       const button = page.getByRole('button', { name, exact: true });
       await expect(button).toBeInViewport();
-      expect(await button.evaluate(element => { const range=document.createRange(); range.selectNodeContents(element); return range.getBoundingClientRect().width <= element.clientWidth; })).toBe(true);
+      expect(await button.evaluate(element => { const range=document.createRange(); range.selectNodeContents(element); return range.getBoundingClientRect().width <= element.getBoundingClientRect().width + 0.01; })).toBe(true);
     }
     const referenceArea = page.locator('.menu-reference');
     expect(await referenceArea.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
@@ -54,6 +63,10 @@ test('pause has left actions, board-shaped sprite key maps and spell titles on t
 
 test('pause action keyboard navigation toggles sound, traps focus and resumes', async ({ page }) => {
   await openMenu(page);
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeFocused();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.getByRole('button', { name: 'Mute', exact: true })).toBeFocused();
+  await page.keyboard.press('ArrowLeft');
   await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeFocused();
   await page.keyboard.press('ArrowDown');
   await expect(page.getByRole('button', { name: 'Mute', exact: true })).toBeFocused();

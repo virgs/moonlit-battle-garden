@@ -17,10 +17,10 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
   useEffect(() => { dialog.current?.querySelector<HTMLButtonElement>('button:not(:disabled)')?.focus({ preventScroll: true }); }, [disconnected]);
   const keyboard = (event: KeyboardEvent) => {
     const buttons = [...actions.current!.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')];
-    if ((event.key === 'ArrowDown' || event.key === 'ArrowUp') && actions.current?.contains(document.activeElement)) {
+    if ((['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(event.key)) && actions.current?.contains(document.activeElement)) {
       event.preventDefault();
       const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
-      buttons[(index + (event.key === 'ArrowDown' ? 1 : -1) + buttons.length) % buttons.length]?.focus();
+      buttons[(index + (event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length]?.focus();
     }
     if (event.key === 'Tab') {
       const stops = [...dialog.current!.querySelectorAll<HTMLElement>('button:not(:disabled),[tabindex="0"]')];
