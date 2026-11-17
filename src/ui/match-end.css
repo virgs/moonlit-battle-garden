@@ -1,4 +1,4 @@
-.match-end{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;padding:24px;background:transparent;text-shadow:0 2px 5px #000;color:var(--cream);text-align:center;overflow:hidden}
+.match-end{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;padding:24px;background:transparent;text-shadow:var(--text-outline);color:var(--cream);text-align:center;overflow:hidden}
 .match-end>.celebration-trophy{width:clamp(160px,32vw,320px);height:auto;flex:none;margin:0}
 .match-end h1{font-size:clamp(28px,5vw,56px);line-height:1.15;max-width:1000px;color:var(--lime)}
 .continue-prompt{min-height:24px;font-size:clamp(13px,2vw,18px);color:#b6c8a6;line-height:1.4}
@@ -7,8 +7,7 @@
 @media(max-height:500px){.match-end{gap:12px;padding:16px}.match-end>.celebration-trophy{width:160px;height:80px}.match-end h1{font-size:32px}}
 @media(prefers-reduced-motion:reduce){.continue-prompt.ready{animation:none}}
 
-.victory-hero{display:block;width:clamp(140px,25vw,240px);height:clamp(160px,32vh,290px);object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 5px 12px #0008);animation:hero-celebration 1.2s ease-in-out infinite}
-@keyframes hero-celebration{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+.victory-hero{display:block;width:clamp(140px,25vw,240px);height:clamp(160px,32vh,290px);object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 5px 12px #0008)}
 @media(max-height:500px){.victory-hero{height:120px;width:130px}}
 @media(prefers-reduced-motion:reduce){.victory-hero{animation:none}}
 .victory-sheet{animation:none}

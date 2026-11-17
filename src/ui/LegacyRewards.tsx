@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { assetUrl } from '../assets/url';
 import { legacyRewardFrame, legacyStars, legacyTrophy } from '../render/legacyPresentation';
 import './rewards.css';
@@ -18,7 +18,7 @@ export function StarMeter({ count, time, horizontal = false }: { count: number; 
   </svg>;
 }
 
-export function Trophy({ wins, paused = false, celebration = false, mirror = false }: { wins: number; paused?: boolean; celebration?: boolean; mirror?: boolean }) {
+export function Trophy({ wins, paused = false, celebration = false, mirror = false, style }: { wins: number; paused?: boolean; celebration?: boolean; mirror?: boolean; style?: CSSProperties }) {
   const [elapsed, setElapsed] = useState(0);
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   useEffect(() => {
@@ -27,7 +27,7 @@ export function Trophy({ wins, paused = false, celebration = false, mirror = fal
     return () => clearInterval(timer);
   }, [paused, reduced, wins]);
   const frame = legacyRewardFrame(elapsed, reduced);
-  return <svg className={`trophy-art ${celebration ? 'celebration-trophy' : ''} ${mirror ? 'mirror-trophy' : ''} ${paused ? 'paused' : ''}`} viewBox="0 0 150 75" role="img" aria-label={celebration ? 'Round victory trophy' : `${wins} rounds won`} data-wins={wins} data-frame={frame}>
+  return <svg className={`trophy-art ${celebration ? 'celebration-trophy' : ''} ${mirror ? 'mirror-trophy' : ''} ${paused ? 'paused' : ''}`} style={style} viewBox="0 0 150 75" role="img" aria-label={celebration ? 'Round victory trophy' : `${wins} rounds won`} data-wins={wins} data-frame={frame}>
     <image href={assetUrl('/assets/legacy/trophy-sheet.png')} width={legacyTrophy.width * legacyTrophy.columns} height={legacyTrophy.height * legacyTrophy.rows} x={-frame * legacyTrophy.width} y={-Math.min(2, wins) * legacyTrophy.height} />
   </svg>;
 }

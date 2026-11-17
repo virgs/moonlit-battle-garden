@@ -1,0 +1,27 @@
+{
+  "generator": "PixelLab animate_image",
+  "created": "2026-11-16",
+  "seed": 20261116,
+  "frameWidth": 128,
+  "frameHeight": 160,
+  "frameCount": 9,
+  "columns": 9,
+  "fps": 8,
+  "processing": "Source illustration fitted to 128x160 with nearest-neighbor sampling and transparent margin. Original frame plus eight generated pose frames packed without scaling using scripts/pack-victory-sprites.mjs.",
+  "characters": {
+    "champignon": {
+      "source": "digHoleBattleGarden/Personagens/SIR CHAMPIGNON.bmp",
+      "jobId": "752cf25f-7ec2-4e9a-862d-6c023eb99641",
+      "assetId": "97c8a785-9dd3-5dbb-856f-ab6b3d742fea",
+      "generations": 3,
+      "action": "Victory loop: bend knees, raise broom triumphantly overhead, keep shield guarding chest, lower broom to initial pose."
+    },
+    "andy": {
+      "source": "digHoleBattleGarden/Personagens/ANDY.bmp",
+      "jobId": "30466069-c461-4438-b447-b2bdbc19d341",
+      "assetId": "a04e5839-75ea-5cca-8acb-68fd37eb406f",
+      "generations": 3,
+      "action": "Victory loop: bend knees, triumphant hop, raise hands and flash a V sign, land and return to initial pose."
+    }
+  }
+}

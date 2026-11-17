@@ -5,7 +5,7 @@ import type { CharacterId } from '../game/types';
 import { presentation, validSheet } from '../presentation/config';
 import { inspectImage } from '../presentation/images';
 
-/** Original named hero art celebrates until a dedicated looping victory sheet is supplied. */
+/** Play actual sprite frames; a failed asset keeps a still hero portrait. */
 export function VictoryHero({ character }: { character: CharacterId }) {
   const clip = presentation[character].victory;
   const [ready, setReady] = useState(false);

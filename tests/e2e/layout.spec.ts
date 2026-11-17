@@ -25,7 +25,17 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
     await expect(page.locator('.score-legend>span').first()).toHaveText('Andy');
     await expect(page.locator('.score-legend>span').last()).toHaveText('Sir Champignon');
     await expect(page.locator('.score-legend')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
+    expect(await page.locator('.score-legend').evaluate(element=>(getComputedStyle(element).textShadow.match(/rgb\(/g) ?? []).length)).toBeGreaterThanOrEqual(8);
     expect(await page.locator('.score-legend>span').evaluateAll(names => names.every(name => name.scrollWidth <= name.clientWidth))).toBe(true);
+    if(await page.locator('.score-trophies.column-aligned').count()) {
+      for(const id of [0,1]) {
+        const trophy=(await page.locator('.score-trophies .trophy-art').nth(id).boundingBox())!;
+        const stars=(await page.locator(`.player-${id} .star-control`).boundingBox())!;
+        expect(trophy.x+trophy.width/2).toBeCloseTo(stars.x+stars.width/2,0);
+        expect(trophy.y+trophy.height).toBeLessThanOrEqual(stars.y);
+        expect(trophy.x).toBeGreaterThanOrEqual(0);expect(trophy.x+trophy.width).toBeLessThanOrEqual(width);
+      }
+    }
     const left = (await page.locator('.score-legend>span').first().boundingBox())!;
     const right = (await page.locator('.score-legend>span').last().boundingBox())!;
     expect(left.x).toBeCloseTo(bar.x); expect(right.x + right.width).toBeCloseTo(bar.x + bar.width);
@@ -51,13 +61,19 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
   await page.screenshot({ path: testInfo.outputPath('minimal-wide.png') });
 });
 
-test('single board uses horizontal stars on a narrow portrait screen with a side strip in landscape and the original column on desktop', async ({ page }) => {
+test('single board uses horizontal stars on a narrow portrait screen with a vertical left column and centered board in landscape and the original column on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/'); await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.single-board .player-0 .horizontal-stars')).toHaveCount(1);
   await expect(page.locator('.player-1')).toHaveCount(0);
   await page.setViewportSize({ width: 844, height: 390 });
-  await expect(page.locator('.single-board .player-0 .horizontal-stars')).toHaveCount(1);
+  await expect(page.locator('.single-board .player-0 .vertical-stars')).toHaveCount(1);
+  const board=page.locator('.player-0');
+  const x=Number(await board.getAttribute('data-board-x')), scale=Number(await board.getAttribute('data-board-scale'));
+  expect(x+gardenArt.width*scale/2).toBeCloseTo(844/2,0);
+  const stars=(await board.locator('.star-control').boundingBox())!;
+  expect(stars.height).toBeGreaterThan(stars.width);
+  expect(stars.x+stars.width).toBeLessThan(x);
   await page.setViewportSize({ width: 1440, height: 900 });
   await expect(page.locator('.two-boards .vertical-stars')).toHaveCount(2);
   await expect(page.locator('canvas')).toHaveCount(1);

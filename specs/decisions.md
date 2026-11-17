@@ -44,6 +44,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D34 | Round results mirror match results: trophy and winner only, then a fresh-input prompt after four seconds to start the next round. No result buttons. Remove background fills, borders and shadows from menu panels. |
 | D35 | Preserve the final arena behind round/match results. Show rival stars on single-board screens. Expand Escape/tap-bar menus with resume, mute, quit, key maps and both spell lists; connection loss uses the same menu with recovery status. Match wins show the winning hero animation instead of a spinning trophy. |
 | D36 | Result overlays must be fully transparent so the frozen arena remains clearly visible. Enlarge round label/countdown about 5×, fitting short screens, with rendered-pixel Playwright regression checks and desktop/phone screenshots. |
+| D37 | Outline game text with multidirectional shadows. Align desktop trophy centers above the star columns. Center the board itself on landscape phones with a vertical star control to its left. Match victory must animate actual sprite frames, with no whole-image wiggle. |
 
 ## Current proposals, not yet confirmed
 

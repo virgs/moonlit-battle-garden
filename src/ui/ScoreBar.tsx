@@ -8,7 +8,7 @@ import type { ArenaLayout } from '../render/layout';
 import './score-bar.css';
 import { StarMeter, Trophy } from './LegacyRewards';
 
-export function ScoreBar({ state, area, onPause, controlLabel, opponentStars }: { state: MatchState; area: ArenaLayout['score']; onPause?: () => void; controlLabel?: string; opponentStars?: number }) {
+export function ScoreBar({ state, area, onPause, controlLabel, opponentStars, trophyCenters }: { state: MatchState; area: ArenaLayout['score']; onPause?: () => void; controlLabel?: string; opponentStars?: number; trophyCenters?: number[] }) {
   const { bluePercent, leader } = roundStanding(state);
   const [paint, setPaint] = useState({ percent: 50, frame: 0 });
   const latest = useRef({ bluePercent, paused: state.paused, animate: state.phase === 'playing' });
@@ -40,7 +40,7 @@ export function ScoreBar({ state, area, onPause, controlLabel, opponentStars }: 
       {onPause && <button className="score-pause" aria-label={controlLabel ?? (state.paused ? 'Resume' : 'Pause')} title="Tap the score bar or press Escape for game controls" onClick={onPause} />}
     </div>
     <div className="score-legend"><span>{names[0]}</span><span>{names[1]}</span></div>
-    <div className="score-trophies" aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} />)}</div>
+    <div className={`score-trophies ${trophyCenters ? "column-aligned" : ""}`} aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} style={trophyCenters ? { position: "absolute", left: trophyCenters[side] - area.trophyWidth / 2 } : undefined} />)}</div>
     {opponentStars !== undefined && <div className="opponent-charge" role="group" aria-label={`Opponent magic: ${opponentStars} of 4 stars`}><span>Rival</span><StarMeter count={opponentStars} time={state.time} horizontal /></div>}
   </section>;
 }

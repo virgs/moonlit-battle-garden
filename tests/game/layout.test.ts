@@ -33,3 +33,10 @@ describe.each(['ai', 'local', 'online'] as const)('%s viewport layout', mode => 
     } else expect(layout.gardens.map(board => board.id)).toEqual([0]);
   });
 });
+
+ it.each([[568,320],[667,375],[844,390],[932,430]])('centers a landscape phone board at %i × %i with vertical stars on the left',(width,height)=>{
+ const {gardens}=createArenaLayout(width,height,'ai');const board=gardens[0];
+ expect(board.x+board.width/2).toBeCloseTo(width/2);expect(board.horizontalStars).toBe(false);
+ expect(board.stars.x+board.stars.width).toBeLessThan(board.x);
+ expect(board.stars.width/board.stars.height).toBeCloseTo(60/200);
+ });

@@ -3,6 +3,7 @@ import { expect, type Page } from '@playwright/test';
 /** Check actual board pixels rather than just the presence of a covered canvas. */
 export async function expectClearResult(page: Page) {
   const overlay = page.locator('.match-end');
+  expect(await overlay.locator('h1').evaluate(element=>(getComputedStyle(element).textShadow.match(/rgb\(/g) ?? []).length)).toBeGreaterThanOrEqual(8);
   await expect(overlay).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   await expect(overlay).toHaveCSS('background-image', 'none');
   await expect(overlay).toHaveCSS('backdrop-filter', 'none');

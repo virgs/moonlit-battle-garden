@@ -1,5 +1,4 @@
 import { expectClearResult } from './resultPresentation';
-import { png } from './assetFixtures';
 import { continueRound } from './continueRound';
 import { expect, test, type Page } from '@playwright/test';
 async function lose(page: Page) {
@@ -8,7 +7,6 @@ async function lose(page: Page) {
 }
 test('match victory has no buttons, ignores early input and returns to setup only after the delayed prompt', async ({ page }, testInfo) => {
   if(testInfo.project.name==='desktop')await page.addInitScript(()=>Object.defineProperty(navigator,'getGamepads',{value:()=>{throw new DOMException('Gamepad disabled','SecurityError')}}));
-  if(testInfo.project.name==='desktop')await page.route('**/assets/characters/andy/victory.png', route => route.fulfill({contentType:'image/png',body:png(1024,128)}));
   await page.goto('/');await page.getByRole('button',{name:'Local two player'}).click();await page.getByRole('button',{name:/Enter the garden/}).click();
   await lose(page);
   const round = page.getByRole('region', { name: 'Round result' });
@@ -24,11 +22,13 @@ test('match victory has no buttons, ignores early input and returns to setup onl
   await expect(result).toHaveAttribute('data-ready','false');await expect(page.locator('button:enabled')).toHaveCount(0);
   await expect(page.getByRole('img',{name:'Andy celebrates victory'})).toBeVisible();
   await expect(result.locator('.celebration-trophy')).toHaveCount(0);
-  if(testInfo.project.name==='desktop') {
+  {
     const clip=result.locator('.victory-sheet');
     await expect(clip).toBeVisible(); const frame=await clip.getAttribute('data-frame');
     await expect.poll(()=>clip.getAttribute('data-frame')).not.toBe(frame);
-  } else await expect(result.locator('img.victory-hero')).toHaveAttribute('src','/assets/legacy/andy-hero.png');
+  }
+  await expect(result.locator('img.victory-hero')).toHaveCount(0);
+  await expect(result.locator('.victory-hero')).toHaveCSS('animation-name','none');
   await expectClearResult(page);
   const frozenTime=await page.locator('.match-screen').getAttribute('data-time');
   await page.waitForTimeout(150);

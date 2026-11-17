@@ -19,20 +19,20 @@ export type ArenaLayout = { width: number; height: number; single: boolean; land
 export function createArenaLayout(width: number, height: number, mode: 'ai' | 'local' | 'online'): ArenaLayout {
   const single = mode !== 'local' && (width < 700 || (height < 500 && width < 1000));
   const landscape = single && width > height;
-  const margin = width < 700 ? 12 : 24;
+  const margin = width < 700 ? 12 : landscape ? 24 : 36;
   const score = scoreBarGeometry(width, height);
   if (single && !landscape) { score.height += 28; score.reserve += 28; }
   const top = score.y + score.height + 12;
   const availableHeight = Math.max(1, height - top - margin);
   const laneWidth = width / (single ? 1 : 2);
-  // Keep the original column beside the board. Narrow portrait lanes can instead
-  // fit a horizontal strip below it without reducing the hole widths.
+  // Use a vertical column beside the board, including centered phone landscape.
+  // Narrow portrait lanes can use a horizontal strip below the board.
   const starsBelow = laneWidth < 440 && !landscape;
-  const horizontalStars = starsBelow || landscape;
-  const starWidth = starsBelow ? Math.min(320, laneWidth - 2 * margin) : landscape ? Math.min(320, laneWidth * 0.4) : Math.min(96, availableHeight * 0.24);
+  const horizontalStars = starsBelow;
+  const starWidth = starsBelow ? Math.min(320, laneWidth - 2 * margin) : Math.min(96, availableHeight * 0.24);
   const starHeight = horizontalStars ? Math.max(44, starWidth / 4) : starWidth * 200 / 60;
   const gap = width < 700 ? 12 : 20;
-  const availableWidth = laneWidth - margin * 2 - (starsBelow ? 0 : starWidth + gap);
+  const availableWidth = landscape ? width - 2 * (margin + starWidth + gap) : laneWidth - margin * 2 - (starsBelow ? 0 : starWidth + gap);
   const boardSpace = availableHeight - (starsBelow ? starHeight + gap : 0);
   const scale = Math.max(0.05, Math.min(availableWidth / gardenArt.width, boardSpace / (gardenArt.height + 26)));
   const boardWidth = gardenArt.width * scale;
@@ -43,10 +43,10 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
   const gardens = (single ? [0] as const : [0, 1] as const).map(id => {
     const groupWidth = boardWidth + (starsBelow ? 0 : starWidth + gap);
     const groupX = laneWidth * id + (laneWidth - groupWidth) / 2;
-    const x = groupX + (!starsBelow && id === 0 ? starWidth + gap : 0);
+    const x = landscape ? (width - boardWidth) / 2 : groupX + (!starsBelow && id === 0 ? starWidth + gap : 0);
     const stars = starsBelow
       ? { x: laneWidth * id + (laneWidth - starWidth) / 2, y: y + boardHeight + tail + gap, width: starWidth, height: starHeight }
-      : { x: id === 0 ? groupX : x + boardWidth + gap, y: y + (boardHeight - starHeight) / 2, width: starWidth, height: starHeight };
+      : { x: landscape ? x - gap - starWidth : id === 0 ? groupX : x + boardWidth + gap, y: y + (boardHeight - starHeight) / 2, width: starWidth, height: starHeight };
     return {
       id, x, y, width: boardWidth, height: boardHeight, scale, stars, horizontalStars, starsBelow,
       lane: { x: laneWidth * id, y: 0, width: laneWidth, height },

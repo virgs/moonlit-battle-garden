@@ -4,7 +4,7 @@
 
 The repository's license is preserved in `MOLECIDE-LICENSE.txt`. Original Dig Hole Battle Garden graphics are credited to Bruno Moraes in its README. Complete per-asset provenance review before a public release; repository presence alone does not establish ownership of every sound or music track.
 
-No PixelLab generations have been made for this prototype. The final portrait, cast, and home asset slots now have working loaders/playback and safe fallbacks. See [ASSET-CONTRACT.md](ASSET-CONTRACT.md) for the 16 drop-in files and `pnpm assets:check`. The castle and shared music remain fallbacks. The later root.png/life.png are retained as source references but are no longer rendered.
+PixelLab victory animation sheets for Champignon and Andy are bundled; provenance is in characters/victory-provenance.json. The final portrait, cast, and home asset slots now have working loaders/playback and safe fallbacks. See [ASSET-CONTRACT.md](ASSET-CONTRACT.md) for the 16 drop-in files and `pnpm assets:check`. The castle and shared music remain fallbacks. The later root.png/life.png are retained as source references but are no longer rendered.
 
 ## Oldest game assets restored
 
@@ -27,4 +27,4 @@ RGB pixels are preserved, with Allegro's magenta mask converted to transparency.
 Music and effects start enabled on match entry. The entry/Create/Join gesture unlocks Web Audio and primes the reusable music element. The existing shared MP3 is the home-music fallback; distinct final home tracks remain asset slots. Mute, pause, interruption and exit silence playback appropriately. Simultaneous spawn sounds are coalesced; at most 12 Web Audio voices overlap. The original MIDI collection is retained in the source reference repository rather than bundled as browser-playable music.
 
 
-Named hero victory illustrations `legacy/champignon-hero.png` and `legacy/andy-hero.png` come from digHoleBattleGarden/Personagens/SIR CHAMPIGNON.bmp and ANDY.bmp. They preserve source RGB pixels with the exact magenta mask converted to alpha, using `convert_bmp` in scripts/import-legacy-art.py (now supporting 24-bit BMP). They are static source illustrations animated with presentation motion until final victory sheets are supplied. The prototype’s unrelated robot/sumo victory sheets are not presented as these heroes.
+Named hero victory illustrations `legacy/champignon-hero.png` and `legacy/andy-hero.png` come from digHoleBattleGarden/Personagens/SIR CHAMPIGNON.bmp and ANDY.bmp. They preserve source RGB pixels with the exact magenta mask converted to alpha, using `convert_bmp` in scripts/import-legacy-art.py (now supporting 24-bit BMP). They are static error fallbacks; match victories play generated sprite sheets with actual pose changes. The prototype’s unrelated robot/sumo victory sheets are not presented as these heroes.
