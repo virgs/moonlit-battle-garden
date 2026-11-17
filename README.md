@@ -89,3 +89,9 @@ Preserve agreed decisions across chats; update these files when behavior or deci
 - Local sibling project `../shinobi-arena` — reference frontend stack.
 
 See [asset notes](public/assets/README.md) and the preserved source license for reused artwork and sounds.
+
+## Automatic connection check
+
+Open `?network-check=host` on the website to create an automatic diagnostic room, then open its generated phone link on a second device/network. No playing or confirmation taps are needed: both clients use the real PeerRoom/Session, hit targets, collect/cast stars, and test recovery after closing the guest data channel once. Keep both pages visible. Success requires at least three hits and one cast from each side plus recovery, over at least 20 seconds; an incomplete test fails after 90 seconds. This verifies data-channel gameplay, not touch/audio or browser suspension. Route results include candidate types/protocol/RTT, without IP addresses.
+
+`pnpm e2e:online` runs the online browser suite against the public Pages site/PeerJS service. `ONLINE_BROWSER=webkit pnpm e2e:online` selects WebKit (install it with Playwright first). `ONLINE_URL` can override the website URL. These external-service checks are opt-in and do not run in ordinary CI. Regular CI also covers controlled 150 ms send delays per direction and silent-link heartbeat recovery; these are application-level impairments, not OS packet shaping.

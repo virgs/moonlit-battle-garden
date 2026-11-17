@@ -193,6 +193,20 @@ export class PeerRoom {
     this.session?.connection('ended');
     this.dispose(false);
   }
+  /** Read-only, privacy-safe route information for the opt-in connection check. */
+  async diagnostics() {
+    const connection=this.conn?.peerConnection;
+    if(!connection)return null;
+    const stats=await connection.getStats();
+    const reports=[...stats.values()];
+    const transport=reports.find(report=>report.type==='transport'&&report.selectedCandidatePairId);
+    const pair=transport?stats.get(transport.selectedCandidatePairId):reports.find(report=>report.type==='candidate-pair'&&report.nominated&&report.state==='succeeded');
+    const local=pair&&stats.get(pair.localCandidateId),remote=pair&&stats.get(pair.remoteCandidateId);
+    return {connectionState:connection.connectionState,localCandidateType:local?.candidateType??null,remoteCandidateType:remote?.candidateType??null,protocol:local?.protocol??null,rttMs:this.session?.getSnapshot().network?.rtt??null};
+  }
+  /** Used only by the opt-in diagnostic page to exercise normal recovery. */
+  interruptForDiagnostics():void { this.conn?.close(); }
+
   dispose(notify = true): void {
     if (this.closed) return;
     if (notify) this.send({ kind: 'bye' });

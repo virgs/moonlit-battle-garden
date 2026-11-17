@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 export async function openMainMenu(page:Page) {
-  await page.goto('/');await page.getByRole('button',{name:'Open main menu',exact:true}).click();
+  await page.goto('./');await page.getByRole('button',{name:'Open main menu',exact:true}).click();
 }
 export async function openSelection(page:Page,mode:'ai'|'local'='ai') {
   await openMainMenu(page);await page.getByRole('button',{name:mode==='ai'?'Night Watch':'Garden Grudge',exact:true}).click();

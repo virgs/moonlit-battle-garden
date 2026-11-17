@@ -1,3 +1,4 @@
+import { observeRtc, attachRtc } from './rtcDiagnostics';
 import { openMainMenu } from './frontMenu';
 import { continueRound } from './continueRound';
 import { expect, test } from '@playwright/test';
@@ -6,6 +7,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   test.setTimeout(45000);
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
+  await observeRtc(page);
   await openMainMenu(page);
   await page.getByRole('button', { name: 'Beyond the Hedge' }).click();
   await page.getByRole('button', { name: 'Create online garden' }).click();
@@ -14,6 +16,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   const inviteUrl = await invite.inputValue();
   const context = await browser.newContext({ viewport: testInfo.project.name === 'mobile' ? { width: 390, height: 844 } : { width: 1280, height: 900 } });
   const guest = await context.newPage();
+  await observeRtc(guest);
   guest.on('pageerror', error => errors.push(error.message));
   await guest.addInitScript(() => {
     const original = RTCPeerConnection.prototype.createDataChannel;
@@ -27,7 +30,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await guest.getByRole('button', { name: 'Join garden', exact: true }).click();
   await expect(page.locator('.character-carousel')).toHaveCount(2);
   await expect(guest.locator('.character-carousel')).toHaveCount(2);
-  await expect(guest.getByRole('button',{name:'Confirm You'})).toBeEnabled();
+  await expect(guest.getByRole('button',{name:'Confirm You'})).toBeEnabled({timeout:15_000});
   await guest.getByRole('button',{name:'Next character for You'}).click();
   await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andy');
   await page.getByRole('button',{name:'Next character for You'}).click();
@@ -85,6 +88,8 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 12000 });
   const recovered = await guest.locator('.match-screen').getAttribute('data-time');
   await expect.poll(() => guest.locator('.match-screen').getAttribute('data-time')).not.toBe(recovered);
+  await attachRtc(page,testInfo,'host-rtc-route');
+  await attachRtc(guest,testInfo,'guest-rtc-route');
   // Real host inputs end a round; the guest can advance both players to the next.
   await page.evaluate(() => {
     const hole = document.querySelector<HTMLButtonElement>('.player-0 .hole[data-kind="empty"]')!;

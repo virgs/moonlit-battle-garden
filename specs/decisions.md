@@ -75,6 +75,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D56 | Add a character icon beside each gameplay HUD name, above the trophies, on both sides including the rival on single-board phones. Missing final icons use semi-transparent character-colored boxes; reuse configured icon paths when supplied. No new image generation. |
 
+| D57 | Provide an opt-in automatic phone connection-check link, using real player-hosted sessions with scripted hits/casts and a reconnect check. The user only opens it on cellular and leaves it visible; no playing is required. Keep actual physical-network results separate from same-machine/browser emulation and record route types without IP addresses. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
