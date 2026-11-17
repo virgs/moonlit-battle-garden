@@ -73,6 +73,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D55 | Center mode/icon, round number and clock at the very top on all gameplay layouts, above the score bar. Display just the round numeral, keeping its accessible Round N label. Enlarge gameplay header text roughly 2×, adapting to narrow screens. |
 
+| D56 | Add a character icon beside each gameplay HUD name, above the trophies, on both sides including the rival on single-board phones. Missing final icons use semi-transparent character-colored boxes; reuse configured icon paths when supplied. No new image generation. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

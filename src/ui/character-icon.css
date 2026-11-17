@@ -1,1 +1,4 @@
 .character-icon{display:block;width:48px;height:48px;object-fit:contain;image-rendering:pixelated;flex:none}.character-icon[hidden]{display:none}
+
+.character-icon-placeholder{background:rgb(164 193 105 / 45%)}
+.character-icon-placeholder[data-character=andy]{background:rgb(184 139 205 / 45%)}

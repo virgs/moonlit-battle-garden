@@ -194,3 +194,7 @@ Existing CraftPix key sprites accompany actions: R confirms/changes the first sl
 Menus, selection, gameplay and pause reuse pixel-style mode icons. Spell costs in selection and pause use original filled star sprites rather than numeric tiers. Keyboard action hints are enlarged, including their embedded glyphs. The return action reads Back to title.
 
 Gameplay shows the mode name/icon, Round N and elapsed active round time (mm:ss; hours if needed). It derives from simulation time minus round start, resets each round, and follows gameplay freezes. All layouts center the mode/icon, round numeral and elapsed clock above the score bar. Gameplay text is enlarged roughly 2×, with responsive sizes on narrow/short screens; the visible round label is only its number. Pause repeats mode/round/time in its header. No timed victory condition is introduced.
+
+### Gameplay character icons
+
+Both gameplay name/trophy groups include the character icon beside the name. Missing configured icon files display a semi-transparent character-colored square, and supplied icons fit the same box without distortion. The rival icon stays visible on single-board phones. Compact name/icon pairs fit within the existing HUD height to preserve board/touch-target sizes. Pause/round-result recovered-art fallbacks are unchanged. No new images are generated.

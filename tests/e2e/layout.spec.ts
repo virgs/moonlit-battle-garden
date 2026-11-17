@@ -36,6 +36,7 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
         legendFont:getComputedStyle(legend).fontFamily, shadow:getComputedStyle(legend).textShadow,
         names:[...legend.children].map(element => ({ text:element.textContent, fits:element.scrollWidth<=element.clientWidth, ...bounds(element) })),
         columnAligned:!!document.querySelector('.score-trophies.column-aligned'),
+        icons:[...legend.querySelectorAll('.character-icon')].map(element=>({...bounds(element),character:element.getAttribute('data-character'),state:element.getAttribute('data-state')})),
         trophies:[...document.querySelectorAll('.score-trophies .trophy-art')].map(element => { const {x,y,width,height}=element.getBoundingClientRect();return {x,y,width,height}; }),
         panels:[...document.querySelectorAll('.player-panel')].map(panel => ({
           x:Number(panel.getAttribute('data-board-x')), y:Number(panel.getAttribute('data-board-y')), scale:Number(panel.getAttribute('data-board-scale')),
@@ -46,6 +47,12 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
       };
     });
     const {bar,art}=geometry;
+    expect(geometry.icons.map(icon=>icon.character)).toEqual(['andy','champignon']);
+    for(const [id,icon] of geometry.icons.entries()){
+      expect(icon.state).toBe('fallback');expect(icon.width).toBeGreaterThanOrEqual(18);
+      expect(icon.height).toBe(icon.width);expect(icon.y+icon.height).toBeLessThanOrEqual(geometry.trophies[id].y);
+      expect(icon.x).toBeGreaterThanOrEqual(0);expect(icon.x+icon.width).toBeLessThanOrEqual(width);
+    }
     expect(art.width/art.height).toBeCloseTo(499/45,1); expect(geometry.meters).toBe(1);
     if(width===844&&height===390)expect(geometry.verticalStars).toBe(2);
     expect(geometry.names.map(name=>name.text)).toEqual(['Andy','Sir Champignon']);
