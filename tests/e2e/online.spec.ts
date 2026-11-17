@@ -43,7 +43,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toHaveCount(0);
   const clock = await guest.locator('.match-screen').getAttribute('data-time');
   await expect.poll(() => guest.locator('.match-screen').getAttribute('data-time')).not.toBe(clock);
-  await guest.getByRole('button', { name: 'Back to the garden' }).click();
+  await guest.getByRole('button', { name: 'Resume', exact: true }).click();
   if (testInfo.project.name === 'desktop') {
     await expect(guest.locator('.player-1 .hole').first()).toBeDisabled();
   } else await expect(guest.locator('.player-1')).toHaveCount(0);
@@ -72,8 +72,11 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await expect(page.locator('.match-screen')).toHaveAttribute('data-round', '2');
   await expect(guest.locator('.match-screen')).toHaveAttribute('data-round', '2');
   await guest.getByRole('button', { name: 'Game menu', exact: true }).click();
-  await guest.getByRole('button', { name: /Change matchup/ }).click();
+  await guest.getByRole('button', { name: 'Quit', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Garden disconnected' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Mute', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Quit', exact: true })).toBeEnabled();
   expect(errors).toEqual([]);
   await context.close();
 });

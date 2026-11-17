@@ -1,3 +1,4 @@
+import { png } from './assetFixtures';
 import { continueRound } from './continueRound';
 import { expect, test, type Page } from '@playwright/test';
 async function lose(page: Page) {
@@ -6,17 +7,29 @@ async function lose(page: Page) {
 }
 test('match victory has no buttons, ignores early input and returns to setup only after the delayed prompt', async ({ page }, testInfo) => {
   if(testInfo.project.name==='desktop')await page.addInitScript(()=>Object.defineProperty(navigator,'getGamepads',{value:()=>{throw new DOMException('Gamepad disabled','SecurityError')}}));
+  if(testInfo.project.name==='desktop')await page.route('**/assets/characters/andy/victory.png', route => route.fulfill({contentType:'image/png',body:png(1024,128)}));
   await page.goto('/');await page.getByRole('button',{name:'Local two player'}).click();await page.getByRole('button',{name:/Enter the garden/}).click();
   await lose(page);
-  const round = page.getByRole('main', { name: 'Round result' });
+  const round = page.getByRole('region', { name: 'Round result' });
   await expect(round).toHaveAttribute('data-ready', 'false');
-  await expect(page.locator('button,canvas,.score-bar')).toHaveCount(0);
+  await expect(page.locator('canvas')).toHaveCount(1);
+  await expect(round.locator('button')).toHaveCount(0);
+  await expect(page.locator('.score-bar')).toBeVisible();
   await page.keyboard.press('Enter'); await page.mouse.click(10,10);
   await expect(round).toBeVisible();
   await continueRound(page); await lose(page);
-  const result=page.getByRole('main',{name:'Match result'});
-  await expect(result).toHaveAttribute('data-ready','false');await expect(page.locator('button')).toHaveCount(0);
-  await expect(page.getByRole('img',{name:'Round victory trophy'})).toBeVisible();
+  const result=page.getByRole('region',{name:'Match result'});
+  await expect(result).toHaveAttribute('data-ready','false');await expect(page.locator('button:enabled')).toHaveCount(0);
+  await expect(page.getByRole('img',{name:'Andy celebrates victory'})).toBeVisible();
+  await expect(result.locator('.celebration-trophy')).toHaveCount(0);
+  if(testInfo.project.name==='desktop') {
+    const clip=result.locator('.victory-sheet');
+    await expect(clip).toBeVisible(); const frame=await clip.getAttribute('data-frame');
+    await expect.poll(()=>clip.getAttribute('data-frame')).not.toBe(frame);
+  } else await expect(result.locator('img.victory-hero')).toHaveAttribute('src','/assets/legacy/andy-hero.png');
+  const frozenTime=await page.locator('.match-screen').getAttribute('data-time');
+  await page.waitForTimeout(150);
+  await expect(page.locator('.match-screen')).toHaveAttribute('data-time',frozenTime!);
   await page.screenshot({path:testInfo.outputPath('victory-before-prompt.png')});
   await page.keyboard.press('Enter');await page.mouse.click(10,10);await expect(result).toBeVisible();
   await page.keyboard.down('KeyW');

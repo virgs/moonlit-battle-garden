@@ -42,6 +42,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D32 | Enable recovered sound effects and music on match entry. Final match screen has only trophy/winner text, then a small fresh-input prompt after a few seconds (four-second default), returning to the menu without buttons. Keep font choice open to non-pixel/fancier free fonts. |
 | D33 | Use the selected Almendra + Literata pairing: Almendra titles/character names, Literata menu/body text. Self-host the free fonts with their licenses. |
 | D34 | Round results mirror match results: trophy and winner only, then a fresh-input prompt after four seconds to start the next round. No result buttons. Remove background fills, borders and shadows from menu panels. |
+| D35 | Preserve the final arena behind round/match results. Show rival stars on single-board screens. Expand Escape/tap-bar menus with resume, mute, quit, key maps and both spell lists; connection loss uses the same menu with recovery status. Match wins show the winning hero animation instead of a spinning trophy. |
 
 ## Current proposals, not yet confirmed
 

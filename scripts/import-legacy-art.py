@@ -1,7 +1,7 @@
 """Convert the original PCX/BMP sprites to PNG without altering their RGB pixels.
 
 Usage: python3 scripts/import-legacy-art.py SOURCE_DIR OUTPUT_DIR
-Allegro's magenta mask becomes alpha; supports the original RGB/palette PCX and uncompressed 8-bit palette BMP.
+Allegro's magenta mask becomes alpha; supports the original RGB/palette PCX and uncompressed 8-bit palette/24-bit RGB BMP.
 """
 import binascii
 import struct
@@ -53,16 +53,20 @@ def convert_bmp(source: Path, destination: Path) -> None:
     offset = struct.unpack_from('<I', data, 10)[0]
     width, signed_height = struct.unpack_from('<ii', data, 18)
     depth, compression = struct.unpack_from('<HI', data, 28)
-    if data[:2] != b'BM' or depth != 8 or compression != 0:
-        raise ValueError(f'Expected uncompressed palette BMP: {source}')
-    height, stride = abs(signed_height), ((width + 3) // 4) * 4
+    if data[:2] != b'BM' or depth not in (8, 24) or compression != 0:
+        raise ValueError(f'Expected uncompressed 8/24-bit BMP: {source}')
+    height, stride = abs(signed_height), ((width * (depth // 8) + 3) // 4) * 4
     pixels = bytearray()
     for y in range(height):
         pixels.append(0)
         row = height - 1 - y if signed_height > 0 else y
         for x in range(width):
-            index = data[offset + row * stride + x]
-            b, g, r, _ = data[54 + index * 4:58 + index * 4]
+            if depth == 8:
+                index = data[offset + row * stride + x]
+                b, g, r, _ = data[54 + index * 4:58 + index * 4]
+            else:
+                start = offset + row * stride + x * 3
+                b, g, r = data[start:start + 3]
             pixels.extend((r, g, b, 0 if (r, g, b) == (255, 0, 255) else 255))
     write_png(destination, width, height, bytes(pixels))
 
@@ -74,3 +78,6 @@ if __name__ == '__main__':
 
     for old, new in [('estrelinhas', 'star-meter'), ('trofeu', 'trophy-sheet')]:
         convert_bmp(source / f'{old}.bmp', output / f'{new}.png')
+
+    for old, new in [('SIR CHAMPIGNON', 'champignon-hero'), ('ANDY', 'andy-hero')]:
+        convert_bmp(source.parent / 'Personagens' / f'{old}.bmp', output / f'{new}.png')

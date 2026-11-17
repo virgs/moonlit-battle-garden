@@ -33,9 +33,9 @@ test('original trophy sheets celebrate each round and retain the correct per-sid
   await expect(trophies.nth(1)).toHaveAttribute('data-wins', '1');
   await loseRound(page, 0);
   await expect(page.getByRole('heading', { name: 'Player 2 wins the match!' })).toBeVisible();
-  await expect(page.getByRole('main', { name:'Match result' })).toBeVisible();
-  await expect(page.locator('button')).toHaveCount(0);
-  await expect(page.locator('.score-bar')).toHaveCount(0);
+  await expect(page.getByRole('region', { name:'Match result' })).toBeVisible();
+  await expect(page.locator('button:enabled')).toHaveCount(0);
+  await expect(page.locator('.score-bar')).toBeVisible();
 });
 
 test('star artwork charges and clears when casting; pause freezes its animation', async ({ page }, testInfo) => {
@@ -52,7 +52,7 @@ test('star artwork charges and clears when casting; pause freezes its animation'
   const frozen = await stars.getAttribute('data-frame');
   await page.waitForTimeout(250);
   await expect(stars).toHaveAttribute('data-frame', frozen!);
-  await page.getByRole('button', { name: 'Back to the garden' }).click();
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await board.getByRole('button', { name: /Cast magic/ }).click();
   await expect(stars).toHaveAttribute('data-charge', '0');
   await expect(stars.locator('image').first()).toHaveAttribute('y', '0');
@@ -72,13 +72,14 @@ test('reduced motion keeps original trophy and star art in a static pose', async
   await expect(trophy).toHaveAttribute('data-frame', '2');
 });
 
-test('landscape round victory fits the screen without gameplay HUD', async ({ page }) => {
+test('landscape round victory fits over the frozen gameplay HUD', async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
   await page.goto('/'); await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await loseRound(page, 0);
-  await expect(page.locator('.score-bar,button,canvas')).toHaveCount(0);
-  const result = (await page.getByRole('main', { name: 'Round result' }).boundingBox())!;
+  await expect(page.locator('canvas')).toHaveCount(1);
+  await expect(page.locator('button:enabled')).toHaveCount(0);
+  const result = (await page.getByRole('region', { name: 'Round result' }).boundingBox())!;
   const award = (await page.locator('.celebration-trophy').boundingBox())!;
   expect(result.height).toBe(390);
   expect(award.y).toBeGreaterThanOrEqual(0);

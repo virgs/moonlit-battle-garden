@@ -6,9 +6,9 @@ import type { MatchState } from '../game/types';
 import { barSourceOffset, easeLegacyBar, legacyBar } from '../render/legacyPresentation';
 import type { ArenaLayout } from '../render/layout';
 import './score-bar.css';
-import { Trophy } from './LegacyRewards';
+import { StarMeter, Trophy } from './LegacyRewards';
 
-export function ScoreBar({ state, area, onPause, controlLabel }: { state: MatchState; area: ArenaLayout['score']; onPause?: () => void; controlLabel?: string }) {
+export function ScoreBar({ state, area, onPause, controlLabel, opponentStars }: { state: MatchState; area: ArenaLayout['score']; onPause?: () => void; controlLabel?: string; opponentStars?: number }) {
   const { bluePercent, leader } = roundStanding(state);
   const [paint, setPaint] = useState({ percent: 50, frame: 0 });
   const latest = useRef({ bluePercent, paused: state.paused, animate: state.phase === 'playing' });
@@ -41,5 +41,6 @@ export function ScoreBar({ state, area, onPause, controlLabel }: { state: MatchS
     </div>
     <div className="score-legend"><span>{names[0]}</span><span>{names[1]}</span></div>
     <div className="score-trophies" aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} />)}</div>
+    {opponentStars !== undefined && <div className="opponent-charge" role="group" aria-label={`Opponent magic: ${opponentStars} of 4 stars`}><span>Rival</span><StarMeter count={opponentStars} time={state.time} horizontal /></div>}
   </section>;
 }

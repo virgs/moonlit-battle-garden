@@ -3,3 +3,6 @@
 .score-pause{position:absolute;inset:0;display:block;width:100%;height:100%;padding:0;border:0;background:transparent;pointer-events:auto;cursor:pointer}
 .score-legend{font-family:'Almendra',Georgia,serif;font-weight:400;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:2px;font-size:var(--name-size);line-height:var(--name-height)}
 .score-legend>span:first-child{color:#a9c5ff;text-align:left}.score-legend>span:last-child{color:#ffaaaa;text-align:right}.score-legend>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.opponent-charge{display:flex;align-items:center;justify-content:flex-end;gap:6px;height:28px;color:#ffaaaa;font-size:10px}.opponent-charge .sprite-stars{width:96px;height:24px}
+.landscape-board .opponent-charge{position:absolute;left:calc(100% + 12px);top:0;width:130px;justify-content:flex-start}

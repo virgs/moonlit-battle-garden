@@ -9,6 +9,7 @@ castDefaults:
   sound: null
 characters:
   champignon:
+    victory: { src: /assets/characters/champignon/victory.png, frameWidth: 128, frameHeight: 128, frameCount: 8, columns: 8, fps: 12, holdMs: 0, sound: null }
     portrait: /assets/characters/champignon/portrait.png
     home:
       name: Sporelight Keep
@@ -32,6 +33,7 @@ characters:
       3: { src: /assets/characters/champignon/cast-3.png }
       4: { src: /assets/characters/champignon/cast-4.png }
   andy:
+    victory: { src: /assets/characters/andy/victory.png, frameWidth: 128, frameHeight: 128, frameCount: 8, columns: 8, fps: 12, holdMs: 0, sound: null }
     portrait: /assets/characters/andy/portrait.png
     home:
       name: Moonlit Hideout

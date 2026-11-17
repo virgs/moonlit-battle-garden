@@ -35,7 +35,7 @@ test('a decisive score difference shows the round result and resets the bar to t
     for (let i = 0; i < 1000; i++) window.dispatchEvent(new KeyboardEvent('keydown', { code: `Key${key}`, key: key.toLowerCase(), bubbles: true }));
   });
   await expect(page.getByRole('heading', { name: 'Player 2 wins the round!' })).toBeVisible();
-  await expect(page.getByRole('meter')).toHaveCount(0);
+  await expect(page.getByRole('meter')).toHaveAttribute('aria-valuenow', '0');
   await continueRound(page);
   await expect(page.getByRole('meter')).toHaveAttribute('aria-valuenow', '50');
   await expect(page.locator('.legacy-score-art')).toHaveAttribute('data-offset', '255');

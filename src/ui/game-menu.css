@@ -1,0 +1,8 @@
+.match-screen .match-overlay.menu-overlay{z-index:7;padding:20px;align-items:center}
+.game-menu{width:min(900px,100%);max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;padding:16px;text-align:center;background:transparent;border:0}
+.game-menu h2{font-size:clamp(32px,5vw,48px);color:var(--lime)}
+.game-menu p{font-size:12px;line-height:1.7;color:#c5d1bd}.menu-status{margin:12px auto;max-width:640px}
+.menu-actions{display:flex;justify-content:center;gap:16px;margin:18px 0;flex-wrap:wrap}.menu-actions button{min-height:44px;padding:10px 24px}.menu-actions .text-button{background:transparent;border:0;text-decoration:underline}.menu-actions button:disabled{opacity:.45}
+.menu-players{display:grid;grid-template-columns:1fr 1fr;gap:32px;text-align:left;margin:24px 0}.menu-player h3{font-size:26px;color:#a9c5ff}.menu-player.side-1 h3{color:#ffaaaa}.menu-player ol{list-style:none;padding:0;margin:16px 0 0}.menu-player li{margin:12px 0;font-size:12px;line-height:1.6}.menu-player strong,.menu-player span{display:block}.menu-player span{color:#b9c8b0}
+@media(max-width:620px){.menu-players{grid-template-columns:1fr;gap:16px}.match-screen .match-overlay.menu-overlay{padding:8px}.game-menu{max-height:calc(100dvh - 16px);padding:12px}.menu-actions{gap:4px}.menu-actions button{padding:10px 18px}}
+.match-screen .match-overlay.menu-overlay{padding-top:20px}@media(max-width:620px){.match-screen .match-overlay.menu-overlay{padding-top:8px}}

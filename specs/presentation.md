@@ -53,7 +53,7 @@ Per-side HUD trophies scale from 56×28 to 112×56 on phone-sized screens and 16
 
 The original target atlas rows are alive/idle (including the dancing movement), hit, miss/hide, and raise, each with eight frames per kind. Rising and hiding now traverse their frames in order relative to target age/expiry, instead of taking hiding frames from global time. They adapt to the existing target lifetime and allow at least eight simulation ticks per transition; reaction windows and score rules do not change. Idle loops at 12 fps. Hits use all eight frames at 12 fps, including rabbit hits and shielded rabbit penalties. Events carry the actual target kind, avoiding guesses from the last rendered hole. An independent hit-feedback sprite finishes its sequence even if a new target appears; it becomes translucent over the new target without delaying or hiding gameplay.
 
-Star-container charge changes already play their two-frame appearing intro at 12 fps and then the four-frame idle loop. This is independent from the rising/hiding animation of collectible stars inside holes. Reduced motion uses static poses; pause freezes logical target/charge animation. Hero-specific victory/defeat dance sheets are not integrated; the trophy celebration is implemented. Final hero cast sheets remain asset slots.
+Star-container charge changes already play their two-frame appearing intro at 12 fps and then the four-frame idle loop. This is independent from the rising/hiding animation of collectible stars inside holes. Reduced motion uses static poses; pause freezes logical target/charge animation. Match winners now show the correct original named hero illustration with celebratory motion, or a dedicated victory sheet when supplied. Defeat clips remain deferred. Final hero cast sheets remain asset slots.
 
 
 ## Audio and match ending (D32)
@@ -62,13 +62,23 @@ All 33 recovered effect files/variants are enabled through a manifest: browser s
 
 Audio starts enabled on Enter/Create/Join gestures. Web Audio is unlocked immediately and the same native music element is primed for asynchronous online matchmaking. Home music retains its per-character path/shared fallback and configurable looping. Mute remains in the menu. The original non-browser MIDI collection is not bundled; the configured shared MP3 is currently audible until final home music files are supplied.
 
-A completed match replaces the arena with a trophy and winner text. It contains no buttons, score bar, boards, or menu controls. After four real-time seconds the smaller prompt “Press any key or tap to return to the menu” appears. A fresh key, left click/tap, or controller button then returns to setup. Early input and held/repeated keys do not dismiss it; held controller buttons must be released and pressed again. This terminal presentation takes priority over a peer leaving after the match. Ordinary between-round progression still uses Next round. Audio and network resources are released on return to setup.
+Results overlay the final arena without unmounting its canvas or replacing its home background. Round wins show the spinning trophy; match wins show the winning hero. Both retain the score bar, boards and trophies behind a light dimming layer, with gameplay inputs disabled. After four real-time seconds a fresh key, tap/click or controller press starts the next round or returns to setup. Early/held input is ignored. Match results take precedence over a peer leaving. Audio and network resources release on return to setup.
+
 
 The selected pairing is Almendra for titles and character names, with Literata for menus, controls and supporting text. Fonts are bundled locally with their SIL Open Font Licenses, so loading them needs no external font service. Literata uses its variable weight/optical-size face; Almendra includes regular and bold.
 
 
 ## Round results and menu panels (D34)
 
-Round and match victories share the same full-screen trophy/winner presentation. Both ignore early input and reveal the prompt after four seconds; a fresh key, tap/click or gamepad press then starts the next round or returns to setup respectively. Round results hide boards, score bar and controls, with won trophies preserved when gameplay returns. Either online player can advance; connection interruption still shows the recovery/exit screen.
+Round and match victories share the same winner/prompt overlay, with a round trophy or winning hero respectively. Both ignore early input and reveal the prompt after four seconds; a fresh key, tap/click or gamepad press then starts the next round or returns to setup respectively. The final boards, score bar and trophies remain visible underneath; gameplay is frozen. Either online player can advance; connection interruption still shows the recovery/exit screen.
 
 Setup, online and pause/countdown menu panels have transparent backgrounds, no borders and no shadows. Character cards also have transparent surfaces, with a selection outline identifying the chosen hero. Form controls and action buttons retain their visual affordances. The page/arena backdrop remains visible behind menus.
+
+
+## Mobile charge, controls and hero victory (D35)
+
+Single-board layouts show a compact read-only original star meter for the rival under the red side of the shared bar. Portrait reserves its space; landscape places it beside the bar to preserve hole targets. Desktop/two-board layouts already show each board’s stars.
+
+Escape or tapping the bar opens a transparent borderless menu. AI/local play pauses; online play continues behind its local menu. Resume, Mute/Unmute, Quit, keyboard grids/cast keys, touch guidance and both selected heroes’ four spells are included. Connection interruption uses the same menu with frozen-play status, disabled Resume and automatic recovery. Mute and Quit remain available. Long content scrolls within the viewport on small/short screens.
+
+Original named hero illustrations from Personagens/SIR CHAMPIGNON.bmp and ANDY.bmp are converted with magenta transparency. Their looping celebratory motion is a temporary presentation, not recovered multi-frame hero animation. The unrelated prototype Fx/Personagem sheets are not assigned to named heroes. Dedicated 8-frame victory sheets can be dropped into each hero’s victory.png slot; missing/invalid sheets use the animated illustration. Reduced motion disables celebration movement and uses a static sheet frame.

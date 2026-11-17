@@ -7,6 +7,7 @@ export type BackgroundAsset = { src: string; fallback: string; opacity: number; 
 export type CastClip = { src: string; frameWidth: number; frameHeight: number; frameCount: number; columns: number; fps: number; holdMs: number; sound: string | null };
 export type CharacterPresentation = {
   portrait: string;
+  victory: CastClip;
   home: { name: string; background: BackgroundAsset; music: MusicAsset };
   casts: Record<number, CastClip>;
 };
@@ -22,9 +23,8 @@ export const presentation = Object.fromEntries(Object.entries(raw.characters).ma
 for (const id of ['champignon', 'andy'] as const) {
   const value = presentation[id];
   if (!value || !value.portrait.startsWith('/assets/')) throw new Error(`Missing presentation: ${id}`);
-  for (const tier of [1, 2, 3, 4]) {
-    const clip = value.casts[tier];
-    if (!clip?.src.startsWith('/assets/') || [clip.frameWidth, clip.frameHeight, clip.frameCount, clip.columns].some(n => !Number.isInteger(n) || n <= 0) || clip.fps <= 0 || clip.holdMs < 0) throw new Error(`Invalid cast clip: ${id}/${tier}`);
+  for (const [key, clip] of Object.entries({ ...value.casts, victory: value.victory })) {
+    if (!clip?.src.startsWith('/assets/') || [clip.frameWidth, clip.frameHeight, clip.frameCount, clip.columns].some(n => !Number.isInteger(n) || n <= 0) || clip.fps <= 0 || clip.holdMs < 0) throw new Error(`Invalid presentation clip: ${id}/${key}`);
   }
   const { music, background } = value.home;
   if (![music.src, music.fallback, background.src, background.fallback].every(path => path.startsWith('/assets/'))) throw new Error(`Invalid home path: ${id}`);

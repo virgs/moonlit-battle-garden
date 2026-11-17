@@ -21,6 +21,7 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
   const landscape = single && width > height;
   const margin = width < 700 ? 12 : 24;
   const score = scoreBarGeometry(width, height);
+  if (single && !landscape) { score.height += 28; score.reserve += 28; }
   const top = score.y + score.height + 12;
   const availableHeight = Math.max(1, height - top - margin);
   const laneWidth = width / (single ? 1 : 2);

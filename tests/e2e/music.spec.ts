@@ -26,10 +26,10 @@ for (const available of [true, false]) test(`home music uses ${available ? 'the 
   expect((await music())?.loop).toBe(true);
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
   await expect.poll(async () => (await music())?.paused).toBe(true);
-  await page.getByRole('button', { name: 'Back to the garden' }).click();
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await expect.poll(async () => (await music())?.paused).toBe(false);
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
-  await page.getByRole('button', { name: 'Sound on', exact: true }).click();
-  await page.getByRole('button', { name: 'Back to the garden' }).click();
+  await page.getByRole('button', { name: 'Mute', exact: true }).click();
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await expect.poll(async () => (await music())?.paused).toBe(true);
 });

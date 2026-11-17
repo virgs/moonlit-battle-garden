@@ -23,5 +23,5 @@ test('audio is enabled on entry and the recovered effects decode and play throug
   await page.locator('.player-0 .hole[data-kind="mole"]').first().click();
   await expect.poll(async()=>(await stats()).started).toBeGreaterThan(before);
   await page.getByRole('button',{name:'Pause',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Sound on',exact:true})).toBeVisible();
+  await expect(page.getByRole('button',{name:'Mute',exact:true})).toBeVisible();
 });
