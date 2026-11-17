@@ -1,4 +1,4 @@
-.match-end{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;padding:24px;background:#09170e66;text-shadow:0 2px 5px #000;color:var(--cream);text-align:center;overflow:hidden}
+.match-end{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;padding:24px;background:transparent;text-shadow:0 2px 5px #000;color:var(--cream);text-align:center;overflow:hidden}
 .match-end>.celebration-trophy{width:clamp(160px,32vw,320px);height:auto;flex:none;margin:0}
 .match-end h1{font-size:clamp(28px,5vw,56px);line-height:1.15;max-width:1000px;color:var(--lime)}
 .continue-prompt{min-height:24px;font-size:clamp(13px,2vw,18px);color:#b6c8a6;line-height:1.4}

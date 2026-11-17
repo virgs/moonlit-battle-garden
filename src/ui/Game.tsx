@@ -54,6 +54,6 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
     </div>
     {finished && (!disconnected || state.phase === 'match-over') && <MatchEnd key={`${state.phase}-${state.round}`} round={state.phase === 'round-over'} winner={state.result} character={state.winner === null ? undefined : state.players[state.winner].character} leave={state.phase === 'round-over' ? nextRound : leave} />}
     {state.phase !== 'match-over' && (state.paused || menuOpen || disconnected) && <GameMenu session={session} snapshot={snapshot} resume={openControls} quit={leave} />}
-    {!finished && !state.paused && !menuOpen && !disconnected && state.phase === 'countdown' && <div className="match-overlay"><div className="overlay-card"><span className="eyebrow">Round {state.round}</span><h2>{Math.max(1, Math.ceil((state.countdownUntil - state.time) / 1000))}</h2></div></div>}
+    {!finished && !state.paused && !menuOpen && !disconnected && state.phase === 'countdown' && <div className="match-overlay countdown-overlay" role="status" aria-label="Round countdown"><div className="round-countdown"><span className="round-number">Round {state.round}</span><span className="countdown-number">{Math.max(1, Math.ceil((state.countdownUntil - state.time) / 1000))}</span></div></div>}
   </main>;
 }

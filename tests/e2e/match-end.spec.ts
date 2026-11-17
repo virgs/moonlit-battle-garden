@@ -1,3 +1,4 @@
+import { expectClearResult } from './resultPresentation';
 import { png } from './assetFixtures';
 import { continueRound } from './continueRound';
 import { expect, test, type Page } from '@playwright/test';
@@ -15,6 +16,7 @@ test('match victory has no buttons, ignores early input and returns to setup onl
   await expect(page.locator('canvas')).toHaveCount(1);
   await expect(round.locator('button')).toHaveCount(0);
   await expect(page.locator('.score-bar')).toBeVisible();
+  await expectClearResult(page);
   await page.keyboard.press('Enter'); await page.mouse.click(10,10);
   await expect(round).toBeVisible();
   await continueRound(page); await lose(page);
@@ -27,6 +29,7 @@ test('match victory has no buttons, ignores early input and returns to setup onl
     await expect(clip).toBeVisible(); const frame=await clip.getAttribute('data-frame');
     await expect.poll(()=>clip.getAttribute('data-frame')).not.toBe(frame);
   } else await expect(result.locator('img.victory-hero')).toHaveAttribute('src','/assets/legacy/andy-hero.png');
+  await expectClearResult(page);
   const frozenTime=await page.locator('.match-screen').getAttribute('data-time');
   await page.waitForTimeout(150);
   await expect(page.locator('.match-screen')).toHaveAttribute('data-time',frozenTime!);
