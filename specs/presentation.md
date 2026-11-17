@@ -119,3 +119,10 @@ The supplied CraftPix free keyboard/mouse pack provides exact-pixel cropped keyc
 Resume/Mute/Unmute/Quit behavior is preserved. Up/Down navigate actions, Enter activates, Tab stays within the modal including its scrollable reference region, and Escape closes ordinary menus. Disconnection disables Resume and keeps recovery status, mute and quit; online menus still do not pause the match. On narrow phones actions remain left and available while the reference region scrolls; short landscape uses two hero columns. Source/license notes are in public/assets/input/README.md. No AI sprite generation was used.
 
 The Esc/Back visual hint is removed; Escape still closes the menu. Keys and spell names have a 56 px desktop gap, 28 px stacked portrait gap, and 24 px stacked landscape gap.
+
+
+## Menu typography hierarchy (D44)
+
+PAUSE uses locally bundled Cinzel variable (700 weight), uppercase and .08em tracking: up to 128 px desktop, 72 px portrait phones and 64 px short landscape. Connection/online status titles use a separate smaller responsive size. Action labels stay Almendra and scale with their sidebar (about 82 px at 1440 desktop, 35 px at 390 portrait, 48 px landscape). Selected/hovered brush highlights use fully opaque green with no opacity fade.
+
+Reference keycaps shrink to 40 px desktop and 24 px compact; spell titles shrink to at most 23 px desktop and 18 px compact. Portrait action columns get more width to keep larger labels readable, while the reference region retains independent scrolling. Existing key-to-magic spacing remains. The title font is self-hosted with its OFL license; no image/sprite generation is involved. Browser checks cover the hierarchy, highlight opacity, clipping, key layouts, navigation and production font loading.

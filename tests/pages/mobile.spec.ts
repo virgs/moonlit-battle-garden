@@ -24,6 +24,8 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await expect(page.locator('.cast-banner')).toHaveCount(0);
   await expect(board.locator('.stars')).toHaveAttribute('aria-label', '0 stars');
   await page.getByRole('button', { name: 'Pause', exact: true }).tap();
+  await page.evaluate(() => document.fonts.ready);
+  expect(await page.evaluate(() => document.fonts.check('700 64px Cinzel'))).toBe(true);
   await page.addStyleTag({ content: '.match-overlay{visibility:hidden!important}' });
   for (const [width, height, filename] of [[320, 568, 'phone-small.png'], [844, 390, 'phone-landscape.png']] as const) {
     await page.setViewportSize({ width, height });
@@ -38,7 +40,7 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight)).toBe(true);
     await page.screenshot({ path: testInfo.outputPath(filename) });
   }
-  for (const font of ['Almendra-Regular-', 'Literata-Variable-']) {
+  for (const font of ['Almendra-Regular-', 'Literata-Variable-', 'Cinzel-Variable-']) {
     expect(assets.some(asset => asset.path.includes(font) && asset.status === 200), font).toBe(true);
   }
   expect(errors).toEqual([]);

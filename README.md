@@ -25,7 +25,7 @@ A single animated blue/red bar shows score difference, with blue on your side. T
 
 Playable local/AI prototype using the original mole, rabbit, star, and garden artwork. Both initial characters have four spells, with early balance values in `src/assets/config/game.yaml`. Missing lobby portraits use emblem fallbacks; absent/invalid cast sheets produce no extra HUD. Pacing runs in shared build/peak/recovery waves that restart identically each round, with independent board clocks, faster offers/shorter reaction windows for the trailing player, and concurrency limits. Private player-hosted online matches are implemented. Mobile delivery uses the ordinary browser website; PWA/offline-cached startup and native packaging are deferred. Six remaining characters stay deferred too. Further sprite generation is deferred until the remaining game development is complete. Open the published website or use a local development server to load the game; loaded local/AI matches do not require an external service.
 
-Typography uses bundled Almendra for titles/character names and Literata for menus/body text, with their free font licenses included.
+Typography uses bundled Almendra for titles/character names, Cinzel for the pause heading, and Literata for supporting text, with their free font licenses included.
 
 Stack: TypeScript, React, Phaser, Vite, pnpm, Vitest, and Playwright. Phaser loads when entering a match. Rules and bots run independently of rendering with the same simulation used by local play, AI diagnostics, and the hosting browser.
 

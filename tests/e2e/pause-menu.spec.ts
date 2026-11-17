@@ -15,6 +15,14 @@ test('pause has left actions, board-shaped sprite key maps and spell titles on t
   await expect(page.locator('.hero-spells li')).toHaveCount(8);
   for (const [width, height] of [[1440, 900], [390, 844], [320, 568], [844, 390]]) {
     await page.setViewportSize({ width, height });
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator('.menu-heading h2')).toHaveCSS('font-family', 'Cinzel, Georgia, serif');
+    await expect(page.locator('.menu-heading h2')).toHaveCSS('text-transform', 'uppercase');
+    const hierarchy = await page.evaluate(() => ({ title: parseFloat(getComputedStyle(document.querySelector('.menu-heading h2')!).fontSize), action: parseFloat(getComputedStyle(document.querySelector('.menu-actions button')!).fontSize), spell: parseFloat(getComputedStyle(document.querySelector('.hero-spells li')!).fontSize), key: document.querySelector('.control-key')!.getBoundingClientRect().width }));
+    expect(hierarchy.title).toBeGreaterThan(hierarchy.action);
+    expect(hierarchy.action).toBeGreaterThan(hierarchy.spell * 1.5);
+    expect(hierarchy.key).toBeLessThanOrEqual(width > 700 && height > 520 ? 40 : 24);
+    expect(await page.getByRole('button', { name: 'Resume', exact: true }).evaluate(element => getComputedStyle(element, '::before').opacity)).toBe('1');
     const actions = (await page.locator('.menu-actions').boundingBox())!;
     const reference = (await page.locator('.menu-reference').boundingBox())!;
     expect(actions.x + actions.width).toBeLessThanOrEqual(reference.x);
