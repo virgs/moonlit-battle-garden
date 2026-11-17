@@ -60,6 +60,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D48 | Show the cast’s spent tier as 1–4 original filled star sprites beneath the casting character throughout the freeze, with no empty slots and a blue/red caster accent. Use captured cast tier, including opponent casts on single-board phones. Exclude defeat/hurt character reactions from the asset scope. |
 
+| D49 | Defer further animation and asset creation while working on the remaining screens. Simple single-color, semi-transparent boxes are sufficient placeholders for missing visuals; final spell/character animation polish is not a blocker for menu work. Existing game assets remain available. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

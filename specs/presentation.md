@@ -154,3 +154,8 @@ The shared ruleset version advances to 4 for the cast-freeze snapshot field. Hos
 ## Cast star cost (D48)
 
 During the shared cast freeze, show only the spent tier as 1–4 equally sized charged stars under the casting character. Reuse the largest charged slot from the original star atlas, with no empty slots or text captions. The count comes from `state.casting.tier`, preserved before live charge is consumed; its animation follows cast presentation time and freezes during pause. A blue/red underline identifies the local/left caster versus the rival, including when both use the same visible mobile board. The row scales uniformly and stays inside that board on narrow screens. Screen readers receive caster and star cost. Defeat/hurt character reactions are explicitly out of scope; no corresponding asset slots are needed.
+
+
+## Temporary visuals during screen work (D49)
+
+Defer further asset/animation creation. Missing visual slots may use simple single-color semi-transparent boxes until the final art pass. Do not expand spell-animation polish before the menu/title/setup screens. Existing recovered art and bundled clips remain usable; this decision does not require generating replacements.
