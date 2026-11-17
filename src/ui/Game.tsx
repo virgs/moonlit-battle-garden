@@ -5,6 +5,7 @@ import { createArenaLayout } from '../render/layout';
 import { ArenaCanvas } from './ArenaCanvas';
 import { Board } from './Board';
 import { ScoreBar } from './ScoreBar';
+import { SpellEffects } from './SpellEffects';
 import { CastOverlay } from './CastOverlay';
 import { GameMenu } from './GameMenu';
 import { MatchEnd } from './MatchEnd';
@@ -49,7 +50,8 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
     <ScoreBar state={state} area={layout.score} trophyCenters={!layout.single && layout.gardens.every(garden => !garden.horizontalStars) ? layout.gardens.map(garden => garden.stars.x + garden.stars.width / 2 - layout.score.x) : undefined} opponentStars={layout.single ? state.players[1].stars : undefined} onPause={disconnected || finished || state.paused || menuOpen ? undefined : openControls} controlLabel={online ? 'Game menu' : undefined} />
     <div className="match-hud">
       {layout.gardens.map(garden => <Board key={garden.id} session={session} snapshot={snapshot} garden={garden} />)}
-      {layout.gardens.map(garden => <CastOverlay key={garden.id} snapshot={snapshot} garden={garden} />)}
+      {layout.gardens.map(garden => <SpellEffects key={garden.id} snapshot={snapshot} garden={garden} />)}
+      {state.casting && <CastOverlay key={state.casting.player} snapshot={snapshot} player={state.casting.player} garden={layout.gardens.find(garden => garden.id === state.casting?.player) ?? layout.gardens[0]} />}
     </div>
     {finished && (!disconnected || state.phase === 'match-over') && <MatchEnd key={`${state.phase}-${state.round}`} round={state.phase === 'round-over'} winner={state.result} character={state.winner === null ? undefined : state.players[state.winner].character} leave={state.phase === 'round-over' ? nextRound : leave} />}
     {state.phase !== 'match-over' && (state.paused || menuOpen || disconnected) && <GameMenu session={session} snapshot={snapshot} resume={openControls} quit={leave} />}

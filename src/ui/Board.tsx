@@ -10,7 +10,7 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
   const id = garden.id;
   const player = snapshot.state.players[id];
   const opponent = id === 1 && session.match.options.mode !== 'local';
-  const playing = snapshot.state.phase === 'playing' && !snapshot.state.paused && (!snapshot.network || snapshot.network.status === 'connected');
+  const playing = snapshot.state.phase === 'playing' && !snapshot.state.paused && !snapshot.state.casting && (!snapshot.network || snapshot.network.status === 'connected');
   return <section className={`player-panel player-${id}`} aria-label={`${id === 1 && session.match.options.mode === 'ai' ? 'Computer' : `Player ${id + 1}`} garden`} data-character={player.character} data-score={player.score} data-board-x={garden.x} data-board-y={garden.y} data-board-scale={garden.scale}>
     <div className="hole-controls">{player.holes.map((target, hole) => <button
       key={hole} type="button" className="hole" aria-label={`${target?.kind ?? 'Empty'} hole ${hole + 1}`}

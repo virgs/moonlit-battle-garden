@@ -17,7 +17,7 @@ type Config = {
   };
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
-  spells: { cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
+  spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 

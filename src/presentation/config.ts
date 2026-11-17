@@ -9,22 +9,24 @@ export type CharacterPresentation = {
   portrait: string;
   icon: string;
   victory: CastClip;
+  standing: CastClip;
   home: { name: string; background: BackgroundAsset; music: MusicAsset };
   casts: Record<number, CastClip>;
+  effects: Record<number, CastClip>;
 };
 type Source = {
   castDefaults: Omit<CastClip, 'src'>;
-  characters: Record<CharacterId, Omit<CharacterPresentation, 'casts'> & { casts: Record<number, Partial<CastClip> & { src: string }> }>;
+  characters: Record<CharacterId, Omit<CharacterPresentation, 'casts' | 'effects'> & { casts: Record<number, Partial<CastClip> & { src: string }>; effects: Record<number, Partial<CastClip> & { src: string }> }>;
 };
 const raw = parse(source) as Source;
 export const presentation = Object.fromEntries(Object.entries(raw.characters).map(([id, value]) => [id, {
-  ...value, casts: Object.fromEntries(Object.entries(value.casts).map(([tier, clip]) => [tier, { ...raw.castDefaults, ...clip }])),
+  ...value, effects: Object.fromEntries(Object.entries(value.effects).map(([tier, clip]) => [tier, { ...raw.castDefaults, ...clip }])), casts: Object.fromEntries(Object.entries(value.casts).map(([tier, clip]) => [tier, { ...raw.castDefaults, ...clip }])),
 }])) as Record<CharacterId, CharacterPresentation>;
 
 for (const id of ['champignon', 'andy'] as const) {
   const value = presentation[id];
   if (!value || ![value.portrait, value.icon].every(path => path.startsWith('/assets/'))) throw new Error(`Missing presentation: ${id}`);
-  for (const [key, clip] of Object.entries({ ...value.casts, victory: value.victory })) {
+  for (const [key, clip] of Object.entries({ ...Object.fromEntries(Object.entries(value.effects).map(([tier, clip]) => [`effect-${tier}`, clip])), ...value.casts, victory: value.victory, standing: value.standing })) {
     if (!clip?.src.startsWith('/assets/') || [clip.frameWidth, clip.frameHeight, clip.frameCount, clip.columns].some(n => !Number.isInteger(n) || n <= 0) || clip.fps <= 0 || clip.holdMs < 0) throw new Error(`Invalid presentation clip: ${id}/${key}`);
   }
   const { music, background } = value.home;

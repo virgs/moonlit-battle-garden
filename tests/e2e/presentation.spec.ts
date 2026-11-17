@@ -16,14 +16,23 @@ for (const valid of [true, false]) test(`drop-in portrait/home art and ${valid ?
   await star.click();
   await garden.getByRole('button', { name: /Cast magic/ }).click();
   const cast = page.locator('.cast-banner[data-character="champignon"]');
-  if (!valid) { await expect(cast).toHaveCount(0); expect(errors).toEqual([]); return; }
+
   await expect(cast).toHaveAttribute('data-tier', '1');
   await expect(cast).toHaveAttribute('data-asset', valid ? 'ready' : 'fallback');
+  const time = await page.locator('.match-screen').getAttribute('data-time');
+  await expect(garden.locator('.hole:enabled')).toHaveCount(0);
+  await page.waitForTimeout(200);
+  await expect(page.locator('.match-screen')).toHaveAttribute('data-time', time!);
   expect(await cast.evaluate(element => getComputedStyle(element).pointerEvents)).toBe('none');
   if (valid) await expect(cast.locator('image')).toHaveAttribute('href', '/assets/characters/champignon/cast-1.png');
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
   const frame = await cast.getAttribute('data-frame');
   await page.waitForTimeout(200);
   await expect(cast).toHaveAttribute('data-frame', frame!);
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
+  await expect(cast).toHaveCount(0);
+  const guard = page.locator('.effect-guard');
+  await expect(guard).toHaveAttribute('data-asset',valid ? 'ready' : 'fallback');
+  expect(await guard.evaluate(element => getComputedStyle(element).pointerEvents)).toBe('none');
   expect(errors).toEqual([]);
 });

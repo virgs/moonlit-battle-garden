@@ -8,8 +8,10 @@ for (const [id, character] of Object.entries(presentation)) {
     { path: character.portrait, clip: null },
     { path: character.icon, clip: null },
     { path: character.victory.src, clip: character.victory },
+    { path: character.standing.src, clip: character.standing },
     { path: character.home.background.src, clip: null },
     { path: character.home.music.src, clip: null },
+    ...Object.values(character.effects).map(clip => ({ path: clip.src, clip })),
     ...Object.values(character.casts).map(clip => ({ path: clip.src, clip })),
     ...Object.values(character.casts).flatMap(clip => clip.sound ? [{ path: clip.sound, clip: null }] : []),
   ];

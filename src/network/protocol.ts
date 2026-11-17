@@ -3,7 +3,7 @@ import type { GameAction, MatchOptions, PlayerId } from '../game/types';
 import type { Snapshot } from '../game/Session';
 
 // Bump when simulation or wire semantics change; config changes also reject mismatched builds.
-export const RULESET = `moonlit-3:${JSON.stringify({ config, characters })}`;
+export const RULESET = `moonlit-4:${JSON.stringify({ config, characters })}`;
 export type Input = { type: 'hit'; hole: number; target: number | null } | { type: 'cast' };
 export type Command = { kind: 'input'; input: Input } | { kind: 'next' };
 export type Wire = Command | { kind: 'state'; snapshot: Snapshot } | { kind: 'ready' }
@@ -31,6 +31,7 @@ export function localView(raw: Snapshot, seat: PlayerId): Snapshot {
   const view = structuredClone(raw);
   if (seat === 1) {
     view.state.players.reverse();
+    if (view.state.casting) view.state.casting.player = view.state.casting.player === 0 ? 1 : 0;
     for (const player of view.state.players) for (const spell of player.pending) spell.from = spell.from === 0 ? 1 : 0;
     view.state.winner = view.state.winner === null ? null : view.state.winner === 0 ? 1 : 0;
     view.events.forEach(event => { event.player = event.player === 0 ? 1 : 0; });

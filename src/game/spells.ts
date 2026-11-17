@@ -10,8 +10,9 @@ export function sweep(player: Player): void {
   player.holes = player.holes.map(target => target?.kind === 'star' ? target : null);
 }
 
-function guard(player: Player, time: number, charges = 1): void {
+function guard(player: Player, time: number, charges = 1, tier = 1): void {
   player.mistakeShield = charges;
+  player.shieldTier = tier;
   player.shieldUntil = time + config.spells.shieldMs;
 }
 
@@ -23,7 +24,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   player.nextCast = state.time + config.spells.cooldownMs;
   message(player, characters[player.character].spells[tier - 1].name, state.time);
   if (player.character === 'champignon') {
-    if (tier === 1 || tier === 4) guard(player, state.time, tier === 4 ? 3 : 1);
+    if (tier === 1 || tier === 4) guard(player, state.time, tier === 4 ? 3 : 1, tier);
     if (tier === 2 || tier === 4) sweep(player);
     if (tier === 3) player.magicShieldUntil = state.time + config.spells.shieldMs;
   } else {
@@ -49,7 +50,7 @@ export function resolveSpells(state: MatchState): void {
         const stars = Math.min(player.stars, spell.tier === 1 ? 1 : 2);
         if (spell.tier === 3) player.stars -= stars;
         caster.stars = Math.min(4, caster.stars + stars);
-        if (!stars) guard(caster, state.time);
+        if (!stars) guard(caster, state.time, 1, spell.tier);
       }
       // A stronger pressure spell replaces the weaker one, rather than stacking.
       if (spell.tier === 2 && player.decoysUntil <= state.time) {

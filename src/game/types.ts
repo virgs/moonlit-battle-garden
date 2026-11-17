@@ -16,6 +16,7 @@ export type Player = {
   nextDecoy: number;
   nextCast: number;
   mistakeShield: number;
+  shieldTier: number;
   shieldUntil: number;
   magicShieldUntil: number;
   invasionUntil: number;
@@ -34,6 +35,7 @@ export type MatchState = {
   winner: PlayerId | null;
   result: string;
   paused: boolean;
+  casting: { player: PlayerId; tier: number; remainingMs: number } | null;
 };
 export type MatchOptions = {
   characters: [CharacterId, CharacterId];

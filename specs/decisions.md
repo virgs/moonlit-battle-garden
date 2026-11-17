@@ -56,6 +56,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D46 | Align both character names on portrait pause screens. Each character gets a dedicated icon for pause references and round results, separate from the match victory animation. Prepare drop-in paths now; defer PixelLab generation with the rest of the asset pass. |
 
+| D47 | Use visible recovered/procedural placeholders for missing art. Casts freeze both players for 1–2 seconds (1500 ms default), with character presentation advancing separately from frozen gameplay timers. Active spell visuals persist for their actual effect lifetime. Keep match victory sprites; prepare standing/idle preview slots and defer PixelLab generation. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

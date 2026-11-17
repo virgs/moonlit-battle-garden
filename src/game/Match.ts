@@ -16,7 +16,7 @@ export class Match {
     this.state = {
       phase: 'countdown', time: 0, round: 1, roundStart: config.countdownMs,
       countdownUntil: config.countdownMs, players: [this.createPlayer(0), this.createPlayer(1)],
-      winner: null, result: '', paused: false,
+      winner: null, result: '', paused: false, casting: null,
     };
   }
 
@@ -24,7 +24,7 @@ export class Match {
     return {
       character: this.options.characters[id], score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + config.pacing.firstSpawnMs,
-      nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldUntil: 0, magicShieldUntil: 0,
+      nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldTier: 1, shieldUntil: 0, magicShieldUntil: 0,
       invasionUntil: 0, decoysUntil: 0, pending: [], message: '', messageUntil: 0,
     };
   }
@@ -41,6 +41,11 @@ export class Match {
   private tick(): void {
     const state = this.state;
     if (state.phase === 'round-over' || state.phase === 'match-over') return;
+    if (state.casting) {
+      state.casting.remainingMs -= config.tickMs;
+      if (state.casting.remainingMs <= 0) state.casting = null;
+      return;
+    }
     state.time += config.tickMs;
     if (state.phase === 'countdown') {
       if (state.time >= state.countdownUntil) state.phase = 'playing';
@@ -61,11 +66,14 @@ export class Match {
   }
 
   action(action: GameAction): void {
-    if (this.state.phase !== 'playing' || this.state.paused) return;
+    if (this.state.phase !== 'playing' || this.state.paused || this.state.casting) return;
     if (action.player !== 0 && action.player !== 1) return;
     if (action.type === 'cast') {
       const tier = this.state.players[action.player].stars;
-      if (castSpell(this.state, action.player)) this.emit(action.player, 'cast', undefined, tier);
+      if (castSpell(this.state, action.player)) {
+        this.emit(action.player, 'cast', undefined, tier);
+        this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
+      }
       return;
     }
     if (!Number.isInteger(action.hole) || action.hole < 0 || action.hole >= 9) return;
@@ -120,6 +128,7 @@ export class Match {
     this.state.round++;
     this.state.phase = 'countdown';
     this.state.winner = null;
+    this.state.casting = null;
     this.state.result = '';
     this.state.countdownUntil = this.state.time + config.countdownMs;
     this.state.roundStart = this.state.countdownUntil;

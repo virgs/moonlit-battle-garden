@@ -89,14 +89,14 @@ describe('magic', () => {
     const match = create(); const player = match.state.players[0];
     target(match, 'mole', 0, 0); target(match, 'rabbit', 0, 1); target(match, 'star', 0, 2);
     player.stars = 2;
-    match.action({ type: 'cast', player: 0 });
+    match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     expect(player.holes.slice(0, 2)).toEqual([null, null]);
     expect(player.holes[2]?.kind).toBe('star');
     expect(player.stars).toBe(0); expect(player.score).toBe(0);
   });
   it('a mistake guard absorbs one hit then expires', () => {
     const match = create(); const player = match.state.players[0];
-    player.stars = 1; match.action({ type: 'cast', player: 0 });
+    player.stars = 1; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.score).toBe(0);
     match.action({ type: 'hit', player: 0, hole: 0 });
@@ -105,42 +105,43 @@ describe('magic', () => {
   it('warns before applying an invasion and lets a ward block it', () => {
     const match = create(); const [guardian, andy] = match.state.players;
     guardian.stars = 3; andy.stars = 2;
-    match.action({ type: 'cast', player: 1 });
+    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs);
     expect(guardian.pending).toHaveLength(1); expect(guardian.invasionUntil).toBe(0);
-    match.action({ type: 'cast', player: 0 }); match.advance(config.spells.warningMs);
+    match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBe(0); expect(guardian.magicShieldUntil).toBe(0);
   });
   it('steals at most two stars and obeys cooldown', () => {
     const match = create(); const [guardian, andy] = match.state.players;
     guardian.stars = 4; andy.stars = 3;
-    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.warningMs);
+    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.stars).toBe(2); expect(andy.stars).toBe(2);
-    match.action({ type: 'cast', player: 1 }); expect(andy.stars).toBe(2);
+    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); expect(andy.stars).toBe(2);
   });
   it('copying cannot generate stars without an opponent resource; empty targets give guard', () => {
     const match = create(); const andy = match.state.players[1];
-    andy.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.warningMs);
+    andy.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(andy.stars).toBe(0); expect(andy.mistakeShield).toBe(1);
   });
   it('four-star cleanup grants three mistake blocks', () => {
     const match = create(); const player = match.state.players[0];
-    player.stars = 4; match.action({ type: 'cast', player: 0 });
+    player.stars = 4; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     for (let i = 0; i < 3; i++) match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.score).toBe(0);
     expect(player.mistakeShield).toBe(0);
+    expect(player.shieldTier).toBe(4);
   });
   it('copy preserves opponent stars and does not net extra charge', () => {
     const match = create(); const [guardian, andy] = match.state.players;
     guardian.stars = 2; andy.stars = 1;
-    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.warningMs);
+    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.stars).toBe(2); expect(andy.stars).toBe(1);
   });
   it('stronger pressure replaces invasion and ends at its deadline', () => {
     const match = create(); const [guardian, andy] = match.state.players;
-    andy.stars = 2; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.warningMs);
+    andy.stars = 2; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBeGreaterThan(match.state.time);
     match.advance(config.spells.cooldownMs);
-    andy.stars = 4; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.warningMs);
+    andy.stars = 4; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBe(0);
     expect(guardian.decoysUntil).toBeGreaterThan(match.state.time);
     match.state.players.forEach(p => { p.nextSpawn = Infinity; p.holes.fill(null); });
@@ -150,7 +151,7 @@ describe('magic', () => {
   it('a ward protects resources from theft, then is consumed', () => {
     const match = create(); const [guardian, andy] = match.state.players;
     guardian.magicShieldUntil = match.state.time + 2000; guardian.stars = 4; andy.stars = 3;
-    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.warningMs);
+    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.stars).toBe(4); expect(andy.stars).toBe(0); expect(guardian.magicShieldUntil).toBe(0);
   });
 });

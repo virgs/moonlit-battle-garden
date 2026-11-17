@@ -21,7 +21,8 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await expect(board.locator('.cast-button')).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath('phone-portrait.png') });
   await board.locator('.cast-button').tap();
-  await expect(page.locator('.cast-banner')).toHaveCount(0);
+  await expect(page.locator('.cast-banner')).toHaveAttribute('data-asset', 'fallback');
+  await expect(board.locator('.hole:enabled')).toHaveCount(0);
   await expect(board.locator('.stars')).toHaveAttribute('aria-label', '0 stars');
   await page.getByRole('button', { name: 'Pause', exact: true }).tap();
   await page.evaluate(() => document.fonts.ready);

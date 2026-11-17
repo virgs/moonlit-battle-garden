@@ -58,7 +58,7 @@ PixelLab fills specific asset gaps after the initial character and spell require
 - Give hostile spells a brief recognizable visual/audio warning and clear duration feedback.
 - Limit simultaneous disruptive effects so boards remain playable.
 - Define automatic clearing explicitly: proposed safe rabbit removal, no mole combo rewards, and stars left for manual collection.
-- Avoid long interruptions to play for casting animations.
+- Casts use a brief shared 1500 ms freeze with character presentation; do not extend the freeze to wait for assets.
 
 ## Delivery scope
 

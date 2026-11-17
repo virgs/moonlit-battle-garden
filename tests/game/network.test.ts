@@ -53,6 +53,12 @@ it('replicates guest magic and next rounds while rejecting online pause; cannot 
   guest.act({ type: 'cast', player: 1 }); flush(); expect(host.match.state.players[1].stars).toBe(2);
   guest.act({ type: 'cast', player: 0 }); flush(); expect(host.match.state.players[1].stars).toBe(0);
   expect(guest.getSnapshot().events.at(-1)?.tier).toBe(2);
+  expect(host.getSnapshot().state.casting?.player).toBe(1);
+  expect(guest.getSnapshot().state.casting?.player).toBe(0);
+  const frozenTime = host.match.state.time;
+  host.match.advance(1000); host.connection('connected'); flush();
+  expect(guest.getSnapshot().state.time).toBe(frozenTime);
+  expect(guest.getSnapshot().state.casting?.remainingMs).toBe(500);
   guest.togglePause(); host.togglePause(); flush(); expect(host.match.state.paused).toBe(false); expect(guest.getSnapshot().state.paused).toBe(false);
   host.match.state.phase = 'round-over'; host.connection('connected'); flush();
   guest.nextRound(); flush(); expect(host.match.state.round).toBe(2); expect(guest.match.state.round).toBe(2);

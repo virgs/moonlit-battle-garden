@@ -14,7 +14,10 @@ it('captures the tier and logical time before consuming stars, once per successf
     match.action({ type: 'cast', player: 0 });
     expect(match.events.filter(event => event.kind === 'cast')).toHaveLength(1);
     const before = match.state.time; match.advance(500);
-    expect(match.state.time).toBe(before + 500);
+    expect(match.state.time).toBe(before);
+    expect(match.state.casting?.remainingMs).toBe(config.spells.castFreezeMs - 500);
+    match.advance(config.spells.castFreezeMs - 500 + config.tickMs);
+    expect(match.state.time).toBe(before + config.tickMs);
   }
 });
 it('supports grid sprite sheets, clamps the final frame, and honors reduced motion', () => {
@@ -25,4 +28,22 @@ it('supports grid sprite sheets, clamps the final frame, and honors reduced moti
   expect(clipFrame(clip, 200)).toBeGreaterThan(0);
   expect(clipFrame(clip, clipDuration(clip))).toBe(clip.frameCount - 1);
   expect(clipFrame(clip, 200, true)).toBe(0);
+});
+
+it('freezes both players, targets, pending spells and input; manual pause also freezes the cast', () => {
+  const match = new Match({ characters:['champignon','andy'], mode:'local', difficulty:'hard', seed:42 });
+  match.advance(config.countdownMs);
+  const player = match.state.players[0]; player.stars = 3;
+  match.state.players[1].holes[0] = { id:999, kind:'mole', born:match.state.time, expires:match.state.time + 100 };
+  match.action({ type:'cast', player:0 });
+  const before = structuredClone(match.state.players);
+  match.action({ type:'hit', player:1, hole:0 });
+  match.action({ type:'cast', player:1 });
+  match.advance(1000);
+  expect(match.state.players).toEqual(before);
+  match.state.paused = true; const remaining = match.state.casting?.remainingMs;
+  match.advance(5000); expect(match.state.casting?.remainingMs).toBe(remaining);
+  match.state.paused = false; match.advance(500);
+  expect(match.state.casting).toBeNull(); expect(match.state.players).toEqual(before);
+  match.advance(100); expect(match.state.players[1].holes[0]).toBeNull();
 });

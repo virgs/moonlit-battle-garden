@@ -20,13 +20,15 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   const casts: [number[], number[]] = [[0, 0, 0, 0], [0, 0, 0, 0]];
   const scores: [number, number] = [0, 0];
   // A cap catches stalemates/regressions rather than allowing a batch to hang.
+  let elapsedMs = 0;
   const capMs = config.maxSimulationMs;
-  while (match.state.phase !== 'match-over' && match.state.time < capMs) {
+  while (match.state.phase !== 'match-over' && elapsedMs < capMs) {
     if (match.state.phase === 'round-over') {
       for (const id of [0, 1] as const) scores[id] += match.state.players[id].score;
       match.nextRound();
     }
     match.advance(config.tickMs);
+    elapsedMs += config.tickMs;
     // Alternate command order by simulation tick to avoid a fixed first-action advantage.
     const order = Math.floor(match.state.time / config.tickMs) % 2 ? [0, 1] as const : [1, 0] as const;
     for (const id of order) {
@@ -42,6 +44,6 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   return {
     winner: !timedOut && match.state.winner !== null ? characters[match.state.winner] : null,
     winnerSide: timedOut ? null : match.state.winner,
-    rounds: match.state.round, durationMs: match.state.time, scores, casts, timedOut,
+    rounds: match.state.round, durationMs: elapsedMs, scores, casts, timedOut,
   };
 }

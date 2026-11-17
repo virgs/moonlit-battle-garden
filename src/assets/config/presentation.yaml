@@ -10,8 +10,14 @@ castDefaults:
 characters:
   champignon:
     victory: { src: /assets/characters/champignon/victory.png, frameWidth: 128, frameHeight: 160, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/champignon/standing.png, frameWidth: 128, frameHeight: 160, frameCount: 8, columns: 8, fps: 6, holdMs: 0, sound: null }
     icon: /assets/characters/champignon/icon.png
     portrait: /assets/characters/champignon/portrait.png
+    effects:
+      1: { src: /assets/characters/champignon/effect-1.png }
+      2: { src: /assets/characters/champignon/effect-2.png }
+      3: { src: /assets/characters/champignon/effect-3.png }
+      4: { src: /assets/characters/champignon/effect-4.png }
     home:
       name: Sporelight Keep
       background:
@@ -35,8 +41,14 @@ characters:
       4: { src: /assets/characters/champignon/cast-4.png }
   andy:
     victory: { src: /assets/characters/andy/victory.png, frameWidth: 128, frameHeight: 160, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/andy/standing.png, frameWidth: 128, frameHeight: 160, frameCount: 8, columns: 8, fps: 6, holdMs: 0, sound: null }
     icon: /assets/characters/andy/icon.png
     portrait: /assets/characters/andy/portrait.png
+    effects:
+      1: { src: /assets/characters/andy/effect-1.png }
+      2: { src: /assets/characters/andy/effect-2.png }
+      3: { src: /assets/characters/andy/effect-3.png }
+      4: { src: /assets/characters/andy/effect-4.png }
     home:
       name: Moonlit Hideout
       background:

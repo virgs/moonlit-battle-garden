@@ -26,9 +26,9 @@ Code and browser/audio fallback tests are ready; distinct artwork/music files re
 
 ## Spell-cast character animation
 
-The user authorized implementing the portrait/cast playback pipeline now, with final assets deferred. Portraits load in the lobby, falling back to emblems. D30 removes persistent in-game portraits. Each character/tier has its own cast sheet metadata: path, frame size/count/columns, fps, hold duration, and optional sound.
+The user authorized implementing the portrait/cast playback pipeline now, with final assets deferred. Portraits load in the lobby, falling back to recovered hero art/standing previews. D30 removes persistent in-game portraits. Each character/tier has its own cast sheet metadata: path, frame size/count/columns, fps, hold duration, and optional sound.
 
-A successful cast emits tier, player, logical time, and round before consuming stars. HUD cameo playback uses that event once, preserves aspect ratio, freezes on pause, clamps the final frame, and ignores old-round events. Reduced motion uses a static pose. The cameo is art-only and occupies the star-control region, never covering holes, capturing input, delaying spells or stopping the simulation. Spell/character captions and emblem fallbacks are removed from play; missing/invalid sheets render nothing. Browser tests supply valid/invalid synthetic sheets to verify both paths. Actual portraits and cast art are still absent.
+A successful cast emits tier, player, logical time, and round before consuming stars. HUD cameo playback uses that event once, preserves aspect ratio, freezes on pause, clamps the final frame, and ignores old-round events. Reduced motion uses a static pose. D47 supersedes the original non-blocking cameo: both boards freeze for 1500 ms, with the cast visual advancing on a separate shared countdown. Missing/invalid cast sheets use recovered hero art over the caster’s board; an opponent cast uses the visible board on single-board screens. Inputs, targets, pacing, cooldowns, pending spells and effect expiry remain frozen. Manual pause/reconnection freezes the cast countdown too. Spells commit once on accepted cast; hostile warning time starts advancing after the freeze. Browser tests supply valid/invalid synthetic sheets to verify both paths. Actual portraits and cast art are still absent.
 
 
 ## Star containers and round trophies
@@ -139,4 +139,13 @@ Portrait phones use a full-width top row of Resume/Mute/Quit beneath the title, 
 
 ## Character icons (D46)
 
-Both portrait pause headings share the same left edge, including an AI/online rival without a key map; spell lists remain right aligned. Each character has a separate `/assets/characters/CHARACTER/icon.png` slot. Supplied icons appear above the pause reference name and beside the round winner text; the spinning round trophy remains. Match victory keeps its animated hero sprite. Missing icon art is hidden without a substitute or broken image. Recommended transparent 128×128 head/bust icons will be generated in the deferred PixelLab pass, with matching framing/padding across heroes.
+Both portrait pause headings share the same left edge, including an AI/online rival without a key map; spell lists remain right aligned. Each character has a separate `/assets/characters/CHARACTER/icon.png` slot. Supplied icons appear above the pause reference name and beside the round winner text; the spinning round trophy remains. Match victory keeps its animated hero sprite. D47 replaces missing icons with recovered hero illustrations. Recommended transparent 128×128 head/bust icons will be generated in the deferred PixelLab pass, with matching framing/padding across heroes.
+
+
+## Visible placeholders and idle/effect slots (D47)
+
+Every existing art-dependent flow stays visible: recovered hero images for selection portraits, icons and casts; original tinted castle/music for homes; bundled actual sprite sheets for match victory. No new PixelLab art is generated. Standing/idle sheets have stable per-character paths and loop in the selection fallback, with a still hero when absent. Idle characters are not added to the minimal gameplay HUD.
+
+Each tier has a separate drop-in spell-effect sheet. State-driven edge overlays show guard/ward, invasion/decoys and incoming magic until consumed or expired, plus a 700 ms cast-impact flourish for instantaneous effects. They do not intercept input. Placeholder markers advance on logical game time, so pause/cast freeze stops them. Reduced motion uses static frames. Final effect art should preserve a transparent center for target visibility.
+
+The shared ruleset version advances to 4 for the cast-freeze snapshot field. Host-authoritative casting and its remaining time remap to local identity. The headless diagnostic includes freeze time in wall-duration/cap, and bots do not make decisions during casts. Defeat/reaction clips and more distinctive arrival/impact/block art remain future polish; recovered audio already supplies generic cast/impact sounds.

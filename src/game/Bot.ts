@@ -15,7 +15,7 @@ export class Bot {
 
   update(match: Match): void {
     const state = match.state;
-    if (state.phase !== 'playing' || state.paused || state.time < this.nextAction) return;
+    if (state.phase !== 'playing' || state.paused || state.casting || state.time < this.nextAction) return;
     const player = state.players[this.id];
     const tuning = config.ai[this.difficulty];
     const visible = player.holes.filter(target => target !== null);

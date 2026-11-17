@@ -97,7 +97,7 @@ for (const supplied of [false, true]) test(`portrait AI character headings align
     await expect(icons).toHaveCount(2);
     for (const icon of await icons.all()) {
       if (supplied) { await expect(icon).toBeVisible(); await expect(icon).toHaveAttribute('data-state','ready'); }
-      else await expect(icon).toBeHidden();
+      else { await expect(icon).toBeVisible(); await expect(icon).toHaveAttribute('data-state', 'fallback'); }
     }
     await page.locator('.menu-reference').evaluate(element => { element.scrollTop = element.scrollHeight; });
     await expect(page.getByRole('listitem', { name: '4 stars: Double Trouble' })).toBeInViewport();

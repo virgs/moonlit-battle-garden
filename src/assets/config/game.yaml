@@ -41,6 +41,7 @@ penalties:
   empty: 4
   rabbit: 12
 spells:
+  castFreezeMs: 1500
   cooldownMs: 1800
   warningMs: 650
   invasionMs: 7500
