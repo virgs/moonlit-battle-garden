@@ -18,16 +18,17 @@ Updated 2026-11-16 after comparing the remake with the oldest Dig Hole Battle Ga
 - Button-free final-match hero/winner overlay over the preserved arena with a four-second delayed fresh-key/tap/controller prompt back to setup.
 - Cosmetic home selection constrained to the participating characters, and sound/mute/pause lifecycle.
 - Repeatable seeded offline AI tournaments, swapped sides, per-difficulty win reports, and spell-use coverage.
-- Rising 25-second pressure/recovery waves, identical natural demand/reset between players and rounds, independent star opportunities, and explicit concurrency/reaction-window bounds.
+- Rising 25-second pressure/recovery waves, independent board clocks, score-based trailing-player pressure, identical per-round baseline reset and explicit concurrency/reaction-window bounds.
 - Asset-ready presentation manifest: character portraits in selection; per-tier cast sheets with event-driven playback; per-home background/music loading, focal cropping, volume/loop points, and fallbacks. Browser tests exercise valid and invalid temporary images. See public/assets/ASSET-CONTRACT.md.
 
 ## Missing from the initial two-character game
 
 | Priority | Feature | Current gap |
 | --- | --- | --- |
+| 0 | Remote CI stability | Latest completed Checks run 44022618028 (revision 6f22eff) failed 11 browser cases, including countdown timeout and other browser timing assertions, while local tests and Publish website passed. Root cause is not established; remote browser-test reliability needs investigation. This is separate from the locally verified D40 layout. |
 | 1 | Internet/mobile online QA | Player-hosted online works in real two-browser desktop/mobile tests. Physical devices and different networks remain to test. No managed TURN relay is provisioned: restrictive networks may fail to connect. No prediction/rollback, host migration or page-refresh recovery. |
-| 2 | Balance | The harness exists, but balance is unfinished. Current wave run: Champignon wins 112/200 easy, 130/200 medium, 172/200 hard; Andy wins 88/70/22, with six hard matches unfinished at the diagnostic cap. Tune pacing/magic, examine bot-policy bias and long ties, then validate human keyboard/mouse/touch play. |
-| 3 | Final presentation files | Code is ready; 14 final files remain: two home backgrounds, two home music tracks, two portraits, eight tier-specific cast sheets. Two generated victory sheets are already bundled. They drop into stable configured paths; missing assets use current fallbacks. Both heroes now have generated victory sprite sheets; CSS image wiggling is removed. Richer spell effects, hero defeat animation remain. |
+| 2 | Balance | The harness exists, but balance is unfinished. Current score-pressure run: Champignon wins 110/200 easy, 137/200 medium, 144/200 hard; Andy wins 90/63/53, with three Hard matches unfinished. Independent clocks alone gave better Medium/Hard bot balance than the score modifier; see reports/balance-score-pressure-comparison.md. Tune pacing/magic, examine bot-policy bias and long ties, then validate human keyboard/mouse/touch play. |
+| 3 | Final presentation files | Code is ready; 14 final files remain: two home backgrounds, two home music tracks, two portraits, eight tier-specific cast sheets. Two generated victory sheets are already bundled. They drop into stable configured paths; missing assets use current fallbacks. Both heroes now have generated victory sprite sheets; CSS image wiggling is removed. Richer spell effects and hero defeat animation remain. Active shields/wards, incoming hostile magic and attack expiry need clearer visual feedback without restoring permanent text panels. |
 | 4 | Small-screen/browser QA | Browser-based mobile is the current delivery target. Automated touch tests cover hitting stars, casting by tapping the star container, 320×568/390×844 portrait and 844×390 landscape. Physical-device and browser-chrome/safe-area QA remain. |
 
 ## Confirmed round mechanic
@@ -42,3 +43,6 @@ The other six adopted characters and their spell sets stay deferred until the in
 
 
 D38: per-player score pressure and independent natural clocks are implemented. The 10%/10% default improves Hard relative to the old synchronized baseline but does not balance Medium/Hard. Paired diagnostic results, a no-pressure control and the rejected stronger feedback are preserved in reports/balance-score-pressure-comparison.md. D39 defers all new sprite generation until remaining game development is finished.
+
+
+D40 places names beneath their trophies and centers them on the same columns, with reserved wrap room on desktop and bounded label widths on phones. No gameplay or balance parameters changed in this UI pass.

@@ -27,7 +27,7 @@ export function createArenaLayout(width: number, height: number, mode: 'ai' | 'l
   const laneWidth = width / (single ? 1 : 2);
   // Use a vertical column beside the board, including centered phone landscape.
   // Narrow portrait lanes can use a horizontal strip below the board.
-  const starsBelow = laneWidth < 440 && !landscape;
+  const starsBelow = laneWidth < 440 && height >= width;
   const horizontalStars = starsBelow;
   const starWidth = starsBelow ? Math.min(320, laneWidth - 2 * margin) : Math.min(96, availableHeight * 0.24);
   const starHeight = horizontalStars ? Math.max(44, starWidth / 4) : starWidth * 200 / 60;

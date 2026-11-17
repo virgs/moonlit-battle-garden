@@ -15,9 +15,9 @@ export function scoreBarGeometry(width: number, height: number) {
   const barWidth = Math.min(width - 24, height < 580 ? 320 : 560);
   const artHeight = barWidth * legacyBar.height / legacyBar.width;
   const nameSize = (width <= 500 ? 9 : 10) * hudScale;
-  const nameHeight = 12 * hudScale, trophyWidth = 56 * hudScale, trophyHeight = 28 * hudScale;
+  const nameHeight = compact ? 24 : 66, trophyWidth = 56 * hudScale, trophyHeight = 28 * hudScale;
   const total = artHeight + nameHeight + 2 + trophyHeight;
-  return { x: (width - barWidth) / 2, y: 12, width: barWidth, height: total, reserve: Math.ceil(total + 4), artHeight, nameSize, nameHeight, trophyWidth, trophyHeight };
+  return { viewportWidth: width, x: (width - barWidth) / 2, y: 12, width: barWidth, height: total, reserve: Math.ceil(total + 4), artHeight, nameSize, nameHeight, trophyWidth, trophyHeight };
 }
 
 // Fase.cpp: board origins were (50,200)/(450,200); earth origins

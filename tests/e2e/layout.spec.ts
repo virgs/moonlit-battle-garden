@@ -14,10 +14,11 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
   await page.addStyleTag({ content: '.match-overlay{visibility:hidden!important}' });
-  for (const [width, height] of [[320, 568], [390, 844], [844, 390], [768, 1024], [1024, 600], [1440, 900], [2560, 1080]]) {
+  for (const [width, height] of [[320, 568], [390, 844], [844, 390], [768, 1024], [1024, 600], [1024, 1000], [1440, 900], [2560, 1080], [3840, 2160]]) {
     await page.setViewportSize({ width, height });
     await expect(page.locator('canvas')).toHaveAttribute('width', String(width));
     await expect(page.locator('canvas')).toHaveAttribute('height', String(height));
+    if(width===844 && height===390)await expect(page.locator('.player-panel .vertical-stars')).toHaveCount(2);
     const bar = (await page.locator('.score-bar').boundingBox())!;
     const art = (await page.locator('.legacy-score-art').boundingBox())!;
     expect(art.width / art.height).toBeCloseTo(499 / 45, 1);
@@ -37,9 +38,14 @@ test('minimal HUD keeps original board anchors, side names and star controls sep
         expect(trophy.x).toBeGreaterThanOrEqual(0);expect(trophy.x+trophy.width).toBeLessThanOrEqual(width);
       }
     }
-    const left = (await page.locator('.score-legend>span').first().boundingBox())!;
-    const right = (await page.locator('.score-legend>span').last().boundingBox())!;
-    expect(left.x).toBeCloseTo(bar.x); expect(right.x + right.width).toBeCloseTo(bar.x + bar.width);
+    for(const id of [0,1]) {
+      const label=(await page.locator('.score-legend>span').nth(id).boundingBox())!;
+      const trophy=(await page.locator('.score-trophies .trophy-art').nth(id).boundingBox())!;
+      expect(label.y).toBeGreaterThanOrEqual(trophy.y+trophy.height);
+      expect(label.x+label.width/2).toBeCloseTo(trophy.x+trophy.width/2,0);
+      expect(label.x).toBeGreaterThanOrEqual(0);expect(label.x+label.width).toBeLessThanOrEqual(width);
+      expect(label.y+label.height).toBeLessThanOrEqual(bar.y+bar.height);
+    }
     for (const id of [0, 1]) {
       const panel = page.locator(`.player-${id}`);
       const x = Number(await panel.getAttribute('data-board-x'));
