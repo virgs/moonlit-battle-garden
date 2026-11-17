@@ -26,6 +26,6 @@ export async function supplyFinalArt(page: Page, validCast = true): Promise<void
   await page.route(/\/assets\/(characters|homes)\//, route => {
     const url = route.request().url();
     if (url.endsWith('/music.mp3')) return route.fulfill({ status: 404 });
-    return route.fulfill({ contentType: 'image/png', body: (url.includes('/cast-') || url.includes('/effect-')) ? cast : url.endsWith('/portrait.png') ? portrait : background });
+    return route.fulfill({ contentType: 'image/png', body: (url.includes('/cast-') || url.includes('/effect-')) ? cast : url.endsWith('/standing.png') ? png(1024,160) : url.endsWith('/portrait.png') ? portrait : background });
   });
 }

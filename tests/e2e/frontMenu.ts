@@ -1,7 +1,11 @@
 import type { Page } from '@playwright/test';
-
-/** Exercise the real title gate before tests continue into their game flow. */
-export async function openMainMenu(page: Page) {
-  await page.goto('/');
-  await page.getByRole('button', { name:'Open main menu', exact:true }).click();
+export async function openMainMenu(page:Page) {
+  await page.goto('/');await page.getByRole('button',{name:'Open main menu',exact:true}).click();
+}
+export async function openSelection(page:Page,mode:'ai'|'local'='ai') {
+  await openMainMenu(page);await page.getByRole('button',{name:mode==='ai'?'Versus computer':'Local two player',exact:true}).click();
+}
+export async function enterMatch(page:Page) {
+  for(const slot of await page.locator('.character-carousel').all())if(await slot.getAttribute('data-ready')==='false')await slot.locator('.carousel-confirm').click();
+  await page.getByRole('button',{name:'Enter the garden',exact:true}).click();
 }

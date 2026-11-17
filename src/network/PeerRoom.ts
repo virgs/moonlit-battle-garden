@@ -1,9 +1,10 @@
 import Peer, { type DataConnection, type PeerOptions } from 'peerjs';
 import { Session } from '../game/Session';
 import type { CharacterId, MatchOptions } from '../game/types';
+import { selectionView, validPick, validPicks, type LobbyPicks, type SelectionView } from './selection';
 import { isWire, RULESET, type Wire } from './protocol';
 
-type Callbacks = { status: (message: string) => void; invite: (id: string) => void; start: (session: Session) => void };
+type Callbacks = { status: (message: string) => void; invite: (id: string) => void; start: (session: Session) => void; selection: (view: SelectionView) => void };
 
 /** Signaling discovers peers; only the host browser runs gameplay. No gameplay server. */
 export class PeerRoom {
@@ -19,10 +20,14 @@ export class PeerRoom {
   private openedAt = Date.now();
   private registered = false;
   private lastAttempt = 0;
+  private picks: LobbyPicks;
+  private launch: ReturnType<typeof setTimeout> | null = null;
   private heartbeat: ReturnType<typeof setInterval>;
   private candidates = new Set<DataConnection>();
 
   constructor(private character: CharacterId, private hostId: string | null, private callbacks: Callbacks) {
+    this.picks = [{character,ready:false},null];
+    if(hostId)this.picks=[{character:'champignon',ready:false},{character,ready:false}];
     const env = import.meta.env;
     const options: PeerOptions = {};
     if (env.VITE_PEER_HOST) Object.assign(options, { host: env.VITE_PEER_HOST, port: Number(env.VITE_PEER_PORT || 443), path: env.VITE_PEER_PATH || '/', secure: env.VITE_PEER_SECURE !== 'false' });
@@ -33,6 +38,7 @@ export class PeerRoom {
       if (this.closed) return;
       this.registered = true;
       callbacks.invite(id);
+      this.publishSelection();
       if (hostId) { if (!this.conn?.open) this.connect(); } else if (!this.session) callbacks.status('Waiting for your opponent…');
     });
     this.peer.on('connection', connection => {
@@ -41,7 +47,7 @@ export class PeerRoom {
     });
     this.peer.on('error', error => {
       if (this.closed) return;
-      if (this.session) this.lost();
+      if (this.session || this.joined) this.lost();
       else callbacks.status(`Could not connect (${error.type}). Check the invite and try again. Some networks require a relay.`);
     });
     this.peer.on('disconnected', () => { if (!this.closed) { try { this.peer.reconnect(); } catch { /* next heartbeat retries */ } } });
@@ -69,6 +75,13 @@ export class PeerRoom {
       if (value.kind === 'hello' && !this.hostId) this.accept(connection, value);
       if (connection !== this.conn) return;
       this.lastSeen = Date.now();
+      if(value.kind==='lobby'&&this.hostId&&!this.session&&validPicks(value.picks)) {
+        this.picks=structuredClone(value.picks);this.joined=true;this.lostAt=0;
+        this.publishSelection();this.callbacks.status('Choose your character. Both players must be ready.');return;
+      }
+      if(value.kind==='pick'&&!this.hostId&&!this.session&&validPick(value.pick)) {
+        this.picks[1]={...value.pick};this.updateSelection();return;
+      }
       if (value.kind === 'welcome' && this.hostId) {
         if (value.options?.mode !== 'online' || !Array.isArray(value.options.characters)) return;
         if (!this.session) {
@@ -105,16 +118,42 @@ export class PeerRoom {
     this.conn = connection;
     if (previous !== connection) previous?.close();
     this.guestToken = message.token; this.lastSeen = Date.now();
+    this.joined=true;this.lostAt=0;
     if (!this.session) {
-      const options: MatchOptions = { characters: [this.character, message.character as CharacterId], mode: 'online', difficulty: 'medium', seed: crypto.getRandomValues(new Uint32Array(1))[0] };
-      this.session = this.createSession(options, 0);
-      this.send({ kind: 'welcome', options, snapshot: this.session.getSnapshot() });
-      this.callbacks.start(this.session);
+      this.picks[1]={character:message.character as CharacterId,ready:false};
+      this.updateSelection();
+      this.callbacks.status('Choose your character. Both players must be ready.');
     } else {
       this.send({ kind: 'welcome', options: this.session.match.options, snapshot: this.session.getSnapshot() });
+      this.callbacks.status('Connected');
     }
-    this.callbacks.status('Connected');
   }
+  select(character: CharacterId, ready: boolean): void {
+    if(this.closed||this.session||!validPick({character,ready}))return;
+    this.character=character;
+    const seat=this.hostId?1:0;
+    this.picks[seat]={character,ready};
+    if(this.hostId) { if(this.joined)this.send({kind:'pick',pick:{character,ready}});this.publishSelection(); }
+    else this.updateSelection();
+  }
+  private publishSelection(): void {
+    this.callbacks.selection(selectionView(this.picks,this.hostId?1:0,this.joined,this.character));
+  }
+  private updateSelection(): void {
+    if(this.launch)clearTimeout(this.launch);this.launch=null;
+    this.publishSelection();this.send({kind:'lobby',picks:this.picks});
+    if(this.picks[0].ready&&this.picks[1]?.ready&&this.joined) {
+      // Let both confirmation clips finish before handing off to the arena.
+      this.launch=setTimeout(()=>{
+        if(this.closed||this.session||!this.joined||!this.picks[0].ready||!this.picks[1]?.ready)return;
+        const options:MatchOptions={characters:[this.picks[0].character,this.picks[1].character],mode:'online',difficulty:'medium',seed:crypto.getRandomValues(new Uint32Array(1))[0]};
+        this.session=this.createSession(options,0);
+        this.send({kind:'welcome',options,snapshot:this.session.getSnapshot()});
+        this.callbacks.start(this.session);
+      },1200);
+    }
+  }
+
   private createSession(options: MatchOptions, seat: 0 | 1): Session {
     return new Session(options, { seat, send: message => this.send(message), close: () => this.dispose() });
   }
@@ -125,18 +164,22 @@ export class PeerRoom {
     try { this.conn.send(message); } catch { this.lost(); }
   }
   private lost(): void {
-    if (this.closed || !this.session) return;
+    if (this.closed) return;
     if (!this.lostAt) this.lostAt = Date.now();
     this.joined = false;
-    this.session.connection('reconnecting');
+    if(this.session)this.session.connection('reconnecting');
+    else {
+      if(this.launch)clearTimeout(this.launch);this.launch=null;
+      this.picks[0].ready=false;if(this.picks[1])this.picks[1].ready=false;this.publishSelection();
+    }
     this.callbacks.status('Connection interrupted. Reconnecting…');
   }
   private pulse(): void {
     if (this.closed) return;
     const now = Date.now();
     if (this.peer.disconnected && !this.peer.destroyed) { try { this.peer.reconnect(); } catch { /* still reconnecting */ } }
-    if (!this.session && (!this.registered || this.hostId) && now - this.openedAt > 25000) { this.finish('Could not reach the other garden. Check the invite or try a different network.'); return; }
-    if (this.session && this.joined && now - this.lastSeen > 6000) this.lost();
+    if (!this.session && !this.joined && !this.lostAt && (!this.registered || this.hostId) && now - this.openedAt > 25000) { this.finish('Could not reach the other garden. Check the invite or try a different network.'); return; }
+    if (this.joined && now - this.lastSeen > 6000) this.lost();
     if (this.session && !this.joined && !this.lostAt && now - this.lastSeen > 10000) this.lost();
     if (this.lostAt) {
       if (now - this.lostAt > 30000) { this.finish('Connection lost. Return to setup to start a new match.'); return; }
@@ -145,6 +188,7 @@ export class PeerRoom {
     if (this.conn?.open) this.send({ kind: 'ping', time: now });
   }
   private finish(reason: string): void {
+    if(!this.session){this.joined=false;this.picks[0].ready=false;if(this.picks[1])this.picks[1].ready=false;this.publishSelection();}
     this.callbacks.status(reason);
     this.session?.connection('ended');
     this.dispose(false);
@@ -154,6 +198,7 @@ export class PeerRoom {
     if (notify) this.send({ kind: 'bye' });
     this.closed = true;
     clearInterval(this.heartbeat);
+    if(this.launch)clearTimeout(this.launch);this.launch=null;
     this.conn?.close();
     this.candidates.forEach(connection => connection.close()); this.candidates.clear();
     this.peer.destroy();

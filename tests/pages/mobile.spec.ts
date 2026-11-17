@@ -9,6 +9,8 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check('400 30px Almendra') && document.fonts.check('400 15px Literata'))).toBe(true);
   await expect(page.getByRole('link', { name: 'Moonlit Battle Garden home' })).toHaveAttribute('href', '/moonlit-battle-garden/');
+  await page.getByRole('button', { name:'Versus computer',exact:true }).tap();
+  await page.getByRole('button', { name:'Confirm Player 1' }).tap();
   await page.getByRole('button', { name: /Enter the garden/ }).tap();
   await expect(page.locator('canvas')).toBeVisible();
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });

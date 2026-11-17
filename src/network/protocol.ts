@@ -1,12 +1,13 @@
+import type { CharacterPick, LobbyPicks } from './selection';
 import { config, characters } from '../game/config';
 import type { GameAction, MatchOptions, PlayerId } from '../game/types';
 import type { Snapshot } from '../game/Session';
 
 // Bump when simulation or wire semantics change; config changes also reject mismatched builds.
-export const RULESET = `moonlit-4:${JSON.stringify({ config, characters })}`;
+export const RULESET = `moonlit-5:${JSON.stringify({ config, characters })}`;
 export type Input = { type: 'hit'; hole: number; target: number | null } | { type: 'cast' };
 export type Command = { kind: 'input'; input: Input } | { kind: 'next' };
-export type Wire = Command | { kind: 'state'; snapshot: Snapshot } | { kind: 'ready' }
+export type Wire = { kind:'pick'; pick:CharacterPick } | { kind:'lobby'; picks:LobbyPicks } | Command | { kind: 'state'; snapshot: Snapshot } | { kind: 'ready' }
   | { kind: 'hello'; rules: string; character: string; token: string }
   | { kind: 'welcome'; options: MatchOptions; snapshot: Snapshot }
   | { kind: 'reject'; reason: string } | { kind: 'bye' }

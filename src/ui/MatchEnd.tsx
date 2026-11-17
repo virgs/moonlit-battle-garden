@@ -17,7 +17,7 @@ export function MatchEnd({ winner, leave, round = false, character }: { winner: 
       if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || ['Shift', 'Control', 'Alt', 'Meta'].includes(event.key)) return;
       event.preventDefault(); leave();
     };
-    const pointer = (event: PointerEvent) => { if (event.button === 0) { event.preventDefault(); leave(); } };
+    const pointer = (event: MouseEvent) => { if (event.button === 0) { event.preventDefault(); leave(); } };
     const gamepad = () => {
       try {
         const pads = navigator.getGamepads?.() ?? [];
@@ -28,8 +28,8 @@ export function MatchEnd({ winner, leave, round = false, character }: { winner: 
     let held = gamepad();
     const timer = setInterval(() => { const pressed = gamepad(); if (pressed && !held) leave(); held = pressed; }, 100);
     window.addEventListener('keydown', key);
-    window.addEventListener('pointerdown', pointer);
-    return () => { clearInterval(timer); window.removeEventListener('keydown', key); window.removeEventListener('pointerdown', pointer); };
+    window.addEventListener('click', pointer);
+    return () => { clearInterval(timer); window.removeEventListener('keydown', key); window.removeEventListener('click', pointer); };
   }, [ready, leave]);
   return <section role="region" className="match-end" aria-label={round ? 'Round result' : 'Match result'} data-ready={ready}>
     {round || !character ? <Trophy wins={1} celebration /> : <VictoryHero character={character} />}

@@ -24,8 +24,33 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
     };
   });
   await guest.goto(inviteUrl);
-  await guest.getByRole('button', { name: 'Andy', exact:true }).click();
   await guest.getByRole('button', { name: 'Join garden', exact: true }).click();
+  await expect(page.locator('.character-carousel')).toHaveCount(2);
+  await expect(guest.locator('.character-carousel')).toHaveCount(2);
+  await expect(guest.getByRole('button',{name:'Confirm You'})).toBeEnabled();
+  await guest.getByRole('button',{name:'Next character for You'}).click();
+  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andy');
+  await page.getByRole('button',{name:'Next character for You'}).click();
+  await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','andy');
+  await page.getByRole('button',{name:'Next character for You'}).click();
+  await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');
+  await guest.getByRole('button',{name:'Confirm You'}).click();
+  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','true');
+  await expect(page.locator('.match-screen')).toHaveCount(0);
+  for(const id of [0,1]) {
+    await expect(page.locator(`.carousel-side-${id} .carousel-art`)).toBeInViewport({ratio:1});
+    await expect(page.locator(`.carousel-side-${id} .carousel-name`)).toBeInViewport({ratio:1});
+  }
+  await page.screenshot({scale:'css',path:testInfo.outputPath('online-selection.png')});
+  await guest.getByRole('button',{name:'Change selection for You'}).click();
+  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','false');
+  // A pre-match interruption clears readiness and reconnects without starting a match.
+  await guest.evaluate(() => (window as Window & { testChannels?: RTCDataChannel[] }).testChannels?.forEach(channel => channel.close()));
+  await expect(guest.getByRole('status')).toHaveText('Connection interrupted. Reconnecting…');
+  await expect(guest.getByRole('button',{name:'Confirm You'})).toBeEnabled({timeout:12000});
+  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','false');
+  await guest.getByRole('button',{name:'Confirm You'}).click();
+  await page.getByRole('button',{name:'Confirm You'}).click();
   await expect(page.locator('.match-screen')).toBeVisible({ timeout: 15000 });
   await expect(guest.locator('.match-screen')).toBeVisible({ timeout: 15000 });
   await expect(page.locator('.player-0')).toHaveAttribute('data-character', 'champignon');

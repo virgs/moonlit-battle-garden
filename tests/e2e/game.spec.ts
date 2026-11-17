@@ -1,12 +1,12 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { expect, test } from '@playwright/test';
 
 test('start a match, hit a visible mole, pause, and return to setup', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await openMainMenu(page);
-  await expect(page.getByRole('heading', { name: /Choose your champion/ })).toBeVisible();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page);
+  await expect(page.getByRole('heading', { name: /Choose your champions/ })).toBeVisible();
+  await enterMatch(page);
   const garden = page.getByRole('region', { name: 'Player 1 garden', exact: true });
   await expect(page.locator('.arena-canvas canvas')).toBeVisible();
   await expect(page.locator('canvas')).toHaveCount(1);
@@ -32,14 +32,13 @@ test('start a match, hit a visible mole, pause, and return to setup', async ({ p
   } else await expect(page.locator('.match-screen .player-1')).toBeVisible();
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
   await page.getByRole('button', { name: 'Quit', exact: true }).click();
-  await expect(page.getByRole('button', { name: /Enter the garden/ })).toBeVisible();
+  await expect(page.getByRole('main', { name:'Main menu' })).toBeVisible();
   expect(errors).toEqual([]);
 });
 
 test('local mode exposes both human boards and keyboard controls', async ({ page }) => {
-  await openMainMenu(page);
-  await page.getByRole('button', { name: 'Local two player' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page,'local');
+  await enterMatch(page);
   await expect(page.getByRole('region', { name: 'Player 2 garden', exact: true })).toBeVisible();
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 6000 });
   // Choose and strike an empty hole in one browser task; random spawns can occupy Q.

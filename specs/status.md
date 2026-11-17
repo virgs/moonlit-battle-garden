@@ -59,3 +59,5 @@ D48 shows captured star cost beneath the casting character using 1–4 original 
 D49 defers further asset/animation creation during screen work. Simple semi-transparent color boxes are acceptable temporary visuals. Core game modes and match flow are implemented; balance (including long AI ties) and real-device/cross-network QA remain validation work, while title/menu/setup presentation can proceed.
 
 D50 replaces the website-style setup page with a full-screen title and main menu. AI/local character setup and online create/join/invites share the main menu; Options persists sound and How to Play explains controls. Direct invites bypass the title. Existing castle/hero art is reused without generation. Responsive and keyboard/touch flow checks are included.
+
+D51 separates mode/options from a dedicated two-carousel character screen. Solo keeps an editable bot carousel; local players confirm independently; online highlights and ready states synchronize live before match creation. Existing idle slots/still fallbacks and one-shot victory sheets are used without asset generation. Pre-match reconnect clears readiness and pending starts.

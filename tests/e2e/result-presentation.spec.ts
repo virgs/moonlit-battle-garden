@@ -1,4 +1,4 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { png } from './assetFixtures';
 import { expectClearResult } from './resultPresentation';
@@ -8,9 +8,9 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     await page.emulateMedia({reducedMotion:"reduce"});
     await page.setViewportSize({width,height});
     await page.route(/\/assets\/characters\/[^/]+\/icon\.png$/, route => route.fulfill({ contentType:'image/png', body:png(64,64) }));
-    await openMainMenu(page);
+    await openSelection(page);
     // AI mode exercises the single-board phone presentation.
-    await page.getByRole('button',{name:/Enter the garden/}).click();
+    await enterMatch(page);
     await expect(page.locator('canvas')).toBeVisible();
     const countdown=page.getByRole('status',{name:'Round countdown'});
     await expect(countdown).toBeVisible();

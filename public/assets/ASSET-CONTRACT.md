@@ -21,9 +21,9 @@ public/assets/homes/CHARACTER/music.mp3
 
 | Asset | Default contract |
 | --- | --- |
-| Portrait | Transparent PNG, recommended 256×256. Other aspect ratios are contained without stretching. Used in character selection; absent portraits show the standing preview/recovered hero art; the minimal match HUD has no persistent portraits. |
+| Portrait | Transparent PNG, recommended 256×256. Other aspect ratios are contained without stretching. Reserved for portrait-based UI; the current selection carousels use standing/idle previews and pause/results use character icons. The minimal match HUD has no persistent portraits. |
 | Character icon | Transparent square PNG, recommended 128×128 with consistent head/bust framing and padding across characters. Pause reference shows both icons above their names; round result shows the winner’s icon next to the verdict. Missing icons show recovered hero illustrations. Separate from selection portraits and victory sheets; PixelLab generation is deferred. |
-| Standing / idle | Transparent 1024×160 PNG, eight 128×160 frames at 6 fps, looping in selection when its portrait is absent. Missing sheets use the original still hero illustration; no artificial image wiggle. |
+| Standing / idle | Transparent 1024×160 PNG, eight 128×160 frames at 6 fps, looping as the unlocked carousel preview. Missing sheets use the original still hero illustration; no artificial image wiggle. |
 | Spell effect sheets 1–4 | Transparent 1024×128 PNG, eight 128×128 frames at 12 fps. Loop for active shields/wards/invasions/decoys and incoming warnings; instantaneous spells get a 700 ms impact. Leave the board center clear so targets stay readable. Missing sheets use time-driven colored edge rings/markers. Lifetimes come from simulation state, including early consumption. |
 | Cast sheets 1–4 | One PNG per star tier. Each is **1024×128**: eight 128×128 frames, left to right, no gutters. 12 fps, play once, hold the final frame through the shared 1500 ms cast freeze. Transparent background. |
 | Victory sheet | Bundled transparent 1152×160 PNG: nine 128×160 frames, 8 fps, looping. Missing/invalid sheets use a still recovered hero illustration. Reduced motion uses frame 0. |

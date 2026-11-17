@@ -1,15 +1,15 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { supplyFinalArt } from './assetFixtures';
 
-for (const valid of [true, false]) test(`drop-in portrait/home art and ${valid ? 'valid' : 'invalid'} cast sheet playback`, async ({ page }) => {
+for (const valid of [true, false]) test(`drop-in idle/home art and ${valid ? 'valid' : 'invalid'} cast sheet playback`, async ({ page }) => {
   await page.clock.install();
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await supplyFinalArt(page, valid);
-  await openMainMenu(page);
-  await expect(page.locator('.character-card .portrait[data-state="ready"]')).toHaveCount(2);
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page);
+  await expect(page.locator('.carousel-art .standing-hero[data-asset="ready"]')).toHaveCount(1);
+  await enterMatch(page);
   await expect(page.locator('.player-0 .hole')).toHaveCount(9);
   await expect(page.locator('canvas')).toHaveAttribute('data-home-background', /\/assets\/homes\//);
   const garden = page.locator('.player-0');

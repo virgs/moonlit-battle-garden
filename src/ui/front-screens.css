@@ -9,3 +9,6 @@
 .eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#b8c89c}
 
 @media(max-height:520px){.front-menu .character-emblem,.front-menu .online-lobby .character-emblem{height:40px}.front-panel>h2,.online-lobby>h2{font-size:26px}.selection-spells{font-size:15px;margin:4px 0;gap:3px 12px}.front-settings{margin:4px 0}.front-settings select{padding:4px 2px}}
+
+.mode-art-placeholder{height:clamp(100px,22vh,220px);width:100%;background:#9cb7c622;margin:20px 0}.front-panel>.front-action{margin-top:18px}
+@media(max-height:520px){.mode-art-placeholder{height:70px;margin:10px 0}.front-panel>.front-action{margin-top:8px}}

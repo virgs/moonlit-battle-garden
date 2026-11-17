@@ -1,3 +1,4 @@
+import { enterMatch } from './frontMenu';
 import { expect, test } from '@playwright/test';
 
 for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,844],['small-phone',320,568],['phone-landscape',844,390]] as const) {
@@ -14,7 +15,7 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
     await expect(page.locator('.match-screen')).toHaveCount(0);
     for(const option of ['Versus computer','Local two player','Online rival','Options','How to play'])await expect(page.getByRole('button',{name:option,exact:true})).toBeInViewport();
-    await expect(page.getByRole('heading',{name:'Choose your champion'})).toBeVisible();
+    await expect(page.getByRole('heading',{name:'Versus computer',exact:true})).toBeVisible();
     await page.screenshot({path:testInfo.outputPath(`${name}-menu.png`)});
     await page.getByRole('button',{name:'Online rival',exact:true}).click();
     await expect(page.getByRole('button',{name:'Create online garden'})).toBeVisible();
@@ -41,8 +42,8 @@ test('keyboard menu navigation and sound preference survive reload and apply to 
   await page.reload();await page.keyboard.press('Enter');
   await page.getByRole('button',{name:'Options',exact:true}).click();await expect(sound).not.toBeChecked();
   await page.getByRole('button',{name:'Versus computer',exact:true}).click();
-  await page.keyboard.press('ArrowRight');await expect(page.locator('.character-card').first()).toBeFocused();
-  await page.getByRole('button',{name:'Enter the garden',exact:true}).click();
+  await expect(page.getByRole('main',{name:'Character selection'})).toBeVisible();
+  await enterMatch(page);
   await expect(page.locator('.player-0 .hole').first()).toBeEnabled({timeout:9000});
   await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Unmute',exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Unmute',exact:true}).click();

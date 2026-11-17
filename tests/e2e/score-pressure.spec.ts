@@ -1,10 +1,9 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { expect, test } from '@playwright/test';
 
 test('the trailing board gets its star sooner with a shorter reaction window in actual play', async ({ page }) => {
-  await openMainMenu(page);
-  await page.getByRole('button', { name: 'Local two player' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page,'local');
+  await enterMatch(page);
   await expect(page.locator('.player-0 .hole[data-kind="empty"]').first()).toBeEnabled({ timeout: 9000 });
   await page.evaluate(() => {
     const key = document.querySelector('.player-0 .hole[data-kind="empty"]')!.getAttribute('data-key');

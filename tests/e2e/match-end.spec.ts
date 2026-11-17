@@ -1,4 +1,4 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { expectClearResult } from './resultPresentation';
 import { continueRound } from './continueRound';
 import { expect, test, type Page } from '@playwright/test';
@@ -8,7 +8,7 @@ async function lose(page: Page) {
 }
 test('match victory has no buttons, ignores early input and returns to setup only after the delayed prompt', async ({ page }, testInfo) => {
   if(testInfo.project.name==='desktop')await page.addInitScript(()=>Object.defineProperty(navigator,'getGamepads',{value:()=>{throw new DOMException('Gamepad disabled','SecurityError')}}));
-  await openMainMenu(page);await page.getByRole('button',{name:'Local two player'}).click();await page.getByRole('button',{name:/Enter the garden/}).click();
+  await openSelection(page,'local');await enterMatch(page);
   await lose(page);
   const round = page.getByRole('region', { name: 'Round result' });
   await expect(round).toHaveAttribute('data-ready', 'false');
@@ -42,5 +42,5 @@ test('match victory has no buttons, ignores early input and returns to setup onl
   await page.screenshot({path:testInfo.outputPath('victory-ready.png')});
   await page.keyboard.down('KeyW');await expect(result).toBeVisible();await page.keyboard.up('KeyW');
   if(testInfo.project.name==='mobile')await page.touchscreen.tap(100,100);else await page.keyboard.press('Space');
-  await expect(page.getByRole('button',{name:/Enter the garden/})).toBeVisible();
+  await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
 });

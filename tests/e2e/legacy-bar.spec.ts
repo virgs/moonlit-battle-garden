@@ -1,10 +1,10 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { continueRound } from './continueRound';
 import { expect, test } from '@playwright/test';
 
 test('renders one original bar viewport, plays a single row at a time, and freezes on pause', async ({ page }) => {
-  await openMainMenu(page);
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page);
+  await enterMatch(page);
   await expect(page.locator('.player-0 .hole')).toHaveCount(9);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await expect(page.getByRole('meter')).toHaveCount(1);
@@ -24,9 +24,8 @@ test('renders one original bar viewport, plays a single row at a time, and freez
 });
 
 test('a decisive score difference shows the round result and resets the bar to the middle next round', async ({ page }) => {
-  await openMainMenu(page);
-  await page.getByRole('button', { name: 'Local two player' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page,'local');
+  await enterMatch(page);
   await expect(page.locator('.player-0 .hole')).toHaveCount(9);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await page.evaluate(() => {

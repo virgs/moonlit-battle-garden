@@ -1,4 +1,4 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { soundFiles } from '../../src/presentation/soundFiles';
 
@@ -13,7 +13,7 @@ test('audio is enabled on entry and the recovered effects decode and play throug
     const start=AudioBufferSourceNode.prototype.start;
     AudioBufferSourceNode.prototype.start=function(...args:Parameters<typeof start>){stats.started++;return start.apply(this,args)};
   });
-  await openMainMenu(page);await page.getByRole('button',{name:/Enter the garden/}).click();
+  await openSelection(page);await enterMatch(page);
   const stats=()=>page.evaluate(()=>{const s=(window as unknown as Window & {audioStats:{decoded:number;started:number;failed:number;contexts:AudioContext[]}}).audioStats;return{decoded:s.decoded,started:s.started,failed:s.failed,running:s.contexts.some(c=>c.state==='running')}});
   await expect.poll(async()=>(await stats()).running).toBe(true);
   const expected=new Set(Object.values(soundFiles).flat()).size;

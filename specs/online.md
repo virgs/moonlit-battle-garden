@@ -6,7 +6,7 @@ Implemented 2026-11-16 per D25. A dedicated gameplay server is deliberately unne
 
 - The creator is network seat 0 and runs the existing Match simulation at 50 ms ticks. The joining player is seat 1 and never advances its own simulation.
 - PeerJS Cloud is the default signaling service. WebRTC reliable ordered data channels carry inputs and full snapshots. The `peer` dev dependency is exclusively for local signaling in tests.
-- Each player chooses their character before connecting. Share a URL containing the host's peer ID (`?join=...`), or paste the ID/link into the join form. A ready handshake waits for the guest arena before advancing the first countdown.
+- Players connect to a pre-match selection phase, then browse and confirm their characters live. Share a URL containing the host's peer ID (`?join=...`), or paste the ID/link into the join form. A host-authoritative lobby mirrors both highlighted characters and readiness over the data channel. The host creates a match only after both confirm and a 1200 ms celebration hold. The existing ready handshake then waits for the guest arena before advancing the first countdown.
 - Rooms accept only one guest token. Additional browsers are rejected. Wire protocol version and gameplay config/character definitions must match. The protocol version must be bumped when simulation or wire semantics change.
 - Both screens render the local player as blue/left. Guest snapshots swap players, winner, pending-spell senders, event identities and result wording. Home selection uses original match options on both devices. Mobile shows only the local board and its star control; the shared bar/names/trophies represent both players.
 
@@ -42,3 +42,5 @@ Unit tests cover host-only clock progression/readiness, seat/event/winner remapp
 A production-build smoke test also registered a host through default public PeerJS Cloud signaling and connected a real guest, with no JavaScript errors. Both clients ran on this machine; this verifies the configured public service path, not different-network reachability.
 
 Still required: actual devices on different residential/mobile/corporate networks; relay provisioning if supported networks need it; human assessment of guest latency. Local signaling tests do not establish public-service or cross-network reliability.
+
+D51 advances the wire ruleset to moonlit-5 and adds validated pick/lobby messages. Lobby views remap local identity to the first carousel. Initial connection timeout applies only while unjoined, so taking time to choose does not expire a connected room. A pre-match interruption clears both ready flags and cancels launch; transient reconnect retains the guest token and restores browsing. Additional guest tokens remain rejected.

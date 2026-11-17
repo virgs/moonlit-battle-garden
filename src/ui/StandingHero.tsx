@@ -18,6 +18,6 @@ export function StandingHero({ character }: { character: CharacterId }) {
     const timer = setInterval(() => setFrame(value => (value + 1) % clip.frameCount), 1000 / clip.fps);
     return () => clearInterval(timer);
   }, [ready, clip]);
-  return ready ? <svg className="standing-hero" viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} data-frame={frame} aria-hidden="true"><image href={assetUrl(clip.src)} width={clip.columns*clip.frameWidth} height={Math.ceil(clip.frameCount/clip.columns)*clip.frameHeight} x={-(frame%clip.columns)*clip.frameWidth} y={-Math.floor(frame/clip.columns)*clip.frameHeight} /></svg>
-    : <img className="standing-hero" src={assetUrl(`/assets/legacy/${character}-hero.png`)} alt="" />;
+  return ready ? <svg className="standing-hero" data-asset="ready" viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} data-frame={frame} aria-hidden="true"><svg width={clip.frameWidth} height={clip.frameHeight} viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow="hidden"><image href={assetUrl(clip.src)} width={clip.columns*clip.frameWidth} height={Math.ceil(clip.frameCount/clip.columns)*clip.frameHeight} x={-(frame%clip.columns)*clip.frameWidth} y={-Math.floor(frame/clip.columns)*clip.frameHeight} /></svg></svg>
+    : <img className="standing-hero" data-asset="fallback" src={assetUrl(`/assets/legacy/${character}-hero.png`)} alt="" />;
 }

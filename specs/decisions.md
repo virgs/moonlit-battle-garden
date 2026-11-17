@@ -64,6 +64,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D50 | Build a title screen and game-style main menu, merging online create/join/invite/connection controls into the main menu rather than a separate lobby screen. No image creation; reuse existing moonlit artwork and placeholder character art. Preserve direct invites, local/AI setup, responsive controls and keyboard/touch navigation. |
 
+| D51 | Separate main-menu mode/options selection from character selection. Always show two independent character carousels in solo, local and online modes. Browsing uses idle art (still fallback while absent); confirming plays the existing victory clip once and marks Ready. Online highlights/readiness synchronize live, with the local player always left; both must confirm before match creation. No new assets/animations are generated. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

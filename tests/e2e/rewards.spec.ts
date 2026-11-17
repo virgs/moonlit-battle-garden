@@ -1,4 +1,4 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { continueRound } from './continueRound';
 import { expect, test, type Page } from '@playwright/test';
 
@@ -14,9 +14,8 @@ async function loseRound(page: Page, loser: number) {
 }
 
 test('original trophy sheets celebrate each round and retain the correct per-side totals through match victory', async ({ page }, testInfo) => {
-  await openMainMenu(page);
-  await page.getByRole('button', { name: 'Local two player' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page,'local');
+  await enterMatch(page);
   await loseRound(page, 0);
   const trophies = page.locator('.score-trophies .trophy-art');
   const award = page.getByRole('img', { name: 'Round victory trophy' });
@@ -40,8 +39,8 @@ test('original trophy sheets celebrate each round and retain the correct per-sid
 });
 
 test('star artwork charges and clears when casting; pause freezes its animation', async ({ page }, testInfo) => {
-  await openMainMenu(page);
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page);
+  await enterMatch(page);
   const board = page.locator('.player-0');
   await expect(board.locator('.hole[data-kind="star"]').first()).toBeEnabled({ timeout: 12000 });
   await board.locator('.hole[data-kind="star"]').first().click();
@@ -62,9 +61,8 @@ test('star artwork charges and clears when casting; pause freezes its animation'
 
 test('reduced motion keeps original trophy and star art in a static pose', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await openMainMenu(page);
-  await page.getByRole('button', { name: 'Local two player' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page,'local');
+  await enterMatch(page);
   await loseRound(page, 0);
   const trophy = page.locator('.celebration-trophy');
   await expect(trophy).toHaveAttribute('data-frame', '2');
@@ -75,8 +73,8 @@ test('reduced motion keeps original trophy and star art in a static pose', async
 
 test('landscape round victory fits over the frozen gameplay HUD', async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
-  await openMainMenu(page); await page.getByRole('button', { name: 'Local two player' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page,'local');
+  await enterMatch(page);
   await loseRound(page, 0);
   await expect(page.locator('canvas')).toHaveCount(1);
   await expect(page.locator('button:enabled')).toHaveCount(0);

@@ -1,17 +1,17 @@
-import { openMainMenu } from './frontMenu';
+import { openSelection, enterMatch } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { gardenArt } from '../../src/render/layout';
 
 const resizeGroups = { phones:[[320,568],[390,844],[844,390]], tablets:[[768,1024],[1024,600],[1024,1000]], desktops:[[1440,900],[2560,1080],[3840,2160]] };
 for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD preserves anchors, names and stars through ${group} resizes`, async ({ page }, testInfo) => {
-  await openMainMenu(page);
+  await openSelection(page,'local');
   await page.evaluate(() => document.fonts.ready);
-  await expect(page.locator('.front-heading a')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
+  await expect(page.locator('.selection-heading h1')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
   await expect(page.locator('body')).toHaveCSS('font-family', 'Literata, Georgia, serif');
   expect(await page.evaluate(() => document.fonts.check('400 30px Almendra') && document.fonts.check('400 15px Literata'))).toBe(true);
-  await page.getByRole('button', { name: /Andy The star/ }).click();
-  await page.getByRole('button', { name: 'Local two player' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await page.getByRole('button', { name:'Next character for Player 1' }).click();
+  await page.getByRole('button', { name:'Next character for Player 2' }).click();
+  await enterMatch(page);
   await expect(page.locator('canvas')).toHaveCount(1);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
@@ -78,7 +78,7 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
 
 test('single board uses horizontal stars on a narrow portrait screen with a vertical left column and centered board in landscape and the original column on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await openMainMenu(page); await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openSelection(page); await enterMatch(page);
   await expect(page.locator('.single-board .player-0 .horizontal-stars')).toHaveCount(1);
   await expect(page.locator('.player-1')).toHaveCount(0);
   await page.setViewportSize({ width: 844, height: 390 });
