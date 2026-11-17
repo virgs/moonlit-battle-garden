@@ -4,7 +4,8 @@ import type { CSSProperties } from 'react';
 import type { PlayerId } from '../game/types';
 import type { Snapshot } from '../game/Session';
 import type { GardenLayout } from '../render/layout';
-import { config } from '../game/config';
+import { CastStars } from './LegacyRewards';
+import { characters, config } from '../game/config';
 import { presentation, clipFrame, validSheet } from '../presentation/config';
 import { inspectImage } from '../presentation/images';
 import './presentation.css';
@@ -29,9 +30,10 @@ export function CastOverlay({ snapshot, garden, player }: { snapshot: Snapshot; 
   const frame = clipFrame(clip, elapsed, reduced);
   const artReady = ready[casting.tier];
   const style = { left: garden.x, top: garden.y, width: garden.width, height: garden.height } as CSSProperties;
-  return <div className={`cast-banner ${snapshot.state.paused ? 'paused' : ''}`} style={style} data-character={character} data-tier={casting.tier} data-frame={frame} data-asset={artReady ? 'ready' : 'fallback'} aria-hidden="true">
+  return <div className={`cast-banner cast-side-${player} ${snapshot.state.paused ? 'paused' : ''}`} style={style} data-character={character} data-tier={casting.tier} data-frame={frame} data-asset={artReady ? 'ready' : 'fallback'} role="status" aria-label={`${characters[character].name} casts ${casting.tier}-star magic`}>
     {artReady ? <svg className="cast-art" viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow="hidden" aria-hidden="true">
       <image href={assetUrl(clip.src)} width={clip.columns * clip.frameWidth} height={Math.ceil(clip.frameCount / clip.columns) * clip.frameHeight} x={-(frame % clip.columns) * clip.frameWidth} y={-Math.floor(frame / clip.columns) * clip.frameHeight} />
-    </svg> : <img className="cast-placeholder" src={assetUrl(`/assets/legacy/${character}-hero.png`)} alt="" />}
+    </svg> : <img aria-hidden="true" className="cast-placeholder" src={assetUrl(`/assets/legacy/${character}-hero.png`)} alt="" />}
+    <div className="cast-cost"><CastStars count={casting.tier} time={elapsed} reduced={reduced} /></div>
   </div>;
 }

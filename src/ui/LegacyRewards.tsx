@@ -31,3 +31,13 @@ export function Trophy({ wins, paused = false, celebration = false, mirror = fal
     <image href={assetUrl('/assets/legacy/trophy-sheet.png')} width={legacyTrophy.width * legacyTrophy.columns} height={legacyTrophy.height * legacyTrophy.rows} x={-frame * legacyTrophy.width} y={-Math.min(2, wins) * legacyTrophy.height} />
   </svg>;
 }
+
+/** Charged stars only: the cost captured by the shared cast state, never live charge. */
+export function CastStars({ count, time, reduced }: { count: number; time: number; reduced: boolean }) {
+  const frame = legacyRewardFrame(time, reduced);
+  return <svg className="cast-stars" style={{ '--cast-stars-width': `${count * 44}px` } as CSSProperties} viewBox={`0 0 ${count * 60} 60`} role="img" aria-label={`${count} ${count === 1 ? 'star' : 'stars'} used`} data-cost={count} data-frame={frame}>
+    {Array.from({ length: count }, (_, index) => <svg key={index} x={index * 60} y="3" width="60" height="54" viewBox="0 15 60 54" overflow="hidden" aria-hidden="true">
+      <image href={assetUrl('/assets/legacy/star-meter.png')} width={420} height={1000} x={-frame * 60} y={-4 * 200} />
+    </svg>)}
+  </svg>;
+}

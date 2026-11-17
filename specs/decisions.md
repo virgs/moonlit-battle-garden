@@ -58,6 +58,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D47 | Use visible recovered/procedural placeholders for missing art. Casts freeze both players for 1–2 seconds (1500 ms default), with character presentation advancing separately from frozen gameplay timers. Active spell visuals persist for their actual effect lifetime. Keep match victory sprites; prepare standing/idle preview slots and defer PixelLab generation. |
 
+| D48 | Show the cast’s spent tier as 1–4 original filled star sprites beneath the casting character throughout the freeze, with no empty slots and a blue/red caster accent. Use captured cast tier, including opponent casts on single-board phones. Exclude defeat/hurt character reactions from the asset scope. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
