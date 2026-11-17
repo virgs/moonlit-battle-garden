@@ -40,7 +40,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await expect(guest.getByRole('button', { name: 'Pause', exact: true })).toHaveCount(0);
   await guest.getByRole('button', { name: 'Game menu', exact: true }).click();
   await expect(guest.getByRole('heading', { name: 'Game menu', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Paused', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Pause', exact: true })).toHaveCount(0);
   const clock = await guest.locator('.match-screen').getAttribute('data-time');
   await expect.poll(() => guest.locator('.match-screen').getAttribute('data-time')).not.toBe(clock);
   await guest.getByRole('button', { name: 'Resume', exact: true }).click();

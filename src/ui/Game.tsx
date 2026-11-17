@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
+import { keyboardLayouts } from '../game/controls';
 import type { Session } from '../game/Session';
 import { createArenaLayout } from '../render/layout';
 import { ArenaCanvas } from './ArenaCanvas';
@@ -25,8 +26,6 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
   const disconnected = link && link.status !== 'connected';
   useEffect(() => {
     session.start();
-    const map = ['KeyQ', 'KeyW', 'KeyE', 'KeyA', 'KeyS', 'KeyD', 'KeyZ', 'KeyX', 'KeyC'];
-    const numpad = ['Numpad7', 'Numpad8', 'Numpad9', 'Numpad4', 'Numpad5', 'Numpad6', 'Numpad1', 'Numpad2', 'Numpad3'];
     const keyboard = (event: KeyboardEvent) => {
       if (['round-over', 'match-over'].includes(session.getSnapshot().state.phase)) return;
       if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
@@ -34,9 +33,9 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
       if (menuVisible.current) return;
       for (const id of [0, 1] as const) {
         if (id === 1 && session.match.options.mode !== 'local') continue;
-        const hole = (id === 0 ? map : numpad).indexOf(event.code);
+        const hole = (keyboardLayouts[id].codes as readonly string[]).indexOf(event.code);
         if (hole >= 0) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); }
-        if (event.code === (id === 0 ? 'KeyR' : 'NumpadAdd')) { event.preventDefault(); session.act({ type: 'cast', player: id }); }
+        if (event.code === keyboardLayouts[id].castCode) { event.preventDefault(); session.act({ type: 'cast', player: id }); }
       }
     };
     const visibility = () => { if (session.match.options.mode !== 'online' && document.hidden && !session.match.state.paused) session.togglePause(); };

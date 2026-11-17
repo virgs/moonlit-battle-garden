@@ -28,3 +28,7 @@ Music and effects start enabled on match entry. The entry/Create/Join gesture un
 
 
 Named hero victory illustrations `legacy/champignon-hero.png` and `legacy/andy-hero.png` come from digHoleBattleGarden/Personagens/SIR CHAMPIGNON.bmp and ANDY.bmp. They preserve source RGB pixels with the exact magenta mask converted to alpha, using `convert_bmp` in scripts/import-legacy-art.py (now supporting 24-bit BMP). They are static error fallbacks; match victories play generated sprite sheets with actual pose changes. The prototype’s unrelated robot/sumo victory sheets are not presented as these heroes.
+
+## Pause-menu input sprites
+
+`input/` contains only the keycaps and mouse used by the reference-style pause menu, cropped from the supplied CraftPix Keyboard and Mouse Free Pixel Art Asset Pack (726651). Source/license information is preserved in input/README.md and input/License.txt. No generation was used. Gameplay and the 3×3 menu diagrams share one keyboard mapping.

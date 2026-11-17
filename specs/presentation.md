@@ -108,3 +108,12 @@ The current order is score bar → character names → round trophies (D41 super
 Previewed at 1440×900 desktop, 768×1024 tablet, 390×844 and 320×568 portrait, 844×390 landscape, plus narrow local two-player layouts in both orientations. Preview-only staged state uses one win per player and three/four stars, without adding production debug controls.
 
 Narrow local two-player landscape also uses vertical star columns, so large horizontal strips do not consume the boards’ limited height. Portrait local layouts retain horizontal strips below each board.
+
+
+## Reference-style pause menu (D42)
+
+The menu follows the supplied shinobi-arena/output/hud/pause.jpeg reference: centered top Pause title, a large vertical action list on the left and controls/magic references on the right. The active action has a garden-colored brush highlight. There are no filled information panels, walls of help text or spell descriptions. Current heroes show only their names and four numbered magic titles.
+
+The supplied CraftPix free keyboard/mouse pack provides exact-pixel cropped keycaps, Esc and mouse sprites. Controlled players get a 3×3 key map matching row-major board order, plus a casting key. AI/online opponents show spells only because their physical input is not local. Board hit labels, actual keyboard input and menu key maps share src/game/controls.ts.
+
+Resume/Mute/Unmute/Quit behavior is preserved. Up/Down navigate actions, Enter activates, Tab stays within the modal including its scrollable reference region, and Escape closes ordinary menus. Disconnection disables Resume and keeps recovery status, mute and quit; online menus still do not pause the match. On narrow phones actions remain left and available while the reference region scrolls; short landscape uses two hero columns. Source/license notes are in public/assets/input/README.md. No AI sprite generation was used.

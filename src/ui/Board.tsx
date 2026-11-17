@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react';
 import type { Session, Snapshot } from '../game/Session';
 import type { GardenLayout, Rect } from '../render/layout';
+import { keyboardLayouts } from '../game/controls';
 import { StarMeter } from './LegacyRewards';
 
-const keys = [['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'], ['7', '8', '9', '4', '5', '6', '1', '2', '3']];
 const position = (rect: Rect): CSSProperties => ({ left: rect.x, top: rect.y, width: rect.width, height: rect.height });
 
 export function Board({ session, snapshot, garden }: { session: Session; snapshot: Snapshot; garden: GardenLayout }) {
@@ -14,7 +14,7 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
   return <section className={`player-panel player-${id}`} aria-label={`${id === 1 && session.match.options.mode === 'ai' ? 'Computer' : `Player ${id + 1}`} garden`} data-character={player.character} data-score={player.score} data-board-x={garden.x} data-board-y={garden.y} data-board-scale={garden.scale}>
     <div className="hole-controls">{player.holes.map((target, hole) => <button
       key={hole} type="button" className="hole" aria-label={`${target?.kind ?? 'Empty'} hole ${hole + 1}`}
-      style={position(garden.holes[hole].hit)} data-kind={target?.kind ?? 'empty'} data-born={target?.born} data-expires={target?.expires} data-key={keys[id][hole]} disabled={!playing || opponent}
+      style={position(garden.holes[hole].hit)} data-kind={target?.kind ?? 'empty'} data-born={target?.born} data-expires={target?.expires} data-key={keyboardLayouts[id].labels[hole]} disabled={!playing || opponent}
       onPointerDown={event => { if (event.button === 0) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
       onKeyDown={event => { if ((event.key === 'Enter' || event.key === ' ') && !event.repeat) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
     />)}</div>
