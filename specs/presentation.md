@@ -114,6 +114,8 @@ Narrow local two-player landscape also uses vertical star columns, so large hori
 
 The menu follows the supplied shinobi-arena/output/hud/pause.jpeg reference: centered top Pause title, a large vertical action list on the left and controls/magic references on the right. The active action has a garden-colored brush highlight. There are no filled information panels, walls of help text or spell descriptions. Current heroes show only their names and four numbered magic titles.
 
-The supplied CraftPix free keyboard/mouse pack provides exact-pixel cropped keycaps, Esc and mouse sprites. Controlled players get a 3×3 key map matching row-major board order, plus a casting key. AI/online opponents show spells only because their physical input is not local. Board hit labels, actual keyboard input and menu key maps share src/game/controls.ts.
+The supplied CraftPix free keyboard/mouse pack provides exact-pixel cropped keycaps and mouse sprites. Controlled players get a 3×3 key map matching row-major board order, plus a casting key. AI/online opponents show spells only because their physical input is not local. Board hit labels, actual keyboard input and menu key maps share src/game/controls.ts.
 
 Resume/Mute/Unmute/Quit behavior is preserved. Up/Down navigate actions, Enter activates, Tab stays within the modal including its scrollable reference region, and Escape closes ordinary menus. Disconnection disables Resume and keeps recovery status, mute and quit; online menus still do not pause the match. On narrow phones actions remain left and available while the reference region scrolls; short landscape uses two hero columns. Source/license notes are in public/assets/input/README.md. No AI sprite generation was used.
+
+The Esc/Back visual hint is removed; Escape still closes the menu. Keys and spell names have a 56 px desktop gap, 28 px stacked portrait gap, and 24 px stacked landscape gap.

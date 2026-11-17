@@ -36,7 +36,6 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
       <button disabled={!!disconnected} onClick={resume}>Resume</button>
       <button aria-pressed={session.muted} onClick={() => session.toggleSound()}>{session.muted ? 'Unmute' : 'Mute'}</button>
       <button onClick={quit}>Quit</button>
-      {!disconnected && <span className="menu-back-hint"><ControlKey label="Esc" />Back</span>}
     </nav>
     <div className="menu-reference" tabIndex={0} role="region" aria-label="Controls and magic">
       <div className="menu-heroes">{snapshot.state.players.map((player, id) => {

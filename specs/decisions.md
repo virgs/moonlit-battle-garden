@@ -50,6 +50,7 @@ This file records the discussion's current state. An accepted concept is not a c
 | D40 | Place character names below and centered with their round trophies. Desktop names follow the trophy/star columns; compact layouts keep the paired HUD below the score bar. Preserve full labels and responsive clearance. |
 | D41 | Revise D40: character names sit above their trophies, centered on the same columns, beneath the score bar. |
 | D42 | Redesign pause/menu after the Shinobi Arena reference: centered top title, large vertical Resume/Mute/Quit actions left, current control keys in board-shaped 3×3 layouts and only selected heroes’ spell titles right. Reuse the supplied CraftPix input artwork; no generation. Keep actions visible while references scroll on small screens. |
+| D43 | Remove the Esc/Back menu hint and increase spacing between control keys and magic names across layouts. |
 
 ## Current proposals, not yet confirmed
 
