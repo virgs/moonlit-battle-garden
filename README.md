@@ -9,7 +9,7 @@ pnpm install
 pnpm dev
 ```
 
-Choose Sir Champignon or Andy, then play against an easy/medium/hard computer opponent, a second human on the same computer, or an online rival by invite. First to two round wins takes the match.
+Press any key or tap at the title screen, then use the main menu to choose Sir Champignon or Andy and play against an easy/medium/hard computer opponent, a second human on the same computer, or an online rival by invite. First to two round wins takes the match.
 
 - Player 1: QWE / ASD / ZXC. Cast with R.
 - Player 2: numpad 789 / 456 / 123. Cast with numpad +.
@@ -44,7 +44,7 @@ pnpm exec playwright test --config=playwright.pages.config.ts
 
 ## Online play without a game server
 
-Choose **Online rival → Enter the garden → Create online garden**, then share the invite link. Your friend opens it, chooses their character and joins. Both players see themselves on the left (or on their own single mobile board). Only the creator runs the simulation; the other browser sends hit/cast inputs. Scores, targets, magic, round outcomes and connection-recovery freezes come from the host. Mouse, touch and QWE/ASD/ZXC + R work for your own board.
+Choose **Online rival → Create online garden**, then share the invite link. Your friend opens it, chooses their character and joins. Both players see themselves on the left (or on their own single mobile board). Only the creator runs the simulation; the other browser sends hit/cast inputs. Scores, targets, magic, round outcomes and connection-recovery freezes come from the host. Mouse, touch and QWE/ASD/ZXC + R work for your own board.
 
 The static site can be deployed over HTTPS. There is no dedicated gameplay backend, account system, or matchmaking service. PeerJS Cloud provides signaling by default; WebRTC carries gameplay directly between browsers. Some mobile/corporate networks require a TURN relay. No managed relay is configured yet, so connections on those networks can fail. Optional signaling/ICE overrides are documented in `.env.example`; browser configuration is public and must not contain permanent TURN secrets. See [online architecture](specs/online.md).
 

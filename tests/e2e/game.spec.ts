@@ -1,10 +1,11 @@
+import { openMainMenu } from './frontMenu';
 import { expect, test } from '@playwright/test';
 
 test('start a match, hit a visible mole, pause, and return to setup', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('/');
-  await expect(page.getByRole('heading', { name: /Keep your garden/ })).toBeVisible();
+  await openMainMenu(page);
+  await expect(page.getByRole('heading', { name: /Choose your champion/ })).toBeVisible();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   const garden = page.getByRole('region', { name: 'Player 1 garden', exact: true });
   await expect(page.locator('.arena-canvas canvas')).toBeVisible();
@@ -36,7 +37,7 @@ test('start a match, hit a visible mole, pause, and return to setup', async ({ p
 });
 
 test('local mode exposes both human boards and keyboard controls', async ({ page }) => {
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.getByRole('region', { name: 'Player 2 garden', exact: true })).toBeVisible();

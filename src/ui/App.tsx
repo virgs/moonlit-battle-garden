@@ -1,42 +1,40 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState, type ReactNode } from 'react';
 import { Session } from '../game/Session';
 import { characters } from '../game/config';
-import type { CharacterId, Difficulty, MatchOptions } from '../game/types';
-import { Portrait } from './Portrait';
+import type { CharacterId, Difficulty } from '../game/types';
 import { prepareAudio } from '../presentation/audioGesture';
+import { CharacterPicker, FrontMenu, TitleScreen, type MenuPane } from './FrontScreens';
 import './presentation.css';
 const OnlinePlay = lazy(() => import('./OnlinePlay').then(module => ({ default: module.OnlinePlay })));
 const Game = lazy(() => import('./Game').then(module => ({ default: module.Game })));
 
 export function App() {
   const [session, setSession] = useState<Session | null>(null);
+  const [title, setTitle] = useState(()=>!new URLSearchParams(location.search).has('join'));
+  const [pane, setPane] = useState<MenuPane>(()=>new URLSearchParams(location.search).has('join')?'online':'ai');
   const [character, setCharacter] = useState<CharacterId>('champignon');
   const [opponent, setOpponent] = useState<CharacterId>('andy');
-  const [mode, setMode] = useState<MatchOptions['mode']>(new URLSearchParams(location.search).has('join') ? 'online' : 'ai');
-  const [online, setOnline] = useState(new URLSearchParams(location.search).has('join'));
   const [difficulty, setDifficulty] = useState<Difficulty>('medium');
+  const [sound, setSound] = useState(()=>{try{return localStorage.getItem('moonlit-sound')!=='off';}catch{return true;}});
+  useEffect(()=>{try{localStorage.setItem('moonlit-sound',sound?'on':'off');}catch{/* Storage is optional. */}},[sound]);
+  const enter = useCallback(()=>setTitle(false),[]);
+  const choose = (next: MenuPane) => { if(pane==='online'&&next!=='online') history.replaceState(null,'',location.pathname);setPane(next); };
   const start = () => {
-    if (mode === 'online') { setOnline(true); return; }
-    prepareAudio();
-    const next = new Session({ characters: [character, opponent], mode, difficulty, seed: crypto.getRandomValues(new Uint32Array(1))[0] });
-    next.enableSound(); setSession(next);
+    if(pane!=='ai'&&pane!=='local')return;
+    if(sound)prepareAudio();
+    const next = new Session({characters:[character,opponent],mode:pane,difficulty,seed:crypto.getRandomValues(new Uint32Array(1))[0]});
+    if(sound)next.enableSound();setSession(next);
   };
-  if (online) return <Suspense fallback={<p className="development-note">Opening online gardens…</p>}><OnlinePlay initialCharacter={character} leave={() => { setOnline(false); history.replaceState(null, '', location.pathname); }} /></Suspense>;
-  if (session) return <Suspense fallback={<p className="development-note">Opening the garden…</p>}><Game session={session} leave={() => { session.stop(); setSession(null); }} /></Suspense>;
-  return <div className="app-shell">
-    <header className="site-header"><a className="wordmark" href={import.meta.env.BASE_URL} aria-label="Moonlit Battle Garden home"><span className="brand-mark">☾</span> MOONLIT BATTLE GARDEN<span className="prototype-tag">PROTOTYPE 01</span></a><span className="header-note">Quick hands. Questionable magic.</span></header>
-    <main className="lobby">
-      <section className="intro"><span className="eyebrow">A friendly garden rivalry</span><h1>Keep your garden.<br /><em>Ruin their day.</em></h1><p>A duel of moles, mischief, and perfectly timed magic.<br />Pick a side. Bring your fastest fingers.</p><div className="intro-pills"><span>1 vs 1</span><span>3 × 3 gardens</span><span>4 tiers of magic</span></div></section>
-      <section className="match-setup" aria-label="Match setup"><div className="setup-heading"><span className="eyebrow">Make it personal</span><span className="step-label">01 / CHOOSE YOUR DUEL</span></div>
-        <div className="mode-toggle" aria-label="Game mode"><button aria-pressed={mode === 'ai'} onClick={() => setMode('ai')}>Versus computer</button><button aria-pressed={mode === 'local'} onClick={() => setMode('local')}>Local two player</button><button aria-pressed={mode === 'online'} onClick={() => setMode('online')}>Online rival</button></div>
-        <div className="character-selection"><span className="eyebrow">Your character · always left</span><div className="character-options">{(Object.keys(characters) as CharacterId[]).map(id => <button key={id} className={`character-card ${id} ${character === id ? 'selected' : ''}`} aria-pressed={character === id} onClick={() => { setCharacter(id); setOpponent(id === 'andy' ? 'champignon' : 'andy'); }}><span className="character-emblem"><Portrait character={id} /></span><strong>{characters[id].name}</strong><small>{characters[id].role}</small><span className="selection-indicator">{character === id ? 'SELECTED ✓' : 'CHOOSE CHARACTER'}</span></button>)}</div></div>
-        <div className="setup-bottom">{mode !== 'online' && <label>Opponent<select value={opponent} onChange={event => setOpponent(event.target.value as CharacterId)}>{Object.entries(characters).map(([id, data]) => <option key={id} value={id}>{data.name}</option>)}</select></label>}{mode === 'ai' ? <label>Difficulty<select value={difficulty} onChange={event => setDifficulty(event.target.value as Difficulty)}><option value="easy">Easy · warming up</option><option value="medium">Medium · a fair fight</option><option value="hard">Hard · quick hands</option></select></label> : mode === 'online' ? <p className="local-note">Create an invite or join a friend. Each player chooses their own character.</p> : <p className="local-note">Share a keyboard: QWE / ASD / ZXC and the number pad. Cast with R and numpad +.</p>}</div>
-        <button className="primary-button start-button" onClick={start}>Enter the garden <span>↗</span></button>
-        <p className="setup-footnote">{mode === 'ai' ? 'Play offline. No account. Just a very determined opponent.' : mode === 'online' ? 'Private invites. No account. One player hosts.' : 'Two players. One computer. A very personal rivalry.'}</p>
-      </section>
-      <section className="how-to"><div><span>01</span><h3>Whack with care</h3><p>Hit moles before they hide. Empty hits and rabbit hits cost points.</p></div><div><span>02</span><h3>Pocket some magic</h3><p>Collect stars for four spells. Tap the star container or press R to cast.</p></div><div><span>03</span><h3>Outlast your rival</h3><p>Fill the bar to win; first to two rounds wins. Tap the bar or press Escape for controls.</p></div></section>
-      <p className="development-note">First playable · Local, AI and private online duels</p>
-    </main>
-    <div className="site-footer"><span>GROWN FROM DIG HOLE BATTLE GARDEN · 2009 → 2026</span><a href="https://github.com/virgs/molecideGaiden" target="_blank" rel="noreferrer">Original art & sounds ↗</a></div>
-  </div>;
+  const menu = (content:ReactNode) => <FrontMenu pane={pane} choose={choose} title={()=>{history.replaceState(null,'',location.pathname);setTitle(true);}}>{content}</FrontMenu>;
+  if(title)return <TitleScreen enter={enter} />;
+  if(session)return <Suspense fallback={<p className="development-note">Opening the garden…</p>}><Game session={session} leave={()=>{session.stop();setSound(!session.muted);setSession(null);}} /></Suspense>;
+  if(pane==='online')return <Suspense fallback={menu(<p role="status">Opening online gardens…</p>)}><OnlinePlay initialCharacter={character} sound={sound} changeCharacter={setCharacter} renderLobby={menu} leave={muted=>{if(typeof muted==='boolean')setSound(!muted);history.replaceState(null,'',location.pathname);setPane('ai');}} /></Suspense>;
+  if(pane==='options')return menu(<><p className="eyebrow">Make yourself at home</p><h2>Options</h2><label className="sound-option"><input type="checkbox" checked={sound} onChange={event=>setSound(event.target.checked)} />Enable sound and music</label><p className="front-note">You can also mute or unmute from the pause menu.</p></>);
+  if(pane==='help')return menu(<><p className="eyebrow">Quick hands. A little magic.</p><h2>How to play</h2><div className="front-instructions"><h3>Whack with care</h3><p>Hit moles and stars. Avoid rabbits and empty holes. A lead of 100 points wins the round; first to two rounds wins the match.</p><h3>Spend your stars</h3><p>Collect up to four stars. Tap the star container or press your cast key to use the spell at that tier. Casting briefly freezes both boards.</p><h3>Your controls</h3><p>Player 1: QWE / ASD / ZXC. Magic: R.<br />Player 2: numpad 789 / 456 / 123. Magic: numpad +.<br />Mouse or phone: tap the holes and stars.</p><h3>Take a breather</h3><p>Escape or the score bar opens the menu. Solo and local play pause; online play continues. Connection loss freezes the match while it reconnects.</p></div></>);
+  return menu(<><p className="eyebrow">{pane==='ai'?'Versus computer':'Share a keyboard'}</p><h2>Choose your champion</h2>
+    <CharacterPicker character={character} change={id=>{setCharacter(id);setOpponent(id==='andy'?'champignon':'andy');}} />
+    <ol className="selection-spells" aria-label={`${characters[character].name} magic`}>{characters[character].spells.map((spell,index)=><li key={spell.name}><span>{index+1}</span>{spell.name}</li>)}</ol>
+    <div className="front-settings"><label>{pane==='local'?'Player 2':'Opponent'}<select aria-label={pane==='local'?'Player 2 character':'Opponent'} value={opponent} onChange={event=>setOpponent(event.target.value as CharacterId)}>{Object.entries(characters).map(([id,data])=><option key={id} value={id}>{data.name}</option>)}</select></label>{pane==='ai'&&<label>Difficulty<select value={difficulty} onChange={event=>setDifficulty(event.target.value as Difficulty)}><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></label>}</div>
+    <button className="front-action" onClick={start}>Enter the garden</button>
+  </>);
 }

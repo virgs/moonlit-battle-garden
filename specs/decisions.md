@@ -62,6 +62,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D49 | Defer further animation and asset creation while working on the remaining screens. Simple single-color, semi-transparent boxes are sufficient placeholders for missing visuals; final spell/character animation polish is not a blocker for menu work. Existing game assets remain available. |
 
+| D50 | Build a title screen and game-style main menu, merging online create/join/invite/connection controls into the main menu rather than a separate lobby screen. No image creation; reuse existing moonlit artwork and placeholder character art. Preserve direct invites, local/AI setup, responsive controls and keyboard/touch navigation. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

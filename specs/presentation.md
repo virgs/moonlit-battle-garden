@@ -159,3 +159,12 @@ During the shared cast freeze, show only the spent tier as 1–4 equally sized c
 ## Temporary visuals during screen work (D49)
 
 Defer further asset/animation creation. Missing visual slots may use simple single-color semi-transparent boxes until the final art pass. Do not expand spell-animation polish before the menu/title/setup screens. Existing recovered art and bundled clips remain usable; this decision does not require generating replacements.
+
+
+## Title and merged main menu (D50)
+
+Normal entry opens a full-viewport Moonlit Battle Garden title with an unmodified key or tap to continue. Modifier keys, Tab and repeated keys do not dismiss it. The accepting input does not also start a match. Existing pixel-art castle imagery provides a uniformly cropped moonlit backdrop; no new imagery or animation assets are created.
+
+The main menu uses transparent content, outlined Almendra typography and the pause menu's opaque brush selection. Mode choices stay left on desktop/landscape, with setup and character previews to the right. Phone portrait stacks choices above an independently scrollable setup region. AI difficulty defaults to Medium; both heroes and opponent selection remain available for local/AI. Selected spell titles appear in setup only.
+
+Online is a main-menu section containing character choice, create/join, pasted links or room IDs, share/copy, connection status and cancellation. No extra Enter/setup/lobby transition is required. Invite URLs open this section directly and preserve the code; leaving cancels any pending room. Existing real WebRTC match/reconnect behavior remains. Options stores sound preference when storage is available, applies it to local/online starts, and remembers in-match mute changes. How to Play explains scoring, casting and controls. Up/Down chooses menu modes; Right enters setup controls; Escape focuses the active menu choice. Returning from a match keeps the main menu and current setup rather than replaying the title.

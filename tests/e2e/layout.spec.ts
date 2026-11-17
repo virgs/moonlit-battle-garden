@@ -1,11 +1,12 @@
+import { openMainMenu } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { gardenArt } from '../../src/render/layout';
 
 const resizeGroups = { phones:[[320,568],[390,844],[844,390]], tablets:[[768,1024],[1024,600],[1024,1000]], desktops:[[1440,900],[2560,1080],[3840,2160]] };
 for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD preserves anchors, names and stars through ${group} resizes`, async ({ page }, testInfo) => {
-  await page.goto('/');
+  await openMainMenu(page);
   await page.evaluate(() => document.fonts.ready);
-  await expect(page.locator('.intro h1')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
+  await expect(page.locator('.front-heading a')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
   await expect(page.locator('body')).toHaveCSS('font-family', 'Literata, Georgia, serif');
   expect(await page.evaluate(() => document.fonts.check('400 30px Almendra') && document.fonts.check('400 15px Literata'))).toBe(true);
   await page.getByRole('button', { name: /Andy The star/ }).click();
@@ -77,7 +78,7 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
 
 test('single board uses horizontal stars on a narrow portrait screen with a vertical left column and centered board in landscape and the original column on desktop', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/'); await page.getByRole('button', { name: /Enter the garden/ }).click();
+  await openMainMenu(page); await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.single-board .player-0 .horizontal-stars')).toHaveCount(1);
   await expect(page.locator('.player-1')).toHaveCount(0);
   await page.setViewportSize({ width: 844, height: 390 });

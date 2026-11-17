@@ -1,3 +1,4 @@
+import { openMainMenu } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { png } from './assetFixtures';
 import { expectClearResult } from './resultPresentation';
@@ -7,7 +8,7 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     await page.emulateMedia({reducedMotion:"reduce"});
     await page.setViewportSize({width,height});
     await page.route(/\/assets\/characters\/[^/]+\/icon\.png$/, route => route.fulfill({ contentType:'image/png', body:png(64,64) }));
-    await page.goto('/');
+    await openMainMenu(page);
     // AI mode exercises the single-board phone presentation.
     await page.getByRole('button',{name:/Enter the garden/}).click();
     await expect(page.locator('canvas')).toBeVisible();

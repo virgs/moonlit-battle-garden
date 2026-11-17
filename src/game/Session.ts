@@ -4,7 +4,7 @@ import { config } from './config';
 import { chooseHome } from './homes';
 import { HomeMusic } from '../presentation/HomeMusic';
 import { SoundEffects } from '../presentation/SoundEffects';
-import { takePrimedMusic } from '../presentation/audioGesture';
+import { prepareAudio, takePrimedMusic } from '../presentation/audioGesture';
 import type { GameAction, GameEvent, MatchOptions, MatchState } from './types';
 import { inputAction, localView, type LinkState, type NetworkLink, type Wire } from '../network/protocol';
 
@@ -138,6 +138,7 @@ export class Session {
     this.publish();
   }
   enableSound(): void {
+    if (typeof window !== 'undefined') prepareAudio();
     if (!this.effects) { this.effects = new SoundEffects(); this.effects.preload(); this.music = new HomeMusic(this.home.music, takePrimedMusic()); }
     this.muted = false;
     this.publish();

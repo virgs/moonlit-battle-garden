@@ -1,3 +1,4 @@
+import { openMainMenu } from './frontMenu';
 import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 
@@ -14,7 +15,7 @@ for (const available of [true, false]) test(`home music uses ${available ? 'the 
   await page.route(/\/assets\/homes\/[^/]+\/music\.mp3$/, route => available
     ? route.fulfill({ contentType: 'audio/mpeg', body: track })
     : route.fulfill({ status: 404 }));
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   const music = () => page.evaluate(() => {
     const elements = (window as Window & { __testAudio?: HTMLAudioElement[] }).__testAudio ?? [];

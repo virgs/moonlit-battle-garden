@@ -1,3 +1,4 @@
+import { openMainMenu } from './frontMenu';
 import { continueRound } from './continueRound';
 import { expect, test, type Page } from '@playwright/test';
 
@@ -13,7 +14,7 @@ async function loseRound(page: Page, loser: number) {
 }
 
 test('original trophy sheets celebrate each round and retain the correct per-side totals through match victory', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await loseRound(page, 0);
@@ -39,7 +40,7 @@ test('original trophy sheets celebrate each round and retain the correct per-sid
 });
 
 test('star artwork charges and clears when casting; pause freezes its animation', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   const board = page.locator('.player-0');
   await expect(board.locator('.hole[data-kind="star"]').first()).toBeEnabled({ timeout: 12000 });
@@ -61,7 +62,7 @@ test('star artwork charges and clears when casting; pause freezes its animation'
 
 test('reduced motion keeps original trophy and star art in a static pose', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await loseRound(page, 0);
@@ -74,7 +75,7 @@ test('reduced motion keeps original trophy and star art in a static pose', async
 
 test('landscape round victory fits over the frozen gameplay HUD', async ({ page }) => {
   await page.setViewportSize({ width: 844, height: 390 });
-  await page.goto('/'); await page.getByRole('button', { name: 'Local two player' }).click();
+  await openMainMenu(page); await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await loseRound(page, 0);
   await expect(page.locator('canvas')).toHaveCount(1);

@@ -1,3 +1,4 @@
+import { openMainMenu } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { supplyFinalArt } from './assetFixtures';
 
@@ -6,7 +7,7 @@ for (const valid of [true, false]) test(`drop-in portrait/home art and ${valid ?
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await supplyFinalArt(page, valid);
-  await page.goto('/');
+  await openMainMenu(page);
   await expect(page.locator('.character-card .portrait[data-state="ready"]')).toHaveCount(2);
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.player-0 .hole')).toHaveCount(9);

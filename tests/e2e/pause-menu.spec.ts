@@ -1,8 +1,9 @@
+import { openMainMenu } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { png } from './assetFixtures';
 
 async function openMenu(page: import('@playwright/test').Page) {
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.player-0 .hole').first()).toBeEnabled({ timeout: 9000 });
@@ -84,7 +85,7 @@ test('pause action keyboard navigation toggles sound, traps focus and resumes', 
 
 for (const supplied of [false, true]) test(`portrait AI character headings align with ${supplied ? 'supplied' : 'missing'} icons`, async ({ page }) => {
   await page.route(/\/assets\/characters\/[^/]+\/icon\.png$/, route => supplied ? route.fulfill({ contentType: 'image/png', body: png(64, 64) }) : route.fulfill({ status: 404 }));
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.player-0 .hole').first()).toBeEnabled({ timeout: 9000 });
   await page.keyboard.press('Escape');

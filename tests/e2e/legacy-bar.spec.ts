@@ -1,8 +1,9 @@
+import { openMainMenu } from './frontMenu';
 import { continueRound } from './continueRound';
 import { expect, test } from '@playwright/test';
 
 test('renders one original bar viewport, plays a single row at a time, and freezes on pause', async ({ page }) => {
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.player-0 .hole')).toHaveCount(9);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
@@ -23,7 +24,7 @@ test('renders one original bar viewport, plays a single row at a time, and freez
 });
 
 test('a decisive score difference shows the round result and resets the bar to the middle next round', async ({ page }) => {
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: 'Local two player' }).click();
   await page.getByRole('button', { name: /Enter the garden/ }).click();
   await expect(page.locator('.player-0 .hole')).toHaveCount(9);

@@ -1,3 +1,4 @@
+import { openMainMenu } from './frontMenu';
 import { continueRound } from './continueRound';
 import { expect, test } from '@playwright/test';
 
@@ -5,9 +6,8 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   test.setTimeout(45000);
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('/');
+  await openMainMenu(page);
   await page.getByRole('button', { name: 'Online rival' }).click();
-  await page.getByRole('button', { name: /Enter the garden/ }).click();
   await page.getByRole('button', { name: 'Create online garden' }).click();
   const invite = page.getByRole('textbox', { name: 'Share this invite' });
   await expect(invite).toBeVisible({ timeout: 12000 });
@@ -24,7 +24,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
     };
   });
   await guest.goto(inviteUrl);
-  await guest.getByLabel('Your character', { exact: true }).selectOption('andy');
+  await guest.getByRole('button', { name: 'Andy', exact:true }).click();
   await guest.getByRole('button', { name: 'Join garden', exact: true }).click();
   await expect(page.locator('.match-screen')).toBeVisible({ timeout: 15000 });
   await expect(guest.locator('.match-screen')).toBeVisible({ timeout: 15000 });
