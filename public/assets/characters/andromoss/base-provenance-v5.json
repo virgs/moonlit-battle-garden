@@ -3,7 +3,7 @@
   "created": "2026-11-18",
   "character": "Nightshade",
   "internalCharacterId": "andy",
-  "status": "Thin tail and narrow rear braid refinement draft for user review; runtime artwork unchanged.",
+  "status": "User approved base-v5 on 2026-11-18; installed as the source for Andromoss animations and icon.",
   "jobId": "f41132a2-bbfc-4482-8c9e-f6a709781642",
   "assetId": "3b8ff083-f272-58ae-a1ec-daeb32811f29",
   "source": {
@@ -29,5 +29,7 @@
     ],
     "hasTransparentPixels": true,
     "hasVisiblePixels": true
-  }
+  },
+  "currentCharacterName": "Andromoss",
+  "currentInternalCharacterId": "andromoss"
 }

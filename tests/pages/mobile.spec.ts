@@ -14,7 +14,7 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await page.getByRole('button', { name: /Enter the garden/ }).tap();
   await expect(page.locator('canvas')).toBeVisible();
   const owner=await page.locator('.match-screen').getAttribute('data-home-character');
-  expect(['champignon','andy']).toContain(owner);
+  expect(['champignon','andromoss']).toContain(owner);
   await expect(page.locator('canvas')).toHaveAttribute('data-home-background',`/assets/homes/${owner}/background.png`);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   const board = page.locator('.player-0');

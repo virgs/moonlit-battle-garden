@@ -1,5 +1,5 @@
 {
-  "note": "Eight sourced home pairs. Six theme names and character assignments remain provisional; only Champignon and Andy are playable.",
+  "note": "Eight sourced home pairs. Six theme names and character assignments remain provisional; only Champignon and Andromoss are playable.",
   "homes": [
     {
       "id": "champignon",
@@ -16,11 +16,11 @@
       "artLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
-      "id": "andy",
+      "id": "andromoss",
       "name": "Moonlit Hideout",
-      "character": "andy",
-      "background": "andy/background.png",
-      "music": "andy/music.mp3",
+      "character": "andromoss",
+      "background": "andromoss/background.png",
+      "music": "andromoss/music.mp3",
       "mood": "Blue woodland mist and whimsical SNES-style magic.",
       "focusX": 0.5,
       "focusY": 0.5,

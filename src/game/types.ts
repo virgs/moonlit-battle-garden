@@ -1,4 +1,4 @@
-export type CharacterId = 'champignon' | 'andy';
+export type CharacterId = 'champignon' | 'andromoss';
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type PlayerId = 0 | 1;
 export type TargetKind = 'mole' | 'rabbit' | 'star';

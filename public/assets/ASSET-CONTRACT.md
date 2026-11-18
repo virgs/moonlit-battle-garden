@@ -2,7 +2,7 @@
 
 The eight-home collection is available at `homes/index.html`, with `homes/catalog.json`, credits, license text and verified file hashes. Six home pairs are staged and unassigned until the future character discussion; they do not expand the playable roster.
 
-The playback code is ready. Both victory sheets and all four home background/music files are bundled. Sir Champignon now has review-draft idle, victory and shared casting sheets. The current screens still need 11 active assets + two optional portraits (13 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
+The playback code is ready. Both victory sheets and all four home background/music files are bundled. Both heroes have native 192×192 icons, idle, victory and shared casting sheets. The current screens still need eight spell-effect assets + two optional portraits (10 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
 
 ```text
 public/assets/characters/CHARACTER/portrait.png
@@ -53,17 +53,21 @@ The regular check reports missing final files and validates supplied sprite-shee
 - Background and music are installed; see [credits](homes/CREDITS.md).
 - Optional portrait, reserved for future portrait-based UI.
 
-### Andy — Moonlit Hideout
+### Andromoss — Moonlit Hideout
 
-- Character icon.
-- Standing/idle animation.
-- One shared casting animation for all four spells.
+- Character icon: installed transparent 192×192 review draft.
+- Standing/idle: installed five 192×192 frames at 3 fps.
+- Shared casting: installed nine 192×192 frames at 9 fps with a 500 ms hold; violet hook trail/gold sparks requested.
+- Victory: installed nine 192×192 frames at 8 fps.
+- New outputs await user visual review; exact prompts in characters/andromoss/provenance.json and icon-provenance.json.
 - Four spell effects: Borrowed Spark, Rabbit Riot, Sticky Fingers, Double Trouble.
 - Background and music are installed; see [credits](homes/CREDITS.md).
 - Optional portrait, reserved for future portrait-based UI.
 
-Both characters have their victory animation, home background and music. Sir Champignon’s victory has been replaced with a matching review draft; his approved 192×192 base-v3 pose is used for all three expressive animation sheets. Exact prompts, seeds and PixelLab job IDs are recorded in characters/champignon/provenance.json, with first-pass history in animation-provenance-v1.json. User authorization D65 opens Champignon’s art pass; D74 opens Nightshade’s base-design pass for user review before animations/icon. Other characters remain deferred. The user handles visual review; technical checks only. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.
+Both characters have their victory animation, home background and music. Sir Champignon’s victory has been replaced with a matching review draft; his approved 192×192 base-v3 pose is used for all three expressive animation sheets. Exact prompts, seeds and PixelLab job IDs are recorded in characters/champignon/provenance.json, with first-pass history in animation-provenance-v1.json. User authorization D65 opens Champignon’s art pass; D74 opens Andromoss’s base-design pass for user review before animations/icon. Other characters remain deferred. The user handles visual review; technical checks only. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.
 
 ## Roster-wide animation requirements (D70)
 
 All characters use subtle idle animation (gentle breathing and small secondary motion). Victory and casting remain expressive. Each character’s single shared casting animation includes a visible thematic magic effect following its action/weapon; this is separate from per-spell active-effect sheets. Champignon uses a golden-green spore/sparkle trail along his broom sweep. Preserve space for the stars-spent overlay. Only the user performs visual review.
+
+Current manifest overrides the generic defaults above for both heroes: idle 960×192 (5 frames), victory/cast 1728×192 (9 frames), and icons 192×192. Asset validation: 24 ready including staged homes, 10 missing, zero invalid.

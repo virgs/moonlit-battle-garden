@@ -17,7 +17,7 @@ test('delayed RTC traffic stays synchronized and a silent link recovers within g
     // 150 ms per direction at the data-channel send boundary (~300 ms extra RTT).
     for(const client of [page,guest])await client.evaluate(()=>{window.rtcTest.delayMs=150;});
     await guest.getByRole('button',{name:'Next character for You'}).click();
-    await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andy');
+    await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andromoss');
     for(const client of [page,guest])await client.getByRole('button',{name:'Confirm You'}).click();
     for(const client of [page,guest]){
       await expect(client.locator('.match-screen')).toBeVisible({timeout:10_000});

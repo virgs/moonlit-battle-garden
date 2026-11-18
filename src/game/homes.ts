@@ -6,7 +6,7 @@ export type CharacterHome = { owner: CharacterId } & typeof presentation[Charact
 // Per-character final paths and fallback assets come from the presentation manifest.
 export const homes: Record<CharacterId, CharacterHome> = {
   champignon: { owner: 'champignon', ...presentation.champignon.home },
-  andy: { owner: 'andy', ...presentation.andy.home },
+  andromoss: { owner: 'andromoss', ...presentation.andromoss.home },
 };
 
 export function chooseHome(options: MatchOptions): CharacterHome {

@@ -79,5 +79,5 @@ if __name__ == '__main__':
     for old, new in [('estrelinhas', 'star-meter'), ('trofeu', 'trophy-sheet')]:
         convert_bmp(source / f'{old}.bmp', output / f'{new}.png')
 
-    for old, new in [('SIR CHAMPIGNON', 'champignon-hero'), ('ANDY', 'andy-hero')]:
+    for old, new in [('SIR CHAMPIGNON', 'champignon-hero'), ('ANDY', 'andromoss-hero')]:
         convert_bmp(source.parent / 'Personagens' / f'{old}.bmp', output / f'{new}.png')

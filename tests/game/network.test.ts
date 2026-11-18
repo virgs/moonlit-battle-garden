@@ -2,7 +2,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { Session, type Snapshot } from '../../src/game/Session';
 import { inputAction, localView, type Wire } from '../../src/network/protocol';
 
-const options = { characters: ['champignon', 'andy'], mode: 'online', difficulty: 'medium', seed: 123 } as const;
+const options = { characters: ['champignon', 'andromoss'], mode: 'online', difficulty: 'medium', seed: 123 } as const;
 afterEach(() => vi.useRealTimers());
 function pair() {
   const hostMessages: Wire[] = [], guestMessages: Wire[] = [];
@@ -23,7 +23,7 @@ it('waits for guest readiness; only host advances; both see themselves on the le
   guest.start(); flush(); vi.advanceTimersByTime(4000); flush();
   expect(host.match.state.phase).toBe('playing');
   expect(guest.match.state).toEqual(host.match.state);
-  expect(guest.getSnapshot().state.players[0].character).toBe('andy');
+  expect(guest.getSnapshot().state.players[0].character).toBe('andromoss');
   expect(host.getSnapshot().state.players[0].character).toBe('champignon');
   guest.act({ type: 'hit', player: 0, hole: 0 }); flush();
   expect(guest.getSnapshot().state.players[0].score).toBe(host.match.state.players[1].score);
@@ -80,7 +80,7 @@ it('freezes on interruption and resumes automatically after the ready handshake'
 
 it('allows explicit pause only in AI and same-computer modes', () => {
   for (const mode of ['ai', 'local'] as const) {
-    const session = new Session({ mode, characters: ['champignon', 'andy'], difficulty: 'easy', seed: 1 });
+    const session = new Session({ mode, characters: ['champignon', 'andromoss'], difficulty: 'easy', seed: 1 });
     session.togglePause(); expect(session.match.state.paused).toBe(true);
     session.togglePause(); expect(session.match.state.paused).toBe(false);
   }

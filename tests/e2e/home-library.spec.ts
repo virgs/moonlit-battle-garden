@@ -8,7 +8,7 @@ test('all eight sourced homes decode and play independently in the review collec
   await page.goto('./assets/homes/index.html');
   await expect(page.locator('article')).toHaveCount(8);
   expect(await page.locator('article').evaluateAll(cards => cards.map(card => (card as HTMLElement).dataset.home))).toEqual([
-    'champignon', 'andy', 'mossroot-path', 'whispering-wood', 'stillwater-grove', 'lanternbloom-garden', 'violet-veil', 'bluebell-thicket',
+    'champignon', 'andromoss', 'mossroot-path', 'whispering-wood', 'stillwater-grove', 'lanternbloom-garden', 'violet-veil', 'bluebell-thicket',
   ]);
   await expect(page.locator('[data-home="bluebell-thicket"]').getByRole('link', { name: 'Artwork: ThQian' })).toBeVisible();
   await expect(page.locator('[data-home="bluebell-thicket"]').getByRole('link', { name: 'CC BY 4.0', exact: true })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/4.0/');

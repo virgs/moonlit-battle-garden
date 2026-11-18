@@ -15,8 +15,8 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   const effects: { kind: string; character: CharacterId; tier: number }[] = [];
   if (player.mistakeShield > 0 && player.shieldUntil > state.time) effects.push({ kind: 'guard', character: player.character, tier: player.shieldTier });
   if (player.magicShieldUntil > state.time) effects.push({ kind: 'ward', character: 'champignon', tier: 3 });
-  if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andy', tier: 2 });
-  if (player.decoysUntil > state.time) effects.push({ kind: 'decoys', character: 'andy', tier: 4 });
+  if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andromoss', tier: 2 });
+  if (player.decoysUntil > state.time) effects.push({ kind: 'decoys', character: 'andromoss', tier: 4 });
   if (player.pending.length) effects.push({ kind: 'incoming', character: state.players[player.pending[0].from].character, tier: player.pending[0].tier });
   const recent = [...snapshot.events].reverse().find(event => event.kind === 'cast' && event.player === garden.id && event.round === state.round && state.time - event.time < 700);
   if (recent?.tier) effects.push({ kind: 'impact', character: player.character, tier: recent.tier });

@@ -4,7 +4,7 @@ import { Bot } from '../../src/game/Bot';
 import { config } from '../../src/game/config';
 import type { CharacterId, Difficulty, PlayerId, TargetKind } from '../../src/game/types';
 
-function create(characters: [CharacterId, CharacterId] = ['champignon', 'andy']) {
+function create(characters: [CharacterId, CharacterId] = ['champignon', 'andromoss']) {
   const match = new Match({ characters, mode: 'local', difficulty: 'medium', seed: 42 });
   match.advance(config.countdownMs);
   return match;
@@ -21,7 +21,7 @@ describe('match rules', () => {
     expect(a.state).toEqual(b.state);
   });
   it('ignores actions during countdown and pause', () => {
-    const match = new Match({ characters: ['champignon', 'andy'], mode: 'local', difficulty: 'easy', seed: 1 });
+    const match = new Match({ characters: ['champignon', 'andromoss'], mode: 'local', difficulty: 'easy', seed: 1 });
     match.action({ type: 'hit', player: 0, hole: 0 });
     match.state.paused = true; match.advance(10000);
     expect(match.state.time).toBe(0); expect(match.state.players[0].score).toBe(0);
@@ -103,24 +103,24 @@ describe('magic', () => {
     expect(player.score).toBeLessThan(0);
   });
   it('warns before applying an invasion and lets a ward block it', () => {
-    const match = create(); const [guardian, andy] = match.state.players;
-    guardian.stars = 3; andy.stars = 2;
+    const match = create(); const [guardian, andromoss] = match.state.players;
+    guardian.stars = 3; andromoss.stars = 2;
     match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs);
     expect(guardian.pending).toHaveLength(1); expect(guardian.invasionUntil).toBe(0);
     match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBe(0); expect(guardian.magicShieldUntil).toBe(0);
   });
   it('steals at most two stars and obeys cooldown', () => {
-    const match = create(); const [guardian, andy] = match.state.players;
-    guardian.stars = 4; andy.stars = 3;
+    const match = create(); const [guardian, andromoss] = match.state.players;
+    guardian.stars = 4; andromoss.stars = 3;
     match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
-    expect(guardian.stars).toBe(2); expect(andy.stars).toBe(2);
-    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); expect(andy.stars).toBe(2);
+    expect(guardian.stars).toBe(2); expect(andromoss.stars).toBe(2);
+    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); expect(andromoss.stars).toBe(2);
   });
   it('copying cannot generate stars without an opponent resource; empty targets give guard', () => {
-    const match = create(); const andy = match.state.players[1];
-    andy.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
-    expect(andy.stars).toBe(0); expect(andy.mistakeShield).toBe(1);
+    const match = create(); const andromoss = match.state.players[1];
+    andromoss.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
+    expect(andromoss.stars).toBe(0); expect(andromoss.mistakeShield).toBe(1);
   });
   it('four-star cleanup grants three mistake blocks', () => {
     const match = create(); const player = match.state.players[0];
@@ -131,17 +131,17 @@ describe('magic', () => {
     expect(player.shieldTier).toBe(4);
   });
   it('copy preserves opponent stars and does not net extra charge', () => {
-    const match = create(); const [guardian, andy] = match.state.players;
-    guardian.stars = 2; andy.stars = 1;
+    const match = create(); const [guardian, andromoss] = match.state.players;
+    guardian.stars = 2; andromoss.stars = 1;
     match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
-    expect(guardian.stars).toBe(2); expect(andy.stars).toBe(1);
+    expect(guardian.stars).toBe(2); expect(andromoss.stars).toBe(1);
   });
   it('stronger pressure replaces invasion and ends at its deadline', () => {
-    const match = create(); const [guardian, andy] = match.state.players;
-    andy.stars = 2; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
+    const match = create(); const [guardian, andromoss] = match.state.players;
+    andromoss.stars = 2; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBeGreaterThan(match.state.time);
     match.advance(config.spells.cooldownMs);
-    andy.stars = 4; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
+    andromoss.stars = 4; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBe(0);
     expect(guardian.decoysUntil).toBeGreaterThan(match.state.time);
     match.state.players.forEach(p => { p.nextSpawn = Infinity; p.holes.fill(null); });
@@ -149,10 +149,10 @@ describe('magic', () => {
     expect(guardian.decoysUntil).toBeLessThanOrEqual(match.state.time);
   });
   it('a ward protects resources from theft, then is consumed', () => {
-    const match = create(); const [guardian, andy] = match.state.players;
-    guardian.magicShieldUntil = match.state.time + 2000; guardian.stars = 4; andy.stars = 3;
+    const match = create(); const [guardian, andromoss] = match.state.players;
+    guardian.magicShieldUntil = match.state.time + 2000; guardian.stars = 4; andromoss.stars = 3;
     match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
-    expect(guardian.stars).toBe(4); expect(andy.stars).toBe(0); expect(guardian.magicShieldUntil).toBe(0);
+    expect(guardian.stars).toBe(4); expect(andromoss.stars).toBe(0); expect(guardian.magicShieldUntil).toBe(0);
   });
 });
 

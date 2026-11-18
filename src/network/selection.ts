@@ -6,7 +6,7 @@ export type SelectionView = { players: [CharacterPick, CharacterPick | null]; co
 export function validPick(value: unknown): value is CharacterPick {
   if(!value||typeof value!=='object')return false;
   const pick=value as CharacterPick;
-  return ['champignon','andy'].includes(pick.character)&&typeof pick.ready==='boolean';
+  return ['champignon','andromoss'].includes(pick.character)&&typeof pick.ready==='boolean';
 }
 export function validPicks(value: unknown): value is LobbyPicks {
   return Array.isArray(value)&&value.length===2&&validPick(value[0])&&(value[1]===null||validPick(value[1]));

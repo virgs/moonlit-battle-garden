@@ -50,8 +50,8 @@ export const characters: Record<CharacterId, { name: string; role: string; color
       { name: 'Royal Cleanup', description: 'Sweep the board and block three mistakes for 12 seconds.' },
     ],
   },
-  andy: {
-    name: 'Andy', role: 'The star-stealing troublemaker', color: '#ffb27c', emblem: '✦',
+  andromoss: {
+    name: 'Andromoss', role: 'The star-stealing troublemaker', color: '#ffb27c', emblem: '✦',
     spells: [
       { name: 'Borrowed Spark', description: 'Copy one enemy star. Gain a guard if they have none.' },
       { name: 'Rabbit Riot', description: 'Fill upcoming enemy waves with extra rabbits for 7.5 seconds.' },

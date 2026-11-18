@@ -30,7 +30,7 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     await expect(result).toBeVisible();
     const icon = result.locator('.character-icon');
     await expect(icon).toBeVisible();
-    await expect(icon).toHaveAttribute('data-character', 'andy');
+    await expect(icon).toHaveAttribute('data-character', 'andromoss');
     const iconBox = (await icon.boundingBox())!;
     expect(iconBox.x).toBeGreaterThanOrEqual(0); expect(iconBox.x + iconBox.width).toBeLessThanOrEqual(width);
     expect(await original!.evaluate(canvas=>canvas===document.querySelector('canvas'))).toBe(true);

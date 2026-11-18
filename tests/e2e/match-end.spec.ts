@@ -21,7 +21,7 @@ test('match victory has no buttons, ignores early input and returns to setup onl
   await continueRound(page); await lose(page);
   const result=page.getByRole('region',{name:'Match result'});
   await expect(result).toHaveAttribute('data-ready','false');await expect(page.locator('button:enabled')).toHaveCount(0);
-  await expect(page.getByRole('img',{name:'Andy celebrates victory'})).toBeVisible();
+  await expect(page.getByRole('img',{name:'Andromoss celebrates victory'})).toBeVisible();
   await expect(result.locator('.celebration-trophy')).toHaveCount(0);
   {
     const clip=result.locator('.victory-sheet');

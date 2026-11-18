@@ -1,0 +1,2281 @@
+{
+  "rules": "score-difference",
+  "winningLead": 100,
+  "scorePressure": true,
+  "generatedAt": "2026-11-18T18:58:59.088Z",
+  "revision": "5047f29",
+  "dirty": true,
+  "configHash": "95f65d1d0d8a",
+  "baseSeed": 20261118,
+  "pairedSeedsPerDifficulty": 10,
+  "summaries": [
+    {
+      "difficulty": "easy",
+      "total": 20,
+      "champignon": 10,
+      "andromoss": 10,
+      "draws": 0,
+      "timedOut": 0,
+      "champignonWinRate": 0.5,
+      "andromossWinRate": 0.5,
+      "firstSideWins": 12,
+      "averageSeconds": 135.73,
+      "casts": {
+        "champignon": [
+          152,
+          7,
+          0,
+          0
+        ],
+        "andromoss": [
+          44,
+          14,
+          13,
+          7
+        ]
+      }
+    },
+    {
+      "difficulty": "medium",
+      "total": 20,
+      "champignon": 8,
+      "andromoss": 12,
+      "draws": 0,
+      "timedOut": 0,
+      "champignonWinRate": 0.4,
+      "andromossWinRate": 0.6,
+      "firstSideWins": 14,
+      "averageSeconds": 229.1775,
+      "casts": {
+        "champignon": [
+          235,
+          51,
+          4,
+          0
+        ],
+        "andromoss": [
+          35,
+          35,
+          39,
+          36
+        ]
+      }
+    },
+    {
+      "difficulty": "hard",
+      "total": 20,
+      "champignon": 12,
+      "andromoss": 8,
+      "draws": 0,
+      "timedOut": 0,
+      "champignonWinRate": 0.6,
+      "andromossWinRate": 0.4,
+      "firstSideWins": 12,
+      "averageSeconds": 252.905,
+      "casts": {
+        "champignon": [
+          170,
+          53,
+          24,
+          3
+        ],
+        "andromoss": [
+          39,
+          42,
+          71,
+          39
+        ]
+      }
+    }
+  ],
+  "battles": [
+    {
+      "difficulty": "easy",
+      "seed": 20261118,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 226050,
+      "roundDurationsMs": [
+        92200,
+        54500,
+        79350
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        897,
+        790
+      ],
+      "casts": [
+        [
+          10,
+          1,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          2,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261118,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 274600,
+      "roundDurationsMs": [
+        215250,
+        24450,
+        34900
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        798,
+        674
+      ],
+      "casts": [
+        [
+          2,
+          3,
+          0,
+          2
+        ],
+        [
+          20,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261119,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 73350,
+      "roundDurationsMs": [
+        28050,
+        45300
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        404,
+        198
+      ],
+      "casts": [
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261119,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 85350,
+      "roundDurationsMs": [
+        40900,
+        44450
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        502,
+        298
+      ],
+      "casts": [
+        [
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          6,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261120,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 160550,
+      "roundDurationsMs": [
+        39150,
+        15950,
+        105450
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        518,
+        626
+      ],
+      "casts": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          2,
+          0,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261120,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 107050,
+      "roundDurationsMs": [
+        41350,
+        22000,
+        43700
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        408,
+        513
+      ],
+      "casts": [
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261121,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 165550,
+      "roundDurationsMs": [
+        19100,
+        122150,
+        24300
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        472,
+        577
+      ],
+      "casts": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261121,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 38400,
+      "roundDurationsMs": [
+        19100,
+        19300
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        285,
+        77
+      ],
+      "casts": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261122,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 111300,
+      "roundDurationsMs": [
+        16600,
+        45700,
+        49000
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        438,
+        544
+      ],
+      "casts": [
+        [
+          4,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261122,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 113150,
+      "roundDurationsMs": [
+        19000,
+        42350,
+        51800
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        397,
+        503
+      ],
+      "casts": [
+        [
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          4,
+          1,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261123,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 174100,
+      "roundDurationsMs": [
+        73850,
+        44150,
+        56100
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        777,
+        883
+      ],
+      "casts": [
+        [
+          11,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          2,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261123,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 168700,
+      "roundDurationsMs": [
+        80550,
+        21000,
+        67150
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        668,
+        780
+      ],
+      "casts": [
+        [
+          5,
+          0,
+          0,
+          1
+        ],
+        [
+          11,
+          1,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261124,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 135550,
+      "roundDurationsMs": [
+        71950,
+        63600
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        719,
+        509
+      ],
+      "casts": [
+        [
+          7,
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261124,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 225300,
+      "roundDurationsMs": [
+        66000,
+        159300
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        776,
+        564
+      ],
+      "casts": [
+        [
+          3,
+          1,
+          2,
+          0
+        ],
+        [
+          10,
+          1,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261125,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 166250,
+      "roundDurationsMs": [
+        19400,
+        25400,
+        121450
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        714,
+        602
+      ],
+      "casts": [
+        [
+          12,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261125,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 128900,
+      "roundDurationsMs": [
+        19400,
+        25600,
+        83900
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        586,
+        482
+      ],
+      "casts": [
+        [
+          2,
+          1,
+          1,
+          0
+        ],
+        [
+          7,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261126,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 83900,
+      "roundDurationsMs": [
+        58950,
+        24950
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        458,
+        257
+      ],
+      "casts": [
+        [
+          3,
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261126,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 172200,
+      "roundDurationsMs": [
+        60700,
+        74350,
+        37150
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        744,
+        843
+      ],
+      "casts": [
+        [
+          2,
+          1,
+          2,
+          0
+        ],
+        [
+          11,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261127,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 45600,
+      "roundDurationsMs": [
+        18300,
+        27300
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        347,
+        141
+      ],
+      "casts": [
+        [
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "easy",
+      "seed": 20261127,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 58750,
+      "roundDurationsMs": [
+        26300,
+        32450
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        356,
+        146
+      ],
+      "casts": [
+        [
+          2,
+          2,
+          0,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261118,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 252750,
+      "roundDurationsMs": [
+        94000,
+        44650,
+        114100
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2592,
+        2690
+      ],
+      "casts": [
+        [
+          10,
+          2,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          3,
+          2
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261118,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 402250,
+      "roundDurationsMs": [
+        155650,
+        135600,
+        111000
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        4567,
+        4471
+      ],
+      "casts": [
+        [
+          2,
+          5,
+          4,
+          1
+        ],
+        [
+          23,
+          4,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261119,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 232050,
+      "roundDurationsMs": [
+        78450,
+        75650,
+        77950
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2368,
+        2267
+      ],
+      "casts": [
+        [
+          8,
+          4,
+          0,
+          0
+        ],
+        [
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261119,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 197650,
+      "roundDurationsMs": [
+        99100,
+        98550
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2406,
+        2194
+      ],
+      "casts": [
+        [
+          1,
+          3,
+          1,
+          1
+        ],
+        [
+          10,
+          3,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261120,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 275850,
+      "roundDurationsMs": [
+        84100,
+        166850,
+        24900
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        3122,
+        3018
+      ],
+      "casts": [
+        [
+          18,
+          3,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          4
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261120,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 226100,
+      "roundDurationsMs": [
+        145850,
+        80250
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2684,
+        2471
+      ],
+      "casts": [
+        [
+          2,
+          0,
+          4,
+          2
+        ],
+        [
+          10,
+          4,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261121,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 215350,
+      "roundDurationsMs": [
+        78450,
+        52350,
+        84550
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2399,
+        2294
+      ],
+      "casts": [
+        [
+          4,
+          4,
+          2,
+          0
+        ],
+        [
+          4,
+          1,
+          1,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261121,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 263400,
+      "roundDurationsMs": [
+        197300,
+        20250,
+        45850
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2771,
+        2869
+      ],
+      "casts": [
+        [
+          3,
+          2,
+          3,
+          2
+        ],
+        [
+          17,
+          0,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261122,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 97350,
+      "roundDurationsMs": [
+        42500,
+        54850
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1029,
+        826
+      ],
+      "casts": [
+        [
+          3,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261122,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 147200,
+      "roundDurationsMs": [
+        62150,
+        85050
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1604,
+        1394
+      ],
+      "casts": [
+        [
+          1,
+          2,
+          1,
+          1
+        ],
+        [
+          8,
+          2,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261123,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 2,
+      "durationMs": 118300,
+      "roundDurationsMs": [
+        101100,
+        17200
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1110,
+        1325
+      ],
+      "casts": [
+        [
+          6,
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261123,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 160150,
+      "roundDurationsMs": [
+        57250,
+        102900
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1747,
+        1539
+      ],
+      "casts": [
+        [
+          3,
+          2,
+          2,
+          0
+        ],
+        [
+          9,
+          2,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261124,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 251450,
+      "roundDurationsMs": [
+        81650,
+        84400,
+        85400
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2416,
+        2521
+      ],
+      "casts": [
+        [
+          13,
+          4,
+          0,
+          0
+        ],
+        [
+          2,
+          4,
+          2,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261124,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 238950,
+      "roundDurationsMs": [
+        41050,
+        36700,
+        161200
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2499,
+        2610
+      ],
+      "casts": [
+        [
+          1,
+          1,
+          2,
+          2
+        ],
+        [
+          10,
+          2,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261125,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 377650,
+      "roundDurationsMs": [
+        262600,
+        85150,
+        29900
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        4459,
+        4360
+      ],
+      "casts": [
+        [
+          24,
+          2,
+          0,
+          0
+        ],
+        [
+          2,
+          4,
+          2,
+          4
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261125,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 267450,
+      "roundDurationsMs": [
+        103800,
+        123100,
+        40550
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        3000,
+        2890
+      ],
+      "casts": [
+        [
+          1,
+          2,
+          0,
+          4
+        ],
+        [
+          12,
+          5,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261126,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 305900,
+      "roundDurationsMs": [
+        196100,
+        22550,
+        87250
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        3603,
+        3504
+      ],
+      "casts": [
+        [
+          16,
+          4,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          3,
+          4
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261126,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 308100,
+      "roundDurationsMs": [
+        149850,
+        158250
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        3721,
+        3502
+      ],
+      "casts": [
+        [
+          1,
+          2,
+          4,
+          3
+        ],
+        [
+          18,
+          4,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261127,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 2,
+      "durationMs": 110550,
+      "roundDurationsMs": [
+        89950,
+        20600
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1017,
+        1243
+      ],
+      "casts": [
+        [
+          9,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "medium",
+      "seed": 20261127,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 135100,
+      "roundDurationsMs": [
+        24000,
+        111100
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1480,
+        1275
+      ],
+      "casts": [
+        [
+          0,
+          1,
+          2,
+          1
+        ],
+        [
+          7,
+          1,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261118,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 2,
+      "durationMs": 171650,
+      "roundDurationsMs": [
+        86700,
+        84950
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2129,
+        2342
+      ],
+      "casts": [
+        [
+          7,
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          0,
+          2,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261118,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 2,
+      "durationMs": 156650,
+      "roundDurationsMs": [
+        64950,
+        91700
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1968,
+        2178
+      ],
+      "casts": [
+        [
+          0,
+          0,
+          2,
+          1
+        ],
+        [
+          4,
+          1,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261119,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 252300,
+      "roundDurationsMs": [
+        144800,
+        107500
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        3782,
+        3573
+      ],
+      "casts": [
+        [
+          8,
+          3,
+          0,
+          0
+        ],
+        [
+          2,
+          2,
+          2,
+          3
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261119,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 195850,
+      "roundDurationsMs": [
+        125000,
+        70850
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2693,
+        2486
+      ],
+      "casts": [
+        [
+          3,
+          2,
+          3,
+          0
+        ],
+        [
+          8,
+          1,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261120,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 464450,
+      "roundDurationsMs": [
+        64850,
+        306600,
+        93000
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        7208,
+        7103
+      ],
+      "casts": [
+        [
+          18,
+          6,
+          1,
+          0
+        ],
+        [
+          2,
+          3,
+          7,
+          6
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261120,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 118350,
+      "roundDurationsMs": [
+        53300,
+        65050
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1532,
+        1322
+      ],
+      "casts": [
+        [
+          2,
+          1,
+          2,
+          0
+        ],
+        [
+          1,
+          0,
+          3,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261121,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 188800,
+      "roundDurationsMs": [
+        84250,
+        104550
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2704,
+        2498
+      ],
+      "casts": [
+        [
+          3,
+          1,
+          3,
+          0
+        ],
+        [
+          3,
+          2,
+          2,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261121,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 515450,
+      "roundDurationsMs": [
+        307750,
+        154450,
+        53250
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        7821,
+        7926
+      ],
+      "casts": [
+        [
+          3,
+          3,
+          7,
+          5
+        ],
+        [
+          22,
+          6,
+          1,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261122,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 148550,
+      "roundDurationsMs": [
+        81500,
+        67050
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2049,
+        1837
+      ],
+      "casts": [
+        [
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          3,
+          3,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261122,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 454800,
+      "roundDurationsMs": [
+        136950,
+        88450,
+        229400
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        6862,
+        6960
+      ],
+      "casts": [
+        [
+          3,
+          3,
+          9,
+          4
+        ],
+        [
+          13,
+          8,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261123,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 2,
+      "durationMs": 433300,
+      "roundDurationsMs": [
+        228550,
+        204750
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        6684,
+        6900
+      ],
+      "casts": [
+        [
+          21,
+          7,
+          1,
+          0
+        ],
+        [
+          3,
+          3,
+          4,
+          6
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261123,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 3,
+      "durationMs": 356050,
+      "roundDurationsMs": [
+        160650,
+        111100,
+        84300
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        4939,
+        5049
+      ],
+      "casts": [
+        [
+          7,
+          2,
+          4,
+          4
+        ],
+        [
+          15,
+          4,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261124,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 1,
+      "rounds": 2,
+      "durationMs": 211450,
+      "roundDurationsMs": [
+        73250,
+        138200
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2866,
+        3073
+      ],
+      "casts": [
+        [
+          7,
+          1,
+          2,
+          0
+        ],
+        [
+          1,
+          0,
+          4,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261124,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "champignon",
+      "winnerSide": 1,
+      "rounds": 2,
+      "durationMs": 196350,
+      "roundDurationsMs": [
+        33950,
+        162400
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        2770,
+        2985
+      ],
+      "casts": [
+        [
+          0,
+          2,
+          2,
+          2
+        ],
+        [
+          6,
+          1,
+          0,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261125,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 132900,
+      "roundDurationsMs": [
+        85950,
+        46950
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1842,
+        1631
+      ],
+      "casts": [
+        [
+          3,
+          1,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          2,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261125,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 3,
+      "durationMs": 422350,
+      "roundDurationsMs": [
+        84600,
+        253700,
+        84050
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        6360,
+        6250
+      ],
+      "casts": [
+        [
+          3,
+          6,
+          6,
+          2
+        ],
+        [
+          16,
+          5,
+          1,
+          1
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261126,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 109750,
+      "roundDurationsMs": [
+        53150,
+        56600
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1492,
+        1283
+      ],
+      "casts": [
+        [
+          1,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261126,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 368100,
+      "roundDurationsMs": [
+        77050,
+        291050
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        5840,
+        5620
+      ],
+      "casts": [
+        [
+          0,
+          6,
+          6,
+          3
+        ],
+        [
+          14,
+          3,
+          2,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261127,
+      "characters": [
+        "champignon",
+        "andromoss"
+      ],
+      "winner": "champignon",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 90550,
+      "roundDurationsMs": [
+        49400,
+        41150
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        1225,
+        1014
+      ],
+      "casts": [
+        [
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          0
+        ]
+      ],
+      "timedOut": false
+    },
+    {
+      "difficulty": "hard",
+      "seed": 20261127,
+      "characters": [
+        "andromoss",
+        "champignon"
+      ],
+      "winner": "andromoss",
+      "winnerSide": 0,
+      "rounds": 2,
+      "durationMs": 70450,
+      "roundDurationsMs": [
+        44100,
+        26350
+      ],
+      "unfinishedRoundMs": null,
+      "scores": [
+        848,
+        648
+      ],
+      "casts": [
+        [
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          2,
+          0,
+          0
+        ]
+      ],
+      "timedOut": false
+    }
+  ]
+}

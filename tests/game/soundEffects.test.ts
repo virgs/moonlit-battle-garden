@@ -11,7 +11,7 @@ class AudioStub {
   pause() { this.paused = true; }
 }
 afterEach(() => { vi.unstubAllGlobals(); AudioStub.played=[]; AudioStub.instances=[]; });
-const create = () => new Match({ mode:'local', characters:['champignon','andy'], difficulty:'easy', seed:1 });
+const create = () => new Match({ mode:'local', characters:['champignon','andromoss'], difficulty:'easy', seed:1 });
 it('plays original spawn, charge, hit, impact, rabbit, cast and game-over cues once per event', () => {
   vi.stubGlobal('Audio', AudioStub); const match=create(), effects=new SoundEffects();
   const sync=()=>effects.sync({state:match.state,events:match.events});

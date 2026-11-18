@@ -111,7 +111,7 @@ export class PeerRoom {
   private accept(connection: DataConnection, message: Extract<Wire, { kind: 'hello' }>): void {
     let reason = '';
     if (message.rules !== RULESET) reason = 'Game versions differ. Both players should refresh the game.';
-    else if (!['champignon', 'andy'].includes(message.character) || typeof message.token !== 'string') reason = 'Invalid character selection.';
+    else if (!['champignon', 'andromoss'].includes(message.character) || typeof message.token !== 'string') reason = 'Invalid character selection.';
     else if (this.guestToken && this.guestToken !== message.token) reason = 'This garden already has two players.';
     if (reason) { connection.send({ kind: 'reject', reason }); setTimeout(() => connection.close(), 200); return; }
     const previous = this.conn;

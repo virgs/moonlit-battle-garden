@@ -1,0 +1,24 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Andromoss",
+  "internalCharacterId": "andromoss",
+  "status": "Awaiting user visual review; no model image inspection.",
+  "jobId": "00104979-6dd3-4329-ad29-df4906d5affa",
+  "assetId": "42fb8595-9ad7-50fe-b572-afe5b6d48e23",
+  "request": {
+    "image_url": "https://api.pixellab.ai/mcp/images/f41132a2-bbfc-4482-8c9e-f6a709781642/download",
+    "method": "reference",
+    "reference_image": {
+      "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/icon.png",
+      "usage_description": "Approved icon framing/scale and clean pixel-art style only. Match the generous full-head margins within the square, not the knight's identity, helmet, plume or equipment."
+    },
+    "description": "Create NIGHTSHADE's static head-and-shoulders ICON from his approved alien design. Preserve the EXACT normal-sized alien face, sunglasses, neck gills, rear narrow braid-like appendage and leather-jacket shoulders. The forehead and short crown points are ONE continuous piece of skin/skull: same color/shading, no hairline, separate cap, hair strands or flowing top spikes. Keep the established adult proportions and original skin colors. Recompose as a clean fully visible bust within the unchanged 192x192 square. Crucial framing: center the complete head around x=104, leave at least 16 transparent pixels at both sides and above the tallest crown point, show the ENTIRE head and rear braid inside the frame, never an extreme close-up or cropped head fragment. Crop the body naturally below the shoulders, not through the head. Use the reference icon only for clean bold outlines, framing/margins and readability at 32px; do not copy helmet, cyan visor, red plume or armor. Flat shading and broad color clusters, no dead pixels or gritty details. No hook, chain, hands, tail, frame, text, scenery or magic effects. Transparent background.",
+    "no_background": true,
+    "use_color_palette_correction": false,
+    "seed": 2026111816
+  },
+  "costGenerations": 6,
+  "installedSha256": "da5c77e60fd88f5efd89c98dcfb888ba41be5234d2569c38562b28218245bbad",
+  "namingNote": "Generated with the provisional name Nightshade before the user chose Andromoss. Exact generation prompts retained."
+}

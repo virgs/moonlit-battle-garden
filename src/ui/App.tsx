@@ -18,7 +18,7 @@ export function App() {
   const [title, setTitle] = useState(()=>!new URLSearchParams(location.search).has('join'));
   const [pane, setPane] = useState<MenuPane>(()=>new URLSearchParams(location.search).has('join')?'online':'ai');
   const [character, setCharacter] = useState<CharacterId>('champignon');
-  const [opponent, setOpponent] = useState<CharacterId>('andy');
+  const [opponent, setOpponent] = useState<CharacterId>('andromoss');
   const [difficulty, setDifficulty] = useState<Difficulty>('medium');
   const [sound, setSound] = useState(()=>{try{return localStorage.getItem('moonlit-sound')!=='off';}catch{return true;}});
   useEffect(()=>{try{localStorage.setItem('moonlit-sound',sound?'on':'off');}catch{/* Storage is optional. */}},[sound]);

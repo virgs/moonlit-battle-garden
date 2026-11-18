@@ -17,7 +17,7 @@ afterEach(() => { vi.unstubAllGlobals(); FakeAudio.instances = []; });
 
 it('starts home music only on sound opt-in, and pauses it for pause, mute, round end, and exit', () => {
   vi.stubGlobal('Audio', FakeAudio);
-  const session = new Session({ characters: ['champignon', 'andy'], mode: 'local', difficulty: 'easy', seed: 1 });
+  const session = new Session({ characters: ['champignon', 'andromoss'], mode: 'local', difficulty: 'easy', seed: 1 });
   expect(FakeAudio.instances).toHaveLength(0);
   session.toggleSound();
   const music = FakeAudio.instances.find(audio => audio.src === session.home.music.src)!;

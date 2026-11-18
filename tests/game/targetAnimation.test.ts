@@ -29,7 +29,7 @@ it('selects the same animation rows for stars/rabbits and all eight hit frames',
 });
 it('rabbit hits carry explicit sprite metadata even when a guard absorbs the penalty', () => {
   for (const shield of [0, 1]) {
-    const match = new Match({ mode: 'local', characters: ['champignon', 'andy'], difficulty: 'easy', seed: 1 });
+    const match = new Match({ mode: 'local', characters: ['champignon', 'andromoss'], difficulty: 'easy', seed: 1 });
     match.advance(3000);
     const player = match.state.players[0];
     player.mistakeShield = shield; player.shieldUntil = 10000;

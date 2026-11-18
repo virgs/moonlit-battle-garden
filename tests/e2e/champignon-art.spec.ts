@@ -1,13 +1,14 @@
 import { expect, test } from '@playwright/test';
 import { openSelection, enterMatch } from './frontMenu';
 
-test('Champignon uses real idle, victory and shared casting sprites', async ({ page }, testInfo) => {
+for (const character of ['champignon', 'andromoss'] as const) test(`${character}: real idle, victory and shared casting sprites`, async ({ page }, testInfo) => {
   await page.clock.install();
   const failures: string[] = [];
   page.on('response', response => {
-    if (response.url().includes('/assets/characters/champignon/') && /\/(standing|victory|cast)\.png$/.test(response.url()) && response.status() >= 400) failures.push(response.url());
+    if (response.url().includes(`/assets/characters/${character}/`) && /\/(standing|victory|cast)\.png$/.test(response.url()) && response.status() >= 400) failures.push(response.url());
   });
   await openSelection(page);
+  if (character === 'andromoss') await page.getByRole('button', { name: 'Next character for Player 1' }).click();
   const own = page.locator('.carousel-side-0');
   const idle = own.locator('.standing-hero');
   await expect(idle).toHaveAttribute('data-asset', 'ready');
@@ -15,28 +16,28 @@ test('Champignon uses real idle, victory and shared casting sprites', async ({ p
   const initial = await idle.getAttribute('data-frame');
   await page.clock.runFor(400);
   expect(await idle.getAttribute('data-frame')).not.toBe(initial);
-  await page.screenshot({ path: testInfo.outputPath('champignon-idle.png') });
+  await page.screenshot({ path: testInfo.outputPath(`${character}-idle.png`) });
   await page.getByRole('button', { name: 'Confirm Player 1' }).click();
   const victory = own.locator('.victory-sheet');
   await expect(victory).toBeVisible();
   await page.clock.runFor(400);
   expect(Number(await victory.getAttribute('data-frame'))).toBeGreaterThan(0);
-  await page.screenshot({ path: testInfo.outputPath('champignon-victory.png') });
+  await page.screenshot({ path: testInfo.outputPath(`${character}-victory.png`) });
   await enterMatch(page);
   const garden = page.locator('.player-0');
   for (let tick = 0; tick < 240 && !await garden.locator('.hole[data-kind="star"]:enabled').count(); tick++) await page.clock.runFor(50);
   await garden.locator('.hole[data-kind="star"]').first().click();
   await garden.getByRole('button', { name: /Cast magic/ }).click();
-  const cast = page.locator('.cast-banner[data-character="champignon"]');
+  const cast = page.locator(`.cast-banner[data-character="${character}"]`);
   await expect(cast).toHaveAttribute('data-asset', 'ready');
-  await expect(cast.locator('.cast-art image')).toHaveAttribute('href', '/assets/characters/champignon/cast.png');
+  await expect(cast.locator('.cast-art image')).toHaveAttribute('href', `/assets/characters/${character}/cast.png`);
   await expect(cast.locator('.cast-stars')).toHaveAttribute('data-cost', '1');
   const gameTime = await page.locator('.match-screen').getAttribute('data-time');
   await page.clock.runFor(400);
   expect(Number(await cast.getAttribute('data-frame'))).toBeGreaterThan(0);
   await expect(page.locator('.match-screen')).toHaveAttribute('data-time', gameTime!);
   await expect(garden.locator('.hole:enabled')).toHaveCount(0);
-  await page.screenshot({ path: testInfo.outputPath('champignon-cast.png') });
+  await page.screenshot({ path: testInfo.outputPath(`${character}-cast.png`) });
   await page.clock.runFor(1200);
   await expect(cast).toHaveCount(0);
   expect(failures).toEqual([]);

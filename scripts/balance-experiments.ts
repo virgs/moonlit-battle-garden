@@ -41,7 +41,7 @@ const profiles=[
   {name:'random-wave-errors-feedback',accuracy:0.92,accuracies:{easy:0.70,medium:0.87},pacing:{...pace,minIntervalMs:300,intervalPeak:0.4,scoreIntervalReduction:0.05,scoreLifetimeReduction:0.05},timing:humanTiming},
 ].filter(profile=>!requested||requested.includes(profile.name));
 if(!profiles.length||requested?.some(name=>!profiles.some(profile=>profile.name===name)))throw new Error('Unknown --profiles entry.');
-const matchups:[CharacterId,CharacterId][]=[['andy','andy'],['champignon','champignon'],['champignon','andy'],['andy','champignon']];
+const matchups:[CharacterId,CharacterId][]=[['andromoss','andromoss'],['champignon','champignon'],['champignon','andromoss'],['andromoss','champignon']];
 const quantile=(values:number[],p:number)=>values.length?[...values].sort((a,b)=>a-b)[Math.min(values.length-1,Math.floor(values.length*p))]/1000:null;
 const summaries=[];const battles=[];const cache=new Map<string,BattleResult>();let actualMatches=0;
 for(const profile of profiles){
@@ -54,8 +54,8 @@ for(const profile of profiles){
   config.ai.hard.accuracy=profile.accuracy;
   const configHash=createHash('sha256').update(JSON.stringify(config)).digest('hex').slice(0,12);
   for(const difficulty of ['easy','medium','hard'] as Difficulty[]){
-    for(const mode of ['andy-mirror','champignon-mirror','mixed'] as const){
-      const selected=mode==='mixed'?matchups.slice(2):[matchups[mode==='andy-mirror'?0:1]];
+    for(const mode of ['andromoss-mirror','champignon-mirror','mixed'] as const){
+      const selected=mode==='mixed'?matchups.slice(2):[matchups[mode==='andromoss-mirror'?0:1]];
       const results:BattleResult[]=[];let champWins=0;const wins=[0,0],casts=[[0,0,0,0],[0,0,0,0]];
       for(const characters of selected)for(let n=0;n<count;n++){
         const matchSeed=spread?spreadSeed(seed+n):seed+n;

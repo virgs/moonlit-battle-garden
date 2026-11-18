@@ -25,7 +25,7 @@ function interval(wins:number,total:number){
 const quantile=(values:number[],fraction:number)=>[...values].sort((a,b)=>a-b)[Math.min(values.length-1,Math.floor(values.length*fraction))]/1000;
 const summaries=[];
 const battles=[];
-for(const character of ['andy','champignon'] as CharacterId[])for(const difficulty of ['easy','medium','hard'] as Difficulty[]){
+for(const character of ['andromoss','champignon'] as CharacterId[])for(const difficulty of ['easy','medium','hard'] as Difficulty[]){
   const wins:[number,number]=[0,0],casts:[number[],number[]]=[[0,0,0,0],[0,0,0,0]];
   let timedOut=0,noWinner=0;
   const durations:number[]=[];

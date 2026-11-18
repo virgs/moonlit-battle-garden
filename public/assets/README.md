@@ -4,7 +4,7 @@
 
 The repository's license is preserved in `MOLECIDE-LICENSE.txt`. Original Dig Hole Battle Garden graphics are credited to Bruno Moraes in its README. Complete per-asset provenance review before a public release; repository presence alone does not establish ownership of every sound or music track.
 
-PixelLab victory animation sheets for Champignon and Andy are bundled; provenance is in characters/victory-provenance.json. The final portrait, cast, and home asset slots now have working loaders/playback and safe fallbacks. See [ASSET-CONTRACT.md](ASSET-CONTRACT.md) for the remaining drop-in files and `pnpm assets:check`. The castle and shared music remain fallbacks. The later root.png/life.png are retained as source references but are no longer rendered.
+PixelLab victory animation sheets for Champignon and Andromoss are bundled; provenance is in characters/victory-provenance.json. The final portrait, cast, and home asset slots now have working loaders/playback and safe fallbacks. See [ASSET-CONTRACT.md](ASSET-CONTRACT.md) for the remaining drop-in files and `pnpm assets:check`. The castle and shared music remain fallbacks. The later root.png/life.png are retained as source references but are no longer rendered.
 
 ## Oldest game assets restored
 
@@ -27,7 +27,7 @@ RGB pixels are preserved, with Allegro's magenta mask converted to transparency.
 Music and effects start enabled on match entry. The entry/Create/Join gesture unlocks Web Audio and primes the reusable music element. The existing shared MP3 is the home-music fallback; distinct sourced home tracks are now bundled; see homes/CREDITS.md. Mute, pause, interruption and exit silence playback appropriately. Simultaneous spawn sounds are coalesced; at most 12 Web Audio voices overlap. The original MIDI collection is retained in the source reference repository rather than bundled as browser-playable music.
 
 
-Named hero victory illustrations `legacy/champignon-hero.png` and `legacy/andy-hero.png` come from digHoleBattleGarden/Personagens/SIR CHAMPIGNON.bmp and ANDY.bmp. They preserve source RGB pixels with the exact magenta mask converted to alpha, using `convert_bmp` in scripts/import-legacy-art.py (now supporting 24-bit BMP). They are static error fallbacks; match victories play generated sprite sheets with actual pose changes. The prototype’s unrelated robot/sumo victory sheets are not presented as these heroes.
+Named hero victory illustrations `legacy/champignon-hero.png` and `legacy/andromoss-hero.png` come from digHoleBattleGarden/Personagens/SIR CHAMPIGNON.bmp and ANDY.bmp. They preserve source RGB pixels with the exact magenta mask converted to alpha, using `convert_bmp` in scripts/import-legacy-art.py (now supporting 24-bit BMP). They are static error fallbacks; match victories play generated sprite sheets with actual pose changes. The prototype’s unrelated robot/sumo victory sheets are not presented as these heroes.
 
 ## Pause-menu input sprites
 
@@ -35,4 +35,4 @@ Named hero victory illustrations `legacy/champignon-hero.png` and `legacy/andy-h
 
 ## Sourced character homes
 
-Champignon's Sporelight Keep uses Castle in the Dark (biodegradableguy) and Forest Whisper Theme (Cleyton Kauffman). Andy's Moonlit Hideout uses Dark forest (Vladimir Hovakimyan / Val_DeMar) and Magic Town (controllerhead). All four source works are CC0 1.0. See [credits and source details](homes/CREDITS.md), homes/provenance.json for exact URLs/hashes/preparation, and homes/LICENSE-CC0.txt. The original castle and shared music remain runtime error fallbacks. The new static backgrounds preserve source pixels and uniform scaling; no new imagery or music was generated.
+Champignon's Sporelight Keep uses Castle in the Dark (biodegradableguy) and Forest Whisper Theme (Cleyton Kauffman). Andromoss's Moonlit Hideout uses Dark forest (Vladimir Hovakimyan / Val_DeMar) and Magic Town (controllerhead). All four source works are CC0 1.0. See [credits and source details](homes/CREDITS.md), homes/provenance.json for exact URLs/hashes/preparation, and homes/LICENSE-CC0.txt. The original castle and shared music remain runtime error fallbacks. The new static backgrounds preserve source pixels and uniform scaling; no new imagery or music was generated.

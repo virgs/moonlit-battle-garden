@@ -3,7 +3,7 @@ import { openSelection } from './frontMenu';
 
 declare global { interface Window { homeAudio?: HTMLAudioElement[] } }
 
-for(const character of ['champignon','andy'] as const)test(`${character}: sourced home art and music load and the real track loops`,async({page})=>{
+for(const character of ['champignon','andromoss'] as const)test(`${character}: sourced home art and music load and the real track loops`,async({page})=>{
   const failed:string[]=[];
   page.on('response',response=>{if(response.url().includes('/assets/homes/')&&response.status()>=400)failed.push(response.url());});
   await page.addInitScript(()=>{

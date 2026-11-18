@@ -47,15 +47,15 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
       };
     });
     const {bar,art}=geometry;
-    expect(geometry.icons.map(icon=>icon.character)).toEqual(['andy','champignon']);
+    expect(geometry.icons.map(icon=>icon.character)).toEqual(['andromoss','champignon']);
     for(const [id,icon] of geometry.icons.entries()){
-      expect(icon.state).toBe(icon.character==='champignon'?'ready':'fallback');expect(icon.width).toBeGreaterThanOrEqual(18);
+      expect(icon.state).toBe('ready');expect(icon.width).toBeGreaterThanOrEqual(18);
       expect(icon.height).toBe(icon.width);expect(icon.y+icon.height).toBeLessThanOrEqual(geometry.trophies[id].y);
       expect(icon.x).toBeGreaterThanOrEqual(0);expect(icon.x+icon.width).toBeLessThanOrEqual(width);
     }
     expect(art.width/art.height).toBeCloseTo(499/45,1); expect(geometry.meters).toBe(1);
     if(width===844&&height===390)expect(geometry.verticalStars).toBe(2);
-    expect(geometry.names.map(name=>name.text)).toEqual(['Andy','Sir Champignon']);
+    expect(geometry.names.map(name=>name.text)).toEqual(['Andromoss','Sir Champignon']);
     expect(geometry.legendFont).toBe('Almendra, Georgia, serif');
     expect((geometry.shadow.match(/rgb\(/g)??[]).length).toBeGreaterThanOrEqual(8);
     expect(geometry.shadow).toContain(' -2px -2px 0px'); expect(geometry.names.every(name=>name.fits)).toBe(true);

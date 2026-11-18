@@ -5,7 +5,7 @@ import { pacingAt, playerPacingAt, waveDurationMs } from '../../src/game/pacing'
 import type { PlayerId, Target } from '../../src/game/types';
 
 const create = () => {
-  const match = new Match({ characters: ['champignon', 'andy'], mode: 'local', difficulty: 'medium', seed: 77 });
+  const match = new Match({ characters: ['champignon', 'andromoss'], mode: 'local', difficulty: 'medium', seed: 77 });
   match.advance(config.countdownMs);
   return match;
 };

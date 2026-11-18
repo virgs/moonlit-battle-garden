@@ -9,7 +9,7 @@ afterEach(()=>{
   Object.assign(config.ai.hard,original);
 });
 function garden(){
-  const match=new Match({characters:['andy','andy'],mode:'local',difficulty:'hard',seed:123});
+  const match=new Match({characters:['andromoss','andromoss'],mode:'local',difficulty:'hard',seed:123});
   match.state.phase='playing';match.state.time=0;
   match.state.players[0].holes[0]={id:1,kind:'mole',born:0,expires:10000};
   return match;

@@ -119,6 +119,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D78 | User likes Nightshade v4’s normal-head direction and requests two refinements only: a thinner lion-like body tail with a small tip tuft, and a much narrower rear ponytail/head appendage resembling a single slim Padawan braid. Preserve the approved head/forehead continuity, gills, body and outfit. Continue user-only visual review. |
 
+| D79 | User approved the alien base-v5 and authorized subtle idle, expressive victory, one shared casting animation with character-themed magic, and an icon. Keep native 192×192 frames and the existing 1.5-second cast freeze/stars-spent overlay. User-only visual review remains required. |
+
+| D80 | User selects **Andromoss**, replacing provisional Nightshade and legacy Andy. Keep display and internal names closely aligned: use `andromoss` for runtime character IDs, CSS selectors, asset/home folders, configuration, tests and diagnostics. Supersedes D64’s stable-ID direction for this character. Preserve exact old generation prompts, source identity and historical balance reports. Retain the approved minibio: “A wanderer from Andromeda who discovered that the brightest stars grow in moonlit gardens.” Bump wire compatibility so mixed old/new builds cannot join. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

@@ -32,9 +32,9 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await expect(guest.locator('.character-carousel')).toHaveCount(2);
   await expect(guest.getByRole('button',{name:'Confirm You'})).toBeEnabled({timeout:15_000});
   await guest.getByRole('button',{name:'Next character for You'}).click();
-  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andy');
+  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andromoss');
   await page.getByRole('button',{name:'Next character for You'}).click();
-  await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','andy');
+  await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','andromoss');
   await page.getByRole('button',{name:'Next character for You'}).click();
   await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');
   await guest.getByRole('button',{name:'Confirm You'}).click();
@@ -57,7 +57,7 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await expect(page.locator('.match-screen')).toBeVisible({ timeout: 15000 });
   await expect(guest.locator('.match-screen')).toBeVisible({ timeout: 15000 });
   await expect(page.locator('.player-0')).toHaveAttribute('data-character', 'champignon');
-  await expect(guest.locator('.player-0')).toHaveAttribute('data-character', 'andy');
+  await expect(guest.locator('.player-0')).toHaveAttribute('data-character', 'andromoss');
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await expect(guest.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   await expect(guest.locator('.player-0 .hole[data-kind="mole"]').first()).toBeEnabled();

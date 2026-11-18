@@ -1,6 +1,6 @@
 # Characters and magic
 
-Status: all eight concepts were adopted on 2026-11-16. Sir Champignon and Andy are the initial implemented pair. Spell names, numbers, durations, and interactions remain provisional; see prototype.md for actual behavior.
+Status: all eight concepts were adopted on 2026-11-16. Sir Champignon and Andromoss are the initial implemented pair. Spell names, numbers, durations, and interactions remain provisional; see prototype.md for actual behavior.
 
 These spell assignments are new remake designs. The original repository has named artwork but only generic test loadouts, so do not describe these as recovered historical kits.
 
@@ -8,12 +8,12 @@ Artwork source: https://github.com/virgs/digHoleBattleGarden/tree/master/Persona
 
 ## Approved identities and homes
 
-Approved on 2026-11-17. These are eccentric caretakers of different corners of the same enchanted garden. The user approved all eight proposed identities, home/music assignments and minibios, simplifying Andy Nightshade, Dindo Duskmantle and Urthgar Rootbeard to **Nightshade**, **Duskmantle** and **Rootbeard**. Use those names consistently, including on the HUD. Original names below remain artwork/implementation references, not alternate display names. Runtime renaming and future roster expansion remain separate implementation work; keep stable internal IDs and asset paths.
+Approved on 2026-11-17. These are eccentric caretakers of different corners of the same enchanted garden. The user approved all eight proposed identities, home/music assignments and minibios, initially choosing Nightshade, Duskmantle and Rootbeard as simplified names. On 2026-11-18 the user replaced Nightshade (legacy Andy) with **Andromoss**. Use those names consistently, including on the HUD. Original names below remain artwork/implementation references, not alternate display names. D80 supersedes the earlier stable-ID direction: Andromoss uses `andromoss` throughout runtime IDs, asset folders and configuration. Original source names and historical reports remain historical records.
 
 | Display name | Original identity | Home | Existing music |
 | --- | --- | --- | --- |
 | Sir Champignon | Sir Champignon | Sporelight Keep | Forest Whisper Theme |
-| Nightshade | Andy | Moonlit Hideout | Magic Town |
+| Andromoss | Andy (legacy source) | Moonlit Hideout | Magic Town |
 | Captain Bramble | Capitão Katyroba | Mossroot Path | Glizzy Elf Forest — Forest Loop |
 | Duskmantle | Dindo | Violet Veil | Void Estate |
 | Sprig | E-Mailson | Lanternbloom Garden | Exploration Theme |
@@ -27,9 +27,9 @@ Approved on 2026-11-17. These are eccentric caretakers of different corners of t
 
 With a mushroom shield and a well-worn broom, Sir Champignon guards the garden’s smallest inhabitants. He takes every oath seriously—even the one about keeping rabbits out of the cabbages.
 
-**Nightshade — Borrower of Stars**
+**Andromoss — Borrower of Stars**
 
-Nightshade knows every shortcut through the hedges and every hiding place beneath them. Stars have a habit of finding their way into his pockets. He insists they’re happier there.
+A wanderer from Andromeda who discovered that the brightest stars grow in moonlit gardens.
 
 **Captain Bramble — The Unmovable Gardener**
 
@@ -59,7 +59,7 @@ Rootbeard followed the scent of mushroom stew into Whispering Wood and never fou
 
 | Character | Original appearance | Remake role |
 | --- | --- | --- |
-| Andy (Nightshade) | Alien with a normal-sized adult head, fixed skin-continuous crown points and visible neck gills, sunglasses, leather jacket, chain and hook | Trickster; stars and disruption |
+| Andromoss (legacy Andy) | Alien with a normal-sized adult head, fixed skin-continuous crown points and visible neck gills, sunglasses, leather jacket, chain and hook | Trickster; stars and disruption |
 | Capitão Katyroba | Muscular, long-tailed animal with folded arms; line-art portrait | Brawler; armor and endurance |
 | Dindo | Long bangs, huge scarf, cloak; line-art portrait | Curse specialist; draining and marked targets |
 | E-Mailson | Robot with an @ emblem and mechanical claws | Automation and assistance |
@@ -72,7 +72,7 @@ Rootbeard followed the scent of mushroom stew into Whispering Wood and never fou
 
 | Character | 1 star | 2 stars | 3 stars | 4 stars |
 | --- | --- | --- | --- | --- |
-| Andy | Copy one enemy star | Rabbit invasion | Steal a limited number of stars | Burst of decoy-heavy target waves |
+| Andromoss | Copy one enemy star | Rabbit invasion | Steal a limited number of stars | Burst of decoy-heavy target waves |
 | Capitão Katyroba | Block the next mistake's damage | Give enemy moles helmets | Absorb several mistakes temporarily | Short wave of heavily armored enemy moles |
 | Dindo | Mark the next enemy mole; missing it hurts more | Brief target camouflage | Successful hits gradually recover points | Curse several upcoming enemy moles with larger miss penalties |
 | E-Mailson | Extend current targets' lifetimes | Safely automate one column | Cancel an incoming debuff | Brief automation of mole clearing across the board |
@@ -83,12 +83,12 @@ Rootbeard followed the scent of mushroom stew into Whispering Wood and never fou
 
 ## Initial two-character proposal
 
-**Sir Champignon and Andy** offer contrasting defense and disruption and are the current implementation defaults following authorization to start coding.
+**Sir Champignon and Andromoss** offer contrasting defense and disruption and are the current implementation defaults following authorization to start coding.
 
 The prototype resolves the following with provisional rules in prototype.md; revisit through playtesting:
 
-- Andy's one-star copying versus the proposed consume-all-stars rule: net charge, timing of cost/reward, and protection against repeated resource generation.
-- Andy's three-star steal cap, transfer rules, and behavior when the opponent has no stars.
+- Andromoss's one-star copying versus the proposed consume-all-stars rule: net charge, timing of cost/reward, and protection against repeated resource generation.
+- Andromoss's three-star steal cap, transfer rules, and behavior when the opponent has no stars.
 - How rabbit invasion differs from decoy-heavy waves; decoys must have a readable identification rule.
 - Sir Champignon's mistake shield: charges, duration, and whether all mistake types qualify.
 - Sweep targeting and rewards, including rabbits and collectible stars.
@@ -97,7 +97,7 @@ The prototype resolves the following with provisional rules in prototype.md; rev
 
 ## Roster refinement backlog
 
-- Differentiate Andy and Miyaya's decoy/rabbit effects.
+- Differentiate Andromoss and Miyaya's decoy/rabbit effects.
 - Differentiate Katyroba and Urthgar's armor effects.
 - Define Ming-Ding-Go's protective timing window concretely.
 - Give camouflage a visible outline rather than making targets entirely unreadable.
@@ -128,16 +128,22 @@ The current sheets contain the starting pose plus four generated idle frames (fi
 - Casting magic is part of the one shared character casting animation. It does not replace each spell’s separate active-effect visuals.
 - The user reviews all generated images and animations; perform technical file/playback checks only.
 
-Sir Champignon’s static character icon is installed at `public/assets/characters/champignon/icon.png` (transparent 192×192), based on approved base-v3, for HUD, pause and round results. Exact prompt/job record: `icon-provenance.json`. The larger portrait remains optional; the user reviews the icon. Nightshade is the next character art pass.
+Sir Champignon’s static character icon is installed at `public/assets/characters/champignon/icon.png` (transparent 192×192), based on approved base-v3, for HUD, pause and round results. Exact prompt/job record: `icon-provenance.json`. The larger portrait remains optional; the user reviews the icon. Andromoss is the next character art pass.
 
-### Nightshade art pass
+### Andromoss art pass
 
-Authorized after the user approved Champignon’s final icon framing. The first 192×192 base design is staged at `public/assets/characters/andy/base.png`, with prompts/references in `base-provenance.json`. Preserve the corrected identity: alien with face/scalp-continuous spikes (not blond hair), visible neck gills, sunglasses, leather jacket, short chain and hook. Include the user-permitted slim tail and small ponytail-like rear head appendage as alien anatomy. Draw fresh clean adult proportions using approved Champignon and the final game artwork as style references. The user reviews the base before animation/icon generation; existing runtime sheets remain unchanged. Home/music remain Moonlit Hideout / Magic Town.
+Authorized after the user approved Champignon’s final icon framing. The first 192×192 base design is staged at `public/assets/characters/andromoss/base.png`, with prompts/references in `base-provenance.json`. Preserve the corrected identity: alien with face/scalp-continuous spikes (not blond hair), visible neck gills, sunglasses, leather jacket, short chain and hook. Include the user-permitted slim tail and small ponytail-like rear head appendage as alien anatomy. Draw fresh clean adult proportions using approved Champignon and the final game artwork as style references. The user reviews the base before animation/icon generation; existing runtime sheets remain unchanged. Home/music remain Moonlit Hideout / Magic Town.
 
-Nightshade v2 is staged in `public/assets/characters/andy/base-v2.png`, with the full correction prompt in `base-provenance-v2.json`. Skin continues across face and spike crown without a hairline; gills are visible on the neck. Tail and head tendril share the skin material. Avoid stray/dead pixels and noisy single-pixel shading. The initial human/hair interpretation is superseded by the user’s alien identity correction.
+Andromoss v2 is staged in `public/assets/characters/andromoss/base-v2.png`, with the full correction prompt in `base-provenance-v2.json`. Skin continues across face and spike crown without a hairline; gills are visible on the neck. Tail and head tendril share the skin material. Avoid stray/dead pixels and noisy single-pixel shading. The initial human/hair interpretation is superseded by the user’s alien identity correction.
 
-Nightshade v2’s head was rejected as too wide and balloon-like. The intermediate request for a long, very thin straw-like head was superseded by D77: use normal adult head proportions. V3 (`base-v3.png`, record `base-provenance-v3.json`) is the head-only correction; body and outfit should remain intact. The user evaluates the result.
+Andromoss v2’s head was rejected as too wide and balloon-like. The intermediate request for a long, very thin straw-like head was superseded by D77: use normal adult head proportions. V3 (`base-v3.png`, record `base-provenance-v3.json`) is the head-only correction; body and outfit should remain intact. The user evaluates the result.
 
-Current Nightshade head direction (D77): normal-sized adult head; the forehead continues directly into short, rigid skin points along its outer top contour. No division, hairline, separate cap, different hair color, strands or windblown hairstyle. Crown points remain fixed with the skull in future animation. Retain neck gills, tail and the small rear head tendril. The current review draft is `base-v4.png`, with its prompt in `base-provenance-v4.json`.
+Current Andromoss head direction (D77): normal-sized adult head; the forehead continues directly into short, rigid skin points along its outer top contour. No division, hairline, separate cap, different hair color, strands or windblown hairstyle. Crown points remain fixed with the skull in future animation. Retain neck gills, tail and the small rear head tendril. The current review draft is `base-v4.png`, with its prompt in `base-provenance-v4.json`.
 
-Nightshade refinement D78: preserve v4’s normal-sized head and continuous skin crown. Make the body tail slender and lion-like with a small compact tip tuft; make the rear head appendage a single very thin braid silhouette. Both appendages must remain readable and fit the canvas. The current review draft is `base-v5.png`, with prompt record `base-provenance-v5.json`.
+Andromoss refinement D78: preserve v4’s normal-sized head and continuous skin crown. Make the body tail slender and lion-like with a small compact tip tuft; make the rear head appendage a single very thin braid silhouette. Both appendages must remain readable and fit the canvas. The current review draft is `base-v5.png`, with prompt record `base-provenance-v5.json`.
+
+### Andromoss approved base and installed animation pass
+
+The user approved base-v5 on 2026-11-18, then selected **Andromoss** as his final name. His current internal ID and character/home folders are `andromoss`; historical Andy/Nightshade generation prompts and reports are retained unchanged. Base-v5 preserves the normal adult head, rigid skin-continuous crown, neck gills, slim tufted tail and narrow rear braid. Earlier draft notes above are historical design steps.
+
+Native 192×192 sheets are installed: subtle idle (5 frames, 3 fps), expressive victory (9 frames, 8 fps), and one shared casting clip (9 frames, 9 fps plus 500 ms hold), with a requested violet hook trail and small gold sparks. A static 192×192 icon is installed for HUD/pause/round results. These new outputs await user visual review; file/playback checks do not establish visual quality. Exact prompts remain in `public/assets/characters/andromoss/provenance.json` and `icon-provenance.json`. Spell-effect artwork remains deferred.

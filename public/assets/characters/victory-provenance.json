@@ -23,7 +23,9 @@
       "jobId": "30466069-c461-4438-b447-b2bdbc19d341",
       "assetId": "a04e5839-75ea-5cca-8acb-68fd37eb406f",
       "generations": 3,
-      "action": "Victory loop: bend knees, triumphant hop, raise hands and flash a V sign, land and return to initial pose."
+      "action": "Victory loop: bend knees, triumphant hop, raise hands and flash a V sign, land and return to initial pose.",
+      "supersededBy": "andromoss/provenance.json",
+      "note": "Historical original Andy victory; superseded by the user-approved Andromoss design and new animations on 2026-11-18."
     }
   }
 }

@@ -26,7 +26,7 @@ export function NetworkCheck({role}:{role:'host'|'join'}) {
     const attempts=new Set<number>();
     const publish=()=>{if(!disposed)setReport({...current,hits:[...current.hits],casts:[...current.casts]});};
     const finish=(phase:'passed'|'failed',status:string)=>{current.phase=phase;current.status=status;publish();};
-    const character=role==='host'?'champignon':'andy';
+    const character=role==='host'?'champignon':'andromoss';
     room=new PeerRoom(character,role==='join'?peerId:null,{
       invite:id=>{
         if(role!=='host')return;

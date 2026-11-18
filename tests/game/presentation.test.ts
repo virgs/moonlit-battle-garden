@@ -5,7 +5,7 @@ import { chooseHome } from '../../src/game/homes';
 import type { MatchOptions } from '../../src/game/types';
 import { config } from '../../src/game/config';
 
-const options: MatchOptions = { characters: ['champignon', 'andy'], mode: 'local', difficulty: 'medium', seed: 1234 };
+const options: MatchOptions = { characters: ['champignon', 'andromoss'], mode: 'local', difficulty: 'medium', seed: 1234 };
 function state() { const match = new Match(options); match.state.phase = 'playing'; return match.state; }
 
 it('starts centered and uses only score difference', () => {
@@ -52,7 +52,7 @@ it('selects one participating character home deterministically without consuming
     owners.add(home.owner);
   }
   expect(owners.size).toBe(2);
-  expect(chooseHome({ ...options, characters: ['andy', 'andy'] }).owner).toBe('andy');
+  expect(chooseHome({ ...options, characters: ['andromoss', 'andromoss'] }).owner).toBe('andromoss');
   const before = new Match(options); chooseHome(options); const after = new Match(options);
   before.advance(10000); after.advance(10000);
   expect(after.state).toEqual(before.state);

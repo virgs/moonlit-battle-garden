@@ -4,8 +4,8 @@ import { config } from '../../src/game/config';
 import { presentation, clipDuration, clipFrame, validSheet } from '../../src/presentation/config';
 
 it('captures the tier and logical time before consuming stars, once per successful cast', () => {
-  for (const character of ['champignon', 'andy'] as const) for (const tier of [1, 2, 3, 4]) {
-    const match = new Match({ characters: [character, 'andy'], mode: 'local', difficulty: 'easy', seed: 42 });
+  for (const character of ['champignon', 'andromoss'] as const) for (const tier of [1, 2, 3, 4]) {
+    const match = new Match({ characters: [character, 'andromoss'], mode: 'local', difficulty: 'easy', seed: 42 });
     match.advance(config.countdownMs);
     match.state.players[0].stars = tier;
     match.action({ type: 'cast', player: 0 });
@@ -21,8 +21,8 @@ it('captures the tier and logical time before consuming stars, once per successf
   }
 });
 it('supports grid sprite sheets, clamps the final frame, and honors reduced motion', () => {
-  const clip = { ...presentation.andy.casts[1], columns: 4 };
-  expect(validSheet(clip, 512, 256)).toBe(true);
+  const clip = { ...presentation.andromoss.casts[1], columns: 4 };
+  expect(validSheet(clip, clip.frameWidth * 4, clip.frameHeight * Math.ceil(clip.frameCount / 4))).toBe(true);
   expect(validSheet(clip, 128, 128)).toBe(false);
   expect(clipFrame(clip, 0)).toBe(0);
   expect(clipFrame(clip, 200)).toBeGreaterThan(0);
@@ -31,7 +31,7 @@ it('supports grid sprite sheets, clamps the final frame, and honors reduced moti
 });
 
 it('freezes both players, targets, pending spells and input; manual pause also freezes the cast', () => {
-  const match = new Match({ characters:['champignon','andy'], mode:'local', difficulty:'hard', seed:42 });
+  const match = new Match({ characters:['champignon','andromoss'], mode:'local', difficulty:'hard', seed:42 });
   match.advance(config.countdownMs);
   const player = match.state.players[0]; player.stars = 3;
   match.state.players[1].holes[0] = { id:999, kind:'mole', born:match.state.time, expires:match.state.time + 100 };

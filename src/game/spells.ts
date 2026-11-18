@@ -30,7 +30,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   } else {
     const opponent = state.players[id === 0 ? 1 : 0];
     opponent.pending.push({ tier, from: id, at: state.time + config.spells.warningMs });
-    message(opponent, `Incoming: ${characters.andy.spells[tier - 1].name}`, state.time);
+    message(opponent, `Incoming: ${characters.andromoss.spells[tier - 1].name}`, state.time);
   }
   return true;
 }

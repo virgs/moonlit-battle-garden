@@ -7,9 +7,9 @@ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['la
   expect(await page.locator('.spell-tier-stars').evaluateAll(stars=>stars.map(star=>star.getAttribute('data-stars')))).toEqual(['1','2','3','4','1','2','3','4']);
   await expect(page.getByText('Choose your champions',{exact:true})).toHaveCount(0);
   await expect(page.locator('.carousel-player h2,.carousel-remote-note')).toHaveCount(0);
-  await expect(first).toHaveAttribute('data-character','champignon');await expect(second).toHaveAttribute('data-character','andy');
-  await first.focus();await page.keyboard.press('ArrowRight');await expect(first).toHaveAttribute('data-character','andy');
-  await expect(second).toHaveAttribute('data-character','andy');
+  await expect(first).toHaveAttribute('data-character','champignon');await expect(second).toHaveAttribute('data-character','andromoss');
+  await first.focus();await page.keyboard.press('ArrowRight');await expect(first).toHaveAttribute('data-character','andromoss');
+  await expect(second).toHaveAttribute('data-character','andromoss');
   await page.keyboard.press('ArrowLeft');await expect(first).toHaveAttribute('data-character','champignon');
   await page.keyboard.press('KeyR');
   await expect(first.locator('.carousel-art')).toHaveAttribute('data-animation','victory');
@@ -35,8 +35,8 @@ test('single player still shows a second editable opponent carousel',async({page
   const stage=(await page.locator('.carousel-side-0 .carousel-stage').boundingBox())!;
   await page.mouse.move(stage.x+stage.width*.7,stage.y+stage.height/2);await page.mouse.down();
   await page.mouse.move(stage.x+stage.width*.3,stage.y+stage.height/2,{steps:5});await page.mouse.up();
-  await expect(page.locator('.carousel-side-0')).toHaveAttribute('data-character','andy');
-  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andy');
+  await expect(page.locator('.carousel-side-0')).toHaveAttribute('data-character','andromoss');
+  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andromoss');
   await page.getByRole('button',{name:'Change selection for Computer'}).click();
   await page.getByRole('button',{name:'Next character for Computer'}).click();
   await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');

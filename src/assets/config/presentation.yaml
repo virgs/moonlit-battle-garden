@@ -39,20 +39,20 @@ characters:
       2: *champignonCast
       3: *champignonCast
       4: *champignonCast
-  andy:
-    victory: { src: /assets/characters/andy/victory.png, frameWidth: 128, frameHeight: 160, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
-    standing: { src: /assets/characters/andy/standing.png, frameWidth: 128, frameHeight: 160, frameCount: 8, columns: 8, fps: 6, holdMs: 0, sound: null }
-    icon: /assets/characters/andy/icon.png
-    portrait: /assets/characters/andy/portrait.png
+  andromoss:
+    victory: { src: /assets/characters/andromoss/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/andromoss/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 3, holdMs: 0, sound: null }
+    icon: /assets/characters/andromoss/icon.png
+    portrait: /assets/characters/andromoss/portrait.png
     effects:
-      1: { src: /assets/characters/andy/effect-1.png }
-      2: { src: /assets/characters/andy/effect-2.png }
-      3: { src: /assets/characters/andy/effect-3.png }
-      4: { src: /assets/characters/andy/effect-4.png }
+      1: { src: /assets/characters/andromoss/effect-1.png }
+      2: { src: /assets/characters/andromoss/effect-2.png }
+      3: { src: /assets/characters/andromoss/effect-3.png }
+      4: { src: /assets/characters/andromoss/effect-4.png }
     home:
       name: Moonlit Hideout
       background:
-        src: /assets/homes/andy/background.png
+        src: /assets/homes/andromoss/background.png
         fallback: /assets/background-castle.png
         opacity: 0.58
         fallbackOpacity: 0.22
@@ -60,13 +60,13 @@ characters:
         focusX: 0.5
         focusY: 0.5
       music:
-        src: /assets/homes/andy/music.mp3
+        src: /assets/homes/andromoss/music.mp3
         fallback: /assets/backgroundMusic.mp3
         volume: 0.16
         loopStartMs: 0
         loopEndMs: null
     casts:
-      1: { src: /assets/characters/andy/cast.png }
-      2: { src: /assets/characters/andy/cast.png }
-      3: { src: /assets/characters/andy/cast.png }
-      4: { src: /assets/characters/andy/cast.png }
+      1: &andromossCast { src: /assets/characters/andromoss/cast.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 9, holdMs: 500 }
+      2: *andromossCast
+      3: *andromossCast
+      4: *andromossCast

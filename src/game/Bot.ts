@@ -48,8 +48,8 @@ export class Bot {
         (opponent.score - player.score >= config.winScoreDifference * 0.65 && player.mistakeShield === 0) ||
         visible.filter(target => target.kind === 'mole').length >= 3
       );
-      const canSteal = player.character === 'andy' && player.stars === 3 && opponent.stars >= 2;
-      const waitForWard = player.character === 'andy' && opponent.magicShieldUntil > state.time;
+      const canSteal = player.character === 'andromoss' && player.stars === 3 && opponent.stars >= 2;
+      const waitForWard = player.character === 'andromoss' && opponent.magicShieldUntil > state.time;
       const alreadyGuarded = player.character === 'champignon' && player.stars === 1 && player.mistakeShield > 0 && player.shieldUntil > state.time;
       if (!waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal)) {
         match.action({ type: 'cast', player: this.id });

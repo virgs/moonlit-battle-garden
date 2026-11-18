@@ -3,8 +3,8 @@ import { config } from '../../src/game/config';
 import { simulateBattle } from '../../src/game/simulate';
 
 it('reproduces a headless best-of-three match with a real winner and spell coverage', () => {
-  const first = simulateBattle(['champignon', 'andy'], 'medium', 1234);
-  const repeated = simulateBattle(['champignon', 'andy'], 'medium', 1234);
+  const first = simulateBattle(['champignon', 'andromoss'], 'medium', 1234);
+  const repeated = simulateBattle(['champignon', 'andromoss'], 'medium', 1234);
   expect(first).toEqual(repeated);
   expect(first.timedOut).toBe(false);
   expect(first.roundDurationsMs).toHaveLength(first.rounds);
@@ -19,7 +19,7 @@ it('keeps an unfinished round separate from completed round durations at the dia
   const original=config.maxSimulationMs;
   try{
     config.maxSimulationMs=500;
-    const result=simulateBattle(['andy','andy'],'hard',1234);
+    const result=simulateBattle(['andromoss','andromoss'],'hard',1234);
     expect(result.timedOut).toBe(true);expect(result.winnerSide).toBeNull();
     expect(result.roundDurationsMs).toEqual([]);expect(result.unfinishedRoundMs).toBe(500);
     expect(result.durationMs).toBe(500);

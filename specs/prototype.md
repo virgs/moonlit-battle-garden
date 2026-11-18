@@ -4,7 +4,7 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 
 ## Implemented
 
-- Sir Champignon and Andy; four spells each.
+- Sir Champignon and Andromoss; four spells each.
 - Offline local versus and easy/medium/hard AI.
 - 3×3 gardens, both scores start at zero, winning lead X=100 (configurable), first to two round wins, three-second countdown.
 - Empty hit: −4 points. Rabbit hit: −12. Missed mole: −8. Missing stars/rabbits is safe.
@@ -24,7 +24,7 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 
 ## Exact initial spells
 
-Casting freezes both boards for 1500 ms with a separate presentation clock; target/effect/pacing/cooldown timers and input stop for that hold. Casting consumes the exact current charge, with at least 1800 ms between casts. Andy's hostile spells warn for 650 ms before resolving. Spore Ward blocks any one hostile spell, including star copying/theft, then is consumed.
+Casting freezes both boards for 1500 ms with a separate presentation clock; target/effect/pacing/cooldown timers and input stop for that hold. Casting consumes the exact current charge, with at least 1800 ms between casts. Andromoss's hostile spells warn for 650 ms before resolving. Spore Ward blocks any one hostile spell, including star copying/theft, then is consumed.
 
 | Character / tier | Behavior |
 | --- | --- |
@@ -32,10 +32,10 @@ Casting freezes both boards for 1500 ms with a separate presentation clock; targ
 | Champignon 2 | Safely remove current moles/rabbits; leave stars. No clearing score or automatic star rewards. |
 | Champignon 3 | Block the next hostile spell within 12 seconds. |
 | Champignon 4 | Safe sweep plus three mistake blocks within 12 seconds. |
-| Andy 1 | Copy one available enemy star without removing it. Since one star was spent, this does not generate net charge. If no enemy star is available, gain a one-mistake guard instead. |
-| Andy 2 | Add extra rabbits for 7.5 seconds without replacing the normal mole/star spawn schedule. |
-| Andy 3 | Transfer up to two enemy stars, capped at four total. If none are available, gain a one-mistake guard instead. |
-| Andy 4 | Extra rabbit-heavy magical waves for 8.5 seconds, with a 30% mole chance and bounded magical concurrency. Natural clocks and the score-pressure modifier are unchanged by the attack. |
+| Andromoss 1 | Copy one available enemy star without removing it. Since one star was spent, this does not generate net charge. If no enemy star is available, gain a one-mistake guard instead. |
+| Andromoss 2 | Add extra rabbits for 7.5 seconds without replacing the normal mole/star spawn schedule. |
+| Andromoss 3 | Transfer up to two enemy stars, capped at four total. If none are available, gain a one-mistake guard instead. |
+| Andromoss 4 | Extra rabbit-heavy magical waves for 8.5 seconds, with a 30% mole chance and bounded magical concurrency. Natural clocks and the score-pressure modifier are unchanged by the attack. |
 
 Stronger pressure replaces weaker pressure; identical effects refresh duration rather than multiplying it. Extra rabbits only occupy empty holes. Shields cover missed moles, empty hits, and rabbit hits. Fresh guards replace existing guards rather than accumulating unlimited charges.
 
@@ -43,7 +43,7 @@ Stronger pressure replaces weaker pressure; identical effects refresh duration r
 
 `pnpm balance` runs 100 paired seeds per difficulty (600 matches). Every seed swaps character sides; tick command order alternates. Reports include wins, draws/caps, duration, tier-by-tier spell coverage, and per-match JSON. Same-difficulty matchups are implemented; mixed-difficulty matrices and alternative policies remain future extensions.
 
-Historical independent-health baseline Champignon win rates: 53% easy, 100% medium, 91% hard. Preserved in `reports/balance-baseline.*`. Medium/hard Andy never used tiers 1, 3, or 4; the first invasion also replaced moles with rabbits, easing an accurate defender's load.
+Historical independent-health baseline Champignon win rates: 53% easy, 100% medium, 91% hard. Preserved in `reports/balance-baseline.*`. Medium/hard Andromoss never used tiers 1, 3, or 4; the first invasion also replaced moles with rabbits, easing an accurate defender's load.
 
 The first bot iteration varied seeded spell-saving thresholds, added resource/ward-aware decisions, and spawned extra rabbits without replacing normal targets. All tiers now receive coverage. The score-difference rules supersede those old health-based results. The pre-wave score run gave Champignon 46.5% easy, 71.5% medium, and 95% hard. Wave pacing supersedes that baseline; see balance-latest.md for the current results and unfinished-match diagnostics. Balance is unfinished; consult the latest report and do not declare the game balanced.
 

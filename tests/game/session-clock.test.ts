@@ -8,7 +8,7 @@ function clock() {
   vi.useFakeTimers();
   let now = 0;
   vi.spyOn(performance, 'now').mockImplementation(() => now);
-  const session = new Session({ characters:['champignon','andy'], mode:'ai', difficulty:'medium', seed:42 });
+  const session = new Session({ characters:['champignon','andromoss'], mode:'ai', difficulty:'medium', seed:42 });
   session.start();
   return { session, callback(elapsed: number) { now += elapsed; vi.advanceTimersByTime(config.tickMs); } };
 }
