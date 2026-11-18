@@ -3,7 +3,7 @@
   "created": "2026-11-18",
   "character": "Andromoss",
   "internalCharacterId": "andromoss",
-  "status": "User approved original animation design. Broader PixelLab cleanup installed for user visual review.",
+  "status": "Second broader AI polish followed by firmer free white/light-gray pixel cleanup; awaiting user visual review.",
   "base": {
     "file": "base-v5.png",
     "provenance": "base-provenance-v5.json"
@@ -43,7 +43,7 @@
       "fps": 8,
       "holdMs": 0,
       "costGenerations": 1,
-      "postProcessing": "polish-provenance.json"
+      "postProcessing": "polish2-provenance.json"
     },
     "cast": {
       "jobId": "8e5b8a3e-b974-4f9f-8cc1-1fa1dccb0874",
@@ -55,14 +55,14 @@
       "fps": 9,
       "holdMs": 500,
       "costGenerations": 1,
-      "postProcessing": "polish-provenance.json"
+      "postProcessing": "polish2-provenance.json"
     }
   },
   "installedSha256": {
     "base-v5.png": "2c126d7a0ab81316f0c6183d9263f2dbaa674e3ea8040f3d6d2315f7e4d49a41",
     "standing.png": "c85c01d253f2ebfb5e93b0cbb913f2fd9357311feec6517182d18bf3c420a34a",
-    "victory.png": "19453285ad5ef1e18e213509c3613b250bbcb6a7a48005a5505f0ef091f93f6a",
-    "cast.png": "00c18c01d69ed3fd996ba4c9eb7508e02dc5d804d1e09a6dbeecfa5bb52a4249"
+    "victory.png": "dfb2de63ceeec1b15c9d311dfbba9226418da31a270d1f62130d55a11872f811",
+    "cast.png": "9728950cf6af536818a5766566122d1e0c8790cce652f60c082fed36a75ea8f0"
   },
   "technicalChecks": {
     "standing": {
@@ -85,7 +85,7 @@
       "firstFrameMatchesApprovedBase": true,
       "packedPixelsMatchSourceFrames": false,
       "packedPixelsMatchCleanupFrames": true,
-      "cleanup": "polish-provenance.json"
+      "cleanup": "polish2-provenance.json"
     },
     "cast": {
       "frameCount": 9,
@@ -97,8 +97,8 @@
       "firstFrameMatchesApprovedBase": true,
       "packedPixelsMatchSourceFrames": false,
       "packedPixelsMatchCleanupFrames": true,
-      "cleanup": "polish-provenance.json"
+      "cleanup": "polish2-provenance.json"
     }
   },
-  "postProcessing": "Targeted exact-pixel pass followed by AI cleanup of frames 1\u20138; see polish-provenance.json. Original and intermediate records/files preserved in Git."
+  "postProcessing": "See polish2-provenance.json for AI batches and exact free pixel edits. Earlier animation versions and records retained in Git."
 }

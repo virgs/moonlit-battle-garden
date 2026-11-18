@@ -127,6 +127,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D82 | User finds the exact white-pixel repair improved but still messy and authorizes a broader PixelLab edit_animation cleanup of Andromoss victory/casting: simplify noisy shading/highlights into broad coherent clusters and clean outlines while requesting unchanged poses, adult alien identity and violet/gold magic. Use four-frame batches with identical prompt/seed, retain native 192×192 layout, original starting frame and existing timing. Visual review stays with the user; preserve earlier files/records for comparison. |
 
+| D83 | User authorizes one more PixelLab AI polish of Andromoss victory/casting followed by free exact pixel editing of the returned frames. Make the deterministic cleanup firmer: include light-gray specks and larger small noisy clusters, not only tiny white dots. Preserve adult alien identity, motion/timing and colored violet/gold magic; user retains visual review. Keep earlier versions for comparison. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
