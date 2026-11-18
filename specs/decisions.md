@@ -131,6 +131,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D84 | User pauses Andromoss refinement and moves to Captain Bramble’s base draft. He is an adult RAT, with a cool helmet whose ear-shaped shells follow his rounded rat ears and with red helmet eye lenses. Generate a fresh clean base using original drawing identity and approved final-game style; user reviews the image. Do not expand the playable roster or generate animations before base approval. Keep tool responses concise and avoid exhaustive pixel-edit lists in model context. |
 
+| D85 | User approves Captain Bramble’s base and authorizes icon, subtle idle, expressive victory and one shared magical casting animation. Generate each full animation together from the same approved native 192×192 base to reduce palette drift; no automatic iterative cleanup. Preserve helmet ear shapes and red lenses. Stage assets without expanding the playable roster. User-only visual review remains in force; keep tool output and file reads concise to reduce token use. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

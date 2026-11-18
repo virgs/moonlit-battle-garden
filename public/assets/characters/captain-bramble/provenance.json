@@ -1,0 +1,116 @@
+{
+  "generator": "PixelLab animate_image_pixminimax",
+  "created": "2026-11-18",
+  "character": "Captain Bramble",
+  "assetDirectory": "captain-bramble",
+  "status": "Staged for user visual review; not a playable roster expansion. No model image inspection.",
+  "base": {
+    "file": "base.png",
+    "provenance": "base-provenance.json",
+    "approval": "User approved on 2026-11-18."
+  },
+  "frameWidth": 192,
+  "frameHeight": 192,
+  "processing": "Complete animations generated in one call each, packed at native resolution without pixel edits. Transparent hidden RGB may normalize; visible RGBA verified unchanged. No iterative polish or multi-batch edits.",
+  "animations": {
+    "standing": {
+      "jobId": "f8c2b552-cf63-4d52-bd24-624c96e82587",
+      "assetId": "4f22bf7c-57b1-5042-b779-b7b5f58b0786",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Captain Bramble, the approved adult anthropomorphic rat wearing a helmet shaped around his rounded ears, with red helmet eye lenses, folded arms and a long thin rat tail.",
+        "initial_pose": "The exact approved confident standing pose, arms folded, feet planted, facing slightly left.",
+        "frame_count": 4,
+        "seed": 2026111820,
+        "description": "Subtle calm seamless idle loop. Keep the exact approved stance, folded arms, head direction and feet steady. Only gentle breathing and a tiny relaxed motion near the rat tail tip. Helmet and its ear-shaped shells remain rigid; red eye lenses stay steady, no blinking glow. No hopping, large gestures, weight shifting or whole-image wobble. Preserve exact adult rat anatomy, equipment, silhouette, clean outlines and every approved material color throughout ALL frames. Flat broad color clusters, no white/light-gray specks, new highlights, texture or shading noise. Fixed camera and scale; full body, helmet ears and tail inside transparent canvas; return to starting pose."
+      },
+      "frameCount": 5,
+      "columns": 5,
+      "fps": 3,
+      "holdMs": 0,
+      "costGenerations": 1
+    },
+    "victory": {
+      "jobId": "52ede344-d5d2-4830-840a-e4d56fae6ac2",
+      "assetId": "828d2a21-3e65-5658-88a9-b6ef39f48038",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Captain Bramble, the approved adult anthropomorphic rat wearing a helmet shaped around his rounded ears, with red helmet eye lenses, folded arms and a long thin rat tail.",
+        "initial_pose": "The exact approved confident standing pose, arms folded, feet planted, facing slightly left.",
+        "frame_count": 8,
+        "seed": 2026111821,
+        "description": "Expressive confident victory LOOP with clear strong key poses. Bend knees and lower shoulders in anticipation, unfold the arms into a proud wide flex with both fists raised beside shoulders, straighten tall with chest out and a small triumphant forward step, then settle back into the original arms-folded stance. Tail follows with a restrained delayed swing. Keep rat muzzle and helmet recognizable; rounded helmet ear shells rigid, red eye lenses constant. Strong body/arm movement rather than wiggling a still picture. Preserve EXACT approved fur, helmet and outfit colors in EVERY frame; flat coherent color clusters and clean dark outlines. No white/light-gray speckles, confetti, texture, extra highlights or new accessories. Fixed scale/camera, whole character inside the transparent canvas; no sliding or full turn."
+      },
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 8,
+      "holdMs": 0,
+      "costGenerations": 1
+    },
+    "cast": {
+      "jobId": "7e55eca6-756c-4f6b-bcb4-f75a4ca19209",
+      "assetId": "7afc3046-bde0-56ae-a9ba-0ec58343f68c",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Captain Bramble, the approved adult anthropomorphic rat wearing a helmet shaped around his rounded ears, with red helmet eye lenses, folded arms and a long thin rat tail.",
+        "initial_pose": "The exact approved confident standing pose, arms folded, feet planted, facing slightly left.",
+        "frame_count": 8,
+        "seed": 2026111822,
+        "description": "Expressive shared garden-guardian spell cast. Unfold arms, bend knees into a planted bracing pose, pull one forearm back then sweep it forward into a strong open-palm warding gesture, stomp firmly, hold the protective stance briefly, and return to the folded-arm pose. A compact MOSS-GREEN magical arc follows the forearm/palm sweep with a few AMBER motes; a short clean green ground ripple follows the stomp and fades. Effects stay clear of face. Preserve exact adult rat anatomy, rigid ear-shaped helmet shells, steady red eye lenses and original equipment. ALL fur, helmet and outfit colors remain EXACTLY the approved colors across every frame. Broad flat clusters and clean dark outlines; no white/light-gray dust, noisy sparkle clouds, gradients or new props. Whole character and magic inside unchanged transparent canvas, fixed camera/scale. Game adds spent-star overlay; no star icons/text."
+      },
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 9,
+      "holdMs": 500,
+      "costGenerations": 1
+    }
+  },
+  "costGenerations": 3,
+  "technicalChecks": {
+    "standing": {
+      "frameCount": 5,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    },
+    "victory": {
+      "frameCount": 9,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    },
+    "cast": {
+      "frameCount": 9,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    }
+  },
+  "installedSha256": {
+    "base.png": "550506f99be8edf537bb0cc9a28ffb51f5f0d2ffdae7a8d346eb5529f2caf26c",
+    "standing.png": "bce83d04b474d84d6a02492c4b7dbdf173f5a06afd1f0f558cdb762365cae507",
+    "victory.png": "83081ffc3c9110a508719d46d96f80cadc4c6feb2d79a31d5b7535fb27d9ffc0",
+    "cast.png": "23b1ed34babf01d45452cbe5cd5c68bd4ecc910a027c3462ad3916547c9a793c"
+  }
+}
