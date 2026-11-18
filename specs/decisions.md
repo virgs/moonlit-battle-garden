@@ -105,6 +105,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D71 | Generate Champignon’s static head-and-shoulders character icon from the approved base-v3 identity for HUD, pause and round results. Preserve helmet, cyan eyes, red plume and clean thick pixel outlines. The large portrait remains optional/deferred because selection uses idle/victory animations. Visual review remains with the user. Nightshade is the next character art pass after this icon review. |
 
+| D72 | User reports that the first Champignon icon crops away most of the head. Keep the icon frame/UI position fixed; move the character substantially right within the asset and restore the complete helmet/plume from the approved design. Preserve transparent margins around the head. Continue user-only visual review. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

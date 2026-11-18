@@ -1,0 +1,25 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "status": "Superseded: user reported that most of the head was cropped outside the icon frame. See icon-provenance.json for the framing revision.",
+  "jobId": "d0a3d36b-cd5f-4bda-a1dd-674bd1ce11e1",
+  "assetId": "b7f590ea-5683-57a1-a5a6-22799661c837",
+  "source": {
+    "file": "base-v3.png",
+    "provenance": "provenance-v3.json",
+    "note": "User-approved character design and final mole/rabbit/star/board style."
+  },
+  "prompt": "Create the CHARACTER ICON of this exact approved Sir Champignon design by recomposing him into a clean close-up head-and-shoulders bust. Preserve the same closed slate-blue knight helmet, narrow black visor with two readable cyan eyes, curved red plume, angular adult helmet proportions, simple shoulder armor, strong dark outlines, flat-shaded large color clusters and compact palette. Helmet and shoulders fill most of the square; keep the whole distinctive red plume visible inside a generous small transparent margin. Slight three-quarter front view matching the source. Make helmet, visor eyes and plume immediately legible when the icon is displayed at 32 pixels high. Calm confident guardian personality. No face reveal, no baby/chibi proportions, no new costume or helmet, no broom or large shield, no full body, no arms/hands, no tiny engravings, noisy texture, dithering, gradients or soft painting. This is one polished static square game HUD/pause/result icon on a truly transparent background, without scenery, decorative frame, text, letters or magic particles. Use the source's clean thick pixel outline and 2-3 simple solid shades per material.",
+  "seed": 2026111806,
+  "width": 192,
+  "height": 192,
+  "transparent": true,
+  "costGenerations": 6,
+  "usage": [
+    "Gameplay HUD beside character name",
+    "Pause menu character reference",
+    "Round-result winner icon"
+  ],
+  "optionalLargePortrait": "Deferred: character selection uses idle/victory animation.",
+  "installedSha256": "a5fd438d24781c9a5edcacb53236131f3fa2ede576e486babf0e911e7f781054"
+}
