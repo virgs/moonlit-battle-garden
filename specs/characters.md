@@ -6,6 +6,55 @@ These spell assignments are new remake designs. The original repository has name
 
 Artwork source: https://github.com/virgs/digHoleBattleGarden/tree/master/Personagens
 
+## Approved identities and homes
+
+Approved on 2026-11-17. These are eccentric caretakers of different corners of the same enchanted garden. The user approved all eight proposed identities, home/music assignments and minibios, simplifying Andy Nightshade, Dindo Duskmantle and Urthgar Rootbeard to **Nightshade**, **Duskmantle** and **Rootbeard**. Use those names consistently, including on the HUD. Original names below remain artwork/implementation references, not alternate display names. Runtime renaming and future roster expansion remain separate implementation work; keep stable internal IDs and asset paths.
+
+| Display name | Original identity | Home | Existing music |
+| --- | --- | --- | --- |
+| Sir Champignon | Sir Champignon | Sporelight Keep | Forest Whisper Theme |
+| Nightshade | Andy | Moonlit Hideout | Magic Town |
+| Captain Bramble | Capitão Katyroba | Mossroot Path | Glizzy Elf Forest — Forest Loop |
+| Duskmantle | Dindo | Violet Veil | Void Estate |
+| Sprig | E-Mailson | Lanternbloom Garden | Exploration Theme |
+| Mallow | Ming-Ding-Go | Stillwater Grove | Whispers in the Fog |
+| Miyaya | Ninja Miyaya | Bluebell Thicket | Cathedral in the forest (ambient loop) |
+| Rootbeard | Urthgar | Whispering Wood | Iremos Forest Theme Loop |
+
+### Minibios
+
+**Sir Champignon — Keeper of the Little Things**
+
+With a mushroom shield and a well-worn broom, Sir Champignon guards the garden’s smallest inhabitants. He takes every oath seriously—even the one about keeping rabbits out of the cabbages.
+
+**Nightshade — Borrower of Stars**
+
+Nightshade knows every shortcut through the hedges and every hiding place beneath them. Stars have a habit of finding their way into his pockets. He insists they’re happier there.
+
+**Captain Bramble — The Unmovable Gardener**
+
+Captain Bramble has held the old woodland path through storms, stampedes, and particularly determined rabbits. Beneath his intimidating scowl lies a fierce affection for anything small enough to need protecting.
+
+**Duskmantle — Tender of Troublesome Things**
+
+Duskmantle tends the flowers that bloom without sunlight and the roots that whisper after midnight. His curses began as remedies for garden pests. Some have become rather difficult to distinguish.
+
+**Sprig — A Helping Claw**
+
+Built to maintain a forgotten garden, Sprig continued working long after its maker disappeared. It now considers every living thing its responsibility. Its definition of ‘helping’ occasionally requires supervision.
+
+**Mallow — Keeper of the Quiet Hours**
+
+Mallow spends whole evenings watching a single bud unfold. Around the stillwater stream, hurried footsteps soften and falling leaves linger in the air. Somehow, the work is always finished by morning.
+
+**Miyaya — A Shadow Among Bluebells**
+
+Miyaya patrols the thicket without disturbing a single petal. Every strike is measured, every landing silent. The rabbits remain unimpressed, which she considers a deeply personal insult.
+
+**Rootbeard — Champion of Second Helpings**
+
+Rootbeard followed the scent of mushroom stew into Whispering Wood and never found a reason to leave. He gardens with tremendous enthusiasm and cooks enough for an army. Everyone is invited.
+
 ## Roster identity
 
 | Character | Original appearance | Remake role |

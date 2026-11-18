@@ -89,6 +89,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D63 | Preserve the approved Sporelight Keep, Moonlit Hideout, Whispering Wood and Violet Veil assets. Replace the four rejected town/harbor/lava/chapel homes with garden and woodland scenes: foliage, moss, roots, mist, moonlight and magical glow. Keep a cohesive garden setting rather than unrelated fantasy biomes; no new generation. Allow sourced assets with explicit compatible licenses and attribution. |
 
+| D64 | Approve the eight caretaker identities, minibios and home/music assignments in characters.md. Simplify the proposed names to Nightshade, Duskmantle and Rootbeard; retain Sir Champignon, Captain Bramble, Sprig, Mallow and Miyaya. Preserve stable internal IDs and existing artwork paths when applying display names. PixelLab generation remains deferred; checking account access does not authorize generation. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
