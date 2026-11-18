@@ -147,6 +147,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D92 | User likes Sprig’s revised head but finds the claw holding the small shovel awkward. Replace that claw hand itself with a directly wrist-mounted garden trowel end-effector; no hand gripping a separate handle. Preserve the other claw, tools, revised head, body and palette. Stage v3 for user review before animation work. |
 
+| D93 | User reports Sprig v3 still appears to hold the shovel. Remove the entire handle/shaft (Portuguese cabo) and gripping claw/fingers: the broad shovel blade IS the hand and connects directly, flush to the forearm/wrist without an intervening rod. Preserve the remaining design; stage v4 for user visual review. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

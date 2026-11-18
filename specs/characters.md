@@ -185,3 +185,5 @@ User authorizes Sprig’s new base, explicitly preserving his mailbox-shaped rob
 Sprig refinement D91: user likes the first base overall but wants a less literal mailbox head. Keep a subtle rounded-box hint while prioritizing a robotic housing and face panel; remove postal slot/door/flag details. Preserve body, gardening toolkit, palette and pose. Current refinement is a head-only v2 draft; original base retained.
 
 Sprig refinement D92: user likes v2’s revised head and requests replacing the shovel-holding claw itself with an integrated wrist-mounted trowel attachment. The shovel blade is the end-effector, with no claw/fingers gripping a separate handle. Preserve the other claw, gardening toolkit, head, body, palette and pose. V3 is staged for user review before animations.
+
+Sprig correction D93: v3 still looks handheld to the user. Remove the complete shovel handle/shaft and gripping claw. The wide shovel blade itself is the hand, attached flush to the forearm with no thin connector rod. V4 is a user-review correction; preserve all other approved design directions.

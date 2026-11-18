@@ -1,0 +1,29 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Sprig",
+  "jobId": "0efc9bce-510a-4584-b76c-13b4b0a278a9",
+  "request": {
+    "image_url": "https://api.pixellab.ai/mcp/images/1d080bc2-b5c2-4226-9fee-1909da6df72a/download",
+    "method": "text",
+    "description": "Correct ONLY the shovel arm of this Sprig robot. The previous edit still looks like a hand HOLDING a shovel. REMOVE THE ENTIRE SHOVEL HANDLE (Portuguese cabo), grip, shaft/stick and ALL claw fingers/hand on that arm. The SHOVEL BLADE ITSELF MUST BE HIS HAND. Attach the broad digging blade DIRECTLY to the end of the forearm/wrist: a wide short flush metal junction, blade base touching forearm armor, no narrow protruding rod or handle in between. Think excavator bucket or robot paddle hand, NOT a handheld garden tool. No fingers wrapped around anything and no separate fist beside the blade. The arm should end immediately in a single broad solid shovel-shaped metal hand. Keep the arm's general location and pose. Do not modify the other claw, head, face, body, legs, other clipped tools, watering attachment, colors or proportions. Preserve clean dark pixel outlines, simple broad flat shading and transparent 192x192 canvas. No extra parts, limbs, text, effects or scenery.",
+    "no_background": true,
+    "use_color_palette_correction": true,
+    "seed": 2026111833
+  },
+  "source": {
+    "file": "base-v3.png",
+    "provenance": "base-provenance-v3.json"
+  },
+  "status": "Staged handle-removal correction for user review; no model image inspection.",
+  "costGenerations": 6,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "0cdb95c91cfa6ae23ce6e027de22ab95d5db496e0f887d545579b67407723b7b"
+}
