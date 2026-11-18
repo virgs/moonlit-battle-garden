@@ -1,5 +1,7 @@
 # Drop-in character assets
 
+The eight-home collection is available at `homes/index.html`, with `homes/catalog.json`, credits, license text and verified file hashes. Six home pairs are staged and unassigned until the future character discussion; they do not expand the playable roster.
+
 The playback code is ready. Both victory sheets and all four home background/music files are bundled. Each character still needs seven assets for the current screens, plus one optional portrait: 14 active assets + two optional portraits remain (16 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
 
 ```text

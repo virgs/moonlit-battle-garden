@@ -1,0 +1,85 @@
+{
+  "note": "Eight sourced home pairs. Six theme names and character assignments remain provisional; only Champignon and Andy are playable.",
+  "homes": [
+    {
+      "id": "champignon",
+      "name": "Sporelight Keep",
+      "character": "champignon",
+      "background": "champignon/background.png",
+      "music": "champignon/music.mp3",
+      "mood": "Purple moon, distant castle, gentle forest mystery.",
+      "focusX": 0.5,
+      "focusY": 0.15
+    },
+    {
+      "id": "andy",
+      "name": "Moonlit Hideout",
+      "character": "andy",
+      "background": "andy/background.png",
+      "music": "andy/music.mp3",
+      "mood": "Blue woodland mist and whimsical SNES-style magic.",
+      "focusX": 0.5,
+      "focusY": 0.5
+    },
+    {
+      "id": "lantern-hollow",
+      "name": "Lantern Hollow",
+      "character": null,
+      "background": "lantern-hollow/background.png",
+      "music": "lantern-hollow/music.mp3",
+      "mood": "Sleeping village, mountain silhouettes and ghostly chiptune.",
+      "focusX": 0.5,
+      "focusY": 0.5
+    },
+    {
+      "id": "whispering-wood",
+      "name": "Whispering Wood",
+      "character": null,
+      "background": "whispering-wood/background.png",
+      "music": "whispering-wood/music.mp3",
+      "mood": "Mossy woods, drifting mist and enchanted-forest mystery.",
+      "focusX": 0.5,
+      "focusY": 0.5
+    },
+    {
+      "id": "drowned-harbor",
+      "name": "Drowned Harbor",
+      "character": null,
+      "background": "drowned-harbor/background.png",
+      "music": "drowned-harbor/music.mp3",
+      "mood": "Submerged shipwrecks, blue light and an ethereal fog loop.",
+      "focusX": 0.5,
+      "focusY": 0.5
+    },
+    {
+      "id": "ember-grotto",
+      "name": "Ember Grotto",
+      "character": null,
+      "background": "ember-grotto/background.png",
+      "music": "ember-grotto/music.mp3",
+      "mood": "Glowing lava, purple stone and restless spooky chiptune.",
+      "focusX": 0.5,
+      "focusY": 0.5
+    },
+    {
+      "id": "violet-veil",
+      "name": "Violet Veil",
+      "character": null,
+      "background": "violet-veil/background.png",
+      "music": "violet-veil/music.mp3",
+      "mood": "A violet vortex framed by dark branches, with haunting chiptune.",
+      "focusX": 0.5,
+      "focusY": 0.5
+    },
+    {
+      "id": "forgotten-chapel",
+      "name": "Forgotten Chapel",
+      "character": null,
+      "background": "forgotten-chapel/background.png",
+      "music": "forgotten-chapel/music.mp3",
+      "mood": "Deserted stone arches, stained glass and an eerie castle loop.",
+      "focusX": 0.5,
+      "focusY": 0.5
+    }
+  ]
+}

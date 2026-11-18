@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { presentation, validSheet } from '../src/presentation/config';
 
@@ -30,6 +31,23 @@ for (const [id, character] of Object.entries(presentation)) {
   }
   for (const fallback of [character.home.background.fallback, character.home.music.fallback]) {
     if (!existsSync(resolve('public', fallback.slice(1)))) { invalid++; console.log(`INVALID ${id}: missing fallback ${fallback}`); }
+  }
+}
+// Staged homes are ready assets, even though their characters are not playable.
+const catalog = JSON.parse(readFileSync('public/assets/homes/catalog.json', 'utf8')) as { homes: { id: string; character: string | null; background: string; music: string }[] };
+const provenance = JSON.parse(readFileSync('public/assets/homes/provenance.json', 'utf8')) as { assets: { home?: string; character?: string; file: string; installedSha256: string }[] };
+if (catalog.homes.length !== 8 || new Set(catalog.homes.map(home => home.id)).size !== 8) {
+  invalid++; console.log('INVALID home catalog: expected eight distinct homes');
+}
+for (const home of catalog.homes) {
+  for (const path of [home.background, home.music]) {
+    const file = resolve('public/assets/homes', path);
+    const source = provenance.assets.find(asset => `${asset.home ?? asset.character}/${asset.file}` === path);
+    if (!existsSync(file) || !source || createHash('sha256').update(readFileSync(file)).digest('hex') !== source.installedSha256) {
+      invalid++; console.log(`INVALID home asset/provenance: ${path}`);
+    } else if (!home.character) {
+      present++; console.log(`READY   /assets/homes/${path} (staged)`);
+    }
   }
 }
 console.log(`${present} ready, ${missing} awaiting final assets, ${invalid} invalid. Missing files use prototype fallbacks.`);

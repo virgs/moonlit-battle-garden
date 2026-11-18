@@ -4,6 +4,8 @@ Updated 2026-11-17 after comparing the remake with the oldest Dig Hole Battle Ga
 
 ## Implemented
 
+- Eight sourced CC0 background/music pairs, including the two approved active homes and six unassigned future homes. A responsive review collection at assets/homes/index.html shows the artwork and plays one looping track at a time. Character names/minibios and six-character gameplay expansion remain deferred. No new artwork or music generated.
+
 - Public static website at https://virgs.github.io/moonlit-battle-garden/, automatically deployed from main. User authorized the public repository. Deployment checks and a live HTTPS invite/WebRTC/touch smoke test passed.
 
 - Private player-hosted online 1v1 with invite links, real WebRTC transport, local-side remapping, target-aware inputs, synchronized round transitions, local non-pausing online menus and automatic reconnect recovery, version/capacity checks, heartbeat RTT and 30-second transient reconnect grace.
