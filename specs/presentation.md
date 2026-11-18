@@ -198,3 +198,7 @@ Gameplay shows the mode name/icon, Round N and elapsed active round time (mm:ss;
 ### Gameplay character icons
 
 Both gameplay name/trophy groups include the character icon beside the name. Missing configured icon files display a semi-transparent character-colored square, and supplied icons fit the same box without distortion. The rival icon stays visible on single-board phones. Compact name/icon pairs fit within the existing HUD height to preserve board/touch-target sizes. Pause/round-result recovered-art fallbacks are unchanged. No new images are generated.
+
+### Shared casting animation per character
+
+Each hero has one `/assets/characters/CHARACTER/cast.png` animation reused for all four spells. The existing tier-indexed playback entries map to that same sheet; tier/star cost and spell effects remain specific to the actual cast. The asset checker counts unique files. The character checklist in public/assets/ASSET-CONTRACT.md lists nine active missing assets plus one optional portrait per hero; victory sheets are already present. No new assets were generated.

@@ -81,6 +81,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D59 | Compare AI fallibility and stronger waves against the original settings before tuning. Include seeded timing variation and occasional hesitation across all AI levels, retaining difficulty ordering. Adopt the independently validated shorter-match configuration: 70/87/92% accuracy, stronger peaks with a 60-second ramp, and gentler 5% catch-up. Preserve minimum visible windows, target caps, score-based victory and identical per-round rules. Keep remaining Hard character imbalance and long tails explicit. |
 
+| D60 | Organize the remaining asset checklist by character. Use one casting animation per character, shared across all four magic tiers; preserve distinct spell effects and actual stars-spent display. Each hero needs nine assets for current screens plus one optional portrait; victory animation already exists. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

@@ -35,10 +35,10 @@ characters:
         loopStartMs: 0
         loopEndMs: null
     casts:
-      1: { src: /assets/characters/champignon/cast-1.png }
-      2: { src: /assets/characters/champignon/cast-2.png }
-      3: { src: /assets/characters/champignon/cast-3.png }
-      4: { src: /assets/characters/champignon/cast-4.png }
+      1: { src: /assets/characters/champignon/cast.png }
+      2: { src: /assets/characters/champignon/cast.png }
+      3: { src: /assets/characters/champignon/cast.png }
+      4: { src: /assets/characters/champignon/cast.png }
   andy:
     victory: { src: /assets/characters/andy/victory.png, frameWidth: 128, frameHeight: 160, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
     standing: { src: /assets/characters/andy/standing.png, frameWidth: 128, frameHeight: 160, frameCount: 8, columns: 8, fps: 6, holdMs: 0, sound: null }
@@ -66,7 +66,7 @@ characters:
         loopStartMs: 0
         loopEndMs: null
     casts:
-      1: { src: /assets/characters/andy/cast-1.png }
-      2: { src: /assets/characters/andy/cast-2.png }
-      3: { src: /assets/characters/andy/cast-3.png }
-      4: { src: /assets/characters/andy/cast-4.png }
+      1: { src: /assets/characters/andy/cast.png }
+      2: { src: /assets/characters/andy/cast.png }
+      3: { src: /assets/characters/andy/cast.png }
+      4: { src: /assets/characters/andy/cast.png }

@@ -15,7 +15,9 @@ for (const [id, character] of Object.entries(presentation)) {
     ...Object.values(character.casts).map(clip => ({ path: clip.src, clip })),
     ...Object.values(character.casts).flatMap(clip => clip.sound ? [{ path: clip.sound, clip: null }] : []),
   ];
-  for (const item of expected) {
+  // All spell tiers share one character casting sheet. Count each file once.
+  const unique=new Map(expected.map(item=>[item.path,item]));
+  for (const item of unique.values()) {
     const file = resolve('public', item.path.slice(1));
     if (!existsSync(file)) { missing++; console.log(`MISSING ${item.path}`); continue; }
     if (item.clip) {

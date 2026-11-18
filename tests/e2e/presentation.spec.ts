@@ -33,7 +33,7 @@ for (const valid of [true, false]) test(`drop-in idle/home art and ${valid ? 'va
   await expect(page.locator('.match-screen')).toHaveAttribute('data-time', time!);
   await expect(page.getByRole('timer')).toHaveAttribute('data-elapsed-ms',elapsed!);
   expect(await cast.evaluate(element => getComputedStyle(element).pointerEvents)).toBe('none');
-  if (valid) await expect(cast.locator('.cast-art image')).toHaveAttribute('href', '/assets/characters/champignon/cast-1.png');
+  if (valid) await expect(cast.locator('.cast-art image')).toHaveAttribute('href', '/assets/characters/champignon/cast.png');
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
   const frame = await cast.getAttribute('data-frame');
   await page.clock.runFor(200);
