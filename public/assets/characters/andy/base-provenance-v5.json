@@ -1,0 +1,33 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Nightshade",
+  "internalCharacterId": "andy",
+  "status": "Thin tail and narrow rear braid refinement draft for user review; runtime artwork unchanged.",
+  "jobId": "f41132a2-bbfc-4482-8c9e-f6a709781642",
+  "assetId": "3b8ff083-f272-58ae-a1ec-daeb32811f29",
+  "source": {
+    "file": "base-v4.png",
+    "provenance": "base-provenance-v4.json"
+  },
+  "prompt": "Make ONLY TWO small refinements to this approved Nightshade alien sprite. 1) BODY TAIL: replace the thick tail with a much thinner, long flexible lion-like tail, a slender skin-colored cord with a small simple compact tuft at the tip. Keep the existing general tail direction and placement behind/beside the legs, but reduce its thickness substantially. This is a fine feline tail, not a thick reptile tail, oversized furry tail or heavy tentacle. 2) REAR HEAD PONYTAIL: make the existing rear head appendage much narrower, like a single slim Padawan-style braid hanging behind the ear/head: a small tied strand with a thin clean silhouette and a few broad readable braid segments. This is only a narrow rear appendage, not a full ponytail or a mass of hair. Keep its established colors and anatomical attachment. Do NOT add a hairline, separate hair cap or human hair to the forehead/top spikes: that approved forehead and short rigid crown points remain one continuous piece of alien skin, with exactly the current normal-sized head. Preserve all other pixels/design as closely as possible: face, sunglasses, neck gills, head proportions, leather jacket, hook/short chain, body pose, long legs and boots. Retain the clean thick outer contours appropriate to the figure, with thinner clean contours for the two fine appendages so they remain slender and readable. Flat cel shading, large deliberate color clusters, no stray/dead pixels, noisy single-pixel highlights, dithering or gradients. Entire character, slim body tail and thin braid-like head appendage fully inside the same 192x192 transparent square with margins. No scenery, extra equipment, text, lightsaber, robe or second character.",
+  "seed": 2026111812,
+  "width": 192,
+  "height": 192,
+  "costGenerations": 6,
+  "requestedChanges": {
+    "bodyTail": "Slender lion-like tail with a small compact tuft.",
+    "rearHeadAppendage": "Single thin Padawan-style braid silhouette."
+  },
+  "preserve": "Approved normal-sized head with fixed skin-continuous crown, gills, sunglasses, jacket, hook/chain, body proportions and pose.",
+  "visualReview": "User only; no model inspection of generated output.",
+  "installedSha256": "2c126d7a0ab81316f0c6183d9263f2dbaa674e3ea8040f3d6d2315f7e4d49a41",
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "hasTransparentPixels": true,
+    "hasVisiblePixels": true
+  }
+}

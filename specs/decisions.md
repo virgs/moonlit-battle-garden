@@ -117,6 +117,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D77 | User revises D76: Nightshade now needs a normal-sized adult head. Forehead and short top spikes are one continuous skin/skull shape, with no hairline, seam, separate cap or hair-like locks. Spikes are fixed anatomy and must not sway like hair in future animations. Preserve body/outfit, gills, tail and rear head appendage. User-only visual review remains in force. |
 
+| D78 | User likes Nightshade v4’s normal-head direction and requests two refinements only: a thinner lion-like body tail with a small tip tuft, and a much narrower rear ponytail/head appendage resembling a single slim Padawan braid. Preserve the approved head/forehead continuity, gills, body and outfit. Continue user-only visual review. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
