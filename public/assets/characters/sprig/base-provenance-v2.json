@@ -1,0 +1,29 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Sprig",
+  "jobId": "59476fdf-98d5-41e1-840e-fb61dd3a876a",
+  "request": {
+    "image_url": "https://api.pixellab.ai/mcp/images/3c2f431d-0e0e-405f-b1c9-e1fe7e99687f/download",
+    "method": "text",
+    "description": "Refine ONLY THE HEAD of this otherwise liked Sprig gardening robot. The user says it looks TOO LITERALLY like a mailbox. Make it read primarily as a cool compact ROBOT HEAD, keeping only a subtle hint of the original rounded-box silhouette. Reduce the tall arched postal-box roof shape: use a lower gently rounded/angular robotic housing with a clearer expressive mechanical face panel or visor and small integrated eye sensors. Remove any literal mail slot, postal door/handle, flag or mailbox-front details. Keep the existing head size/body proportion and attachment, no enlarged cute head. Retain the @ identity only as a subtle existing emblem, not a mail label. Do not add human features, hair, extra antennae or intricate mechanical clutter. Preserve the rest of the current design as closely as possible: exact body, claws, garden trowel/cultivator/watering attachments, pose, feet and colors. Maintain the same clean bold pixel outlines, simple broad flat shading and restrained approved palette. No white/light-gray speckles, tiny noisy details, gradients, text or scenery. Whole character and tools inside the unchanged transparent 192x192 canvas.",
+    "no_background": true,
+    "use_color_palette_correction": true,
+    "seed": 2026111831
+  },
+  "source": {
+    "file": "base.png",
+    "provenance": "base-provenance.json"
+  },
+  "status": "Staged v2 head refinement for user visual review; original retained. No model image inspection.",
+  "costGenerations": 6,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "0fcb19cb1b39c5244aef481b0aac1fd3c89b3797dfc0dad1b7bea970ab46ce8c"
+}

@@ -143,6 +143,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D90 | User authorizes Sprig’s base draft: preserve the mailbox-like head and mechanical robot identity, add simple practical gardening tools. Keep a clean readable silhouette and stage one base for user review before generating animations. No playable roster expansion. |
 
+| D91 | User likes Sprig overall but finds his head too literally mailbox-like. Refine the head into a primarily robotic housing/face, retaining only a subtle rounded-box reference. Remove literal postal details; preserve the body, tools, colors and pose. Supersedes D90’s strong mailbox resemblance. Stage v2 for user visual review before animations. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
