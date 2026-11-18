@@ -64,6 +64,7 @@ pnpm build
 pnpm exec playwright install chromium
 pnpm e2e
 pnpm balance --seeds=100 --seed=20261116
+pnpm balance:mirrors --seeds=1000 --seed=20261117
 pnpm assets:check
 ```
 
@@ -95,3 +96,5 @@ See [asset notes](public/assets/README.md) and the preserved source license for 
 Open `?network-check=host` on the website to create an automatic diagnostic room, then open its generated phone link on a second device/network. No playing or confirmation taps are needed: both clients use the real PeerRoom/Session, hit targets, collect/cast stars, and test recovery after closing the guest data channel once. Keep both pages visible. Success requires at least three hits and one cast from each side plus recovery, over at least 20 seconds; an incomplete test fails after 90 seconds. This verifies data-channel gameplay, not touch/audio or browser suspension. Route results include candidate types/protocol/RTT, without IP addresses.
 
 `pnpm e2e:online` runs the online browser suite against the public Pages site/PeerJS service. `ONLINE_BROWSER=webkit pnpm e2e:online` selects WebKit (install it with Playwright first). `ONLINE_URL` can override the website URL. These external-service checks are opt-in and do not run in ordinary CI. Regular CI also covers controlled 150 ms send delays per direction and silent-link heartbeat recovery; these are application-level impairments, not OS packet shaping.
+
+The [mirror-match audit](reports/balance-mirrors.md) checks Andy/Andy and Champignon/Champignon at each AI level with side wins and unfinished matches reported separately. Approximately 50/50 side results are a sanity check, not proof of bot strength or cross-character balance.

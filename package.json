@@ -12,7 +12,8 @@
     "e2e": "playwright test",
     "balance": "vite-node scripts/balance.ts",
     "assets:check": "vite-node scripts/check-assets.ts",
-    "e2e:online": "playwright test --config=playwright.online.config.ts"
+    "e2e:online": "playwright test --config=playwright.online.config.ts",
+    "balance:mirrors": "vite-node scripts/balance-mirrors.ts"
   },
   "dependencies": {
     "peerjs": "^1.5.5",

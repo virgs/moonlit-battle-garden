@@ -67,3 +67,7 @@ D52 renames the modes to Night Watch / Garden Grudge / Beyond the Hedge, with Ga
 ### Mode identification and round clock
 
 Implemented: consistent mode icons across menus, character selection, gameplay and pause; enlarged keyboard hints; explicit Back to title action; original star sprites for spell costs. Gameplay and pause show mode, Round N and elapsed active round time. It resets each round and freezes with gameplay; score-difference victory remains unchanged. Verified with unit checks, production/Pages build and desktop/mobile browser checks for clock progression, pause/cast freezes, round reset and responsive layout clearance.
+
+### AI mirror-match audit
+
+2026-11-17: 1,000 seeds for each character/difficulty group (6,000 actual best-of-three matches), using unchanged simulation, bot logic and tuning. Left-side decided win rates: Andy 49.8% Easy / 49.7% Medium / 48.8% Hard; Champignon 48.0% / 49.5% / 50.0%. All six nominal 95% reference intervals include 50%; no obvious side bias found in this check. Mirror cases run once per seed, without duplicate identical-character side swaps. Caps remain separate: Andy Hard 12/1000, Champignon Medium 1/1000, Champignon Hard 164/1000. Champignon Hard median duration is 997.9 seconds, exposing a stalemate/duration issue even in symmetric matches. See reports/balance-mirrors.md and its full JSON. No balance changes were made.
