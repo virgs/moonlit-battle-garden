@@ -123,6 +123,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D80 | User selects **Andromoss**, replacing provisional Nightshade and legacy Andy. Keep display and internal names closely aligned: use `andromoss` for runtime character IDs, CSS selectors, asset/home folders, configuration, tests and diagnostics. Supersedes D64’s stable-ID direction for this character. Preserve exact old generation prompts, source identity and historical balance reports. Retain the approved minibio: “A wanderer from Andromeda who discovered that the brightest stars grow in moonlit gardens.” Bump wire compatibility so mixed old/new builds cannot join. |
 
+| D81 | User approved all Andromoss animations/icon and requests cleanup of white dead pixels in victory and casting only. Preserve motion, timing, silhouette, transparency and colored magic; use exact PixelLab pixel operations rather than regenerating the character. User-only visual review remains in force. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

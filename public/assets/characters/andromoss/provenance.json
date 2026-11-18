@@ -3,7 +3,7 @@
   "created": "2026-11-18",
   "character": "Andromoss",
   "internalCharacterId": "andromoss",
-  "status": "Base-v5 approved by user; animations await user visual review. No model image inspection.",
+  "status": "User approved idle/victory/cast and icon; exact white-pixel cleanup for victory/cast awaits user review.",
   "base": {
     "file": "base-v5.png",
     "provenance": "base-provenance-v5.json"
@@ -59,8 +59,8 @@
   "installedSha256": {
     "base-v5.png": "2c126d7a0ab81316f0c6183d9263f2dbaa674e3ea8040f3d6d2315f7e4d49a41",
     "standing.png": "c85c01d253f2ebfb5e93b0cbb913f2fd9357311feec6517182d18bf3c420a34a",
-    "victory.png": "20c5d6f0f8426c4d716c361d299a271d7a47146d4521bacae915e671a93f9412",
-    "cast.png": "be7bf53031301ead769444241a76c1456a87a333b0048994ea39bfe485df487d"
+    "victory.png": "5493eb0610d17274ab337e6d80304d1aa18977e87bf7993dc70ec2a2ab2b0cbe",
+    "cast.png": "7708198ead8d287d796577ad0dfaafd41f11e75146e071a99a4d658a08376803"
   },
   "technicalChecks": {
     "standing": {
@@ -81,7 +81,9 @@
       ],
       "transparent": true,
       "firstFrameMatchesApprovedBase": true,
-      "packedPixelsMatchSourceFrames": true
+      "packedPixelsMatchSourceFrames": false,
+      "packedPixelsMatchCleanupFrames": true,
+      "cleanup": "cleanup-provenance.json"
     },
     "cast": {
       "frameCount": 9,
@@ -91,7 +93,10 @@
       ],
       "transparent": true,
       "firstFrameMatchesApprovedBase": true,
-      "packedPixelsMatchSourceFrames": true
+      "packedPixelsMatchSourceFrames": false,
+      "packedPixelsMatchCleanupFrames": true,
+      "cleanup": "cleanup-provenance.json"
     }
-  }
+  },
+  "postProcessing": "Targeted PixelLab patch_pixels cleanup; see cleanup-provenance.json. Original generated versions remain in Git and provenance-before-cleanup.json."
 }
