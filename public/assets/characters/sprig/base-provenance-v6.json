@@ -1,0 +1,29 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Sprig",
+  "jobId": "dc65ffdf-3905-4a26-92bc-12d8e589e7a6",
+  "request": {
+    "image_url": "https://api.pixellab.ai/mcp/images/35772508-46e9-4895-90ef-76561ddb6dc6/download",
+    "method": "text",
+    "description": "ONE FINAL COLOR-ONLY correction to this approved Sprig gardening robot. Make the HEAD HOUSING and TORSO BODY SHELL the SAME COLOR/MATERIAL. Use the EXISTING TORSO enamel color as the reference: recolor the exterior head casing to exactly the same torso base hue plus its corresponding restrained shadow/highlight shades. Head and chest must look like matching parts painted with the same enamel, not contrasting colors. Keep the dark face/visor, eyes, small existing emblem and exposed metal joints readable; do not flatten them into body paint. Preserve EVERY shape and feature as closely as possible: approved head silhouette, torso, both integrated tool hands (shovel blade and cultivator), arms, feet, watering attachment, proportions and pose. No geometry changes, new accessories or tool handles. Keep the exact current palette, clean dark pixel outlines and simple flat color clusters. No new highlights, white/gray speckles, texture, gradients, text or scenery. Same transparent 192x192 canvas; only the head shell's paint color should change to match torso.",
+    "no_background": true,
+    "use_color_palette_correction": true,
+    "seed": 2026111835
+  },
+  "source": {
+    "file": "base-v5.png",
+    "provenance": "base-provenance-v5.json"
+  },
+  "status": "Staged head/torso color-match draft for user review; no model image inspection.",
+  "costGenerations": 6,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "99442ced5abcbe26258408caffd32a17c467eee4c6d0a0b331d904f2f4e4edaf"
+}

@@ -151,6 +151,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D94 | User requests that Sprig’s other hand also BE a gardening tool: replace the remaining claw with the cultivator currently hanging at his waist, directly attached without a handheld handle/shaft. Remove the redundant waist-mounted copy; preserve the shovel-blade hand and all other design. Stage v5 for user review. |
 
+| D95 | User approves Sprig’s dual-tool-hand design and requests one final color correction: head housing and torso shell must share the same enamel color/material. Match head paint to existing torso palette, preserve face/visor details, shapes and all tools. Stage v6; no animation generation is part of this correction. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

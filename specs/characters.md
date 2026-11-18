@@ -189,3 +189,5 @@ Sprig refinement D92: user likes v2’s revised head and requests replacing the 
 Sprig correction D93: v3 still looks handheld to the user. Remove the complete shovel handle/shaft and gripping claw. The wide shovel blade itself is the hand, attached flush to the forearm with no thin connector rod. V4 is a user-review correction; preserve all other approved design directions.
 
 Sprig refinement D94: both hands are integrated gardening tools. Keep the shovel-blade hand; replace the remaining claw with a compact two/three-tine cultivator head attached flush to the forearm, with no gripped handle or shaft. Remove the redundant cultivator from the waist, preserving the watering attachment and rest of the design. V5 awaits user visual review.
+
+Sprig final color refinement D95: user approves v5’s design and requests matching head/torso paint. Recolor the exterior head housing to the existing torso enamel hue/shading ramp; retain dark face/visor and mechanical details, all geometry and both integrated tool hands. V6 is the color-only draft.
