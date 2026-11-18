@@ -149,6 +149,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D93 | User reports Sprig v3 still appears to hold the shovel. Remove the entire handle/shaft (Portuguese cabo) and gripping claw/fingers: the broad shovel blade IS the hand and connects directly, flush to the forearm/wrist without an intervening rod. Preserve the remaining design; stage v4 for user visual review. |
 
+| D94 | User requests that Sprig’s other hand also BE a gardening tool: replace the remaining claw with the cultivator currently hanging at his waist, directly attached without a handheld handle/shaft. Remove the redundant waist-mounted copy; preserve the shovel-blade hand and all other design. Stage v5 for user review. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

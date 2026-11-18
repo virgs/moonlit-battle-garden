@@ -187,3 +187,5 @@ Sprig refinement D91: user likes the first base overall but wants a less literal
 Sprig refinement D92: user likes v2’s revised head and requests replacing the shovel-holding claw itself with an integrated wrist-mounted trowel attachment. The shovel blade is the end-effector, with no claw/fingers gripping a separate handle. Preserve the other claw, gardening toolkit, head, body, palette and pose. V3 is staged for user review before animations.
 
 Sprig correction D93: v3 still looks handheld to the user. Remove the complete shovel handle/shaft and gripping claw. The wide shovel blade itself is the hand, attached flush to the forearm with no thin connector rod. V4 is a user-review correction; preserve all other approved design directions.
+
+Sprig refinement D94: both hands are integrated gardening tools. Keep the shovel-blade hand; replace the remaining claw with a compact two/three-tine cultivator head attached flush to the forearm, with no gripped handle or shaft. Remove the redundant cultivator from the waist, preserving the watering attachment and rest of the design. V5 awaits user visual review.
