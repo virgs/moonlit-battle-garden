@@ -14,7 +14,9 @@
       "jobId": "752cf25f-7ec2-4e9a-862d-6c023eb99641",
       "assetId": "97c8a785-9dd3-5dbb-856f-ab6b3d742fea",
       "generations": 3,
-      "action": "Victory loop: bend knees, raise broom triumphantly overhead, keep shield guarding chest, lower broom to initial pose."
+      "action": "Victory loop: bend knees, raise broom triumphantly overhead, keep shield guarding chest, lower broom to initial pose.",
+      "supersededBy": "champignon/provenance.json",
+      "note": "Historical first victory sheet; replaced in the authorized Sir Champignon art pass on 2026-11-17. Andy remains unchanged."
     },
     "andy": {
       "source": "digHoleBattleGarden/Personagens/ANDY.bmp",

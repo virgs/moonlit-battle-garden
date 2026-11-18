@@ -1,5 +1,13 @@
 import { deflateSync } from 'node:zlib';
+import { readFileSync } from 'node:fs';
+import { parse } from 'yaml';
 import type { Page } from '@playwright/test';
+
+type Sheet = { frameWidth: number; frameHeight: number; frameCount: number; columns: number };
+const manifest = parse(readFileSync('src/assets/config/presentation.yaml', 'utf8')) as {
+  castDefaults: Sheet;
+  characters: Record<string, { standing: Sheet; casts: Record<string, Partial<Sheet>>; effects: Record<string, Partial<Sheet>> }>;
+};
 
 // Synthetic test pixels, not final game artwork. Exercises real browser image decoding.
 export function png(width: number, height: number): Buffer {
@@ -22,10 +30,17 @@ export function png(width: number, height: number): Buffer {
   return Buffer.concat([Buffer.from('89504e470d0a1a0a', 'hex'), chunk('IHDR', header), chunk('IDAT', deflateSync(pixels)), chunk('IEND', Buffer.alloc(0))]);
 }
 export async function supplyFinalArt(page: Page, validCast = true): Promise<void> {
-  const portrait = png(256, 256), background = png(512, 256), cast = png(validCast ? 1024 : 128, 128);
+  const portrait = png(256, 256), background = png(512, 256);
   await page.route(/\/assets\/(characters|homes)\//, route => {
     const url = route.request().url();
     if (url.endsWith('/music.mp3')) return route.fulfill({ status: 404 });
-    return route.fulfill({ contentType: 'image/png', body: (url.endsWith('/cast.png') || url.includes('/effect-')) ? cast : url.endsWith('/standing.png') ? png(1024,160) : url.endsWith('/portrait.png') ? portrait : background });
+    const match = url.match(/\/characters\/([^/]+)\/(cast|standing|effect-([1-4]))\.png$/);
+    if (match) {
+      const hero = manifest.characters[match[1]];
+      const sheet = { ...manifest.castDefaults, ...(match[2] === 'standing' ? hero.standing : match[2] === 'cast' ? hero.casts['1'] : hero.effects[match[3]]) };
+      const invalid = !validCast && match[2] !== 'standing';
+      return route.fulfill({ contentType: 'image/png', body: png(invalid ? 1 : sheet.columns * sheet.frameWidth, sheet.frameHeight * Math.ceil(sheet.frameCount / sheet.columns)) });
+    }
+    return route.fulfill({ contentType: 'image/png', body: url.endsWith('/portrait.png') ? portrait : background });
   });
 }

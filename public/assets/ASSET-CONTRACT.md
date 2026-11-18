@@ -2,7 +2,7 @@
 
 The eight-home collection is available at `homes/index.html`, with `homes/catalog.json`, credits, license text and verified file hashes. Six home pairs are staged and unassigned until the future character discussion; they do not expand the playable roster.
 
-The playback code is ready. Both victory sheets and all four home background/music files are bundled. Each character still needs seven assets for the current screens, plus one optional portrait: 14 active assets + two optional portraits remain (16 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
+The playback code is ready. Both victory sheets and all four home background/music files are bundled. Sir Champignon now has review-draft idle, victory and shared casting sheets. The current screens still need 12 active assets + two optional portraits (14 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
 
 ```text
 public/assets/characters/CHARACTER/portrait.png
@@ -47,8 +47,8 @@ The regular check reports missing final files and validates supplied sprite-shee
 ### Sir Champignon — Sporelight Keep
 
 - Character icon.
-- Standing/idle animation.
-- One shared casting animation for all four spells.
+- Standing/idle animation: installed review draft, five 128×160 frames at 4 fps.
+- One shared casting animation for all four spells: installed review draft, nine 128×160 frames at 9 fps and a 500 ms final-pose hold.
 - Four spell effects: Mushroom Guard, Clean Sweep, Spore Ward, Royal Cleanup.
 - Background and music are installed; see [credits](homes/CREDITS.md).
 - Optional portrait, reserved for future portrait-based UI.
@@ -62,4 +62,4 @@ The regular check reports missing final files and validates supplied sprite-shee
 - Background and music are installed; see [credits](homes/CREDITS.md).
 - Optional portrait, reserved for future portrait-based UI.
 
-Both characters already have their victory animation, home background and music. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.
+Both characters have their victory animation, home background and music. Sir Champignon’s victory has been replaced with a matching review draft; his base pose, exact prompts, seeds and PixelLab job IDs are recorded in characters/champignon/provenance.json. User authorization D65 reopens this character’s art pass; other new generation remains deferred. The user handles visual review; technical checks only. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.

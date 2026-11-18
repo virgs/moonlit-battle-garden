@@ -91,6 +91,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D64 | Approve the eight caretaker identities, minibios and home/music assignments in characters.md. Simplify the proposed names to Nightshade, Duskmantle and Rootbeard; retain Sir Champignon, Captain Bramble, Sprig, Mallow and Miyaya. Preserve stable internal IDs and existing artwork paths when applying display names. PixelLab generation remains deferred; checking account access does not authorize generation. |
 
+| D65 | Reopen PixelLab generation for Sir Champignon only: create a new base from his recovered drawing, using the final board/moles/rabbits/stars as style references, then idle, victory and one shared casting animation. Preserve his helmet, red plume, mushroom shield and broom. Icons, portraits and distinct spell effects remain separate future work. At the user’s request, leave visual review to the user from this point; perform only technical file/playback checks and show previews without model image inspection. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
