@@ -113,6 +113,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D75 | User corrects Nightshade’s identity: he is an alien, not a blond-haired human. The apparent hair spikes are continuous extensions of his face/scalp, like a spiked cartoon head, with no hairline. He has visible neck gills. User permits a tail and a small ponytail-like rear head appendage; include these as simple alien anatomy. Clean the base sprite’s stray/dead pixels and noisy shading into bold coherent flat-color clusters. Preserve the sunglasses, jacket and hook/chain identity and adult proportions. Visual review stays with the user. |
 
+| D76 | User rejects Nightshade v2’s wide balloon-like head. His defining anatomy is a long, very narrow straw-like head/face with slender sides and a small jaw, not an enlarged skull. Narrow and elongate the head while retaining body/outfit, skin-continuous spikes, neck gills, slim tail and rear head tendril. User-only visual review remains required. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

@@ -1,0 +1,29 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Nightshade",
+  "internalCharacterId": "andy",
+  "status": "Long narrow alien head correction awaiting user visual review; runtime artwork unchanged.",
+  "jobId": "c0720fcb-ff9f-40c8-aaa7-efd49e58a662",
+  "assetId": "d1c27eb3-789d-5892-ae2e-f1e0dc774dfb",
+  "source": {
+    "file": "base-v2.png",
+    "provenance": "base-provenance-v2.json"
+  },
+  "prompt": "Correct ONLY the alien head proportions of Nightshade in this existing sprite. The current head is wrongly wide, round and balloon-like. His true head is LONG AND VERY THIN, like a narrow drinking straw or slender vertical tube, not a large skull. Make the entire face/skull substantially NARROWER (about half its current width) and modestly LONGER vertically, with almost parallel slender sides and a small narrow jaw. Keep a thin face from chin to crown; do not put a big bulbous dome at the top. The head must read as elongated adult alien anatomy, not a large baby head, rounded balloon, oversized forehead, broad cheeks, or giant hair mass. Keep small dark sunglasses fitted to the narrow face. His upward spikes are part of the same skin-continuous narrow scalp, not hair: keep the spike crown slim and restrained so it does not widen the head silhouette. Retain the small rear ponytail-like alien head tendril and visible neck gills. Preserve the existing body's position, lean adult body proportions, leather jacket, hook/short chain, boots and slim tail. Keep the same face/skin colors, clean thick dark contours and simple flat shading, with no stray/dead pixels, dithering, noisy highlights or extra details. Entire figure and elongated head remain inside the unchanged 192x192 transparent canvas with clear margins. No text, scene or frame. Do not redesign the body or outfit; this correction is a narrower, longer, straw-like head.",
+  "seed": 2026111810,
+  "width": 192,
+  "height": 192,
+  "costGenerations": 6,
+  "requestedCorrection": "Long, very thin straw-like face/skull, roughly half the prior width, with no balloon dome. Retain body/outfit and alien features.",
+  "visualReview": "User only; no model inspection of generated output.",
+  "installedSha256": "0011b169303ef84246a211c647698eecce12e3cab1cde5170d27735ef4a73130",
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "hasTransparentPixels": true,
+    "hasVisiblePixels": true
+  }
+}

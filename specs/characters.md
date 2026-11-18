@@ -59,7 +59,7 @@ Rootbeard followed the scent of mushroom stew into Whispering Wood and never fou
 
 | Character | Original appearance | Remake role |
 | --- | --- | --- |
-| Andy (Nightshade) | Alien with skin-continuous head spikes, visible neck gills, sunglasses, leather jacket, chain and hook | Trickster; stars and disruption |
+| Andy (Nightshade) | Alien with a long, very narrow straw-like head, skin-continuous spikes, visible neck gills, sunglasses, leather jacket, chain and hook | Trickster; stars and disruption |
 | Capitão Katyroba | Muscular, long-tailed animal with folded arms; line-art portrait | Brawler; armor and endurance |
 | Dindo | Long bangs, huge scarf, cloak; line-art portrait | Curse specialist; draining and marked targets |
 | E-Mailson | Robot with an @ emblem and mechanical claws | Automation and assistance |
@@ -135,3 +135,5 @@ Sir Champignon’s static character icon is installed at `public/assets/characte
 Authorized after the user approved Champignon’s final icon framing. The first 192×192 base design is staged at `public/assets/characters/andy/base.png`, with prompts/references in `base-provenance.json`. Preserve the corrected identity: alien with face/scalp-continuous spikes (not blond hair), visible neck gills, sunglasses, leather jacket, short chain and hook. Include the user-permitted slim tail and small ponytail-like rear head appendage as alien anatomy. Draw fresh clean adult proportions using approved Champignon and the final game artwork as style references. The user reviews the base before animation/icon generation; existing runtime sheets remain unchanged. Home/music remain Moonlit Hideout / Magic Town.
 
 Nightshade v2 is staged in `public/assets/characters/andy/base-v2.png`, with the full correction prompt in `base-provenance-v2.json`. Skin continues across face and spike crown without a hairline; gills are visible on the neck. Tail and head tendril share the skin material. Avoid stray/dead pixels and noisy single-pixel shading. The initial human/hair interpretation is superseded by the user’s alien identity correction.
+
+Nightshade v2’s head was rejected as too wide and balloon-like. His face/skull must be elongated and very thin, like a straw: slim near-parallel sides, a small jaw, no bulbous crown or broad cheeks. V3 (`base-v3.png`, record `base-provenance-v3.json`) is the head-only correction; body and outfit should remain intact. The user evaluates the result.
