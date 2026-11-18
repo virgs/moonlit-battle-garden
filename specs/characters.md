@@ -59,7 +59,7 @@ Rootbeard followed the scent of mushroom stew into Whispering Wood and never fou
 
 | Character | Original appearance | Remake role |
 | --- | --- | --- |
-| Andy (Nightshade) | Alien with a long, very narrow straw-like head, skin-continuous spikes, visible neck gills, sunglasses, leather jacket, chain and hook | Trickster; stars and disruption |
+| Andy (Nightshade) | Alien with a normal-sized adult head, fixed skin-continuous crown points and visible neck gills, sunglasses, leather jacket, chain and hook | Trickster; stars and disruption |
 | Capitão Katyroba | Muscular, long-tailed animal with folded arms; line-art portrait | Brawler; armor and endurance |
 | Dindo | Long bangs, huge scarf, cloak; line-art portrait | Curse specialist; draining and marked targets |
 | E-Mailson | Robot with an @ emblem and mechanical claws | Automation and assistance |
@@ -136,4 +136,6 @@ Authorized after the user approved Champignon’s final icon framing. The first 
 
 Nightshade v2 is staged in `public/assets/characters/andy/base-v2.png`, with the full correction prompt in `base-provenance-v2.json`. Skin continues across face and spike crown without a hairline; gills are visible on the neck. Tail and head tendril share the skin material. Avoid stray/dead pixels and noisy single-pixel shading. The initial human/hair interpretation is superseded by the user’s alien identity correction.
 
-Nightshade v2’s head was rejected as too wide and balloon-like. His face/skull must be elongated and very thin, like a straw: slim near-parallel sides, a small jaw, no bulbous crown or broad cheeks. V3 (`base-v3.png`, record `base-provenance-v3.json`) is the head-only correction; body and outfit should remain intact. The user evaluates the result.
+Nightshade v2’s head was rejected as too wide and balloon-like. The intermediate request for a long, very thin straw-like head was superseded by D77: use normal adult head proportions. V3 (`base-v3.png`, record `base-provenance-v3.json`) is the head-only correction; body and outfit should remain intact. The user evaluates the result.
+
+Current Nightshade head direction (D77): normal-sized adult head; the forehead continues directly into short, rigid skin points along its outer top contour. No division, hairline, separate cap, different hair color, strands or windblown hairstyle. Crown points remain fixed with the skull in future animation. Retain neck gills, tail and the small rear head tendril. The current review draft is `base-v4.png`, with its prompt in `base-provenance-v4.json`.

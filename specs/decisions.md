@@ -115,6 +115,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D76 | User rejects Nightshade v2’s wide balloon-like head. His defining anatomy is a long, very narrow straw-like head/face with slender sides and a small jaw, not an enlarged skull. Narrow and elongate the head while retaining body/outfit, skin-continuous spikes, neck gills, slim tail and rear head tendril. User-only visual review remains required. |
 
+| D77 | User revises D76: Nightshade now needs a normal-sized adult head. Forehead and short top spikes are one continuous skin/skull shape, with no hairline, seam, separate cap or hair-like locks. Spikes are fixed anatomy and must not sway like hair in future animations. Preserve body/outfit, gills, tail and rear head appendage. User-only visual review remains in force. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
