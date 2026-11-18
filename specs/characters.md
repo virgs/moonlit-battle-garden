@@ -177,3 +177,7 @@ Duskmantle’s idle, victory and one shared casting animation are user-approved.
 Duskmantle’s static head-and-shoulders icon is staged at `public/assets/characters/duskmantle/icon.png` (transparent 192×192), with its exact prompt/job/hash in `icon-provenance.json`. User visual review pending. No new spell-effect animations or playable character implementation were included.
 
 The user approved Duskmantle’s icon on 2026-11-18. His base, idle, victory, shared casting and icon are all approved; preserve without unsolicited cleanup.
+
+### Sprig base draft
+
+User authorizes Sprig’s new base, explicitly preserving his mailbox-shaped robot head and adding gardening tools. Retain original mechanical claws and @ identity. Keep a small readable tool set: hand trowel, clipped hand cultivator and compact watering attachment. Simple clean flat pixel art; no clutter or weaponry. Stage one base for user-only visual review before animations.

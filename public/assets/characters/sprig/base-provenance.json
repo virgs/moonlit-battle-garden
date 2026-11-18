@@ -1,0 +1,48 @@
+{
+  "generator": "PixelLab create_image_pro",
+  "created": "2026-11-18",
+  "character": "Sprig",
+  "assetDirectory": "sprig",
+  "jobId": "3c2f431d-0e0e-405f-b1c9-e1fe7e99687f",
+  "assetId": "635216a5-deab-5341-bbc5-1fd09aa26519",
+  "request": {
+    "description": "Fresh clean pixel-art BASE DESIGN for SPRIG, a compact adult-proportioned gardening ROBOT caretaker of an enchanted moonlit garden. Use the original drawing for identity. Crucially preserve its MAILBOX-SHAPED HEAD: a sturdy rounded-top postal-box housing with a flat front face/slot, mechanical features and the recognizable @ emblem where appropriate. This is a robot, not a human in a helmet. Keep articulated mechanical claws and a solid readable robot body. Add a SMALL PRACTICAL GARDENING TOOL KIT: one claw holds a short hand trowel, a compact two-prong hand cultivator is clipped neatly at the hip, and a small watering-can attachment/tank is mounted at the opposite hip or back. Make these tools simple bold recognizable shapes, not a cluttered arsenal. No weapons or guns. Calm ready standing pose, facing slightly left; expressive mechanical personality without baby/chibi proportions. Muted moss-green enamel and weathered blue-gray metal with restrained warm brass accents; a few broad flat shades per material. Match finished game art's thick dark outlines, coherent clean pixel clusters and simple adult silhouettes. No tiny rivet texture, dirty shading, white/light-gray speckles, gradients, dithering or excess highlights. Entire mailbox head, claws, tools and feet inside a transparent 192x192 square with generous animation margins. No scene, text labels or effects.",
+    "width": 192,
+    "height": 192,
+    "no_background": true,
+    "max_colors": 32,
+    "seed": 2026111830,
+    "style_image_url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/base-v3.png",
+    "style_copy": [
+      "outline",
+      "detail",
+      "shading"
+    ],
+    "reference_images": [
+      {
+        "sourceFile": "original.png",
+        "usage": "Original Sprig / E-Mailson robot identity: mailbox-shaped head, @ emblem and mechanical claws. Keep this identity; redesign cleanly rather than copying sketch rendering."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/references/final-art-style-plate.png",
+        "usage": "Final game outline weight, flat shading and clean broad pixel clusters only. Do not copy species or props."
+      }
+    ]
+  },
+  "status": "Staged base for user visual review; no model image inspection.",
+  "originalSource": "https://github.com/virgs/digHoleBattleGarden/tree/master/Personagens",
+  "originalPreparation": "Original E-Mailson BMP converted to PNG with exact magenta-to-alpha using scripts/import-legacy-art.py.",
+  "costGenerations": 10,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": {
+    "base.png": "efacb1d36151801fa8adea65fcc51f1c77573483f13bbdf260006ba16db70a87",
+    "original.png": "56b2f6d8029e2d802090d46875d7f25150f11d9fa0964681d1eab2521ed5c12e"
+  }
+}

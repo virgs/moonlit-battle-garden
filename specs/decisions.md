@@ -141,6 +141,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D89 | User approves Duskmantle’s animations and authorizes his head-and-shoulders icon. Clarify ownership: every hero has ONE shared casting animation; EACH SPELL owns its distinct spell-effect animation, separate from the hero animation set. Thematically matching effects within a cast clip are not a substitute for spell effects. Generate only the icon now; user-only visual review. |
 
+| D90 | User authorizes Sprig’s base draft: preserve the mailbox-like head and mechanical robot identity, add simple practical gardening tools. Keep a clean readable silhouette and stage one base for user review before generating animations. No playable roster expansion. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
