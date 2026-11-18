@@ -1,0 +1,55 @@
+{
+  "name": "icon",
+  "generator": "PixelLab create_image_pro",
+  "request": {
+    "description": "Static head-and-shoulders character ICON of the EXACT APPROVED Captain Bramble RAT in reference 1. Preserve his approved rat muzzle/whiskers, helmet whose rounded shell encloses BOTH rat-ear shapes, RED visor eye lenses, facial proportions and all material colors. He is an adult rat, not a mouse/cat/human. Recompose as a clean centered bust within a transparent 192x192 square. ENTIRE helmet and BOTH ear shells fully visible, at least 16px transparent margins above and at both sides. No extreme close-up or head clipping. Crop naturally below shoulders. Use reference 2 ONLY for generous framing and clean bold outline style, never its knight helmet, plume or cyan eyes. Match the approved character's simple coherent flat color clusters and minimal shading. No white/light-gray specks, dead pixels, texture, gradients or noisy highlights. No hands, magic, props, frame, writing or scenery. Fixed approved identity, adult proportions and exact colors.",
+    "width": 192,
+    "height": 192,
+    "no_background": true,
+    "max_colors": 32,
+    "seed": 2026111824,
+    "reference_images": [
+      {
+        "url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+        "usage": "Identity and exact colors. Approved Captain Bramble rat, helmet with ear-shaped shell and red eye lenses. Preserve all head features."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/icon.png",
+        "usage": "Full-head-and-shoulders icon framing, generous margins and bold clean outlines only. Do not copy its character."
+      }
+    ],
+    "style_image_url": "https://api.pixellab.ai/mcp/images/07298741-273e-4cd6-96d0-9405f4bd4ce5/download",
+    "style_copy": [
+      "color_palette",
+      "outline",
+      "detail",
+      "shading"
+    ]
+  },
+  "jobId": "5844c077-6c97-48d3-9691-453069227de0",
+  "assetId": "671cf8d3-f205-52c3-8421-8fef750aeef9",
+  "previousAttempt": {
+    "jobId": "73f8896a-5648-4b42-a138-8e760f7400e2",
+    "generator": "PixelLab edit_image_pro_flash",
+    "reason": "Stalled at5% for over4min; cancelled",
+    "cancellation": [
+      {
+        "type": "text",
+        "text": "job 73f8896a-5648-4b42-a138-8e760f7400e2 cancelled (was processing). concurrency slot released \u2014 you can start new work."
+      }
+    ]
+  },
+  "created": "2026-11-18",
+  "character": "Captain Bramble",
+  "status": "Completed; staged for user visual review. No model image inspection.",
+  "costGenerations": 10,
+  "installedSha256": "f5abef06a0d067b34ba464e74a31cab96eb0c870893138912ec17290b642316f",
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  }
+}
