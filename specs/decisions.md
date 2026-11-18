@@ -95,6 +95,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D66 | User rejected the first Champignon art pass as too close to the old illustration, too thin-lined and visually dirty. Redesign from scratch with the finished target sprites as the style authority: thicker outlines, simpler shapes, fewer colors and clean flat shading. Retain only the knight/broom/mushroom-shield concept from the old art. Show a new base for user visual review before generating more animations; do not inspect the result with model vision. Existing clips have 5 idle / 9 victory / 9 casting frames including the starting pose. |
 
+| D67 | User prefers the clean v2 Champignon style but finds the proportions too cute/baby-like. Refine to a taller, leaner adult with a smaller relative helmet, longer torso/limbs and less rounded armor, preserving the bold outlines and clean shading. Include exact mole, rabbit, star and board art in the style references. Continue user-only visual review before new animation work. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

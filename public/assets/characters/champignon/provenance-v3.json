@@ -1,0 +1,89 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-17",
+  "status": "Proportion refinement draft for user visual review; not installed as the active character.",
+  "jobId": "5dbc0b82-59fc-4ed3-879d-0d5b985ec041",
+  "sourceImageId": "93311860-c5b2-505a-ba47-655de2d4b87d",
+  "seed": 2026111706,
+  "prompt": "Refine the knight in the source image. Preserve the clean bold outlined pixel style, blue armor, cyan visor eyes, red plume, broom and mushroom-emblem shield that the user liked. Change proportions to a lean ADULT garden knight: about four helmet-heights tall, helmet about one quarter of the full figure height, narrower shoulders and waist, visibly longer torso, arms and legs, slimmer boots and less rounded armor. Taller and slightly larger overall, with a relaxed confident guardian stance. Keep some charming stylization but remove baby/chibi/toddler proportions and the oversized-head/short-limbs look. Re-render him to occupy roughly 145-165 pixels of the 192-pixel canvas height with clear transparent margins; do not merely stretch or upscale the existing pixels. The separate reference plate contains EXACT FINAL GAME ART: upper-left mole, upper-right rabbit, lower-left golden star, lower-right garden-board rim/soil/hole. Use ALL FOUR for a cohesive art style: strong dark outlines, clean large color clusters, simple flat cel shading, readable cartoon shapes and earthy highlights. The reference plate is style only; keep ONE knight, no moles/rabbits/stars/boards added to the result. Preserve bold line weight while slimming the body; do not make the contour lines thinner. At this larger native canvas, keep clean outer contours about 3-4 pixels wide, limited colors and only 2-3 shades per material. No noisy pixels, dithering, scratchy shading, dense armor detail, realistic rendering, gradient, scenery, text or ground. Full body, broom and plume inside the frame; transparent background.",
+  "width": 192,
+  "height": 192,
+  "estimatedCostGenerations": 6,
+  "source": {
+    "file": "base-v2.png",
+    "preparedFile": "references/base-v2-padded.png",
+    "processing": "Original 96x96 draft copied at (48,48) onto a transparent 192x192 canvas, without resizing or altering source pixels."
+  },
+  "styleReference": {
+    "file": "references/final-art-style-plate.png",
+    "processing": "Four exact 90x90 source crops arranged without rescaling on a 192x192 transparent canvas.",
+    "crops": [
+      {
+        "name": "mole",
+        "source": "/assets/characters.png",
+        "box": [
+          0,
+          0,
+          90,
+          90
+        ],
+        "placement": [
+          0,
+          0
+        ]
+      },
+      {
+        "name": "rabbit",
+        "source": "/assets/characters.png",
+        "box": [
+          1440,
+          0,
+          1530,
+          90
+        ],
+        "placement": [
+          102,
+          0
+        ]
+      },
+      {
+        "name": "star",
+        "source": "/assets/characters.png",
+        "box": [
+          720,
+          0,
+          810,
+          90
+        ],
+        "placement": [
+          0,
+          102
+        ]
+      },
+      {
+        "name": "board",
+        "source": "/assets/legacy/garden.png",
+        "box": [
+          0,
+          0,
+          90,
+          90
+        ],
+        "placement": [
+          102,
+          102
+        ]
+      }
+    ]
+  },
+  "visualReview": "User only. No model inspection of the generated output.",
+  "installedSha256": "d148ecaba23a3318fe8ed8efa99c2a2d06f1db680b10c84945d26a42eea659df",
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "hasTransparentPixels": true
+  },
+  "chargedGenerations": 6
+}
