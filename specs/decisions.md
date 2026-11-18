@@ -133,6 +133,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D85 | User approves Captain Bramble’s base and authorizes icon, subtle idle, expressive victory and one shared magical casting animation. Generate each full animation together from the same approved native 192×192 base to reduce palette drift; no automatic iterative cleanup. Preserve helmet ear shapes and red lenses. Stage assets without expanding the playable roster. User-only visual review remains in force; keep tool output and file reads concise to reduce token use. |
 
+| D86 | User approves all Captain Bramble animations and icon. Preserve these approved assets without further cleanup. Continue concise tool output and targeted reads to save tokens. This approves art only; playable roster expansion remains deferred. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

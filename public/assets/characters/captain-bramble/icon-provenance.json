@@ -41,7 +41,7 @@
   },
   "created": "2026-11-18",
   "character": "Captain Bramble",
-  "status": "Completed; staged for user visual review. No model image inspection.",
+  "status": "User approved on 2026-11-18. Visual review by user only; assets staged without playable roster expansion.",
   "costGenerations": 10,
   "installedSha256": "f5abef06a0d067b34ba464e74a31cab96eb0c870893138912ec17290b642316f",
   "technicalChecks": {
@@ -51,5 +51,6 @@
     ],
     "transparent": true,
     "visible": true
-  }
+  },
+  "userApproved": true
 }

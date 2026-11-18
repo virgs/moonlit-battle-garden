@@ -3,7 +3,7 @@
   "created": "2026-11-18",
   "character": "Captain Bramble",
   "assetDirectory": "captain-bramble",
-  "status": "Staged for user visual review; not a playable roster expansion. No model image inspection.",
+  "status": "User approved on 2026-11-18. Visual review by user only; assets staged without playable roster expansion.",
   "base": {
     "file": "base.png",
     "provenance": "base-provenance.json",
@@ -112,5 +112,6 @@
     "standing.png": "bce83d04b474d84d6a02492c4b7dbdf173f5a06afd1f0f558cdb762365cae507",
     "victory.png": "83081ffc3c9110a508719d46d96f80cadc4c6feb2d79a31d5b7535fb27d9ffc0",
     "cast.png": "23b1ed34babf01d45452cbe5cd5c68bd4ecc910a027c3462ad3916547c9a793c"
-  }
+  },
+  "userApproved": true
 }
