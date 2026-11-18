@@ -47,7 +47,7 @@ The regular check reports missing final files and validates supplied sprite-shee
 ### Sir Champignon — Sporelight Keep
 
 - Character icon.
-- Standing/idle animation: installed review draft, five 192×192 frames at 4 fps.
+- Standing/idle animation: installed review draft, five 192×192 frames at 3 fps.
 - One shared casting animation for all four spells: installed review draft, nine 192×192 frames at 9 fps and a 500 ms final-pose hold.
 - Four spell effects: Mushroom Guard, Clean Sweep, Spore Ward, Royal Cleanup.
 - Background and music are installed; see [credits](homes/CREDITS.md).
@@ -63,3 +63,7 @@ The regular check reports missing final files and validates supplied sprite-shee
 - Optional portrait, reserved for future portrait-based UI.
 
 Both characters have their victory animation, home background and music. Sir Champignon’s victory has been replaced with a matching review draft; his approved 192×192 base-v3 pose is used for all three expressive animation sheets. Exact prompts, seeds and PixelLab job IDs are recorded in characters/champignon/provenance.json, with first-pass history in animation-provenance-v1.json. User authorization D65 reopens this character’s art pass; other new generation remains deferred. The user handles visual review; technical checks only. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.
+
+## Roster-wide animation requirements (D70)
+
+All characters use subtle idle animation (gentle breathing and small secondary motion). Victory and casting remain expressive. Each character’s single shared casting animation includes a visible thematic magic effect following its action/weapon; this is separate from per-spell active-effect sheets. Champignon uses a golden-green spore/sparkle trail along his broom sweep. Preserve space for the stars-spent overlay. Only the user performs visual review.

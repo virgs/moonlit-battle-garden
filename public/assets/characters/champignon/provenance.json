@@ -1,7 +1,7 @@
 {
-  "generator": "PixelLab animate_image_pixminimax (MiniMax H3)",
+  "generator": "PixelLab animate_image_pixminimax (idle), edit_animation (casting magic), retained MiniMax H3 victory",
   "created": "2026-11-18",
-  "status": "Expressive animation review drafts from the user-approved base-v3; technical checks only, visual review by user.",
+  "status": "Subtle idle and magic-trail casting review drafts; victory approved and unchanged. Technical checks only; visual review by user.",
   "frameWidth": 192,
   "frameHeight": 192,
   "processing": "Source frame followed by generated PNG frames, packed at native resolution without resizing, recoloring, trimming or manual frame edits using scripts/pack-sprite-animation.mjs.",
@@ -20,13 +20,13 @@
   },
   "animations": {
     "standing": {
-      "jobId": "984c4196-577d-41ee-9e55-1052cae0b9c8",
-      "assetId": "1d722105-ba64-50ea-bfbc-ecae543fb481",
-      "prompt": "Expressive standing idle LOOP using clearly distinct key poses: shift the whole body weight onto one leg and noticeably lean the torso, turn the helmet to look sideways, lift and readjust the broom with a visibly bent elbow while changing the shield arm angle, then shift back into the starting stance. Both feet remain grounded. The red plume follows with a broad delayed swish. Real articulated shoulder, elbow, hip and knee motion, clear changing silhouettes and noticeable gestures, rather than tiny breathing or moving the whole picture as one rigid block. Preserve the approved lean adult proportions, helmet, equipment, thick clean outlines and simple flat colors. Fixed camera and scale, centered in place, all limbs, broom and plume inside the canvas, transparent background.",
-      "seed": 2026111801,
+      "jobId": "9d551537-b02d-47c3-a775-d01a936818af",
+      "assetId": "3b14d008-d269-5c50-9e2d-8ac6c7a16335",
+      "prompt": "A restrained, subtle seamless idle loop for a calm adult guardian. Keep the same stance, boots planted, torso almost still, helmet facing in its original direction, and broom and shield held steadily in their original positions. Only gentle breathing: a very small rise and fall of the chest/shoulders and a tiny relaxed sway of the red plume. Calm waiting between actions. No weight shift, head turn, deliberate arm gesture, broom readjustment, hopping, waving, large lean or whole-image wobble. Preserve the approved clean thick pixel outlines, adult proportions, equipment, colors and silhouette. Fixed camera and scale. Transparent background.",
+      "seed": 2026111804,
       "frameCount": 5,
       "columns": 5,
-      "fps": 4,
+      "fps": 3,
       "holdMs": 0,
       "firstFrame": "base-v3.png",
       "lastFrame": "base-v3.png",
@@ -43,24 +43,67 @@
       "holdMs": 0,
       "firstFrame": "base-v3.png",
       "lastFrame": "base-v3.png",
-      "costGenerations": 1
+      "costGenerations": 1,
+      "approval": "User approved; file unchanged in this revision.",
+      "reusedUnchanged": true,
+      "newCostGenerations": 0
     },
     "cast": {
-      "jobId": "5d382ec9-989f-474d-a58b-72134de3b943",
-      "assetId": "61d4271e-6517-57ba-a938-7ad9b5e75651",
-      "prompt": "One very expressive guardian magic casting action with clear anticipation and follow-through: spread and brace the feet, bend both knees, twist the torso and pull the broom well back into an unmistakable wind-up; then drive a broad sweeping broom arc across the front with a strong torso twist and an extended elbow, presenting the mushroom shield forward. Follow through with a low lean, then straighten and return to the starting stance. The plume swings behind the head with the action. Distinct strong key poses and changing silhouettes throughout; not tiny hand motion, breathing or whole-image wiggling. Preserve the lean adult knight identity, closed helmet, mushroom emblem, broom, strong clean outlines and flat colors. Fixed camera, consistent size and ground line, keep every limb and all equipment within the canvas. Transparent background. No text, numbers, stars, giant spell aura or scenery; the game supplies the stars-spent overlay separately.",
-      "seed": 2026111803,
+      "sourceJobId": "5d382ec9-989f-474d-a58b-72134de3b943",
+      "sourceAssetId": "61d4271e-6517-57ba-a938-7ad9b5e75651",
+      "sourceMotionPrompt": "One very expressive guardian magic casting action with clear anticipation and follow-through: spread and brace the feet, bend both knees, twist the torso and pull the broom well back into an unmistakable wind-up; then drive a broad sweeping broom arc across the front with a strong torso twist and an extended elbow, presenting the mushroom shield forward. Follow through with a low lean, then straighten and return to the starting stance. The plume swings behind the head with the action. Distinct strong key poses and changing silhouettes throughout; not tiny hand motion, breathing or whole-image wiggling. Preserve the lean adult knight identity, closed helmet, mushroom emblem, broom, strong clean outlines and flat colors. Fixed camera, consistent size and ground line, keep every limb and all equipment within the canvas. Transparent background. No text, numbers, stars, giant spell aura or scenery; the game supplies the stars-spent overlay separately.",
+      "magicEffectPrompt": "Add ONLY a small, clearly visible magical garden-spore effect to this existing casting animation. Preserve each frame's knight pose, body silhouette, helmet, plume, shield, broom position, clean bold outlines and flat colors. Along and just behind the broom BRISTLES, draw a narrow curved golden-green luminous pixel trail following the direction of that frame's sweeping motion. Add a few small bright pale-gold star-shaped sparkles and round soft-green glowing spore motes that peel away from the trail and disperse. The effect reads as gentle mushroom/garden protection magic, with a bright bristle-tip at the leading edge and a tapered fading trail behind it. Keep the effect compact, elegant and readable; it must not cover the face or mushroom shield emblem. Match the existing chunky pixel art: clean shapes, a few flat green/gold light shades, no blurry airbrushed smoke or noisy confetti. Do not change the motion, proportions or character design. Transparent background, all content inside the unchanged 192x192 frame, no text, no numbers, no extra large collectible stars, no scene. The first and last clean frames will be supplied unchanged by the game pipeline.",
+      "editBatches": [
+        {
+          "jobId": "9e08ee52-3cb0-4f0b-85bd-4e3a27fd0891",
+          "assetId": "0b5d83bc-7598-5620-8147-233e030cc786",
+          "sourceFrameIndices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "outputFrameIndices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "seed": 2026111805,
+          "costGenerations": 25
+        },
+        {
+          "jobId": "cea2d52e-bda9-4a17-a7fe-0dfa2e5e2ca9",
+          "assetId": "e72cd197-cfa7-5b3d-899c-e338b83fba88",
+          "sourceFrameIndices": [
+            5,
+            6,
+            7
+          ],
+          "outputFrameIndices": [
+            5,
+            6,
+            7
+          ],
+          "seed": 2026111805,
+          "costGenerations": 25
+        }
+      ],
       "frameCount": 9,
       "columns": 9,
       "fps": 9,
       "holdMs": 500,
+      "preservedSourceFrames": [
+        0,
+        8
+      ],
       "firstFrame": "base-v3.png",
-      "lastFrame": "base-v3.png",
-      "costGenerations": 1
+      "costGenerations": 50
     }
   },
-  "totalCostGenerations": 3,
-  "previousAnimationRecord": "animation-provenance-v1.json",
+  "totalCostGenerations": 51,
+  "previousAnimationRecord": "animation-provenance-v2.json",
+  "costScope": "This revision only: 1 idle generation plus two 25-generation animation edit batches. Prior animation costs are in animation-provenance-v2.json.",
   "technicalChecks": {
     "standing": {
       "frameCount": 5,
@@ -69,8 +112,7 @@
         192
       ],
       "transparent": true,
-      "firstFrameMatchesApprovedBase": true,
-      "uniquePixelFrames": 5
+      "firstFrameMatchesApprovedBase": true
     },
     "victory": {
       "frameCount": 9,
@@ -80,7 +122,7 @@
       ],
       "transparent": true,
       "firstFrameMatchesApprovedBase": true,
-      "uniquePixelFrames": 9
+      "unchangedFromApprovedVersion": true
     },
     "cast": {
       "frameCount": 9,
@@ -89,14 +131,13 @@
         192
       ],
       "transparent": true,
-      "firstFrameMatchesApprovedBase": true,
-      "uniquePixelFrames": 9
+      "firstFrameMatchesApprovedBase": true
     }
   },
   "installedSha256": {
     "base-v3.png": "d148ecaba23a3318fe8ed8efa99c2a2d06f1db680b10c84945d26a42eea659df",
-    "standing.png": "516369572e1f71487fa8e44cebc10678625bf3709890885ad468398eaae7d4a9",
+    "standing.png": "65aa808c5e78b6fa4c374c3b1df9b5367b17b88e2dc91afe45ee3176a1ee14a7",
     "victory.png": "76f9704d5ccf177686e4d99bbc83b06623cdfcaea36462f2494707d0d08e4e45",
-    "cast.png": "8c9028cbe850af860f59f441e180f3edd188386cbe468d677b3baeaf243b9162"
+    "cast.png": "f684a66055b81749e00315ca9f7bddd867a54e73e34d5bdb0849ce4f9219b2c7"
   }
 }

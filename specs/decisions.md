@@ -101,6 +101,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D69 | User restored PixelLab access and authorized resuming Champignon’s expressive idle/victory/shared-cast animations on 2026-11-18. Use the approved 192×192 base-v3 at native resolution, preserving its final-game reference style and adult proportions. Keep the existing 1.5-second casting freeze and actual stars-spent overlay. Visual quality review remains with the user. |
 
+| D70 | User approved Champignon’s animation style but revises D68 for all future characters: idle must be subtle and calm; casting must include a visible magic effect fitting the character and following the gesture/weapon. Keep expressive victory and casting body motion. For Champignon, replace the overactive idle with gentle breathing/plume sway and add a narrow golden-green spore trail and a few fading sparkles along the existing broom sweep. Preserve the approved victory. Visual review remains user-only, and one casting sheet still serves all spell tiers. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

@@ -13,7 +13,7 @@ test('Champignon uses real idle, victory and shared casting sprites', async ({ p
   await expect(idle).toHaveAttribute('data-asset', 'ready');
   await page.clock.pauseAt(new Date(await page.evaluate(() => Date.now()) + 100));
   const initial = await idle.getAttribute('data-frame');
-  await page.clock.runFor(250);
+  await page.clock.runFor(400);
   expect(await idle.getAttribute('data-frame')).not.toBe(initial);
   await page.screenshot({ path: testInfo.outputPath('champignon-idle.png') });
   await page.getByRole('button', { name: 'Confirm Player 1' }).click();

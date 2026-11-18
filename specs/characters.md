@@ -109,14 +109,21 @@ The prototype resolves the following with provisional rules in prototype.md; rev
 
 Sir Champignon’s `public/assets/characters/champignon/base-v3.png` is the approved design. It is the clean, taller adult revision using the finished mole/rabbit/star/board reference plate. His idle, victory and shared casting sheets now use this 192×192 design; v1 animation records are preserved separately, and v2 was a proportion draft. Preserve v3’s identity, clean flat shading and thick outlines in future work.
 
-The user requests very expressive animation: unmistakable body/limb movements, strong poses and clear silhouette changes. A small number of distinct key poses is sufficient. No barely moving character, tiny breathing-only idle, or whole-image CSS wiggling. Visual review belongs to the user; do not inspect generated frames with model vision. The user restored access and authorized this animation pass on 2026-11-18.
+The user requests expressive victory and casting actions: unmistakable body/limb movements, strong poses and clear silhouette changes. A small number of distinct key poses is sufficient. D70 revises idle for the entire roster: calm, subtle breathing and small secondary movement, with no large gestures or weight shifts. Whole-image CSS wiggling remains excluded. Visual review belongs to the user; do not inspect generated frames with model vision. The user restored access and authorized this animation pass on 2026-11-18.
 
 Animation briefs (generated clips await user visual review):
 
-- Idle: visible weight shift, head turn and a deliberate broom/shield adjustment, with secondary plume motion. Keep him grounded and recognizably alive.
+- Idle: gentle breathing and a tiny plume sway. Keep the head direction, stance, broom and shield steady; no broad weight shifts, head turns or arm gestures. Five frames at 3 fps.
 - Victory: crouch in anticipation, an exuberant full-body hop or proud step, an unmistakable raised broom/shield salute, then a readable proud landing/settle.
-- Shared casting: brace and wind up, twist the torso into a broad broom sweep, present the shield, then follow through and settle. Fit the established 1.5-second cast freeze and retain the separate stars-spent overlay.
+- Shared casting: brace and wind up, twist the torso into a broad broom sweep, present the shield, then follow through and settle. Add a compact golden-green magical spore trail that follows the broom bristles, with a few sparkles/motes dispersing behind it. Fit the established 1.5-second cast freeze and retain the separate stars-spent overlay.
 
-Favor clear anticipation, action, follow-through and a short held pose over numerous small in-between changes. Keep equipment attached, preserve colors and leave enough canvas margin for gestures without clipping.
+For casting and victory, favor clear anticipation, action, follow-through and a short held pose over numerous small in-between changes. Keep equipment attached, preserve colors and leave enough canvas margin for gestures without clipping.
 
-The current sheets contain the starting pose plus four generated idle frames (five total, 4 fps) and eight generated victory/casting frames (nine total; victory 8 fps, cast 9 fps plus 500 ms final-pose hold). All four casting tiers reference the same sheet. No generated spell-effect overlays or additional character assets are part of this pass.
+The current sheets contain the starting pose plus four generated idle frames (five total, 3 fps) and eight generated victory/casting frames (nine total; victory 8 fps, cast 9 fps plus 500 ms final-pose hold). All four casting tiers reference the same sheet. No generated spell-effect overlays or additional character assets are part of this pass.
+
+### Defaults for every future character
+
+- Idle is subtle: restrained breathing and small character-specific secondary motion. Save large gestures and clear silhouette changes for victory and casting.
+- Casting includes visible, character-appropriate magic: a trail, sparkles, motes, smoke or a similar effect tied to the gesture/weapon. Keep it within the sprite canvas, readable, and clear of the face and stars-spent overlay.
+- Casting magic is part of the one shared character casting animation. It does not replace each spell’s separate active-effect visuals.
+- The user reviews all generated images and animations; perform technical file/playback checks only.
