@@ -99,6 +99,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D68 | User approved Champignon base-v3.png as the character design and style direction for the cast. Future idle/victory/shared-cast clips must be very expressive with clearly changing body poses and silhouettes; few strong frames are preferable to many nearly identical frames. Avoid barely perceptible motion and whole-image wiggling. Preserve clean bold outlines and adult proportions. Animation generation waits until the user restores PixelLab access; visual review stays with the user. |
 
+| D69 | User restored PixelLab access and authorized resuming Champignon’s expressive idle/victory/shared-cast animations on 2026-11-18. Use the approved 192×192 base-v3 at native resolution, preserving its final-game reference style and adult proportions. Keep the existing 1.5-second casting freeze and actual stars-spent overlay. Visual quality review remains with the user. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

@@ -1,79 +1,102 @@
 {
-  "generator": "PixelLab create_image_pro + animate_image",
-  "created": "2026-11-17",
-  "status": "Review draft: technical checks only; user reviews visual quality.",
-  "frameWidth": 128,
-  "frameHeight": 160,
-  "processing": "PixelLab PNG frames packed in order at native resolution with scripts/pack-sprite-animation.mjs. No resizing, recoloring, trimming or hand-painted frame changes.",
+  "generator": "PixelLab animate_image_pixminimax (MiniMax H3)",
+  "created": "2026-11-18",
+  "status": "Expressive animation review drafts from the user-approved base-v3; technical checks only, visual review by user.",
+  "frameWidth": 192,
+  "frameHeight": 192,
+  "processing": "Source frame followed by generated PNG frames, packed at native resolution without resizing, recoloring, trimming or manual frame edits using scripts/pack-sprite-animation.mjs.",
   "base": {
-    "jobId": "fdd92151-f9e4-4f28-9fd4-ee868e7337f8",
-    "assetId": "54aa0b9a-229a-5c9e-b20b-e6e98b5c3a3a",
-    "selectedCandidate": 0,
-    "candidates": 4,
-    "costGenerations": 15,
-    "seed": 2026111701,
-    "prompt": "Sir Champignon, the same garden knight as the labelled identity reference, redrawn as ONE coherent full-body 2D game character per candidate on transparent background. Friendly eccentric guardian, slightly big closed pointed steel helmet with a narrow black eye slit and two tiny cyan eyes, curved dark red horsehair plume, slate blue-gray plate armor, small tan neck, practical boots. Hold a WOODEN HOUSEHOLD BROOM with red-brown bristles in right hand and a muted green kite shield with a clearly readable red cap white-spotted mushroom emblem on left arm. No sword, no human face, no mushroom head. Match the finished garden-board, mole, white rabbit and gold star artwork: chunky crisp hand-drawn 16-bit pixel contours, dark outlines, compact flat-shaded color clusters, warm slightly earthy colors, charming cartoon anatomy, clean readable silhouette, no painterly gradients or smooth vector edges. Three-quarter front view facing slightly left like the original illustration. Neutral standing start pose ready for idle/victory/casting, broom held diagonally downward with bristles beside boots, shield outward. Entire knight, plume, boots, broom and shield visible, feet on a consistent baseline. Character occupies about 100x125 pixels within the 128x160 canvas, with transparent breathing room above and to both sides for animation. No floor, scene, text, borders, checkerboard or magenta background.",
-    "references": [
-      {
-        "file": "/assets/legacy/champignon-hero.png",
-        "role": "Existing knight identity: helmet, plume, broom and mushroom shield."
-      },
-      {
-        "file": "/assets/characters.png",
-        "role": "Final mole, rabbit and star outlines, detail and shading."
-      },
-      {
-        "file": "/assets/legacy/garden.png",
-        "role": "Final garden board's earthy outlined cartoon pixel-art style."
-      }
-    ]
+    "file": "base-v3.png",
+    "provenance": "provenance-v3.json",
+    "approval": "User approved the clean adult design on 2026-11-17.",
+    "inheritedStyleReferences": "references/final-art-style-plate.png (mole, rabbit, star and board)"
+  },
+  "caption": {
+    "subject": "A lean adult garden knight in slate-blue armor, a closed helmet with cyan visor eyes and red plume, holding a household broom and a green mushroom-emblem shield.",
+    "initialPose": "Standing upright in a relaxed guard pose, holding a lowered broom and a mushroom shield beside the torso.",
+    "direction": "south-west",
+    "view": "side",
+    "enhancePrompt": false
   },
   "animations": {
     "standing": {
-      "jobId": "a5058679-e036-46dc-884a-fabd6d98f9ca",
-      "assetId": "3a3dd0da-71dc-5db5-bce1-86dde96105bd",
-      "prompt": "A very subtle seamless standing idle loop. Breathe gently with a tiny rise and fall of the armored chest and shoulders; the red plume sways softly and settles. Both boots stay planted on exactly the same ground line. Keep the broom in the same relaxed diagonal hold and the mushroom shield facing outward. Very small pose changes only. Preserve helmet shape, equipment, scale, pixel contours and colors. Fixed camera, centered, entire body and broom inside the canvas, no walking, no rotation, no background or shadow.",
+      "jobId": "984c4196-577d-41ee-9e55-1052cae0b9c8",
+      "assetId": "1d722105-ba64-50ea-bfbc-ecae543fb481",
+      "prompt": "Expressive standing idle LOOP using clearly distinct key poses: shift the whole body weight onto one leg and noticeably lean the torso, turn the helmet to look sideways, lift and readjust the broom with a visibly bent elbow while changing the shield arm angle, then shift back into the starting stance. Both feet remain grounded. The red plume follows with a broad delayed swish. Real articulated shoulder, elbow, hip and knee motion, clear changing silhouettes and noticeable gestures, rather than tiny breathing or moving the whole picture as one rigid block. Preserve the approved lean adult proportions, helmet, equipment, thick clean outlines and simple flat colors. Fixed camera and scale, centered in place, all limbs, broom and plume inside the canvas, transparent background.",
+      "seed": 2026111801,
       "frameCount": 5,
       "columns": 5,
       "fps": 4,
       "holdMs": 0,
-      "firstFrame": "base.png",
-      "lastFrame": "base.png",
-      "costGenerations": 2,
-      "seed": 2026111702
+      "firstFrame": "base-v3.png",
+      "lastFrame": "base-v3.png",
+      "costGenerations": 1
     },
     "victory": {
-      "jobId": "e6c0b1c6-a7d1-4635-948d-ee5a4008a1ce",
-      "assetId": "af936bd8-a6ac-5001-af90-5b50f1c1ea85",
-      "prompt": "A cheerful compact victory celebration loop: slight knee bend, proud small upward bounce, lift the mushroom shield a little in a triumphant salute and lift the broom handle diagonally beside the shoulder, then lower both and settle back into the exact starting stance. Red plume follows the motion. Stay in place, no walking or full turn. Keep the broom and shield attached to the correct hands; preserve the closed helmet, two cyan eyes, mushroom emblem, armor and proportions. Small enough gestures to keep plume and broom fully within the fixed canvas; no cropping, no text, no trophy or background.",
+      "jobId": "df0e793d-b9a1-45e7-8e66-1480c13b3fcf",
+      "assetId": "15a7e60c-5a6d-5b1b-94d2-f94cbcc8aacd",
+      "prompt": "A very expressive joyful victory LOOP with distinct full-body key poses: crouch low with bent knees in clear anticipation, spring into one celebratory hop while lifting the broom diagonally in a triumphant salute and raising the mushroom shield proudly, land with knees bent and plume swinging, straighten into a proud chest-out pose, then return to the original stance. Make limb movement and silhouette changes large and unmistakable. Keep the broom and shield in their original hands, maintain the lean adult knight identity, closed helmet, plume, clean bold outlines and flat color clusters. Fixed camera and character scale, no sliding across the frame, all equipment and plume stay fully within the canvas, transparent background. No text, confetti or trophy.",
+      "seed": 2026111802,
       "frameCount": 9,
       "columns": 9,
       "fps": 8,
       "holdMs": 0,
-      "firstFrame": "base.png",
-      "lastFrame": "base.png",
-      "costGenerations": 3,
-      "seed": 2026111703
+      "firstFrame": "base-v3.png",
+      "lastFrame": "base-v3.png",
+      "costGenerations": 1
     },
     "cast": {
-      "jobId": "142b4e7e-bbfb-42f3-ba02-47b6cde52080",
-      "assetId": "69e2467e-6fd6-54f8-ae7c-1dd4355b696f",
-      "prompt": "One compact spell-casting sequence returning to the starting pose: brace the feet, pull the broom slightly inward, then make one deliberate short outward sweeping arc across the front of the body as the mushroom shield tilts forward. A few small golden-green spore sparkles briefly flick from the broom tip and fade. Settle the broom and shield back into the exact original stance. This is a guardian gardener casting a spell, no sword or combat attack. Preserve the closed helmet, cyan eyes, red plume, shield mushroom emblem and equipment in the correct hands. Fixed camera and ground line, complete character and broom stay within canvas. Transparent background, no giant aura, no text and no stars or numbers.",
+      "jobId": "5d382ec9-989f-474d-a58b-72134de3b943",
+      "assetId": "61d4271e-6517-57ba-a938-7ad9b5e75651",
+      "prompt": "One very expressive guardian magic casting action with clear anticipation and follow-through: spread and brace the feet, bend both knees, twist the torso and pull the broom well back into an unmistakable wind-up; then drive a broad sweeping broom arc across the front with a strong torso twist and an extended elbow, presenting the mushroom shield forward. Follow through with a low lean, then straighten and return to the starting stance. The plume swings behind the head with the action. Distinct strong key poses and changing silhouettes throughout; not tiny hand motion, breathing or whole-image wiggling. Preserve the lean adult knight identity, closed helmet, mushroom emblem, broom, strong clean outlines and flat colors. Fixed camera, consistent size and ground line, keep every limb and all equipment within the canvas. Transparent background. No text, numbers, stars, giant spell aura or scenery; the game supplies the stars-spent overlay separately.",
+      "seed": 2026111803,
       "frameCount": 9,
       "columns": 9,
       "fps": 9,
       "holdMs": 500,
-      "firstFrame": "base.png",
-      "lastFrame": "base.png",
-      "costGenerations": 3,
-      "seed": 2026111704
+      "firstFrame": "base-v3.png",
+      "lastFrame": "base-v3.png",
+      "costGenerations": 1
     }
   },
-  "totalCostGenerations": 23,
+  "totalCostGenerations": 3,
+  "previousAnimationRecord": "animation-provenance-v1.json",
+  "technicalChecks": {
+    "standing": {
+      "frameCount": 5,
+      "dimensions": [
+        192,
+        192
+      ],
+      "transparent": true,
+      "firstFrameMatchesApprovedBase": true,
+      "uniquePixelFrames": 5
+    },
+    "victory": {
+      "frameCount": 9,
+      "dimensions": [
+        192,
+        192
+      ],
+      "transparent": true,
+      "firstFrameMatchesApprovedBase": true,
+      "uniquePixelFrames": 9
+    },
+    "cast": {
+      "frameCount": 9,
+      "dimensions": [
+        192,
+        192
+      ],
+      "transparent": true,
+      "firstFrameMatchesApprovedBase": true,
+      "uniquePixelFrames": 9
+    }
+  },
   "installedSha256": {
-    "base.png": "26408fce6fd50385d8be1b25f5319ad3a5b12b3612f110ca3587696ae6612c2e",
-    "standing.png": "bb9ea88ceb42e650e54f4bcec902e6496a3cc136190e6bef81baa43f2836fd49",
-    "victory.png": "ba3481fd21147f78690bccb8db9faf6b17c02c5086ed6f262263e72c62fe9fe8",
-    "cast.png": "cec6a0dcddd6ae2d81b1256b70ee516833e3e4fcdceea81fec48f69177955755"
+    "base-v3.png": "d148ecaba23a3318fe8ed8efa99c2a2d06f1db680b10c84945d26a42eea659df",
+    "standing.png": "516369572e1f71487fa8e44cebc10678625bf3709890885ad468398eaae7d4a9",
+    "victory.png": "76f9704d5ccf177686e4d99bbc83b06623cdfcaea36462f2494707d0d08e4e45",
+    "cast.png": "8c9028cbe850af860f59f441e180f3edd188386cbe468d677b3baeaf243b9162"
   }
 }

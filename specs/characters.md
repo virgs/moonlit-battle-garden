@@ -107,14 +107,16 @@ The prototype resolves the following with provisional rules in prototype.md; rev
 
 ## Approved character art and animation direction
 
-Sir Champignon’s `public/assets/characters/champignon/base-v3.png` is the approved design. It is the clean, taller adult revision using the finished mole/rabbit/star/board reference plate. Previous v1 animation files remain installed pending their replacements; v2 was a proportion draft. Preserve v3’s identity, clean flat shading and thick outlines in future work.
+Sir Champignon’s `public/assets/characters/champignon/base-v3.png` is the approved design. It is the clean, taller adult revision using the finished mole/rabbit/star/board reference plate. His idle, victory and shared casting sheets now use this 192×192 design; v1 animation records are preserved separately, and v2 was a proportion draft. Preserve v3’s identity, clean flat shading and thick outlines in future work.
 
-The user requests very expressive animation: unmistakable body/limb movements, strong poses and clear silhouette changes. A small number of distinct key poses is sufficient. No barely moving character, tiny breathing-only idle, or whole-image CSS wiggling. Visual review belongs to the user; do not inspect generated frames with model vision. New generation waits for the user to restore PixelLab access.
+The user requests very expressive animation: unmistakable body/limb movements, strong poses and clear silhouette changes. A small number of distinct key poses is sufficient. No barely moving character, tiny breathing-only idle, or whole-image CSS wiggling. Visual review belongs to the user; do not inspect generated frames with model vision. The user restored access and authorized this animation pass on 2026-11-18.
 
-Proposed motion briefs (exact frame counts/timing remain flexible):
+Animation briefs (generated clips await user visual review):
 
 - Idle: visible weight shift, head turn and a deliberate broom/shield adjustment, with secondary plume motion. Keep him grounded and recognizably alive.
 - Victory: crouch in anticipation, an exuberant full-body hop or proud step, an unmistakable raised broom/shield salute, then a readable proud landing/settle.
 - Shared casting: brace and wind up, twist the torso into a broad broom sweep, present the shield, then follow through and settle. Fit the established 1.5-second cast freeze and retain the separate stars-spent overlay.
 
 Favor clear anticipation, action, follow-through and a short held pose over numerous small in-between changes. Keep equipment attached, preserve colors and leave enough canvas margin for gestures without clipping.
+
+The current sheets contain the starting pose plus four generated idle frames (five total, 4 fps) and eight generated victory/casting frames (nine total; victory 8 fps, cast 9 fps plus 500 ms final-pose hold). All four casting tiers reference the same sheet. No generated spell-effect overlays or additional character assets are part of this pass.
