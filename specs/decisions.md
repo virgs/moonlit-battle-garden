@@ -145,6 +145,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D91 | User likes Sprig overall but finds his head too literally mailbox-like. Refine the head into a primarily robotic housing/face, retaining only a subtle rounded-box reference. Remove literal postal details; preserve the body, tools, colors and pose. Supersedes D90’s strong mailbox resemblance. Stage v2 for user visual review before animations. |
 
+| D92 | User likes Sprig’s revised head but finds the claw holding the small shovel awkward. Replace that claw hand itself with a directly wrist-mounted garden trowel end-effector; no hand gripping a separate handle. Preserve the other claw, tools, revised head, body and palette. Stage v3 for user review before animation work. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

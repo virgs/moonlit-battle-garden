@@ -183,3 +183,5 @@ The user approved Duskmantle’s icon on 2026-11-18. His base, idle, victory, sh
 User authorizes Sprig’s new base, explicitly preserving his mailbox-shaped robot head and adding gardening tools. Retain original mechanical claws and @ identity. Keep a small readable tool set: hand trowel, clipped hand cultivator and compact watering attachment. Simple clean flat pixel art; no clutter or weaponry. Stage one base for user-only visual review before animations.
 
 Sprig refinement D91: user likes the first base overall but wants a less literal mailbox head. Keep a subtle rounded-box hint while prioritizing a robotic housing and face panel; remove postal slot/door/flag details. Preserve body, gardening toolkit, palette and pose. Current refinement is a head-only v2 draft; original base retained.
+
+Sprig refinement D92: user likes v2’s revised head and requests replacing the shovel-holding claw itself with an integrated wrist-mounted trowel attachment. The shovel blade is the end-effector, with no claw/fingers gripping a separate handle. Preserve the other claw, gardening toolkit, head, body, palette and pose. V3 is staged for user review before animations.

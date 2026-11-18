@@ -1,0 +1,29 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Sprig",
+  "jobId": "1d080bc2-b5c2-4226-9fee-1909da6df72a",
+  "request": {
+    "image_url": "https://api.pixellab.ai/mcp/images/59476fdf-98d5-41e1-840e-fb61dd3a876a/download",
+    "method": "text",
+    "description": "Make ONE small equipment correction to this liked Sprig gardening robot. On the arm currently holding the little garden shovel/trowel: REMOVE THAT CLAW HAND and the awkward handheld grip entirely. Replace the hand itself with a compact integrated GARDEN TROWEL END-EFFECTOR, directly mounted onto the wrist/forearm through a simple short mechanical coupling. The broad recognizable little shovel blade IS the hand/tool attachment; no fingers, claw prongs, fist or separate handle wrapped by a hand. Keep this arm's general pose and location. Make the blade silhouette clear and simple, with a dark outline, one clean metal shade and one restrained shadow; no ambiguous overlapping shapes. Preserve the OTHER claw hand and all other pixels/design as closely as possible: approved revised robot head/face, body, legs, clipped cultivator, watering attachment, proportions, colors and pose. No new tools, limbs or accessories. Clean bold pixel outlines and broad flat clusters, no white/light-gray specks, gradients, texture or noisy detail. Entire character/tools inside the SAME transparent 192x192 canvas. Do not redesign the head or body.",
+    "no_background": true,
+    "use_color_palette_correction": true,
+    "seed": 2026111832
+  },
+  "source": {
+    "file": "base-v2.png",
+    "provenance": "base-provenance-v2.json"
+  },
+  "status": "Staged trowel-hand refinement for user review; no model image inspection.",
+  "costGenerations": 6,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "0e3b8ac430b2c6cb05e057fa1eb6568a3bc930e52cd489ad73be7ad81c0c66f8"
+}
