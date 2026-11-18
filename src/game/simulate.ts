@@ -8,6 +8,8 @@ export type BattleResult = {
   winnerSide: PlayerId | null;
   rounds: number;
   durationMs: number;
+  roundDurationsMs: number[];
+  unfinishedRoundMs: number | null;
   scores: [number, number];
   casts: [number[], number[]];
   timedOut: boolean;
@@ -20,10 +22,13 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   const casts: [number[], number[]] = [[0, 0, 0, 0], [0, 0, 0, 0]];
   const scores: [number, number] = [0, 0];
   // A cap catches stalemates/regressions rather than allowing a batch to hang.
-  let elapsedMs = 0;
+  let elapsedMs = 0, roundStartedMs = 0;
+  const roundDurationsMs:number[]=[];
   const capMs = config.maxSimulationMs;
   while (match.state.phase !== 'match-over' && elapsedMs < capMs) {
     if (match.state.phase === 'round-over') {
+      roundDurationsMs.push(elapsedMs-roundStartedMs);
+      roundStartedMs=elapsedMs;
       for (const id of [0, 1] as const) scores[id] += match.state.players[id].score;
       match.nextRound();
     }
@@ -41,9 +46,10 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   }
   for (const id of [0, 1] as const) scores[id] += match.state.players[id].score;
   const timedOut = match.state.phase !== 'match-over';
+  if(!timedOut||match.state.phase==='round-over')roundDurationsMs.push(elapsedMs-roundStartedMs);
   return {
     winner: !timedOut && match.state.winner !== null ? characters[match.state.winner] : null,
     winnerSide: timedOut ? null : match.state.winner,
-    rounds: match.state.round, durationMs: elapsedMs, scores, casts, timedOut,
+    rounds: match.state.round, durationMs: elapsedMs, roundDurationsMs, unfinishedRoundMs:timedOut&&match.state.phase!=='round-over'?elapsedMs-roundStartedMs:null, scores, casts, timedOut,
   };
 }

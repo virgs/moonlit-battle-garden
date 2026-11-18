@@ -90,7 +90,7 @@ it('bounds both normal and magical concurrency under sustained pressure', () => 
 it.each([0, 1] as const)('gives trailing board %i faster offers, earlier stars and shorter windows without changing the leader', loser => {
   const baseline = create(), trailing = create();
   trailing.state.players[loser].score = -80;
-  const normal = collect(baseline, waveDurationMs * 3), faster = collect(trailing, waveDurationMs * 3);
+  const normal = collect(baseline, waveDurationMs * 5), faster = collect(trailing, waveDurationMs * 5);
   const leader = loser === 0 ? 1 : 0;
   expect(demand(faster[leader])).toEqual(demand(normal[leader]));
   expect(faster[loser].filter(target => target.origin === 'natural').length).toBeGreaterThan(normal[loser].filter(target => target.origin === 'natural').length);
@@ -106,8 +106,8 @@ it('bounds score pressure smoothly, follows the current deficit and ignores roun
   const elapsed = 12000;
   const tied = playerPacingAt(elapsed, 20, 20), losing = playerPacingAt(elapsed, -50, 0);
   expect(tied.deficit).toBe(0); expect(tied.clockRate).toBe(1);
-  expect(losing.clockRate).toBeCloseTo(1 / 0.95);
-  expect(losing.lifetimeMs).toBeCloseTo(pacingAt(elapsed).lifetimeMs * 0.95);
+  expect(losing.clockRate).toBeCloseTo(1 / 0.975);
+  expect(losing.lifetimeMs).toBeCloseTo(pacingAt(elapsed).lifetimeMs * 0.975);
   expect(playerPacingAt(elapsed, 950, 1000)).toEqual(losing);
   expect(playerPacingAt(elapsed, 50, 0)).toEqual(playerPacingAt(elapsed, 0, 0));
   expect(playerPacingAt(elapsed, -1000, 0)).toEqual(playerPacingAt(elapsed, -100, 0));

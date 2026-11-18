@@ -8,21 +8,21 @@ pacing:
   buildMs: 12000
   peakMs: 5000
   recoveryMs: 8000
-  rampMs: 120000
+  rampMs: 60000
   firstSpawnMs: 250
   startIntervalMs: 1350
-  endIntervalMs: 780
+  endIntervalMs: 600
   intervalCalm: 1.1
-  intervalPeak: 0.68
-  minIntervalMs: 500
+  intervalPeak: 0.40
+  minIntervalMs: 300
   jitter: 0.08
   startLifetimeMs: 2200
-  endLifetimeMs: 1500
+  endLifetimeMs: 1300
   lifetimeCalm: 1.08
   lifetimePeak: 0.88
   minLifetimeMs: 1150
-  scoreIntervalReduction: 0.10
-  scoreLifetimeReduction: 0.10
+  scoreIntervalReduction: 0.05
+  scoreLifetimeReduction: 0.05
   startNaturalCap: 2
   endNaturalCap: 4
   peakExtraTarget: 1
@@ -48,6 +48,33 @@ spells:
   decoysMs: 8500
   shieldMs: 12000
 ai:
-  easy: { reactionMs: 900, intervalMs: 600, accuracy: 0.72, rabbitMistake: 0.16 }
-  medium: { reactionMs: 560, intervalMs: 360, accuracy: 0.90, rabbitMistake: 0.06 }
-  hard: { reactionMs: 280, intervalMs: 220, accuracy: 0.97, rabbitMistake: 0.02 }
+  easy:
+    reactionMs: 900
+    intervalMs: 600
+    accuracy: 0.70
+    rabbitMistake: 0.16
+    reactionJitter: 0.25
+    intervalJitter: 0.25
+    hesitationChance: 0.08
+    hesitationMinMs: 600
+    hesitationMaxMs: 1100
+  medium:
+    reactionMs: 560
+    intervalMs: 360
+    accuracy: 0.87
+    rabbitMistake: 0.06
+    reactionJitter: 0.25
+    intervalJitter: 0.25
+    hesitationChance: 0.06
+    hesitationMinMs: 500
+    hesitationMaxMs: 900
+  hard:
+    reactionMs: 280
+    intervalMs: 220
+    accuracy: 0.92
+    rabbitMistake: 0.02
+    reactionJitter: 0.30
+    intervalJitter: 0.25
+    hesitationChance: 0.04
+    hesitationMinMs: 400
+    hesitationMaxMs: 850

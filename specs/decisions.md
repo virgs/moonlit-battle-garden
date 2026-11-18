@@ -79,6 +79,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D58 | Validate the AI balance harness with Andy-vs-Andy and Champignon-vs-Champignon at every AI level before further character tuning. Expect approximately 50/50 side wins over many seeds, report unfinished matches separately, and avoid treating symmetry as proof of full correctness. |
 
+| D59 | Compare AI fallibility and stronger waves against the original settings before tuning. Include seeded timing variation and occasional hesitation across all AI levels, retaining difficulty ordering. Adopt the independently validated shorter-match configuration: 70/87/92% accuracy, stronger peaks with a 60-second ramp, and gentler 5% catch-up. Preserve minimum visible windows, target caps, score-based victory and identical per-round rules. Keep remaining Hard character imbalance and long tails explicit. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

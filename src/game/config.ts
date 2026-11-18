@@ -2,7 +2,7 @@ import { parse } from 'yaml';
 import source from '../assets/config/game.yaml?raw';
 import type { CharacterId, Difficulty } from './types';
 
-type BotConfig = { reactionMs: number; intervalMs: number; accuracy: number; rabbitMistake: number };
+type BotConfig = { reactionMs: number; intervalMs: number; accuracy: number; rabbitMistake: number; reactionJitter?: number; intervalJitter?: number; hesitationChance?: number; hesitationMinMs?: number; hesitationMaxMs?: number };
 type Config = {
   winScoreDifference: number; roundWins: number; tickMs: number; countdownMs: number; maxSimulationMs: number;
   pacing: {
@@ -29,6 +29,10 @@ function validate(value: unknown, path: string): void {
 }
 validate(config, 'game');
 if (!config.winScoreDifference || !config.maxSimulationMs || !config.tickMs) throw new Error('Game limits and timings must be positive');
+for(const [difficulty,bot] of Object.entries(config.ai)) {
+  if(bot.reactionMs<=0||bot.intervalMs<=0||[bot.accuracy,bot.rabbitMistake,bot.hesitationChance??0].some(value=>value>1))throw new Error(`Invalid AI probabilities/timing: ${difficulty}`);
+  if([bot.reactionJitter??0,bot.intervalJitter??0].some(value=>value>=1)||(bot.hesitationMinMs??0)>(bot.hesitationMaxMs??0))throw new Error(`Invalid AI timing variation: ${difficulty}`);
+}
 const pace = config.pacing;
 const waveMs = pace.buildMs + pace.peakMs + pace.recoveryMs;
 if ([pace.buildMs, pace.peakMs, pace.recoveryMs, pace.rampMs, pace.minIntervalMs, pace.minLifetimeMs].some(value => !value)) throw new Error('Pacing durations must be positive');

@@ -9,7 +9,7 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 - 3×3 gardens, both scores start at zero, winning lead X=100 (configurable), first to two round wins, three-second countdown.
 - Empty hit: −4 points. Rabbit hit: −12. Missed mole: −8. Missing stars/rabbits is safe.
 - Mole hit: 10 score. Star hit: 25 score and one magic star, capped at four. No combos yet.
-- 25-second build/peak/recovery waves over a rising 120-second baseline, with independent natural clocks and bounded concurrency. Star opportunities use baseline virtual-clock offsets 5/14/22 seconds per wave, accelerated on the trailing board. See pacing.md and game.yaml.
+- 25-second build/peak/recovery waves over a rising 60-second baseline, with independent natural clocks and bounded concurrency. Star opportunities use baseline virtual-clock offsets 5/14/22 seconds per wave, accelerated on the trailing board. See pacing.md and game.yaml.
 - A score lead of at least X ends the round, with no real-time round limit. Simultaneous expiry penalties are resolved together before checking the difference. Ties continue with a centered bar. Scores/stars reset for the next round; round wins persist. The headless runner has a separate 30-minute total simulation cap to catch stalls; it does not award in-game wins.
 - Mouse/touch and original keyboard grids. R/numpad + casts; Escape pauses. Local modes pause on tab hiding.
 - One full-viewport Phaser canvas renders both gardens and the backdrop. React adds HUD and accessible hit areas over the canvas. Match play has no document scrolling or surrounding page header/footer.
@@ -56,4 +56,8 @@ The first bot iteration varied seeded spell-saving thresholds, added resource/wa
 - Remaining six characters after the initial two-character game is ready.
 
 
-Score pressure now uses independent board clocks and up to 10% shorter natural/star intervals and new target lifetimes on the trailing board. Shared wave phases and all round resets remain identical. See pacing.md and reports/balance-score-pressure-comparison.md; Medium/Hard remain Champignon-favored, and three final Hard diagnostics were unfinished.
+Score pressure now uses independent board clocks and up to 5% shorter natural/star intervals and new target lifetimes on the trailing board. Shared wave phases and all round resets remain identical. See pacing.md and reports/balance-score-pressure-comparison.md; Medium/Hard remain Champignon-favored, and three final Hard diagnostics were unfinished.
+
+## Current AI and duration tuning
+
+All levels use reproducible bounded reaction/action jitter and occasional hesitation; accuracy is 70% Easy, 87% Medium, 92% Hard. Hard retains 280 ms base reactions / 220 ms intervals versus Medium 560/360 and Easy 900/600. Stronger wave peaks and a 60-second ramp, plus a gentler 5% catch-up modifier, shorten matches. A 12,000-match held-out baseline/candidate comparison found no candidate caps in 6,000 matches. Mixed-character median rounds are 53/66/89 seconds; median matches 150/171/245 seconds. Hard remains Champignon-favored at 64.2%; this does not establish human balance. See reports/balance-duration-review.md.
