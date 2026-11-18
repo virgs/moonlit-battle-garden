@@ -129,6 +129,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D83 | User authorizes one more PixelLab AI polish of Andromoss victory/casting followed by free exact pixel editing of the returned frames. Make the deterministic cleanup firmer: include light-gray specks and larger small noisy clusters, not only tiny white dots. Preserve adult alien identity, motion/timing and colored violet/gold magic; user retains visual review. Keep earlier versions for comparison. |
 
+| D84 | User pauses Andromoss refinement and moves to Captain Bramble’s base draft. He is an adult RAT, with a cool helmet whose ear-shaped shells follow his rounded rat ears and with red helmet eye lenses. Generate a fresh clean base using original drawing identity and approved final-game style; user reviews the image. Do not expand the playable roster or generate animations before base approval. Keep tool responses concise and avoid exhaustive pixel-edit lists in model context. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

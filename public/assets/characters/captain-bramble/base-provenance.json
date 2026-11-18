@@ -1,0 +1,48 @@
+{
+  "generator": "PixelLab create_image_pro",
+  "created": "2026-11-18",
+  "character": "Captain Bramble",
+  "assetDirectory": "captain-bramble",
+  "jobId": "07298741-273e-4cd6-96d0-9405f4bd4ce5",
+  "assetId": "c2d0a2dd-e542-5c27-b74f-72d13bd00088",
+  "status": "Staged base draft for user visual review; no model inspection.",
+  "request": {
+    "description": "Fresh clean pixel-art BASE DESIGN for CAPTAIN BRAMBLE, an adult anthropomorphic RAT caretaker of a moonlit garden. He is explicitly a RAT, not a cat, mouse, dog or human. Athletic muscular adult build, confident scowl, arms folded across his chest, grounded boots/feet and a long slender mostly hairless rat tail. Distinct rat muzzle and whiskers. His defining accessory is a COOL dark steel-blue HELMET: the shell includes TWO rounded ear-shaped helmet bulges/cups following the shape of his rat ears. Not horns or pointed cat ears. The helmet has intimidating glowing RED EYE LENSES in a dark visor; these are the helmet eyes. Exposed muzzle below the visor. Use the original drawing for identity, folded-arm attitude, body and tail concept, but DRAW FROM SCRATCH with deliberate clean shapes. Match the approved knight and final game art's bold dark outlines, flat broad color clusters and restrained 2-3 shades per material. Adult proportions, smaller relative head, not cute/baby or chibi. Simple cool readable silhouette, gray-brown rat fur, muted armor/helmet with red lenses as the strongest accent. No added weapons, broom, mushroom shield, cape or alien anatomy. Whole character, ears, feet and tail inside a transparent 192x192 square with generous margins for future animation. Three-quarter view facing slightly left. No scene, text, white/light-gray specks, stray pixels, gritty texture, dithering, gradients or excessive highlights.",
+    "width": 192,
+    "height": 192,
+    "no_background": true,
+    "max_colors": 32,
+    "seed": 2026111819,
+    "style_image_url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/base-v3.png",
+    "style_copy": [
+      "outline",
+      "detail",
+      "shading"
+    ],
+    "reference_images": [
+      {
+        "sourceFile": "original.png",
+        "usage": "Original Captain Bramble / Capitao Katyroba RAT identity: muscular body, folded arms, long tail, helmet with ear-shaped shell and RED helmet eye lenses. Identity only, not thin sketch lines."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/references/final-art-style-plate.png",
+        "usage": "Finished mole, rabbit, star and garden board: match bold outline weight, clean simple shapes and flat readable pixel clusters. Do not copy their species or props."
+      }
+    ]
+  },
+  "originalSource": "https://github.com/virgs/digHoleBattleGarden/blob/master/Personagens/CAPIT%C3%83O%20KATYROBA.bmp",
+  "originalPreparation": "Original BMP converted losslessly to PNG using scripts/import-legacy-art.py convert_bmp; exact magenta made transparent. No model visual inspection.",
+  "costGenerations": 10,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": {
+    "base.png": "550506f99be8edf537bb0cc9a28ffb51f5f0d2ffdae7a8d346eb5529f2caf26c",
+    "original.png": "42b1a9d2d1a18511a337967d94736b901c338a10f830bf1e03cc7409fd1266dd"
+  }
+}
