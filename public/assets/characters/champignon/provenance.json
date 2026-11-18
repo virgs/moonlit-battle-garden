@@ -1,7 +1,7 @@
 {
   "generator": "PixelLab animate_image_pixminimax (idle), edit_animation (casting magic), retained MiniMax H3 victory",
   "created": "2026-11-18",
-  "status": "Subtle idle and magic-trail casting review drafts; victory approved and unchanged. Technical checks only; visual review by user.",
+  "status": "User-approved subtle idle, magic-trail casting and victory animations. Visual review performed by the user; technical checks only by the assistant.",
   "frameWidth": 192,
   "frameHeight": 192,
   "processing": "Source frame followed by generated PNG frames, packed at native resolution without resizing, recoloring, trimming or manual frame edits using scripts/pack-sprite-animation.mjs.",

@@ -62,7 +62,7 @@ The regular check reports missing final files and validates supplied sprite-shee
 - Background and music are installed; see [credits](homes/CREDITS.md).
 - Optional portrait, reserved for future portrait-based UI.
 
-Both characters have their victory animation, home background and music. Sir Champignon’s victory has been replaced with a matching review draft; his approved 192×192 base-v3 pose is used for all three expressive animation sheets. Exact prompts, seeds and PixelLab job IDs are recorded in characters/champignon/provenance.json, with first-pass history in animation-provenance-v1.json. User authorization D65 reopens this character’s art pass; other new generation remains deferred. The user handles visual review; technical checks only. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.
+Both characters have their victory animation, home background and music. Sir Champignon’s victory has been replaced with a matching review draft; his approved 192×192 base-v3 pose is used for all three expressive animation sheets. Exact prompts, seeds and PixelLab job IDs are recorded in characters/champignon/provenance.json, with first-pass history in animation-provenance-v1.json. User authorization D65 opens Champignon’s art pass; D74 opens Nightshade’s base-design pass for user review before animations/icon. Other characters remain deferred. The user handles visual review; technical checks only. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.
 
 ## Roster-wide animation requirements (D70)
 

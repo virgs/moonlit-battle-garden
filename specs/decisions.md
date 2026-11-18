@@ -109,6 +109,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D73 | User approved the icon framing revision and requested another 10% rightward move. Apply an exact 19px horizontal pixel translation within the unchanged 192×192 frame, without regenerating the artwork or moving UI frames. User retains visual review. |
 
+| D74 | User approved Champignon’s final icon shift and authorized the next character art pass. Start Nightshade (legacy/internal Andy) with a fresh base design for user review, taking identity cues from the original drawing and clean bold adult pixel-art style from approved Champignon and final mole/rabbit/star/board art. Keep existing runtime assets until the base is approved. Subsequent art follows D70: subtle idle, expressive victory, casting magic effect and a well-framed icon. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

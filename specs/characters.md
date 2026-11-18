@@ -129,3 +129,7 @@ The current sheets contain the starting pose plus four generated idle frames (fi
 - The user reviews all generated images and animations; perform technical file/playback checks only.
 
 Sir Champignon’s static character icon is installed at `public/assets/characters/champignon/icon.png` (transparent 192×192), based on approved base-v3, for HUD, pause and round results. Exact prompt/job record: `icon-provenance.json`. The larger portrait remains optional; the user reviews the icon. Nightshade is the next character art pass.
+
+### Nightshade art pass
+
+Authorized after the user approved Champignon’s final icon framing. The first 192×192 base design is staged at `public/assets/characters/andy/base.png`, with prompts/references in `base-provenance.json`. Preserve original identity cues (spiky blond hair, sunglasses, leather jacket, short chain and hook), but draw fresh clean adult proportions using approved Champignon and the final game artwork as style references. The user reviews the base before animation/icon generation; existing runtime sheets remain unchanged. Home/music remain Moonlit Hideout / Magic Town.
