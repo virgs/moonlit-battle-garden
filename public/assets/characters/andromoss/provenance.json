@@ -1,9 +1,9 @@
 {
-  "generator": "PixelLab animate_image_pixminimax",
+  "generator": "PixelLab animate_image_pixminimax, followed by edit_animation cleanup",
   "created": "2026-11-18",
   "character": "Andromoss",
   "internalCharacterId": "andromoss",
-  "status": "User approved idle/victory/cast and icon; exact white-pixel cleanup for victory/cast awaits user review.",
+  "status": "User approved original animation design. Broader PixelLab cleanup installed for user visual review.",
   "base": {
     "file": "base-v5.png",
     "provenance": "base-provenance-v5.json"
@@ -42,7 +42,8 @@
       "columns": 9,
       "fps": 8,
       "holdMs": 0,
-      "costGenerations": 1
+      "costGenerations": 1,
+      "postProcessing": "polish-provenance.json"
     },
     "cast": {
       "jobId": "8e5b8a3e-b974-4f9f-8cc1-1fa1dccb0874",
@@ -53,14 +54,15 @@
       "columns": 9,
       "fps": 9,
       "holdMs": 500,
-      "costGenerations": 1
+      "costGenerations": 1,
+      "postProcessing": "polish-provenance.json"
     }
   },
   "installedSha256": {
     "base-v5.png": "2c126d7a0ab81316f0c6183d9263f2dbaa674e3ea8040f3d6d2315f7e4d49a41",
     "standing.png": "c85c01d253f2ebfb5e93b0cbb913f2fd9357311feec6517182d18bf3c420a34a",
-    "victory.png": "5493eb0610d17274ab337e6d80304d1aa18977e87bf7993dc70ec2a2ab2b0cbe",
-    "cast.png": "7708198ead8d287d796577ad0dfaafd41f11e75146e071a99a4d658a08376803"
+    "victory.png": "19453285ad5ef1e18e213509c3613b250bbcb6a7a48005a5505f0ef091f93f6a",
+    "cast.png": "00c18c01d69ed3fd996ba4c9eb7508e02dc5d804d1e09a6dbeecfa5bb52a4249"
   },
   "technicalChecks": {
     "standing": {
@@ -83,7 +85,7 @@
       "firstFrameMatchesApprovedBase": true,
       "packedPixelsMatchSourceFrames": false,
       "packedPixelsMatchCleanupFrames": true,
-      "cleanup": "cleanup-provenance.json"
+      "cleanup": "polish-provenance.json"
     },
     "cast": {
       "frameCount": 9,
@@ -95,8 +97,8 @@
       "firstFrameMatchesApprovedBase": true,
       "packedPixelsMatchSourceFrames": false,
       "packedPixelsMatchCleanupFrames": true,
-      "cleanup": "cleanup-provenance.json"
+      "cleanup": "polish-provenance.json"
     }
   },
-  "postProcessing": "Targeted PixelLab patch_pixels cleanup; see cleanup-provenance.json. Original generated versions remain in Git and provenance-before-cleanup.json."
+  "postProcessing": "Targeted exact-pixel pass followed by AI cleanup of frames 1\u20138; see polish-provenance.json. Original and intermediate records/files preserved in Git."
 }

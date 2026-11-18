@@ -125,6 +125,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D81 | User approved all Andromoss animations/icon and requests cleanup of white dead pixels in victory and casting only. Preserve motion, timing, silhouette, transparency and colored magic; use exact PixelLab pixel operations rather than regenerating the character. User-only visual review remains in force. |
 
+| D82 | User finds the exact white-pixel repair improved but still messy and authorizes a broader PixelLab edit_animation cleanup of Andromoss victory/casting: simplify noisy shading/highlights into broad coherent clusters and clean outlines while requesting unchanged poses, adult alien identity and violet/gold magic. Use four-frame batches with identical prompt/seed, retain native 192×192 layout, original starting frame and existing timing. Visual review stays with the user; preserve earlier files/records for comparison. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

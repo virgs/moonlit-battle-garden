@@ -1,0 +1,89 @@
+{
+  "generator": "PixelLab edit_animation",
+  "created": "2026-11-18",
+  "seed": 2026111817,
+  "prompt": "Polish this APPROVED adult alien animation; preserve each frame's EXACT pose, silhouette, proportions, camera, placement, equipment and action. Clean messy white specks, dead pixels, noisy highlights, jagged stray pixels and dirty shading. Use coherent broad flat color clusters, clean consistent dark pixel outlines and a restrained stable palette. Simplify excessive tiny shading fragments; do not add texture, dithering, gradients, white edge halos or scattered highlights. Preserve the normal adult head, sunglasses, visible neck gills, leather jacket, hook/chain, slim tufted tail and narrow rear braid. Crown points are RIGID skin continuous with forehead, never hair. Keep any deliberate VIOLET hook trail and GOLD magic sparks, simplifying them into clean intentional shapes; remove accidental white noise rather than erasing the magic. No redesign, changed pose, extra limbs, new gestures, scenery, text or new objects. Whole character/effects inside transparent 192x192. Match colors and outline weight across all frames.",
+  "width": 192,
+  "height": 192,
+  "maxColors": 48,
+  "noBackground": true,
+  "status": "Completed and installed for user visual review. No model image inspection. Poses/identity preservation are prompt requirements, not visually verified claims.",
+  "jobs": [
+    {
+      "animation": "victory",
+      "batch": 1,
+      "jobId": "b94df0d5-5593-435d-aa46-3a5346d2ca84",
+      "assetId": "c7413a5e-d2ac-59e0-8d7f-7e469fa82c52",
+      "sourceFrameIndices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "costGenerations": 25
+    },
+    {
+      "animation": "cast",
+      "batch": 1,
+      "jobId": "f1d88056-333d-4ab4-bddf-f5f04935e594",
+      "assetId": "d4abf6ab-087b-50e9-a763-413b6524d5ba",
+      "sourceFrameIndices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "costGenerations": 25
+    },
+    {
+      "animation": "victory",
+      "batch": 2,
+      "jobId": "f792e7ef-8ddc-41fe-9e8d-5aaba10dc0d3",
+      "assetId": "3978ec2e-bcb2-5bea-a6c9-48a341701847",
+      "sourceFrameIndices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "costGenerations": 25
+    },
+    {
+      "animation": "cast",
+      "batch": 2,
+      "jobId": "9a44b4a5-cadb-415b-9e5c-49acc0af91a0",
+      "assetId": "fa1887ed-a7b0-5af6-9080-980730b17676",
+      "sourceFrameIndices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "costGenerations": 25
+    }
+  ],
+  "costGenerations": 100,
+  "sourceRevision": "b304888",
+  "sourceProvenance": "provenance-before-polish.json",
+  "frameMapping": "Original frame 0 preserved. Each batch has four edited outputs mapped to sourceFrameIndices; total remains nine frames per clip.",
+  "sourceSheetsSha256": {
+    "victory": "5493eb0610d17274ab337e6d80304d1aa18977e87bf7993dc70ec2a2ab2b0cbe",
+    "cast": "7708198ead8d287d796577ad0dfaafd41f11e75146e071a99a4d658a08376803"
+  },
+  "installedSha256": {
+    "victory": "19453285ad5ef1e18e213509c3613b250bbcb6a7a48005a5505f0ef091f93f6a",
+    "cast": "00c18c01d69ed3fd996ba4c9eb7508e02dc5d804d1e09a6dbeecfa5bb52a4249"
+  },
+  "technicalChecks": {
+    "frameDimensions": [
+      192,
+      192
+    ],
+    "frameCountPerClip": 9,
+    "editedFrames": 16,
+    "transparentAndVisibleFrames": true,
+    "startingFramesUnchanged": true,
+    "timingUnchanged": true,
+    "visualReview": "User only; not performed by model."
+  }
+}
