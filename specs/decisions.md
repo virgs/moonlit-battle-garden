@@ -111,6 +111,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D74 | User approved Champignon’s final icon shift and authorized the next character art pass. Start Nightshade (legacy/internal Andy) with a fresh base design for user review, taking identity cues from the original drawing and clean bold adult pixel-art style from approved Champignon and final mole/rabbit/star/board art. Keep existing runtime assets until the base is approved. Subsequent art follows D70: subtle idle, expressive victory, casting magic effect and a well-framed icon. |
 
+| D75 | User corrects Nightshade’s identity: he is an alien, not a blond-haired human. The apparent hair spikes are continuous extensions of his face/scalp, like a spiked cartoon head, with no hairline. He has visible neck gills. User permits a tail and a small ponytail-like rear head appendage; include these as simple alien anatomy. Clean the base sprite’s stray/dead pixels and noisy shading into bold coherent flat-color clusters. Preserve the sunglasses, jacket and hook/chain identity and adult proportions. Visual review stays with the user. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

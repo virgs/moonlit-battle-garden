@@ -1,0 +1,43 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "character": "Nightshade",
+  "internalCharacterId": "andy",
+  "status": "Corrected alien base draft awaiting user visual review before animations/icon; runtime artwork unchanged.",
+  "jobId": "53bed90b-4640-4e04-be14-faf10a508f33",
+  "assetId": "cae2c686-dff1-577e-8ac2-bf20577c3122",
+  "source": {
+    "draft": "base.png",
+    "provenance": "base-provenance.json",
+    "styleReference": "../champignon/base-v3.png"
+  },
+  "prompt": "Correct NIGHTSHADE's anatomy and clean up the existing base sprite, while retaining his sunglasses, leather jacket, hook-and-short-chain motif, relaxed stance and lean adult proportions. He is an ALIEN, not a blond-haired human. His spiky crown is a biological upward extension of his FACE AND SCALP, with one continuous silhouette and the SAME skin color/material as his face: no separate hairline, blond hair, hair strands, wig or different hair-colored cap. The analogy is a cartoon head whose top edge has spikes, not a hairstyle. Add clearly visible NECK GILLS: three clean dark slit marks on the exposed near side of his neck between jaw and open jacket collar. Add one slim curved alien tail, matching his skin, visible behind the legs and curling to one side within the frame. Add a single narrow backward-hanging ponytail-like fleshy head appendage behind his crown/ear, shaped like a short tied tendril or narrow braid silhouette; it is alien anatomy in the SAME skin color, not human hair. Keep these new details simple, clear and chunky, not tiny noisy decoration. CLEAN the pixel art: remove stray/dead pixels, detached accidental dots and sketchy fragments; consolidate highlights/shadows into large deliberate color clusters; use 2-3 flat shades per material and continuous bold 3-4px dark outlines. Keep crisp flat-shaded clean game sprites consistent with the reference knight. No dithering, grain, isolated highlight speckles, gradients, airbrush shading, extra chains or new weapons. Preserve the adult head-to-body ratio, no baby/chibi proportions. Whole body, spike crown, tail, head tendril, boots and hook fully inside the unchanged 192x192 transparent square with at least 12px clear margins. No scenery, floor, frame, text, magic effects or extra character.",
+  "seed": 2026111809,
+  "width": 192,
+  "height": 192,
+  "costGenerations": 6,
+  "identityCorrection": {
+    "species": "Alien",
+    "head": "Face/scalp-continuous spikes, not blond hair.",
+    "neck": "Visible gill slits.",
+    "tail": "Slim curved skin-colored alien tail.",
+    "rearAppendage": "Small ponytail-like head tendril, same skin material.",
+    "retained": [
+      "Sunglasses",
+      "Leather jacket",
+      "Hook and short chain",
+      "Lean adult proportions"
+    ]
+  },
+  "cleanupRequested": "Remove stray/dead pixels and sketchy noise; use coherent flat-shaded color clusters and thick clean contours.",
+  "visualReview": "User only; no model inspection of output.",
+  "installedSha256": "26c6b79c163ab809d67ea7852099d535ea3abe6e596d1443265d7161f01d54a9",
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "hasTransparentPixels": true,
+    "hasVisiblePixels": true
+  }
+}
