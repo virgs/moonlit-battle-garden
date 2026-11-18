@@ -1,0 +1,116 @@
+{
+  "generator": "PixelLab animate_image_pixminimax",
+  "created": "2026-11-18",
+  "character": "Duskmantle",
+  "assetDirectory": "duskmantle",
+  "status": "Staged for user visual review; not a playable roster expansion. No model image inspection.",
+  "base": {
+    "file": "base.png",
+    "provenance": "base-provenance.json",
+    "approval": "User approved on 2026-11-18."
+  },
+  "frameWidth": 192,
+  "frameHeight": 192,
+  "processing": "Complete animations generated in one call each, packed at native resolution without pixel edits. Transparent hidden RGB may normalize; visible RGBA verified unchanged. No iterative polish or multi-batch edits.",
+  "animations": {
+    "standing": {
+      "jobId": "d12be0fc-0e22-4e49-9ebd-fc91d1333a5f",
+      "assetId": "898d96de-a02f-5497-be20-e49be74cb941",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Duskmantle, the approved mysterious adult caretaker with long bangs, a large scarf and a simple cloak, face mostly concealed.",
+        "initial_pose": "The exact approved quiet standing pose, feet planted, scarf wrapped around the lower face and cloak hanging naturally.",
+        "frame_count": 4,
+        "seed": 2026111826,
+        "description": "Subtle calm seamless idle loop. Hold the exact approved stance, head direction, hands and feet steady. Only gentle breathing, a tiny settling motion of a scarf tip and the bottom cloak hem. Keep the face concealed and reserved. No large swaying, head turns, gestures, hopping or whole-image wobble. Preserve the EXACT approved scarf, cloak, hair and boot colors across ALL frames; simple broad flat clusters, consistent dark outlines. No new highlights, white/light-gray specks, texture or shading noise. Fixed camera and scale; full figure and scarf stay inside transparent canvas. Return to the starting pose."
+      },
+      "frameCount": 5,
+      "columns": 5,
+      "fps": 3,
+      "holdMs": 0,
+      "costGenerations": 1
+    },
+    "victory": {
+      "jobId": "d1e6bd71-b9b4-40fd-aa16-2bb5bb9df051",
+      "assetId": "11b7544f-a3bc-56ae-8252-954fbd612c3c",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Duskmantle, the approved mysterious adult caretaker with long bangs, a large scarf and a simple cloak, face mostly concealed.",
+        "initial_pose": "The exact approved quiet standing pose, feet planted, scarf wrapped around the lower face and cloak hanging naturally.",
+        "frame_count": 8,
+        "seed": 2026111827,
+        "description": "Expressive mysterious victory LOOP with distinct strong poses. Dip into a low controlled bow with shoulders forward and knees bent, then straighten proudly and sweep one arm outward to open one side of the cloak; let the scarf tail arc clearly with the gesture. Briefly lift the chin in quiet confidence, then draw the cloak close and settle into the original stance. Adult restrained personality but unmistakable body/arm movement, not tiny image wiggling. Keep face mostly concealed; no invented facial features or new props. Preserve EXACT approved hair, scarf, cloak and boots colors in EVERY frame; simple flat clusters, consistent bold dark outlines. No extra trim, sparkles, white/light-gray specks, noisy shading or gradients. Fixed scale and camera; whole character, scarf and cloak stay inside transparent canvas."
+      },
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 8,
+      "holdMs": 0,
+      "costGenerations": 1
+    },
+    "cast": {
+      "jobId": "a1ee0c0a-2c3b-4892-a0fe-dcae3fdab606",
+      "assetId": "9552afa7-2fe3-564d-9e0d-1de9c74b2d3d",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Duskmantle, the approved mysterious adult caretaker with long bangs, a large scarf and a simple cloak, face mostly concealed.",
+        "initial_pose": "The exact approved quiet standing pose, feet planted, scarf wrapped around the lower face and cloak hanging naturally.",
+        "frame_count": 8,
+        "seed": 2026111828,
+        "description": "Expressive shared curse cast with clear anticipation, action and follow-through. Lower shoulders and pull one hand inward beneath the scarf, twist the torso slightly, then thrust the open hand outward while the opposite arm draws the cloak aside. A compact deep-VIOLET ribbon of magical smoke follows the hand arc with a few MAGENTA motes; it coils briefly around the palm and dissolves. Hold an unmistakable casting pose then return to the original stance. Scarf/cloak follow the motion without hiding the gesture. Face remains concealed, no new props. Preserve exact approved material colors across ALL frames, simple broad flat shading and clean bold outlines. Magic is clean violet/magenta shapes, not white/light-gray dust or a noisy cloud. No gradients, text or star icons; the game adds spent stars separately. Fixed scale/camera, whole character and effect inside transparent canvas."
+      },
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 9,
+      "holdMs": 500,
+      "costGenerations": 1
+    }
+  },
+  "costGenerations": 3,
+  "technicalChecks": {
+    "standing": {
+      "frameCount": 5,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    },
+    "victory": {
+      "frameCount": 9,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    },
+    "cast": {
+      "frameCount": 9,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    }
+  },
+  "installedSha256": {
+    "base.png": "4ae5349a83e73e22126ffd0c1ad92dc7ebb5b0de872c99ea508018575d2351a5",
+    "standing.png": "853e190008cb5307709e4136d8bf90427133be7f90650847b1efac199c94600e",
+    "victory.png": "160fd25de829bbd320e806a2ccf49c0ad8580c228d85445b839f6229dd798c7f",
+    "cast.png": "9f478d552da49ce1e76a5b39292c864915da496f508255722754b2441f52a9bc"
+  }
+}

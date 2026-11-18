@@ -167,3 +167,7 @@ Captain Bramble’s idle, victory, shared casting animation and icon were all ap
 ### Duskmantle base draft
 
 User confirms the original mysterious scarf-and-cloak identity and requests a simple design. Generate one clean adult base with a reserved, mostly concealed face, long bangs, an oversized scarf and a cloak with a few broad folds. Restrained flat colors, bold outlines and minimal detail; no added weapons/props or effects. Original Dindo drawing is retained as the identity reference. User reviews the base before animations; staged art does not expand the playable roster.
+
+Duskmantle’s base was approved by the user on 2026-11-18. Authorized animation pass: subtle breathing/scarf-hem idle; expressive bow, cloak-opening victory gesture; shared open-hand curse casting with a compact violet ribbon and magenta motes. Preserve the simple mysterious scarf/cloak identity, concealed face and fixed costume palette. Each clip generated as a whole from the approved base; user-only visual review. Icon remains separate future work.
+
+Duskmantle’s animation drafts are staged at `public/assets/characters/duskmantle/`: idle 5 frames at 3 fps; victory 9 frames at 8 fps; shared casting 9 frames at 9 fps plus 500 ms final hold. All frames are native 192×192; file/alpha/visible-source and packing checks passed. The three complete clips cost three subscription generations total. Exact requests, seeds, job IDs and hashes are in `provenance.json`. Visual quality awaits user review; no cleanup or playable roster expansion was applied.
