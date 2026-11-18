@@ -1,0 +1,34 @@
+{
+  "generator": "PixelLab edit_image_pro_flash",
+  "created": "2026-11-18",
+  "status": "Reframed icon review draft; fixed canvas/UI position, user-only visual review.",
+  "jobId": "14e59917-9324-434a-aee4-170d1b1d177c",
+  "assetId": "263fff4d-b5eb-5c33-ac64-bbde20ec9e54",
+  "source": {
+    "iconJobId": "d0a3d36b-cd5f-4bda-a1dd-674bd1ce11e1",
+    "identityReference": "base-v3.png",
+    "identityProvenance": "provenance-v3.json"
+  },
+  "prompt": "Fix ONLY the badly cropped framing of this Sir Champignon head-and-shoulders icon. The user reports that most of the head is outside the left edge, with only about 15 percent visible. Keep the exact same fixed 192x192 square canvas/frame. Move the CHARACTER substantially to the RIGHT within that unchanged frame and reconstruct every part of the helmet and red plume lost beyond the previous crop, using the complete approved knight reference for identity. Position the main helmet approximately around x=105 to x=115 so the entire helmet, visor and plume fit comfortably inside the square. Leave at least 12 transparent pixels at the left, right and top edges around the full head/plume. Slightly reduce the bust's scale if necessary to show the entire head; shoulders may meet the bottom edge. Keep the head clearly visible in full, not an extreme close-up or cropped fragment. Preserve the clean thick dark pixel outlines, simple flat slate-blue armor shading, red plume and cyan eyes. No visible face, new helmet design, baby proportions, extra weapons, frame, scenery or text. One transparent-background head-and-shoulders icon.",
+  "seed": 2026111807,
+  "width": 192,
+  "height": 192,
+  "transparent": true,
+  "costGenerations": 6,
+  "usage": [
+    "Gameplay HUD beside character name",
+    "Pause menu character reference",
+    "Round-result winner icon"
+  ],
+  "previousRecord": "icon-provenance-v1.json",
+  "optionalLargePortrait": "Deferred; selection uses idle/victory animation.",
+  "uiFrameChanged": false,
+  "installedSha256": "e3caaf9af50d045e4b5a1543e5dca733b3316b09f5f88947ced5980fb817ade5",
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "hasTransparentPixels": true
+  }
+}

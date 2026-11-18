@@ -107,6 +107,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D72 | User reports that the first Champignon icon crops away most of the head. Keep the icon frame/UI position fixed; move the character substantially right within the asset and restore the complete helmet/plume from the approved design. Preserve transparent margins around the head. Continue user-only visual review. |
 
+| D73 | User approved the icon framing revision and requested another 10% rightward move. Apply an exact 19px horizontal pixel translation within the unchanged 192×192 frame, without regenerating the artwork or moving UI frames. User retains visual review. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
