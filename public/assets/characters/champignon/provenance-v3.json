@@ -1,7 +1,7 @@
 {
   "generator": "PixelLab edit_image_pro_flash",
   "created": "2026-11-17",
-  "status": "Proportion refinement draft for user visual review; not installed as the active character.",
+  "status": "User-approved character design and cast style direction; replacement expressive animations pending. Not yet installed as the active animation sheets.",
   "jobId": "5dbc0b82-59fc-4ed3-879d-0d5b985ec041",
   "sourceImageId": "93311860-c5b2-505a-ba47-655de2d4b87d",
   "seed": 2026111706,
@@ -76,7 +76,7 @@
       }
     ]
   },
-  "visualReview": "User only. No model inspection of the generated output.",
+  "visualReview": "Approved by the user. No model inspection of the generated output.",
   "installedSha256": "d148ecaba23a3318fe8ed8efa99c2a2d06f1db680b10c84945d26a42eea659df",
   "technicalChecks": {
     "dimensions": [

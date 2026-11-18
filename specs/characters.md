@@ -104,3 +104,17 @@ The prototype resolves the following with provisional rules in prototype.md; rev
 - Give timed shields an obvious opening animation.
 - Consider direct damage cautiously; current adopted kits mostly apply pressure through playable board mechanics.
 - Keyboard-mapping shuffle is excluded. No character kit should depend on it.
+
+## Approved character art and animation direction
+
+Sir Champignon’s `public/assets/characters/champignon/base-v3.png` is the approved design. It is the clean, taller adult revision using the finished mole/rabbit/star/board reference plate. Previous v1 animation files remain installed pending their replacements; v2 was a proportion draft. Preserve v3’s identity, clean flat shading and thick outlines in future work.
+
+The user requests very expressive animation: unmistakable body/limb movements, strong poses and clear silhouette changes. A small number of distinct key poses is sufficient. No barely moving character, tiny breathing-only idle, or whole-image CSS wiggling. Visual review belongs to the user; do not inspect generated frames with model vision. New generation waits for the user to restore PixelLab access.
+
+Proposed motion briefs (exact frame counts/timing remain flexible):
+
+- Idle: visible weight shift, head turn and a deliberate broom/shield adjustment, with secondary plume motion. Keep him grounded and recognizably alive.
+- Victory: crouch in anticipation, an exuberant full-body hop or proud step, an unmistakable raised broom/shield salute, then a readable proud landing/settle.
+- Shared casting: brace and wind up, twist the torso into a broad broom sweep, present the shield, then follow through and settle. Fit the established 1.5-second cast freeze and retain the separate stars-spent overlay.
+
+Favor clear anticipation, action, follow-through and a short held pose over numerous small in-between changes. Keep equipment attached, preserve colors and leave enough canvas margin for gestures without clipping.

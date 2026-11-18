@@ -97,6 +97,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D67 | User prefers the clean v2 Champignon style but finds the proportions too cute/baby-like. Refine to a taller, leaner adult with a smaller relative helmet, longer torso/limbs and less rounded armor, preserving the bold outlines and clean shading. Include exact mole, rabbit, star and board art in the style references. Continue user-only visual review before new animation work. |
 
+| D68 | User approved Champignon base-v3.png as the character design and style direction for the cast. Future idle/victory/shared-cast clips must be very expressive with clearly changing body poses and silhouettes; few strong frames are preferable to many nearly identical frames. Avoid barely perceptible motion and whole-image wiggling. Preserve clean bold outlines and adult proportions. Animation generation waits until the user restores PixelLab access; visual review stays with the user. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
