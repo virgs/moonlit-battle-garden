@@ -202,3 +202,7 @@ Both gameplay name/trophy groups include the character icon beside the name. Mis
 ### Shared casting animation per character
 
 Each hero has one `/assets/characters/CHARACTER/cast.png` animation reused for all four spells. The existing tier-indexed playback entries map to that same sheet; tier/star cost and spell effects remain specific to the actual cast. The asset checker counts unique files. The character checklist in public/assets/ASSET-CONTRACT.md lists nine active missing assets plus one optional portrait per hero; victory sheets are already present. No new assets were generated.
+
+### Sourced homes (2026-11-17)
+
+Both heroes now load distinct CC0 background/music files: Champignon's Sporelight Keep pairs Castle in the Dark with Forest Whisper Theme; Andy's Moonlit Hideout pairs the Dark forest composite with Magic Town. Exact authors, URLs, hashes and format conversions are in public/assets/homes/provenance.json and CREDITS.md. Backgrounds remain static and uniformly cover-scaled. Champignon uses 72% opacity/focusY 0.15 to retain its moon in wide screens; Andy uses 58% opacity with central cropping. Native music loops at 16% volume and follows existing mute/pause/reconnect rules. Old shared assets remain error fallbacks. This supplies four assets, reducing missing active assets to fourteen plus two optional portraits.

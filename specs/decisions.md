@@ -83,6 +83,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D60 | Organize the remaining asset checklist by character. Use one casting animation per character, shared across all four magic tiers; preserve distinct spell effects and actual stars-spent display. Each hero needs nine assets for current screens plus one optional portrait; victory animation already exists. |
 
+| D61 | Source and install distinct backgrounds and music for both initial heroes, preserving the pixel-art moonlit mood. Use existing reusable art/music, with verified licenses/provenance; no new image generation. Selected homes use a purple moonlit castle/Forest Whisper Theme for Champignon and a blue dark forest/Magic Town for Andy. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

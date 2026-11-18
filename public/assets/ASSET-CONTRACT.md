@@ -1,6 +1,6 @@
 # Drop-in character assets
 
-The playback code is ready. Both victory sheets are bundled. Each character still needs nine assets for the current screens, plus one optional portrait: 18 active assets + two optional portraits remain (20 missing unique files, 22 including existing victories). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
+The playback code is ready. Both victory sheets and all four home background/music files are bundled. Each character still needs seven assets for the current screens, plus one optional portrait: 14 active assets + two optional portraits remain (16 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
 
 ```text
 public/assets/characters/CHARACTER/portrait.png
@@ -48,7 +48,7 @@ The regular check reports missing final files and validates supplied sprite-shee
 - Standing/idle animation.
 - One shared casting animation for all four spells.
 - Four spell effects: Mushroom Guard, Clean Sweep, Spore Ward, Royal Cleanup.
-- Sporelight Keep background and music track.
+- Background and music are installed; see [credits](homes/CREDITS.md).
 - Optional portrait, reserved for future portrait-based UI.
 
 ### Andy — Moonlit Hideout
@@ -57,7 +57,7 @@ The regular check reports missing final files and validates supplied sprite-shee
 - Standing/idle animation.
 - One shared casting animation for all four spells.
 - Four spell effects: Borrowed Spark, Rabbit Riot, Sticky Fingers, Double Trouble.
-- Moonlit Hideout background and music track.
+- Background and music are installed; see [credits](homes/CREDITS.md).
 - Optional portrait, reserved for future portrait-based UI.
 
-Both characters already have their victory animation. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.
+Both characters already have their victory animation, home background and music. The shared cast animation still displays the actual 1–4 stars spent; spell effects remain distinct per spell.

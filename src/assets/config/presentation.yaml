@@ -23,15 +23,15 @@ characters:
       background:
         src: /assets/homes/champignon/background.png
         fallback: /assets/background-castle.png
-        opacity: 0.42
+        opacity: 0.72
         fallbackOpacity: 0.22
         fallbackTint: 11065008
         focusX: 0.5
-        focusY: 0.5
+        focusY: 0.15
       music:
         src: /assets/homes/champignon/music.mp3
         fallback: /assets/backgroundMusic.mp3
-        volume: 0.12
+        volume: 0.16
         loopStartMs: 0
         loopEndMs: null
     casts:
@@ -54,7 +54,7 @@ characters:
       background:
         src: /assets/homes/andy/background.png
         fallback: /assets/background-castle.png
-        opacity: 0.42
+        opacity: 0.58
         fallbackOpacity: 0.22
         fallbackTint: 14003401
         focusX: 0.5
@@ -62,7 +62,7 @@ characters:
       music:
         src: /assets/homes/andy/music.mp3
         fallback: /assets/backgroundMusic.mp3
-        volume: 0.12
+        volume: 0.16
         loopStartMs: 0
         loopEndMs: null
     casts:

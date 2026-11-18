@@ -1,0 +1,57 @@
+{
+  "retrieved": "2026-11-17",
+  "assets": [
+    {
+      "character": "champignon",
+      "file": "background.png",
+      "title": "Castle in the Dark",
+      "creator": "biodegradableguy",
+      "page": "https://opengameart.org/content/castle-in-the-dark",
+      "download": "https://opengameart.org/sites/default/files/castleinthedark.gif",
+      "processing": "First frame of original 124x124 animated GIF converted losslessly to RGBA PNG. Original pixels/palette retained; animation not included.",
+      "license": "CC0 1.0 Universal",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourceSha256": "08ca3b037e7b9413550880e6b30c9ea9d21860d5f95084bb64fdbaffce8e196a",
+      "installedSha256": "0be9f526c2cc8b3ab8ca244376f9abe593594db88d790560bdecde58c1e8e436"
+    },
+    {
+      "character": "champignon",
+      "file": "music.mp3",
+      "title": "Forest Whisper Theme",
+      "creator": "Cleyton Kauffman",
+      "page": "https://opengameart.org/content/forest-whisper-theme",
+      "download": "https://opengameart.org/sites/default/files/forest_whisper_theme.zip",
+      "processing": "Forest Whisper.wav from source archive transcoded to MP3 with libmp3lame q4; cleaned metadata. Full 82.285714-second loop retained.",
+      "license": "CC0 1.0 Universal",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourceSha256": "11516801f38f4b004fa9e3641ff287fa39cb998fc805d376b372cc03db4d573f",
+      "installedSha256": "a25333ac3bdce30276cb0a98bb4380caa49480b91408a5b5ed090a348f459f7e"
+    },
+    {
+      "character": "andy",
+      "file": "background.png",
+      "title": "Dark forest",
+      "creator": "Vladimir Hovakimyan (Val_DeMar)",
+      "page": "https://val-demar.itch.io/dark-forest",
+      "download": "https://img.itch.zone/aW1nLzIxOTQyMjUwLnBuZw==/original/NqIbO3.png",
+      "processing": "Creator-published full composite preview PNG copied unchanged (1024x360); static background, no generated artwork or recoloring.",
+      "license": "CC0 1.0 Universal",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourceSha256": "142151e38eb533dde1651b801d20c70ec90303e748319b53367e1e657bbf2b76",
+      "installedSha256": "142151e38eb533dde1651b801d20c70ec90303e748319b53367e1e657bbf2b76"
+    },
+    {
+      "character": "andy",
+      "file": "music.mp3",
+      "title": "Magic Town",
+      "creator": "controllerhead",
+      "page": "https://opengameart.org/content/magic-town",
+      "download": "https://opengameart.org/sites/default/files/Magic%20Town_0.mp3",
+      "processing": "MP3 audio stream copied without re-encoding; metadata replaced with track title/creator. Full 55.698-second track retained.",
+      "license": "CC0 1.0 Universal",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sourceSha256": "91587673ca1c8df6d82fc197c43daf541ae2c0bc7e31c6adf6ec26f851404dd3",
+      "installedSha256": "ac4bab2d9eea41aaee5e020fbe347d3abc1528f12fdf9d0853ec57ced25875c6"
+    }
+  ]
+}

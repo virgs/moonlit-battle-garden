@@ -13,6 +13,9 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await page.getByRole('button', { name:'Confirm Player 1' }).tap();
   await page.getByRole('button', { name: /Enter the garden/ }).tap();
   await expect(page.locator('canvas')).toBeVisible();
+  const owner=await page.locator('.match-screen').getAttribute('data-home-character');
+  expect(['champignon','andy']).toContain(owner);
+  await expect(page.locator('canvas')).toHaveAttribute('data-home-background',`/assets/homes/${owner}/background.png`);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   const board = page.locator('.player-0');
   await expect(page.locator('.player-1')).toHaveCount(0);
@@ -49,7 +52,7 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   }
   expect(errors).toEqual([]);
   expect(assets.every(asset => asset.path.startsWith('/moonlit-battle-garden/assets/'))).toBe(true);
-  for (const file of ['legacy/garden.png', 'characters.png', 'legacy/earth.png', 'legacy/bar-sheet.png', 'legacy/bar-border.png', 'background-castle.png', 'backgroundMusic.mp3', 'sfx/starHit.wav']) {
+  for (const file of ['legacy/garden.png', 'characters.png', 'legacy/earth.png', 'legacy/bar-sheet.png', 'legacy/bar-border.png', 'background-castle.png', `homes/${owner}/background.png`, `homes/${owner}/music.mp3`, 'sfx/starHit.wav']) {
     expect(assets.some(asset => asset.path.endsWith(`/assets/${file}`) && (asset.status === 200 || asset.status === 206)), file).toBe(true);
   }
 });
