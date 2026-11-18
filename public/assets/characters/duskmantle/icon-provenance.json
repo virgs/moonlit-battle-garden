@@ -29,7 +29,7 @@
       "shading"
     ]
   },
-  "status": "Staged for user visual review; no model image inspection.",
+  "status": "User approved on 2026-11-18; visual review by user only.",
   "costGenerations": 10,
   "technicalChecks": {
     "dimensions": [
@@ -39,5 +39,6 @@
     "transparent": true,
     "visible": true
   },
-  "installedSha256": "a2dcc3699cc019e572a5f9b11647dda1e606c290892207cec4d03e3096364241"
+  "installedSha256": "a2dcc3699cc019e572a5f9b11647dda1e606c290892207cec4d03e3096364241",
+  "userApproved": true
 }
