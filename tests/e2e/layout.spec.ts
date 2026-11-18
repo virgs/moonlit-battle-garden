@@ -49,7 +49,7 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
     const {bar,art}=geometry;
     expect(geometry.icons.map(icon=>icon.character)).toEqual(['andy','champignon']);
     for(const [id,icon] of geometry.icons.entries()){
-      expect(icon.state).toBe('fallback');expect(icon.width).toBeGreaterThanOrEqual(18);
+      expect(icon.state).toBe(icon.character==='champignon'?'ready':'fallback');expect(icon.width).toBeGreaterThanOrEqual(18);
       expect(icon.height).toBe(icon.width);expect(icon.y+icon.height).toBeLessThanOrEqual(geometry.trophies[id].y);
       expect(icon.x).toBeGreaterThanOrEqual(0);expect(icon.x+icon.width).toBeLessThanOrEqual(width);
     }

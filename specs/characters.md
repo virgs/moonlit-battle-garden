@@ -127,3 +127,5 @@ The current sheets contain the starting pose plus four generated idle frames (fi
 - Casting includes visible, character-appropriate magic: a trail, sparkles, motes, smoke or a similar effect tied to the gesture/weapon. Keep it within the sprite canvas, readable, and clear of the face and stars-spent overlay.
 - Casting magic is part of the one shared character casting animation. It does not replace each spell’s separate active-effect visuals.
 - The user reviews all generated images and animations; perform technical file/playback checks only.
+
+Sir Champignon’s static character icon is installed at `public/assets/characters/champignon/icon.png` (transparent 192×192), based on approved base-v3, for HUD, pause and round results. Exact prompt/job record: `icon-provenance.json`. The larger portrait remains optional; the user reviews the icon. Nightshade is the next character art pass.

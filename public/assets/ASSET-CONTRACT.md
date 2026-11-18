@@ -2,7 +2,7 @@
 
 The eight-home collection is available at `homes/index.html`, with `homes/catalog.json`, credits, license text and verified file hashes. Six home pairs are staged and unassigned until the future character discussion; they do not expand the playable roster.
 
-The playback code is ready. Both victory sheets and all four home background/music files are bundled. Sir Champignon now has review-draft idle, victory and shared casting sheets. The current screens still need 12 active assets + two optional portraits (14 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
+The playback code is ready. Both victory sheets and all four home background/music files are bundled. Sir Champignon now has review-draft idle, victory and shared casting sheets. The current screens still need 11 active assets + two optional portraits (13 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:
 
 ```text
 public/assets/characters/CHARACTER/portrait.png
@@ -46,7 +46,7 @@ The regular check reports missing final files and validates supplied sprite-shee
 
 ### Sir Champignon — Sporelight Keep
 
-- Character icon.
+- Character icon: installed transparent 192×192 helmet-and-shoulders review draft from the approved base-v3 design; see characters/champignon/icon-provenance.json.
 - Standing/idle animation: installed review draft, five 192×192 frames at 3 fps.
 - One shared casting animation for all four spells: installed review draft, nine 192×192 frames at 9 fps and a 500 ms final-pose hold.
 - Four spell effects: Mushroom Guard, Clean Sweep, Spore Ward, Royal Cleanup.
