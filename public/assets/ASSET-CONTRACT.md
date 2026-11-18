@@ -1,5 +1,7 @@
 # Drop-in character assets
 
+Hero animation sets contain idle, victory and **one shared casting animation**. Spell-effect sheets belong to **individual spells**, not to the hero animation set; lists below group spells by their current kit only. Thematic magic drawn into a casting gesture does not replace a spell’s own effect animation.
+
 The eight-home collection is available at `homes/index.html`, with `homes/catalog.json`, credits, license text and verified file hashes. Six home pairs are staged and unassigned until the future character discussion; they do not expand the playable roster.
 
 The playback code is ready. Both victory sheets and all four home background/music files are bundled. Both heroes have native 192×192 icons, idle, victory and shared casting sheets. The current screens still need eight spell-effect assets + two optional portraits (10 missing unique files, 22 total configured files). All four spell tiers reuse one casting sheet per character. The unique paths for each character are listed below. Add or replace files, then reload the game:

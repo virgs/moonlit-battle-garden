@@ -1,0 +1,43 @@
+{
+  "generator": "PixelLab create_image_pro",
+  "created": "2026-11-18",
+  "character": "Duskmantle",
+  "jobId": "145a59ad-2e4e-4a54-8e71-b5001760acd2",
+  "assetId": "71c36aa8-5af2-5358-9202-18e1f31d9221",
+  "request": {
+    "description": "Static head-and-shoulders character ICON of the EXACT APPROVED Duskmantle from reference 1. Preserve his mysterious mostly concealed face, long bangs, oversized scarf wrapping the lower face/neck, simple cloak shoulders, exact original costume colors and adult proportions. No new facial details or exposed face. Recompose as a clean centered bust within a transparent 192x192 square. Show the COMPLETE head and hair with at least 16px clear margins above and on both sides; no extreme close-up or clipping. Crop naturally below shoulders. Use reference 2 only for full-head framing, generous margins and clean bold outlines, never its knight helmet, plume or cyan eyes. Simple broad flat color regions and minimal coherent shading. No white/light-gray specks, dead pixels, texture, gradients, elaborate folds or tiny decoration. No hands, magic, props, border, writing or scenery. Keep the approved simple mysterious scarf-and-cloak identity.",
+    "width": 192,
+    "height": 192,
+    "no_background": true,
+    "max_colors": 24,
+    "seed": 2026111829,
+    "reference_images": [
+      {
+        "url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+        "usage": "Exact Duskmantle identity, face concealment, bangs, large scarf, cloak and material colors."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/icon.png",
+        "usage": "Clean head-and-shoulders icon framing and generous margins only. Do not copy knight identity or costume."
+      }
+    ],
+    "style_image_url": "https://api.pixellab.ai/mcp/images/d54baaf7-c455-470f-a66b-9ea03f308077/download",
+    "style_copy": [
+      "color_palette",
+      "outline",
+      "detail",
+      "shading"
+    ]
+  },
+  "status": "Staged for user visual review; no model image inspection.",
+  "costGenerations": 10,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "a2dcc3699cc019e572a5f9b11647dda1e606c290892207cec4d03e3096364241"
+}

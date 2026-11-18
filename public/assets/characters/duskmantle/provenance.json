@@ -3,7 +3,7 @@
   "created": "2026-11-18",
   "character": "Duskmantle",
   "assetDirectory": "duskmantle",
-  "status": "Staged for user visual review; not a playable roster expansion. No model image inspection.",
+  "status": "User approved all three animations on 2026-11-18; user-only visual review.",
   "base": {
     "file": "base.png",
     "provenance": "base-provenance.json",
@@ -112,5 +112,6 @@
     "standing.png": "853e190008cb5307709e4136d8bf90427133be7f90650847b1efac199c94600e",
     "victory.png": "160fd25de829bbd320e806a2ccf49c0ad8580c228d85445b839f6229dd798c7f",
     "cast.png": "9f478d552da49ce1e76a5b39292c864915da496f508255722754b2441f52a9bc"
-  }
+  },
+  "userApproved": true
 }

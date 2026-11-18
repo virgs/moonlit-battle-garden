@@ -139,6 +139,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D88 | User approves Duskmantle’s simple base and authorizes subtle idle, expressive victory and one shared magical casting animation. Generate complete clips from the same approved base, preserve fixed costume colors/simple shading and use a compact violet curse effect following the casting gesture. User-only visual review; stage art without playable roster expansion. Icon is separate future work. |
 
+| D89 | User approves Duskmantle’s animations and authorizes his head-and-shoulders icon. Clarify ownership: every hero has ONE shared casting animation; EACH SPELL owns its distinct spell-effect animation, separate from the hero animation set. Thematically matching effects within a cast clip are not a substitute for spell effects. Generate only the icon now; user-only visual review. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
