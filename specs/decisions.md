@@ -93,6 +93,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D65 | Reopen PixelLab generation for Sir Champignon only: create a new base from his recovered drawing, using the final board/moles/rabbits/stars as style references, then idle, victory and one shared casting animation. Preserve his helmet, red plume, mushroom shield and broom. Icons, portraits and distinct spell effects remain separate future work. At the user’s request, leave visual review to the user from this point; perform only technical file/playback checks and show previews without model image inspection. |
 
+| D66 | User rejected the first Champignon art pass as too close to the old illustration, too thin-lined and visually dirty. Redesign from scratch with the finished target sprites as the style authority: thicker outlines, simpler shapes, fewer colors and clean flat shading. Retain only the knight/broom/mushroom-shield concept from the old art. Show a new base for user visual review before generating more animations; do not inspect the result with model vision. Existing clips have 5 idle / 9 victory / 9 casting frames including the starting pose. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

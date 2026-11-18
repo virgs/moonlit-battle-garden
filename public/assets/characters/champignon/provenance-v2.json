@@ -1,0 +1,41 @@
+{
+  "generator": "PixelLab create_image_pro_flash",
+  "created": "2026-11-17",
+  "status": "Fresh base draft for user visual review before generating replacement animations. Not installed as the active character.",
+  "jobId": "a9f93b41-671b-46df-b5d0-90bcf277d7ce",
+  "sourceImageId": "8bffefae-04ba-5772-becb-1361675fd95c",
+  "seed": 2026111705,
+  "prompt": "Draw a completely NEW Sir Champignon character design from scratch: a charming compact cartoon garden knight with a large closed slate-blue steel helmet, two simple cyan eyes in a black visor, one clean red plume, stout simple armor, chunky boots, a household sweeping broom and a green shield bearing ONE bold red-and-white mushroom emblem. Full body in a relaxed idle stance, slightly facing left, broom bristles resting beside his boots. The provided rabbit image is ONLY the established GAME ART STYLE reference, not the character to draw. Match its bold thick dark contours, clean expressive shape language and simple readable cel shading. Use continuous 2-pixel dark outer outlines at this native 96-pixel canvas scale, bold separated silhouettes, large smooth color clusters and broad clear shapes. Helmet, shield, hands and broom should read immediately at small size. Maximum 18 colors total; two or three solid shades per material. Fresh rounded proportions: big helmet, short sturdy limbs and generous readable shield. Entire character, broom and plume fully inside the canvas with a small transparent margin. No copied old knight drawing, no thin scratchy strokes, no sketch texture, no dithering, no isolated noise pixels, no tiny armor engravings, no excessive highlights, no gradients, no anti-aliasing, no complex fabric folds, no scenery, no ground, no text or spell effects. Transparent background. This is one clean production-ready BASE POSE, not a sprite sheet.",
+  "width": 96,
+  "height": 96,
+  "maxColorsRequested": 18,
+  "estimatedCostGenerations": 5,
+  "styleReference": {
+    "file": "references/rabbit-style.png",
+    "source": "/assets/characters.png",
+    "extraction": {
+      "x": 1440,
+      "y": 0,
+      "width": 90,
+      "height": 90
+    },
+    "processing": "Exact crop of the finished rabbit frame; no resizing or artistic edits.",
+    "styleOptions": {
+      "outline": true,
+      "detail": true,
+      "shading": true,
+      "color_palette": false
+    }
+  },
+  "originalKnightImageUsed": false,
+  "visualReview": "User only; no model inspection of this output.",
+  "chargedGenerations": 5,
+  "installedSha256": "74d2fe9c4a713286442a8243e6673b4f1739124b854bb65e1a507299347cb007",
+  "technicalChecks": {
+    "dimensions": [
+      96,
+      96
+    ],
+    "hasTransparentPixels": true
+  }
+}
