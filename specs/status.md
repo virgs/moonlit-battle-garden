@@ -4,7 +4,7 @@ Updated 2026-11-17 after comparing the remake with the oldest Dig Hole Battle Ga
 
 ## Implemented
 
-- Eight sourced CC0 background/music pairs, including the two approved active homes and six unassigned future homes. A responsive review collection at assets/homes/index.html shows the artwork and plays one looping track at a time. Character names/minibios and six-character gameplay expansion remain deferred. No new artwork or music generated.
+- Eight sourced background/music pairs, including the two active homes and six unassigned future homes. The approved Sporelight Keep, Moonlit Hideout, Whispering Wood and Violet Veil are preserved; the rejected town/harbor/lava/chapel have been replaced by garden/woodland scenes. Fourteen files are CC0, Bluebell Thicket art is CC BY 4.0 with visible attribution, and Stillwater Grove art has explicit creator permission. A responsive review collection at assets/homes/index.html shows the artwork and plays one looping track at a time. Character names/minibios and six-character gameplay expansion remain deferred. No new artwork or music generated.
 
 - Public static website at https://virgs.github.io/moonlit-battle-garden/, automatically deployed from main. User authorized the public repository. Deployment checks and a live HTTPS invite/WebRTC/touch smoke test passed.
 

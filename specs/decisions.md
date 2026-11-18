@@ -87,6 +87,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D62 | Source eight total background/music pairs now, retaining the two approved homes. Stage six additional CC0 pairs under provisional theme names; defer character names/minibios and playable roster expansion. No new image or music generation. Keep credits, hashes, a browsable music/art collection and asset validation. |
 
+| D63 | Preserve the approved Sporelight Keep, Moonlit Hideout, Whispering Wood and Violet Veil assets. Replace the four rejected town/harbor/lava/chapel homes with garden and woodland scenes: foliage, moss, roots, mist, moonlight and magical glow. Keep a cohesive garden setting rather than unrelated fantasy biomes; no new generation. Allow sourced assets with explicit compatible licenses and attribution. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

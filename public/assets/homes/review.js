@@ -26,6 +26,18 @@ try {
       for (const other of document.querySelectorAll('audio')) if (other !== audio) other.pause();
     });
     card.append(image, title, assignment, mood, audio);
+    if (home.artCredit) {
+      const credit = document.createElement('small');
+      credit.className = 'art-credit';
+      const source = document.createElement('a');
+      source.href = home.artSource;
+      source.textContent = `Artwork: ${home.artCredit}`;
+      const license = document.createElement('a');
+      license.href = home.artLicenseUrl;
+      license.textContent = home.artLicense === 'CC0 1.0 Universal' ? 'CC0' : home.artLicense === 'CC BY 4.0' ? 'CC BY 4.0' : 'Creator permission';
+      credit.append(source, ' · ', license);
+      card.append(credit);
+    }
     main.append(card);
   }
 } catch {

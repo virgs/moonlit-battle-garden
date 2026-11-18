@@ -1,51 +1,49 @@
 # Home backgrounds and music
 
-All sixteen installed home assets are offered by their creators under **CC0 1.0 Universal**. Source pages and SHA-256 hashes are recorded in provenance.json; the license text is in LICENSE-CC0.txt. No new artwork or music was generated.
+Eight downloaded background/music pairs; no newly generated artwork or music. Four approved pairs are preserved unchanged: Sporelight Keep, Moonlit Hideout, Whispering Wood and Violet Veil. The other four now use garden/woodland scenery and gentler music pairings. Theme names and future character assignments remain provisional.
 
-## Sir Champignon — Sporelight Keep
+Fourteen assets use CC0 1.0 Universal. Bluebell Thicket artwork uses CC BY 4.0, and Stillwater Grove artwork uses the creator’s explicit permission for personal/commercial projects and modification. License texts and source records are bundled here; provenance.json records processing and file hashes.
 
-- Background: [Castle in the Dark](https://opengameart.org/content/castle-in-the-dark), biodegradableguy. First frame of the original animated GIF converted to PNG without changing its pixels. The creator requests no attribution; this source record documents provenance rather than an in-game credit requirement.
-- Music: [Forest Whisper Theme](https://opengameart.org/content/forest-whisper-theme), Cleyton Kauffman ([creator](https://soundcloud.com/cleytonkauffman)). Source WAV transcoded to a compact MP3; full loop retained.
+## Sporelight Keep
 
-## Andy — Moonlit Hideout
+- Artwork: [Castle in the Dark](https://opengameart.org/content/castle-in-the-dark), **biodegradableguy**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). First frame of original 124x124 animated GIF converted losslessly to RGBA PNG. Original pixels/palette retained; animation not included.
+- Music: [Forest Whisper Theme](https://opengameart.org/content/forest-whisper-theme), **Cleyton Kauffman**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Forest Whisper.wav from source archive transcoded to MP3 with libmp3lame q4; cleaned metadata. Full 82.285714-second loop retained.
 
-- Background: [Dark forest](https://val-demar.itch.io/dark-forest), Vladimir Hovakimyan / Val_DeMar. Uses the creator's published complete composite PNG, unchanged. The individual parallax layers are not needed for this static home backdrop.
-- Music: [Magic Town](https://opengameart.org/content/magic-town), controllerhead. Audio stream copied intact into a metadata-cleaned MP3.
+## Moonlit Hideout
 
-Backgrounds are uniformly cover-scaled by the existing renderer, with subdued opacity to preserve target/HUD readability. These are the selected sourced home assets; the old castle/shared track remain loader fallbacks.
+- Artwork: [Dark forest](https://val-demar.itch.io/dark-forest), **Vladimir Hovakimyan (Val_DeMar)**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Creator-published full composite preview PNG copied unchanged (1024x360); static background, no generated artwork or recoloring.
+- Music: [Magic Town](https://opengameart.org/content/magic-town), **controllerhead**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). MP3 audio stream copied without re-encoding; metadata replaced with track title/creator. Full 55.698-second track retained.
 
-## Six unassigned homes — provisional theme names
+## Mossroot Path
 
-These assets are staged for the future roster, not additional playable characters. See catalog.json or open index.html through the game server for a visual/music review.
+- Artwork: [Forest road](https://opengameart.org/content/sideview-fantasy-patreon-collection), **ansimuz**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Unchanged complete PNG extracted from source archive: Sideview Fantasy Patreon Collection/Environments/forest-road-background/PNG/forest-road-preview.png. No compositing, recoloring or generated artwork.
+- Music: [Glizzy Elf Forest — Forest Loop](https://opengameart.org/content/glizzy-elf-forest-rpg-music-pack), **Zane Little Music**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Full source Glizzy Elf Forest LOOP.wav transcoded to MP3 with libmp3lame q4; metadata cleaned, no trimming or generated music.
 
-### Lantern Hollow
+## Whispering Wood
 
-- Background: [ansimuz — gothicvania-patreons-collection](https://opengameart.org/content/gothicvania-patreons-collection). Creator composite PNG extracted unchanged from the source archive.
-- Music: [Gothicvania Ghost Town](https://opengameart.org/content/gothicvania-ghost-town), ansimuz. Full track transcoded to MP3.
+- Artwork: [mist-forest-background-preview.png](https://opengameart.org/content/sideview-fantasy-patreon-collection), **ansimuz**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Unchanged creator PNG extracted from Sideview Fantasy Patreon Collection/Environments/mist-forest-background/mist-forest-background-preview.png; no recoloring, generated art or compositing.
+- Music: [Iremos Forest Theme Loop](https://opengameart.org/content/iremos-forest-theme-loop), **beardalaxy**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Full source audio transcoded to MP3 with libmp3lame q4; metadata cleaned. No trimming or generated music.
 
-### Whispering Wood
+## Stillwater Grove
 
-- Background: [ansimuz — sideview-fantasy-patreon-collection](https://opengameart.org/content/sideview-fantasy-patreon-collection). Creator composite PNG extracted unchanged from the source archive.
-- Music: [Iremos Forest Theme Loop](https://opengameart.org/content/iremos-forest-theme-loop), beardalaxy. Full track transcoded to MP3.
+- Artwork: [Forest & Moon](https://forest-elfs.itch.io/forestmoon), **Forest_Elfs**. [Creator permission: personal/commercial use and modification](https://forest-elfs.itch.io/forestmoon). Creator-published complete composite PNG copied unchanged; no recoloring or generated artwork.
+- Music: [Whispers in the Fog](https://opengameart.org/content/whispers-in-the-fog), **Ruhinre**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Full source audio transcoded to MP3 with libmp3lame q4; metadata cleaned. No trimming or generated music.
 
-### Drowned Harbor
+## Lanternbloom Garden
 
-- Background: [ansimuz — sideview-fantasy-patreon-collection](https://opengameart.org/content/sideview-fantasy-patreon-collection). Creator composite PNG extracted unchanged from the source archive.
-- Music: [Whispers in the Fog](https://opengameart.org/content/whispers-in-the-fog), Ruhinre. Full track transcoded to MP3.
+- Artwork: [Magic forest](https://val-demar.itch.io/magic-forest), **Vladimir Hovakimyan (Val_DeMar)**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Creator-published complete composite PNG copied unchanged; no recoloring or generated artwork.
+- Music: [Exploration Theme](https://opengameart.org/content/exploration-theme), **Cleyton Kauffman**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Full source Exploration Theme/Exploration Theme.wav transcoded to MP3 with libmp3lame q4; metadata cleaned, no trimming or generated music.
 
-### Ember Grotto
+## Violet Veil
 
-- Background: [ansimuz — sideview-fantasy-patreon-collection](https://opengameart.org/content/sideview-fantasy-patreon-collection). Creator composite PNG extracted unchanged from the source archive.
-- Music: [A Wonderful Nightmare (Chiptune version)](https://opengameart.org/content/a-wonderful-nightmare-chiptune-version), SpiderDave. Full track transcoded to MP3.
+- Artwork: [background.png](https://opengameart.org/content/gothicvania-cemetery-pack), **ansimuz**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Unchanged creator PNG extracted from gothicvania-cemetery-files/PNG/Environment/background.png; no recoloring, generated art or compositing.
+- Music: [Void Estate](https://opengameart.org/content/haunting-chiptune-loop-void-estate), **Zane Little Music**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Full source audio transcoded to MP3 with libmp3lame q4; metadata cleaned. No trimming or generated music.
 
-### Violet Veil
+## Bluebell Thicket
 
-- Background: [ansimuz — gothicvania-cemetery-pack](https://opengameart.org/content/gothicvania-cemetery-pack). Creator composite PNG extracted unchanged from the source archive.
-- Music: [Void Estate](https://opengameart.org/content/haunting-chiptune-loop-void-estate), Zane Little Music. Full track transcoded to MP3.
+- Artwork: [FREE Pixel Night Forest](https://thqian.itch.io/free-pixel-night-forest), **ThQian**. [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Unchanged complete PNG extracted from source archive: FREE Pixel Night Forest/night_forest.png. No compositing, recoloring or generated artwork.
+- Music: [Cathedral in the forest (ambient loop)](https://opengameart.org/content/cathedral-in-the-forest-ambient-loop), **congusbongus**. [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/). Full source bells.ogg transcoded to MP3 with libmp3lame q4; metadata cleaned, no trimming or generated music.
 
-### Forgotten Chapel
+Bluebell Thicket attribution: “FREE Pixel Night Forest” by ThQian, https://thqian.itch.io/free-pixel-night-forest, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Artwork is unchanged; displayed with uniform cover scaling/cropping. Attribution is also visible on its review card.
 
-- Background: [ansimuz — gothicvania-patreons-collection](https://opengameart.org/content/gothicvania-patreons-collection). Creator composite PNG extracted unchanged from the source archive.
-- Music: [Abandoned Castle Music (Loop)](https://opengameart.org/content/abandoned-castle-music-loop), StarNinjas. Full track transcoded to MP3.
-
-Only the visual background from the Cemetery Pack is included; its separately licensed bundled music is not used. Source archives, unused sprites and rejected candidates are not shipped. Every home uses its own audio file, loaded only when requested. CC0 license text and per-file hashes accompany the collection.
+Only selected art/audio files are shipped, not the source packs. The Gothicvania Cemetery Pack’s separately licensed music is not included.

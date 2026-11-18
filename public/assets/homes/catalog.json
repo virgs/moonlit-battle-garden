@@ -9,7 +9,11 @@
       "music": "champignon/music.mp3",
       "mood": "Purple moon, distant castle, gentle forest mystery.",
       "focusX": 0.5,
-      "focusY": 0.15
+      "focusY": 0.15,
+      "artCredit": "biodegradableguy",
+      "artSource": "https://opengameart.org/content/castle-in-the-dark",
+      "artLicense": "CC0 1.0 Universal",
+      "artLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "andy",
@@ -19,17 +23,25 @@
       "music": "andy/music.mp3",
       "mood": "Blue woodland mist and whimsical SNES-style magic.",
       "focusX": 0.5,
-      "focusY": 0.5
+      "focusY": 0.5,
+      "artCredit": "Vladimir Hovakimyan (Val_DeMar)",
+      "artSource": "https://val-demar.itch.io/dark-forest",
+      "artLicense": "CC0 1.0 Universal",
+      "artLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
-      "id": "lantern-hollow",
-      "name": "Lantern Hollow",
+      "id": "mossroot-path",
+      "name": "Mossroot Path",
       "character": null,
-      "background": "lantern-hollow/background.png",
-      "music": "lantern-hollow/music.mp3",
-      "mood": "Sleeping village, mountain silhouettes and ghostly chiptune.",
+      "background": "mossroot-path/background.png",
+      "music": "mossroot-path/music.mp3",
+      "mood": "Shaded foliage, mossy roots and a woodland path, with an enchanted forest melody.",
       "focusX": 0.5,
-      "focusY": 0.5
+      "focusY": 1,
+      "artCredit": "ansimuz",
+      "artSource": "https://opengameart.org/content/sideview-fantasy-patreon-collection",
+      "artLicense": "CC0 1.0 Universal",
+      "artLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "whispering-wood",
@@ -39,27 +51,39 @@
       "music": "whispering-wood/music.mp3",
       "mood": "Mossy woods, drifting mist and enchanted-forest mystery.",
       "focusX": 0.5,
-      "focusY": 0.5
+      "focusY": 0.5,
+      "artCredit": "ansimuz",
+      "artSource": "https://opengameart.org/content/sideview-fantasy-patreon-collection",
+      "artLicense": "CC0 1.0 Universal",
+      "artLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
-      "id": "drowned-harbor",
-      "name": "Drowned Harbor",
+      "id": "stillwater-grove",
+      "name": "Stillwater Grove",
       "character": null,
-      "background": "drowned-harbor/background.png",
-      "music": "drowned-harbor/music.mp3",
-      "mood": "Submerged shipwrecks, blue light and an ethereal fog loop.",
+      "background": "stillwater-grove/background.png",
+      "music": "stillwater-grove/music.mp3",
+      "mood": "A misty woodland clearing with a winding stream and a quiet, ethereal loop.",
       "focusX": 0.5,
-      "focusY": 0.5
+      "focusY": 0.5,
+      "artCredit": "Forest_Elfs",
+      "artSource": "https://forest-elfs.itch.io/forestmoon",
+      "artLicense": "Creator permission: personal/commercial use and modification",
+      "artLicenseUrl": "https://forest-elfs.itch.io/forestmoon"
     },
     {
-      "id": "ember-grotto",
-      "name": "Ember Grotto",
+      "id": "lanternbloom-garden",
+      "name": "Lanternbloom Garden",
       "character": null,
-      "background": "ember-grotto/background.png",
-      "music": "ember-grotto/music.mp3",
-      "mood": "Glowing lava, purple stone and restless spooky chiptune.",
+      "background": "lanternbloom-garden/background.png",
+      "music": "lanternbloom-garden/music.mp3",
+      "mood": "Purple canopies, glowing flowers and hanging lights, with gentle piano/synth mystery.",
       "focusX": 0.5,
-      "focusY": 0.5
+      "focusY": 0.5,
+      "artCredit": "Vladimir Hovakimyan (Val_DeMar)",
+      "artSource": "https://val-demar.itch.io/magic-forest",
+      "artLicense": "CC0 1.0 Universal",
+      "artLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
       "id": "violet-veil",
@@ -69,17 +93,25 @@
       "music": "violet-veil/music.mp3",
       "mood": "A violet vortex framed by dark branches, with haunting chiptune.",
       "focusX": 0.5,
-      "focusY": 0.5
+      "focusY": 0.5,
+      "artCredit": "ansimuz",
+      "artSource": "https://opengameart.org/content/gothicvania-cemetery-pack",
+      "artLicense": "CC0 1.0 Universal",
+      "artLicenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
     },
     {
-      "id": "forgotten-chapel",
-      "name": "Forgotten Chapel",
+      "id": "bluebell-thicket",
+      "name": "Bluebell Thicket",
       "character": null,
-      "background": "forgotten-chapel/background.png",
-      "music": "forgotten-chapel/music.mp3",
-      "mood": "Deserted stone arches, stained glass and an eerie castle loop.",
+      "background": "bluebell-thicket/background.png",
+      "music": "bluebell-thicket/music.mp3",
+      "mood": "Blue woodland shadows, tiny flowers and deep foliage, with soft ambient pads and bells.",
       "focusX": 0.5,
-      "focusY": 0.5
+      "focusY": 0.5,
+      "artCredit": "ThQian",
+      "artSource": "https://thqian.itch.io/free-pixel-night-forest",
+      "artLicense": "CC BY 4.0",
+      "artLicenseUrl": "https://creativecommons.org/licenses/by/4.0/"
     }
   ]
 }
