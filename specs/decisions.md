@@ -135,6 +135,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D86 | User approves all Captain Bramble animations and icon. Preserve these approved assets without further cleanup. Continue concise tool output and targeted reads to save tokens. This approves art only; playable roster expansion remains deferred. |
 
+| D87 | User confirms Duskmantle’s mysterious scarf-and-cloak identity and authorizes a simple fresh base draft. Keep adult proportions, bold clean outlines, broad flat shading and minimal costume detail. Use original Dindo artwork for identity; no added props or elaborate decoration. User-only visual review; generate one base before further animation work. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

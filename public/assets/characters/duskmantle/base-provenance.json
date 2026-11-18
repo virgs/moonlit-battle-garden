@@ -1,0 +1,48 @@
+{
+  "generator": "PixelLab create_image_pro",
+  "created": "2026-11-18",
+  "character": "Duskmantle",
+  "assetDirectory": "duskmantle",
+  "jobId": "d54baaf7-c455-470f-a66b-9ea03f308077",
+  "assetId": "fdb10b4c-db30-5f2e-b6c1-5dadc3cbbbe2",
+  "status": "Staged draft for user visual review; no model image inspection.",
+  "request": {
+    "description": "Fresh simple pixel-art BASE DESIGN for DUSKMANTLE, a mysterious adult caretaker of a moonlit garden. Use the original drawing only for identity: long bangs, an oversized scarf wrapped around the lower face/neck and a flowing cloak. Face mostly concealed, reserved unreadable expression; no monster face or elaborate armor. A lean adult silhouette, normal-sized head, cloak hanging in a few broad readable folds, scarf ends clear but not tangled. Quiet standing pose facing slightly left, feet planted. Keep the costume SIMPLE: muted deep-violet cloak, subdued scarf, dark boots; restrained colors and only two or three flat shades per material. Match approved game art: bold dark outlines, coherent broad pixel clusters, clean shapes. No tiny decorative details, intricate trim, noisy shading, white/light-gray speckles, dithering or gradients. Not chibi or baby-like. No weapons, staff, skulls, extra props, magic effects, scenery or text. Full body, scarf and cloak entirely inside transparent 192x192 square with generous margins for future expressive animation.",
+    "width": 192,
+    "height": 192,
+    "no_background": true,
+    "max_colors": 24,
+    "seed": 2026111825,
+    "style_image_url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/base-v3.png",
+    "style_copy": [
+      "outline",
+      "detail",
+      "shading"
+    ],
+    "reference_images": [
+      {
+        "sourceFile": "original.png",
+        "usage": "Duskmantle / original Dindo identity: mysterious adult figure, long bangs, large scarf and cloak. Simplify into a clean readable full-body sprite; identity only, not sketch rendering."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/references/final-art-style-plate.png",
+        "usage": "Final game outline weight and simple flat pixel clusters; do not copy species or props."
+      }
+    ]
+  },
+  "originalSource": "https://github.com/virgs/digHoleBattleGarden/blob/master/Personagens/DINDO.bmp",
+  "originalPreparation": "Original BMP converted to PNG with exact magenta-to-alpha using scripts/import-legacy-art.py.",
+  "costGenerations": 10,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": {
+    "base.png": "4ae5349a83e73e22126ffd0c1ad92dc7ebb5b0de872c99ea508018575d2351a5",
+    "original.png": "20fef942f180d3b7f9a83f8d1e71c40c3064488ea7f49d483e5483bf69f2ad9f"
+  }
+}

@@ -163,3 +163,7 @@ The user approved Captain Bramble’s base and authorized his icon/idle/victory/
 Captain Bramble’s three animation drafts are staged in `public/assets/characters/captain-bramble/`: `standing.png` (5 native 192×192 frames, 3 fps), `victory.png` (9 frames, 8 fps), and `cast.png` (9 frames, 9 fps plus 500 ms hold). Each full clip was generated from the same approved base in a single call. Technical checks verify alpha, dimensions, visible starting pixels and packed frame pixels; hidden RGB under full transparency may normalize. Exact requests/jobs/seeds/hashes are in `provenance.json`. The static 192×192 icon is also staged at `icon.png`, with exact prompt/job/cancelled-retry history in `icon-provenance.json`. User-only visual review; runtime roster remains the initial two heroes.
 
 Captain Bramble’s idle, victory, shared casting animation and icon were all approved by the user on 2026-11-18. Preserve them without further unsolicited cleanup. Art is staged; playable roster expansion remains deferred.
+
+### Duskmantle base draft
+
+User confirms the original mysterious scarf-and-cloak identity and requests a simple design. Generate one clean adult base with a reserved, mostly concealed face, long bangs, an oversized scarf and a cloak with a few broad folds. Restrained flat colors, bold outlines and minimal detail; no added weapons/props or effects. Original Dindo drawing is retained as the identity reference. User reviews the base before animations; staged art does not expand the playable roster.
