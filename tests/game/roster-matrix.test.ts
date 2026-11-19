@@ -21,3 +21,9 @@ it('keeps unfinished results separate and treats mirrors as side results',()=>{
   expect(pair.decided).toBe(8);expect(pair.winRate).toBe(37.5);expect(pair.unfinished).toBe(2);
   expect(mirror.winRate).toBe(35);expect(mirror.leftWins).toBe(7);expect(mirror.rightWins).toBe(13);
 });
+
+it('can report a single AI difficulty without pooling or spread flags',()=>{
+  const rows:PairResult[]=[{difficulty:'medium',left:'champignon',right:'andromoss',total:200,leftWins:120,rightWins:80,side0:100,unfinished:0}];
+  const text=matchupMatrix(rows,{champignon:'Champignon',andromoss:'Andromoss','captain-bramble':'Bramble',duskmantle:'Duskmantle',sprig:'Sprig'},'medium');
+  expect(text).toContain('Medium AI only');expect(text).toContain('🟨60.0%');expect(text).not.toContain('pooled');expect(text).not.toContain('asterisk');
+});

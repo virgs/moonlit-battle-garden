@@ -5,7 +5,7 @@ import { matchupMatrix,poolMatchups,type PairResult } from './roster-matrix';
 
 type Report={rows:PairResult[];seeds:number;seed:number;simulationHash:string;configHash:string;battles?:unknown[];summaries:{difficulty:string;character:CharacterId;untestedTiers:number[]}[]};
 const read=(name:string)=>JSON.parse(readFileSync(`reports/${name}.json`,'utf8')) as Report;
-const reference=read('duration-reference'),final=read('balance-roster');
+const reference=read('duration-reference'),final=read('power-reference');
 const profiles=[
   {name:'duration-armor4',armor:4,sweep:3},
   {name:'duration-sweep1',armor:6,sweep:1},
@@ -22,7 +22,8 @@ function rate(report:Report,left:CharacterId,right:CharacterId) {
   return ((pair.left===left?pair.leftWins:pair.rightWins)/pair.decided*100).toFixed(1)+'%';
 }
 const lines=[
-  '# Duration-only balance comparison',
+  '# Historical duration-only balance comparison'
+  ,'', 'Superseded by D104/D105 and balance-normal-hits-review.md; these settings are not current defaults.',
   '',
   '## Adopted durations',
   '',
@@ -47,16 +48,16 @@ function tableRow(label:string,armor:number,sweep:number,report:Report) {
 lines.push(tableRow('Reference',6,3,reference));
 for(const profile of profiles)lines.push(tableRow(profile.name,profile.armor,profile.sweep,read(profile.name)));
 lines.push('','## Main versus matrix after adoption','',matchupMatrix(final.rows,names),'','## Reference versus matrix','',matchupMatrix(reference.rows,names));
-lines.push('','## Difficulty differences remain relevant','','Pooling is the overview, not a replacement for per-level checks. For example, adopted Champignon vs Sprig wins are **27.5% Easy, 30.5% Medium, 78.5% Hard**. The pooled 45.5% masks that counter flip; the asterisk exposes the spread. Full level rows, mirrors and spell coverage remain in `balance-roster.md`/JSON.');
+lines.push('','## Difficulty differences remain relevant','','Pooling is the overview, not a replacement for per-level checks. For example, adopted Champignon vs Sprig wins are **27.5% Easy, 30.5% Medium, 78.5% Hard**. The pooled 45.5% masks that counter flip; the asterisk exposes the spread. Historical level rows, mirrors and spell coverage remain in `power-reference.json`; full raw outcomes are preserved at Git commit 100af6f.');
 lines.push('','## Coverage and next decisions','','Easy Champignon still never uses tiers 3/4 under the current policy. More samples do not repair that coverage gap. The zero-point clearing mechanic and timing-sensitive multi-hit armor remain structural questions; no extra policy/numeric changes were made to chase 50%. Bramble still wins most pairings, so more tuning and human input testing are required.');
-lines.push('','## Reproduction','','Example: `pnpm balance:roster --seeds=100 --seed=20261118 --report=duration-armor2-sweep1 --armor-ms=2000 --sweep-ms=1000`. Omit overrides for the adopted defaults. Reference source/config hashes and per-level counts remain in `duration-reference.json`; trial parameters and aggregates stay in the five duration JSON files. Raw outcomes for the adopted candidate are retained once in `balance-roster.json`, avoiding five duplicate large logs.','');
+lines.push('','## Reproduction','','Check out Git commit 100af6f to reproduce historical sub-three-second settings: `pnpm balance:roster --seeds=100 --seed=20261118 --report=duration-armor2-sweep1 --armor-ms=2000 --sweep-ms=1000`. The current runner rejects those settings per D104. Reference source/config hashes and per-level counts remain in `duration-reference.json`; trial parameters and aggregates stay in the five duration JSON files. Raw outcomes for that historical candidate are preserved in `balance-roster.json` at Git commit 100af6f; the current file uses D105 normal-hit rules.','');
 writeFileSync('reports/balance-duration-review.md',lines.join('\n'));
 for(const profile of profiles) {
   const file=`reports/${profile.name}.json`;
   const report=JSON.parse(readFileSync(file,'utf8'));
   delete report.battles;
   report.summaryOnly=true;
-  report.rawOutcomeNote='Per-pair/per-level/tier aggregates and reproduction parameters retained. Selected raw outcomes are in balance-roster.json; the final adopted run was checked identical before discarding duplicate raw logs.';
+  report.rawOutcomeNote='Per-pair/per-level/tier aggregates and reproduction parameters retained. Selected raw outcomes are in balance-roster.json at Git commit 100af6f; that historical adopted run was checked identical before discarding duplicate raw logs.';
   writeFileSync(file,JSON.stringify(report,null,2)+'\n');
 }
 console.log('Saved pooled matrices, per-matchup duration comparisons and compact trial records.');

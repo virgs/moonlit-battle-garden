@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
-  rosterSpells: { cleanSweepMs: number; brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; automationPoints: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; sweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -45,10 +45,10 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   champignon: {
     name: 'Sir Champignon', role: 'The garden guardian', color: '#c9e586', emblem: '♜',
     spells: [
-      { name: 'Clean Sweep', description: 'Clear current and new moles/rabbits for 1 second. Leave stars.' },
+      { name: 'Clean Sweep', description: 'Hit all targets for 3 seconds: normal mole points, rabbit penalties and star collection.' },
       { name: 'Mushroom Guard', description: 'Block the next mistake for 12 seconds.' },
       { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
-      { name: 'Royal Cleanup', description: 'Sweep for 1 second and block three mistakes for 12 seconds.' },
+      { name: 'Royal Cleanup', description: 'Hit all targets for 3 seconds and block three mistakes for 12 seconds.' },
     ],
   },
   andromoss: {
@@ -63,10 +63,10 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   'captain-bramble': {
     name: 'Captain Bramble', role: 'The steadfast garden sentinel', color: '#da956b', emblem: '♜',
     spells: [
-      { name: 'Tin Caps', description: 'Enemy moles need one extra hit for 2 seconds.' },
+      { name: 'Tin Caps', description: 'Armor up to two enemy moles within 3 seconds; one extra hit each.' },
       { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
       { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
-      { name: 'Heavy Harvest', description: 'Enemy moles need two extra hits for 2 seconds.' },
+      { name: 'Heavy Harvest', description: 'Armor up to four enemy moles within 3 seconds; two extra hits each.' },
     ],
   },
   duskmantle: {
@@ -88,3 +88,10 @@ export const characters: Record<CharacterId, { name: string; role: string; color
     ],
   },
 };
+
+// Active-effect windows have a user-requested three-second floor. Instant actions,
+// casting/warning/cooldown clocks and one-time lifetime extensions are separate.
+for (const key of ['cleanSweepMs','armorMs','brambleGuardMs','markMs','camouflageMs','drainMs','columnAutomationMs','fullAutomationMs','cleanseWardMs'] as const) {
+  if (config.rosterSpells[key] < 3000) throw new Error(`Active effect below 3 seconds: ${key}`);
+}
+if ([config.spells.shieldMs,config.spells.invasionMs,config.spells.decoysMs].some(ms=>ms<3000)) throw new Error('Active spell windows must be at least 3 seconds');

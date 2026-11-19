@@ -28,10 +28,10 @@ Casting freezes both boards for 1500 ms with a separate presentation clock; targ
 
 | Character / tier | Behavior |
 | --- | --- |
-| Champignon 1 | Clean Sweep: safely clear current/new moles and rabbits for 1 active second; preserve stars and award no clearing score. |
+| Champignon 1 | Clean Sweep: hit current/new targets for 3 active seconds: normal mole points, rabbit penalties and star collection. |
 | Champignon 2 | Mushroom Guard: block one mistake within 12 seconds. |
 | Champignon 3 | Block the next hostile spell within 12 seconds. |
-| Champignon 4 | One-second safe sweep plus three mistake blocks within 12 seconds. |
+| Champignon 4 | Three-second normal-hit sweep plus three mistake blocks within 12 seconds. |
 | Andromoss 1 | Copy one available enemy star without removing it. Since one star was spent, this does not generate net charge. If no enemy star is available, there is no effect; the charge is still spent. |
 | Andromoss 2 | Add extra rabbits for 7.5 seconds without replacing the normal mole/star spawn schedule. |
 | Andromoss 3 | Transfer up to two enemy stars, capped at four total. If none are available, there is no effect; the charge is still spent. |
@@ -76,7 +76,9 @@ Armor never changes stars/rabbits. A strike removes one armor pip without points
 
 Sprig chooses the busiest one/two columns by current target count (all kinds; stable left-first ties). Automation uses one global action every **250 ms**, checks at least 200 ms of visibility and remaining lifetime, and hits every target kind in those columns. Each mole armor pip takes one separate action; the final hit clears the mole for 6 points. Stars give normal 25 points plus one charge (capped at four). Rabbits give the normal −12 penalty, with normal mistake-shield handling. No empty-hole hits occur. Automation does not receive Duskmantle’s manual-hit bonus and replaces/refreshes a prior automation window rather than stacking. Its selected columns have faint green bounds anchored to actual hole regions.
 
-Clean Sweep/Royal Cleanup clear current moles/rabbits immediately and continue clearing arrivals for 1 active second. Stars are untouched. No clearing points are awarded. The sweep, armor and automation windows all stop during casts and pauses. This prolonged zero-point clearing is a defensive tradeoff: indiscriminate use deletes scoring opportunities. The bot checks real near-expiry/armor/marked-target risk before spending a one-star sweep and does not renew an already-active sweep just to spend stars.
+Clean Sweep/Royal Cleanup hit current targets immediately, then pulse every 250 ms for 3 active seconds. Each pulse strikes every occupied, unexpired hole once. Base rewards match manual hits: mole +10, rabbit −12 (normal guards apply), star +25 and +1 charge capped at four. Armored moles take repeated strikes. Sprig automation uses these same base rewards. A winning initial sweep completes its casting presentation before resolving the round. All gameplay windows freeze during casts/pauses. Bots use sweep for danger or a clean multi-mole harvest; automated hits do not receive Duskmantle's manual-hit bonus.
+
+Bramble armor lasts 3 seconds and applies to at most two/four moles at tiers 1/4, respectively, with one/two extra hits each. Existing targets consume the quota first; remaining quota applies to new arrivals. Stars/rabbits never consume it. Expiry/cleanse/round reset remove unused quota and armor. Target limits are provisional balance values.
 
 All modifier windows, automation actions, warnings and target lifetimes use simulation time and stop during casting/pause/recovery. New-round players reset every modifier. Bots may retry surviving armored targets on later actions, prioritize marked moles after stars and use cleanse when afflicted; camouflage adds 200 ms reaction delay while leaving target kinds visible. This is one policy family, not proof of fair human play.
 
@@ -97,3 +99,8 @@ I03 supersedes the earlier 3-second sweep / 6-second armor defaults: **Clean Swe
 Five candidates each ran 7,500 matches on the same 100 paired seeds, with no caps. The chosen settings improved every pooled Champignon matchup and reduced every Bramble matchup advantage versus the saved reference. A fresh default-config run reproduced the chosen trial’s full raw outcomes exactly. See `reports/balance-duration-review.md` and compact per-profile records. Baseline raw data is preserved in Git; the current full run remains `balance-roster.json`.
 
 The main report is now a **pooled versus matrix**, using actual win counts rather than averaging unequal-sample percentages. Each distinct cell pools600 games (200 per AI level). Diagonals are omitted; mirrors are side-win diagnostics. Cells marked * have a greater-than-20-point difficulty spread, not a formal significance label. Keep the per-level data: Champignon vs Sprig is27.5% Easy, 30.5% Medium, 78.5% Hard despite 45.5% pooled. Duration tuning improves but does not solve the zero-point sweep tradeoff, cheap extra-hit pressure or missing Easy Champignon tier 3/4 bot coverage.
+
+
+## Current correction (D104/D105/I04)
+
+The one-second zero-reward sweep/two-second armor notes above are historical. Lasting spell windows now have a three-second minimum. Current diagnostics lead with three separate AI-level matrices. Instant transfers/extensions, action intervals, warning/cast/cooldown timing are exempt from that window minimum. See [normal-hit review](../reports/balance-normal-hits-review.md).

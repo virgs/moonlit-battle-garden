@@ -3,6 +3,7 @@ import { Match } from '../../src/game/Match';
 import { config,characters } from '../../src/game/config';
 import type { CharacterId,PlayerId,Target } from '../../src/game/types';
 import { Bot } from '../../src/game/Bot';
+import { modifyTarget } from '../../src/game/targetModifiers';
 
 function game(a:CharacterId,b:CharacterId='andromoss') {
   const match=new Match({characters:[a,b],mode:'local',difficulty:'medium',seed:41});
@@ -27,14 +28,40 @@ it('swaps the actual spell rules and titles for Champignon and Bramble',()=>{
   expect(bramble.state.players[1].armorHits).toBe(1);expect(bramble.state.players[0].mistakeShield).toBe(0);
 });
 
-it('Clean Sweep lasts one active second and preserves stars and zero clearing score',()=>{
+it('Clean Sweep uses normal hits for three active seconds, including new arrivals',()=>{
   const match=game('champignon'),p=match.state.players[0];
   p.holes[0]=target(match);p.holes[1]=target(match,'rabbit');p.holes[2]=target(match,'star');
   cast(match,0,1);
-  expect(p.holes.slice(0,2)).toEqual([null,null]);expect(p.sweepUntil-match.state.time).toBe(1000);
-  match.advance(500);p.holes[0]=target(match);p.holes[1]=target(match,'rabbit');match.advance(50);
-  expect(p.holes.slice(0,2)).toEqual([null,null]);expect(p.holes[2]?.kind).toBe('star');expect(p.score).toBe(0);
-  match.advance(500);p.holes[0]=target(match);match.advance(50);expect(p.holes[0]?.kind).toBe('mole');
+  const reward=config.points.mole+config.points.star-config.penalties.rabbit;
+  expect(p.holes.every(h=>h===null)).toBe(true);expect(p.sweepUntil-match.state.time).toBe(3000);
+  expect(p.score).toBe(reward);expect(p.stars).toBe(1);
+  match.advance(2000);p.holes[0]=target(match);match.advance(250);
+  expect(p.holes[0]).toBeNull();expect(p.score).toBe(reward+config.points.mole);
+  match.advance(750);p.holes[0]=target(match);match.advance(250);expect(p.holes[0]?.kind).toBe('mole');
+});
+
+it('sweep spends separate strikes on armor and cannot score a target twice',()=>{
+  const match=game('champignon'),p=match.state.players[0];p.armorUntil=match.state.time+3000;
+  p.holes[0]=target(match,'mole',2);cast(match,0,1);
+  expect(p.holes[0]?.armor).toBe(1);expect(p.score).toBe(0);
+  match.advance(250);expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
+  match.advance(250);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.points.mole);
+  match.advance(1000);expect(p.score).toBe(config.points.mole);
+});
+
+it('Royal Cleanup guards rabbit hits and caps newly collected charge at four',()=>{
+  const match=game('champignon'),p=match.state.players[0];
+  p.holes[0]=target(match,'rabbit');for(let i=1;i<7;i++)p.holes[i]=target(match,'star');
+  cast(match,0,4);
+  expect(p.mistakeShield).toBe(2);expect(p.stars).toBe(4);expect(p.score).toBe(6*config.points.star);
+  expect(match.state.phase).toBe('round-over');expect(p.wins).toBe(1);
+});
+
+it('a winning sweep finishes its casting freeze before awarding the round',()=>{
+  const match=game('champignon'),p=match.state.players[0];p.score=config.winScoreDifference-config.points.mole;
+  p.holes[0]=target(match);p.stars=1;match.action({type:'cast',player:0});
+  expect(match.state.phase).toBe('playing');expect(match.state.casting?.tier).toBe(1);
+  match.advance(config.spells.castFreezeMs);expect(match.state.phase).toBe('round-over');
 });
 
 it('sweep freezes with gameplay and Royal Cleanup keeps three guards plus the sweep',()=>{
@@ -68,7 +95,7 @@ it('Helping Tines applies rabbit penalties, collects stars and leaves other colu
   expect(p.automationColumns).toEqual([0]);
   match.advance(750);
   expect([p.holes[0],p.holes[3],p.holes[6]]).toEqual([null,null,null]);expect(p.holes[1]?.kind).toBe('star');
-  expect(p.stars).toBe(1);expect(p.score).toBe(config.points.star+config.rosterSpells.automationPoints-config.penalties.rabbit);
+  expect(p.stars).toBe(1);expect(p.score).toBe(config.points.star+config.points.mole-config.penalties.rabbit);
 });
 
 it('automation spends separate quarter-second strikes on triple-hit armor',()=>{
@@ -77,7 +104,7 @@ it('automation spends separate quarter-second strikes on triple-hit armor',()=>{
   match.advance(200);expect(p.holes[0]?.armor).toBe(2);
   match.advance(50);expect(p.holes[0]?.armor).toBe(1);expect(p.score).toBe(0);
   match.advance(250);expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
-  match.advance(250);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.rosterSpells.automationPoints);
+  match.advance(250);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.points.mole);
 });
 
 it('an automated rabbit hit consumes a normal guard and otherwise subtracts the normal penalty',()=>{
@@ -98,7 +125,7 @@ it('Garden Clockwork works exactly two busiest columns and leaves the third unto
   expect(p.holes[2]?.kind).toBe('star');expect(p.stars).toBe(1);
 });
 
-it('the bot saves one-star Clean Sweep for real danger rather than erasing safe scoring targets',()=>{
+it('the bot saves one-star Clean Sweep on sparse boards and uses it for imminent misses',()=>{
   for(let seed=0;seed<10;seed++) {
     const calm=game('champignon');calm.state.players[0].stars=1;
     calm.state.players[0].holes[0]=target(calm);
@@ -108,5 +135,20 @@ it('the bot saves one-star Clean Sweep for real danger rather than erasing safe 
     for(let hole=0;hole<2;hole++)danger.state.players[0].holes[hole]={...target(danger),expires:danger.state.time+100};
     new Bot('medium',seed,0).update(danger);
     expect(danger.state.casting?.tier).toBe(1);expect(danger.state.players[0].holes.slice(0,2)).toEqual([null,null]);
+  }
+});
+
+it('Bramble armor limits affected moles instead of shortening its three-second window',()=>{
+  for(const tier of [1,4]) {
+    const match=game('captain-bramble'),victim=match.state.players[1];
+    for(let i=0;i<6;i++)victim.holes[i]=target(match);
+    victim.holes[6]=target(match,'star');victim.holes[7]=target(match,'rabbit');
+    cast(match,0,tier);match.advance(config.spells.warningMs);
+    const limit=tier===1?config.rosterSpells.armorTargets:config.rosterSpells.heavyArmorTargets;
+    expect(victim.holes.filter(t=>t?.armor)).toHaveLength(limit);
+    expect(victim.armorUntil-match.state.time).toBe(3000);expect(victim.armorCharges).toBe(0);
+    const later=target(match);modifyTarget(victim,later,match.state.time);expect(later.armor).toBe(0);
+    expect(victim.holes[6]?.armor).toBeFalsy();expect(victim.holes[7]?.armor).toBeFalsy();
+    match.state.phase='round-over';match.nextRound();expect(match.state.players[1].armorCharges).toBe(0);
   }
 });

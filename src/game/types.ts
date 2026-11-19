@@ -25,6 +25,7 @@ export type Player = {
   decoysUntil: number;
   armorUntil: number;
   armorHits: number;
+  armorCharges: number;
   armorTier: number;
   markUntil: number;
   markCharges: number;
@@ -36,6 +37,7 @@ export type Player = {
   automationColumns: number[];
   sweepUntil: number;
   sweepTier: number;
+  nextSweep: number;
   automationTier: number;
   nextAutomation: number;
   pending: PendingSpell[];

@@ -67,3 +67,6 @@ PixelLab fills specific asset gaps after the initial character and spell require
 ## Delivery scope
 
 First release focuses on two characters with complete magic kits, local versus, online versus, mobile presentation, and three AI difficulties. Exact release checks and sequencing are still open. Keep the other six character concepts documented for expansion after this version is ready. Local/AI play is now implemented; see prototype.md for actual defaults. Offline AI self-play at all three difficulties is required to evaluate balance. Private online play is implemented; cross-network/mobile QA, optional relay provisioning remain pending. PWA delivery is deferred.
+
+
+Current hit semantics (D105): Sweep and Sprig automation use the same base target rules as manual hits—moles award normal points, rabbits incur the normal penalty unless guarded, stars award normal points and charge. Armor takes extra strikes. Lasting spell windows have a three-second minimum (D104); instant actions and presentation/action timing are separate. Current exact values are in prototype.md.

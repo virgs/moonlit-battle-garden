@@ -219,3 +219,8 @@ User explicitly requested all five approved heroes be playable. Runtime IDs matc
 Champignon now has Clean Sweep at 1 star (3-second clearing window), Mushroom Guard at 2, Spore Ward at 3 and Royal Cleanup at 4 (same sweep window plus three guards). Andromoss’s Borrowed Spark/Sticky Fingers have no fallback when the enemy has no stars; Double Trouble still affects the opponent. Bramble now has Tin Caps at 1 and Bramble Brace at 2; tiers 3/4 unchanged. Sprig automation strikes every 250 ms in one column (tier2,6.5s) or two (tier4,8s), collecting stars and taking normal rabbit penalties; armor consumes repeated strikes. Weed Out remains cleanse plus one 6-second hostile ward. No art changes; old concept/kit tables above are historical where they conflict with these current rules.
 
 Current duration update I03: Clean Sweep and Royal Cleanup now have a 1-second active clearing window; Bramble Tin Caps/Heavy Harvest apply armor for 2 seconds. Other values and approved art remain unchanged. These override prior3/6-second notes. User prefers the pooled versus-matrix view, with underlying difficulty detail retained.
+
+
+### Current normal-hit correction (D104/D105/I04)
+
+Supersedes I03: Sweep/Royal Cleanup and Bramble armor last 3 seconds. Sweep hits current/all arriving target types every 250 ms using normal mole points, rabbit penalties/guards and star collection. Sprig automation uses normal mole points too. Tin Caps/Heavy Harvest armor at most two/four moles within their window, with one/two extra strikes each. All other active durations remain unchanged. Report Easy/Medium/Hard separately. Quotas remain provisional; review reports/balance-normal-hits-review.md before more tuning.

@@ -19,12 +19,12 @@ export function poolMatchups(rows:readonly PairResult[]) {
   }));
 }
 
-export function matchupMatrix(rows:readonly PairResult[],names:Record<CharacterId,string>):string {
+export function matchupMatrix(rows:readonly PairResult[],names:Record<CharacterId,string>,scope='pooled'):string {
   const pairs=poolMatchups(rows);
   const lines=[
-    'Row hero win rate against column hero; Easy/Medium/Hard pooled by actual completed-match counts.',
+    scope==='pooled'?'Row hero win rate against column hero; Easy/Medium/Hard pooled by actual completed-match counts.':`Row hero win rate against column hero; ${scope[0].toUpperCase()+scope.slice(1)} AI only.`,
     '',
-    '🟩 >60% · 🟨 40–60% · 🟥 <40%. An asterisk marks a spread above 20 percentage points across AI levels; per-level results remain below.',
+    '🟩 >60% · 🟨 40–60% · 🟥 <40%.'+(scope==='pooled'?' An asterisk marks a spread above 20 percentage points across AI levels; per-level results remain below.':''),
     '',
     '| Against → | '+characterIds.map(id=>names[id]).join(' | ')+' |',
     '|---|'+'---:|'.repeat(characterIds.length),

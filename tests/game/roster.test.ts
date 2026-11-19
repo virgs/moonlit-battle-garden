@@ -118,7 +118,7 @@ it('Sprig extends a target only once and automation collects stars in its select
   match.advance(config.rosterSpells.automationIntervalMs*3);
   expect(player.holes[0]).toBeNull();expect(player.holes[3]).toBeNull();
   expect(player.holes[6]).toBeNull();expect(player.holes[1]?.kind).toBe('rabbit');
-  expect(player.stars).toBe(1);expect(player.score).toBe(config.rosterSpells.automationPoints*2+config.points.star);
+  expect(player.stars).toBe(1);expect(player.score).toBe(config.points.mole*2+config.points.star);
 });
 
 it('wards block new hostile spells; Sprig cleanse removes pending and active modifiers', () => {
@@ -166,7 +166,7 @@ it('Sprig two-column automation works across its selected columns but spends one
   match.advance(config.rosterSpells.automationIntervalMs*2);
   expect(player.holes[0]).toBeNull();expect(player.holes[1]).toBeNull();
   expect(player.automationColumns).toHaveLength(2);
-  expect(player.holes[2]?.kind).toBe('star');expect(player.score).toBe(config.rosterSpells.automationPoints*2);
+  expect(player.holes[2]?.kind).toBe('star');expect(player.score).toBe(config.points.mole*2);
 });
 
 it('bots can strike armored targets repeatedly instead of abandoning them after one hit', () => {

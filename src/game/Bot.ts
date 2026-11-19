@@ -47,13 +47,15 @@ export class Bot {
       const atRisk = visible.filter(target => target.kind === 'mole' && target.expires - state.time <= tuning.reactionMs + tuning.intervalMs * (1 + (target.armor ?? 0)));
       const sweepNeeded = atRisk.length >= 2 || (player.armorUntil > state.time && visible.filter(target => target.kind === 'mole').length >= 2)
         || atRisk.some(target => !!target.missBonus);
+      const harvestReady = visible.filter(target => target.kind === 'mole').length >= 2 && !visible.some(target => target.kind === 'rabbit');
+      const sweepUseful = sweepNeeded || harvestReady;
       const emergency = (player.character === 'champignon' && (
-        (player.stars === 1 && sweepNeeded) ||
+        (player.stars === 1 && sweepUseful) ||
         (player.stars === 2 && player.mistakeShield === 0 && atRisk.length > 0) ||
         (player.stars === 3 && player.pending.length > 0)
       )) || (player.character === 'captain-bramble' && (player.stars === 2 || player.stars === 3) && player.mistakeShield === 0 && opponent.score - player.score >= config.winScoreDifference * 0.65);
-      // A zero-point sweep is defensive: do not erase safe scoring targets just to spend one star.
-      const pointlessSweep = player.character === 'champignon' && player.stars === 1 && (!sweepNeeded || player.sweepUntil > state.time);
+      // Sweep now scores normal hits: use visible harvest opportunities as well as defensive danger.
+      const pointlessSweep = player.character === 'champignon' && player.stars === 1 && (!sweepUseful || player.sweepUntil > state.time);
       const canSteal = player.character === 'andromoss' && player.stars === 3 && opponent.stars >= 2;
       const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
       const waitForWard = hostile && opponent.magicShieldUntil > state.time;

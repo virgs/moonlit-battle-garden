@@ -175,6 +175,12 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I03 | Controlled duration-only trials keep all hit counts, scoring rules, costs and bot policies fixed, with 100 seeds per pairing/level. Test armor 4 / sweep 3, armor 6 / sweep 1, armor 4 / sweep 1, armor 3 / sweep 1 and armor 2 / sweep 1 seconds against the saved armor 6 / sweep 3 reference. Adopt **armor 2 / sweep 1** as the best tested improvement across every pooled Champignon and Bramble matchup. This changes Clean Sweep/Royal Cleanup clearing to 1 active second and Tin Caps/Heavy Harvest armor to 2 active seconds. Other durations stay as before. Main report is a weighted pooled versus matrix (600 completed games/cell); mark spreads above 20 percentage points across levels and retain full level detail. Bramble remains dominant and Champignon Easy tier 3/4 coverage is still absent; no claim of final balance. |
 
+| D104 | User rejects pooling as the primary balance view: show separate Easy, Medium and Hard versus matrices. Lasting spell windows must be at least 3 active seconds; weaken effects through strength/target limits instead of 1–2-second durations. Instant resource transfers/extensions, cast freezes, warnings and action intervals are not lasting spell windows. Consumable guards can be spent before their window expires. |
+
+| D105 | Sweep must use ordinary hit rules: mole points, normal rabbit penalty/guard absorption, stars award points and spell charge. The previous zero-point safe-clear behavior was an implementation assumption, not an agreed requirement. Use the same base hit rewards for Sprig automation; armor requires separate strikes. |
+
+| I04 | Restore Clean Sweep/Royal Cleanup and Bramble armor windows to 3 seconds. Sweep hits current targets immediately then every 250 ms, including arrivals; star charge caps at four and the casting display retains the spent tier. Provisional Bramble limits: Tin Caps affects at most two moles, Heavy Harvest four, across current targets/new arrivals. Extra-hit strength remains one/two. Bots recognize safe multi-mole harvest opportunities as well as emergencies. Full normal-hit sweep is powerful in diagnostics; do not silently reduce its rewards to force 50%. See reports/balance-normal-hits-review.md. These supersede I02/I03 where conflicting. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
@@ -183,7 +189,7 @@ This file records the discussion's current state. An accepted concept is not a c
 - The earlier PartyServer backend proposal is superseded by D25. Private invites use PeerJS signaling and player-hosted WebRTC matches; no gameplay backend is deployed.
 - Mobile delivery is the ordinary browser website per D26. PWA/native packaging is deferred.
 - Desktop shows both boards; D30 removes the mobile opponent statistics strip in favor of the shared bar/names/trophies.
-- Safe automatic clearing, readable spell warnings, limits on overlapping disruption, and distinct tactical roles for each spell tier. Exact rules remain to be specified.
+- Normal-reward automatic hits per D105, readable spell warnings, limits on overlapping disruption, and distinct tactical roles for each spell tier. Exact rules remain to be specified.
 
 ## Open before implementation
 

@@ -85,14 +85,14 @@ describe('match rules', () => {
 });
 
 describe('magic', () => {
-  it('sweeps safely without awarding score or consuming stars on the board', () => {
+  it('sweep uses normal mole rewards, rabbit penalties and star collection', () => {
     const match = create(); const player = match.state.players[0];
     target(match, 'mole', 0, 0); target(match, 'rabbit', 0, 1); target(match, 'star', 0, 2);
     player.stars = 1;
     match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     expect(player.holes.slice(0, 2)).toEqual([null, null]);
-    expect(player.holes[2]?.kind).toBe('star');
-    expect(player.stars).toBe(0); expect(player.score).toBe(0);
+    expect(player.holes[2]).toBeNull();
+    expect(player.stars).toBe(1); expect(player.score).toBe(config.points.mole + config.points.star - config.penalties.rabbit);
   });
   it('a mistake guard absorbs one hit then expires', () => {
     const match = create(); const player = match.state.players[0];

@@ -1,6 +1,6 @@
 # Implementation audit
 
-Updated 2026-11-17 after comparing the remake with the oldest Dig Hole Battle Garden sources and artwork.
+Updated 2026-11-18: normal-hit correction (D104/D105), three-second windows and separate AI matrices verified. See reports/balance-normal-hits-review.md. Earlier audit followed comparing the remake with the oldest Dig Hole Battle Garden sources and artwork.
 
 ## Implemented
 

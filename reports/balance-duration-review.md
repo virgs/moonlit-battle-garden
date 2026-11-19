@@ -1,4 +1,6 @@
-# Duration-only balance comparison
+# Historical duration-only balance comparison
+
+Superseded by D104/D105 and balance-normal-hits-review.md; these settings are not current defaults.
 
 ## Adopted durations
 
@@ -55,7 +57,7 @@ Identical-character diagonals are omitted; mirror results measure player-side wi
 
 ## Difficulty differences remain relevant
 
-Pooling is the overview, not a replacement for per-level checks. For example, adopted Champignon vs Sprig wins are **27.5% Easy, 30.5% Medium, 78.5% Hard**. The pooled 45.5% masks that counter flip; the asterisk exposes the spread. Full level rows, mirrors and spell coverage remain in `balance-roster.md`/JSON.
+Pooling is the overview, not a replacement for per-level checks. For example, adopted Champignon vs Sprig wins are **27.5% Easy, 30.5% Medium, 78.5% Hard**. The pooled 45.5% masks that counter flip; the asterisk exposes the spread. Historical level rows, mirrors and spell coverage remain in `power-reference.json`; full raw outcomes are preserved at Git commit 100af6f.
 
 ## Coverage and next decisions
 
@@ -63,4 +65,4 @@ Easy Champignon still never uses tiers 3/4 under the current policy. More sample
 
 ## Reproduction
 
-Example: `pnpm balance:roster --seeds=100 --seed=20261118 --report=duration-armor2-sweep1 --armor-ms=2000 --sweep-ms=1000`. Omit overrides for the adopted defaults. Reference source/config hashes and per-level counts remain in `duration-reference.json`; trial parameters and aggregates stay in the five duration JSON files. Raw outcomes for the adopted candidate are retained once in `balance-roster.json`, avoiding five duplicate large logs.
+Check out Git commit 100af6f to reproduce historical sub-three-second settings: `pnpm balance:roster --seeds=100 --seed=20261118 --report=duration-armor2-sweep1 --armor-ms=2000 --sweep-ms=1000`. The current runner rejects those settings per D104. Reference source/config hashes and per-level counts remain in `duration-reference.json`; trial parameters and aggregates stay in the five duration JSON files. Raw outcomes for that historical candidate are preserved in `balance-roster.json` at Git commit 100af6f; the current file uses D105 normal-hit rules.
