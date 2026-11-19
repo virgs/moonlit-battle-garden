@@ -58,7 +58,7 @@ it('Ominous Bud keeps its configured quota separate from the tier-four duration'
       expect(victim.markUntil-match.state.time).toBe(tier===1?12000:config.rosterSpells.markMs);
       expect(victim.markCharges).toBe(tier===1?config.rosterSpells.ominousMarks-1:3);
       if(tier===1) {
-        match.advance(11950);expect(victim.holes[0]?.missBonus).toBe(4);
+        match.advance(11950);expect(victim.holes[0]?.missBonus).toBe(config.rosterSpells.markBonus);
         match.advance(50);expect(victim.holes[0]?.missBonus).toBeUndefined();
       }
     }

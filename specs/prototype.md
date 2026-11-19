@@ -168,3 +168,12 @@ Ominous Bud now uses ominousMarkMs=12000, independent of Withering Pact’s unch
 **Sprig — Gentle Tending:** tendingMs=3000, extensionMs=500 (was instant 1200 ms). Extend every current unexpired target immediately, then apply the same bonus to arrivals through shared spawn modifiers until the exclusive window end. Applies to natural/star/magical targets and every kind. Once per target across recasts; refresh the aura end instead of stacking time, retain earned expiry bonuses after aura end, no resurrection. Tending is a positive effect preserved by cleanse and freezes with the simulation; round reset initializes tendingUntil=0. Protocol 11 carries this new field to the guest; effect-tending is a procedural placeholder, not a generated asset. Legacy tendingMs=0 is available only for reproducing the old instant-only control.
 
 Four 100-seed profiles (control, marks-only, aura-only, both) plus adopted-default rerun total 37,500 matches, no caps. The control reproduces every pre-change outcome; defaults reproduce all combined outcomes. Most mark-only matchups and all aura-only matchups improved; combined results/phase spreads remain in mark-aura-review.md. Hit reaction/accuracy, scaled casting decisions and other spell powers are unchanged. All spell tables should include the owning hero.
+
+
+### Current one-star timing and penalty update (D122/I17)
+
+**Duskmantle — Ominous Bud:** mark **three enemy moles within 8 active seconds** (previously 12 s). Each missed marked mole adds **6 penalty points** (previously 4), making the normal 8-point mole miss **14 total**. Quota, target eligibility and warning are unchanged.
+
+**Sprig — Gentle Tending:** active window **4.5 seconds** (previously 3 s, +50%). Add **0.5 seconds once per target** to current and arriving own moles, rabbits and stars. The bonus remains after the aura ends; recasts never extend an already treated target again. Pause/cast freezes still apply.
+
+Other spells, pacing, hit reactions and casting decisions are held fixed. These are provisional tuning values. Current pooled and per-difficulty versus matrices: [balance report](../reports/balance-tier-1.md); independent/combined trials: [comparison](../reports/bud-penalty-aura-review.md). Always include the owning hero and explicit duration when discussing spell changes.

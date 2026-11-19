@@ -5,8 +5,8 @@ import { cleanse,modifyTarget } from '../../src/game/targetModifiers';
 import { playerPacingAt } from '../../src/game/pacing';
 import type { Target,TargetKind } from '../../src/game/types';
 
-const before={window:config.rosterSpells.tendingMs,extension:config.rosterSpells.extensionMs,marks:config.rosterSpells.ominousMarks};
-afterEach(()=>{config.rosterSpells.tendingMs=before.window;config.rosterSpells.extensionMs=before.extension;config.rosterSpells.ominousMarks=before.marks;});
+const before={window:config.rosterSpells.tendingMs,extension:config.rosterSpells.extensionMs,marks:config.rosterSpells.ominousMarks,bonus:config.rosterSpells.markBonus,markWindow:config.rosterSpells.ominousMarkMs};
+afterEach(()=>{config.rosterSpells.tendingMs=before.window;config.rosterSpells.extensionMs=before.extension;config.rosterSpells.ominousMarks=before.marks;config.rosterSpells.markBonus=before.bonus;config.rosterSpells.ominousMarkMs=before.markWindow;});
 function game(hero:'sprig'|'duskmantle'='sprig') {
   const match=new Match({characters:[hero,'andromoss'],mode:'local',difficulty:'medium',seed:41});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);return match;
@@ -58,11 +58,21 @@ it('freezes with casting/pause, survives hostile cleansing, resets per round and
   match.state.phase='round-over';match.nextRound();expect(match.state.players[0].tendingUntil).toBe(0);
 });
 
-it('Ominous Bud marks exactly three current/future moles, retaining the twelve-second window',()=>{
+it('Ominous Bud marks exactly three current/future moles, retaining its configured window',()=>{
   config.rosterSpells.ominousMarks=3;const match=game('duskmantle'),p=match.state.players[1];
   p.holes[0]=target(match,1);p.holes[1]=target(match,2,'star');cast(match);match.advance(config.spells.warningMs);
-  expect(p.holes[0]?.missBonus).toBe(4);expect(p.markCharges).toBe(2);
+  expect(p.holes[0]?.missBonus).toBe(config.rosterSpells.markBonus);expect(p.markCharges).toBe(2);
   const future=[target(match,3),target(match,4),target(match,5)];for(const t of future)modifyTarget(p,t,match.state.time);
-  expect(future.map(t=>t.missBonus)).toEqual([4,4,undefined]);expect(p.markCharges).toBe(0);
-  expect(p.markUntil-match.state.time).toBe(12000);expect(p.holes[1]?.missBonus).toBeUndefined();
+  expect(future.map(t=>t.missBonus)).toEqual([config.rosterSpells.markBonus,config.rosterSpells.markBonus,undefined]);expect(p.markCharges).toBe(0);
+  expect(p.markUntil-match.state.time).toBe(config.rosterSpells.ominousMarkMs);expect(p.holes[1]?.missBonus).toBeUndefined();
+});
+
+it('adds six penalty points on top of the ordinary miss penalty for each of three marks',()=>{
+  config.rosterSpells.ominousMarks=3;config.rosterSpells.markBonus=6;config.rosterSpells.ominousMarkMs=8000;
+  const match=game('duskmantle'),enemy=match.state.players[1];
+  for(let hole=0;hole<3;hole++)enemy.holes[hole]={...target(match,hole+1),expires:match.state.time+config.spells.warningMs+300};
+  cast(match);match.advance(config.spells.warningMs);
+  expect(enemy.markUntil-match.state.time).toBe(8000);expect(enemy.markCharges).toBe(0);
+  expect(enemy.holes.slice(0,3).map(t=>t?.missBonus)).toEqual([6,6,6]);
+  match.advance(300);expect(enemy.score).toBe(-42); // three times (8 normal + 6 extra)
 });

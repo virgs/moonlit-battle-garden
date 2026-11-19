@@ -237,6 +237,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I16 | Three-mark quota reaches existing/future enemy moles, never stars/rabbits. Tending applies immediately to current targets and at spawn to all own target kinds/origins for 3 active seconds, including rabbits/stars. Recast refreshes the window but does not re-extend already treated targets; earned 500 ms survives aura end, new arrivals at/after end are excluded, expired targets are not revived. Pause/casts freeze the window; round reset clears it; cleanse removes hostile effects only. New state field synchronized by protocol 11 and procedural aura placeholder, no new art. Pacing/reaction/scaled casting/other powers fixed. Four 7,500-match controls plus exact adopted rerun = 37,500, no caps. Three marks improve most independent cells; aura improves Sprig’s independent cells across all opponents/levels. Preserve raw data and pooled/per-level flags in mark-aura-review.md and balance-tier-1.md; no final human-balance claim. |
 
+| D122 | User sets Duskmantle’s Ominous Bud to three marked moles within 8 active seconds, each missed mark adding 6 penalty points, and increases Sprig’s Gentle Tending duration by 50%: 3→4.5 active seconds. Its +0.5 s once-per-target bonus remains unchanged. Include explicit durations in future spell reminders. |
+
+| I17 | Adopt D122 values; keep other powers, wave pacing, reactions and scaled one-star casting fixed. Test old control, Bud-only, Tending-only and combined changes with 100 paired seeds per matchup/difficulty (7,500 matches each), then verify adopted defaults against the combined run. Preserve pooled/per-level matrices and strategy limitations in bud-penalty-aura-review.md. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

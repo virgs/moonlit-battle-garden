@@ -1,3 +1,5 @@
+Historical tuning: superseded by [8-second Bud / 4.5-second Tending update](bud-penalty-aura-review.md).
+
 # Three-mark Bud and three-second Tending aura
 
 Current [pooled overview and per-level matrices](balance-tier-1.md), full adopted outcomes in balance-tier-1.json.

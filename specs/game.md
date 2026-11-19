@@ -94,3 +94,12 @@ D119/I15 clarifies Clean Sweep owns its selected column for 3 active seconds and
 
 
 D121/I16 changes Duskmantle’s one-star mark quota to three and Sprig’s one-star extension to an all-target three-second aura (+500 ms once per current/arriving target). Pacing, hit reaction and scaled casting rules are held fixed. Exact coverage, expiry, freeze/reset and recast rules are in prototype.md; current pooled and per-level diagnostics are in balance-tier-1.md / mark-aura-review.md.
+
+
+### Current one-star timing and penalty update (D122/I17)
+
+**Duskmantle — Ominous Bud:** mark **three enemy moles within 8 active seconds** (previously 12 s). Each missed marked mole adds **6 penalty points** (previously 4), making the normal 8-point mole miss **14 total**. Quota, target eligibility and warning are unchanged.
+
+**Sprig — Gentle Tending:** active window **4.5 seconds** (previously 3 s, +50%). Add **0.5 seconds once per target** to current and arriving own moles, rabbits and stars. The bonus remains after the aura ends; recasts never extend an already treated target again. Pause/cast freezes still apply.
+
+Other spells, pacing, hit reactions and casting decisions are held fixed. These are provisional tuning values. Current pooled and per-difficulty versus matrices: [balance report](../reports/balance-tier-1.md); independent/combined trials: [comparison](../reports/bud-penalty-aura-review.md). Always include the owning hero and explicit duration when discussing spell changes.

@@ -252,3 +252,12 @@ D119/I15 current one-star rules supersede earlier cadence/duration notes: Clean 
 
 
 D120/D121/I16 current owner/rules: **Duskmantle — Ominous Bud** marks three enemy moles within 12 s (+4 missed-mole penalty each); **Sprig — Gentle Tending** applies +0.5 s once to current and arriving own targets for 3 s, including moles/rabbits/stars. These replace one mark/12 s and instant +1.2 s respectively. No repeated lifetime stacking, no other spell changes. Preserve the owner column in all future spell tables. Current isolated results and limitations are in mark-aura-review.md.
+
+
+### Current one-star timing and penalty update (D122/I17)
+
+**Duskmantle — Ominous Bud:** mark **three enemy moles within 8 active seconds** (previously 12 s). Each missed marked mole adds **6 penalty points** (previously 4), making the normal 8-point mole miss **14 total**. Quota, target eligibility and warning are unchanged.
+
+**Sprig — Gentle Tending:** active window **4.5 seconds** (previously 3 s, +50%). Add **0.5 seconds once per target** to current and arriving own moles, rabbits and stars. The bonus remains after the aura ends; recasts never extend an already treated target again. Pause/cast freezes still apply.
+
+Other spells, pacing, hit reactions and casting decisions are held fixed. These are provisional tuning values. Current pooled and per-difficulty versus matrices: [balance report](../reports/balance-tier-1.md); independent/combined trials: [comparison](../reports/bud-penalty-aura-review.md). Always include the owning hero and explicit duration when discussing spell changes.
