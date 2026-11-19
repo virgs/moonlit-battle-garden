@@ -28,10 +28,10 @@ Casting freezes both boards for 1500 ms with a separate presentation clock; targ
 
 | Character / tier | Behavior |
 | --- | --- |
-| Champignon 1 | Clean Sweep: safely clear current/new moles and rabbits for 3 active seconds; preserve stars and award no clearing score. |
+| Champignon 1 | Clean Sweep: safely clear current/new moles and rabbits for 1 active second; preserve stars and award no clearing score. |
 | Champignon 2 | Mushroom Guard: block one mistake within 12 seconds. |
 | Champignon 3 | Block the next hostile spell within 12 seconds. |
-| Champignon 4 | Three-second safe sweep plus three mistake blocks within 12 seconds. |
+| Champignon 4 | One-second safe sweep plus three mistake blocks within 12 seconds. |
 | Andromoss 1 | Copy one available enemy star without removing it. Since one star was spent, this does not generate net charge. If no enemy star is available, there is no effect; the charge is still spent. |
 | Andromoss 2 | Add extra rabbits for 7.5 seconds without replacing the normal mole/star spawn schedule. |
 | Andromoss 3 | Transfer up to two enemy stars, capped at four total. If none are available, there is no effect; the charge is still spent. |
@@ -68,7 +68,7 @@ All heroes use the same stars, 1500 ms casting freeze, cooldown and 650 ms hosti
 
 | Hero | 1 star | 2 stars | 3 stars | 4 stars |
 |---|---|---|---|---|
-| Captain Bramble | Tin Caps: enemy current/new moles take one extra strike for 6 s | Bramble Brace: one mistake block for 8 s | Iron Resolve: three mistake blocks for 8 s | Heavy Harvest: enemy current/new moles take two extra strikes for 6 s |
+| Captain Bramble | Tin Caps: enemy current/new moles take one extra strike for 2 s | Bramble Brace: one mistake block for 8 s | Iron Resolve: three mistake blocks for 8 s | Heavy Harvest: enemy current/new moles take two extra strikes for 2 s |
 | Duskmantle | Ominous Bud: mark one current/upcoming enemy mole within 8 s, +4 miss penalty | Violet Veil: target sprite opacity 72% for 6.5 s, shapes remain readable | Twilight Siphon: +2 points per manual mole hit for 7 s | Withering Pact: mark four current/upcoming moles within 8 s, +6 miss penalty each |
 | Sprig | Gentle Tending: +700 ms to current targets, at most once per target | Helping Tines: automate one column for 6.5 s, including stars and normal rabbit penalties | Weed Out: clear hostile pending/active effects and block one hostile spell for 6 s | Garden Clockwork: automate two columns for 8 s, including stars and normal rabbit penalties |
 
@@ -76,7 +76,7 @@ Armor never changes stars/rabbits. A strike removes one armor pip without points
 
 Sprig chooses the busiest one/two columns by current target count (all kinds; stable left-first ties). Automation uses one global action every **250 ms**, checks at least 200 ms of visibility and remaining lifetime, and hits every target kind in those columns. Each mole armor pip takes one separate action; the final hit clears the mole for 6 points. Stars give normal 25 points plus one charge (capped at four). Rabbits give the normal −12 penalty, with normal mistake-shield handling. No empty-hole hits occur. Automation does not receive Duskmantle’s manual-hit bonus and replaces/refreshes a prior automation window rather than stacking. Its selected columns have faint green bounds anchored to actual hole regions.
 
-Clean Sweep/Royal Cleanup clear current moles/rabbits immediately and continue clearing arrivals for 3 active seconds. Stars are untouched. No clearing points are awarded. The sweep, armor and automation windows all stop during casts and pauses. This prolonged zero-point clearing is a defensive tradeoff: indiscriminate use deletes scoring opportunities. The bot checks real near-expiry/armor/marked-target risk before spending a one-star sweep and does not renew an already-active sweep just to spend stars.
+Clean Sweep/Royal Cleanup clear current moles/rabbits immediately and continue clearing arrivals for 1 active second. Stars are untouched. No clearing points are awarded. The sweep, armor and automation windows all stop during casts and pauses. This prolonged zero-point clearing is a defensive tradeoff: indiscriminate use deletes scoring opportunities. The bot checks real near-expiry/armor/marked-target risk before spending a one-star sweep and does not renew an already-active sweep just to spend stars.
 
 All modifier windows, automation actions, warnings and target lifetimes use simulation time and stop during casting/pause/recovery. New-round players reset every modifier. Bots may retry surviving armored targets on later actions, prioritize marked moles after stars and use cleanse when afflicted; camouflage adds 200 ms reaction delay while leaving target kinds visible. This is one policy family, not proof of fair human play.
 
@@ -89,3 +89,11 @@ The initial roster policy/report is preserved separately. Bramble’s inherited 
 D101 raises the default to 100 paired seeds per matchup: 200 matches per distinct cell and 100 mirrors per hero/level, totaling 7,500 matches per run. The before-retune and final runs share seed 20261118 and both finish without caps. Full current data is in `reports/balance-roster.json`; baseline in `balance-roster-before-retune.json`; comparison/matrices in `balance-retune-review.md`. The prior 20-seed findings above are historical, not the current sample.
 
 An intermediate retuned run with the old Champignon policy exposed a severe scoring-opportunity regression. Its pair/coverage aggregates are retained in `balance-retune-initial-ai.json`. The final policy uses defensive sweeps for real danger rather than inheriting the old one-star guard spending behavior. The new mechanics still leave Bramble dominant and Champignon weak on Easy/Medium; do not call them balanced or hide unused spell-tier coverage. These tests inform the next design decision rather than authorizing unrequested spell changes.
+
+## Current duration defaults and matrix view
+
+I03 supersedes the earlier 3-second sweep / 6-second armor defaults: **Clean Sweep/Royal Cleanup clear for 1 active second; Tin Caps/Heavy Harvest armor lasts 2 active seconds**. Guard/ward/automation values, scoring, extra-hit counts, costs and AI policies were held fixed for duration trials.
+
+Five candidates each ran 7,500 matches on the same 100 paired seeds, with no caps. The chosen settings improved every pooled Champignon matchup and reduced every Bramble matchup advantage versus the saved reference. A fresh default-config run reproduced the chosen trial’s full raw outcomes exactly. See `reports/balance-duration-review.md` and compact per-profile records. Baseline raw data is preserved in Git; the current full run remains `balance-roster.json`.
+
+The main report is now a **pooled versus matrix**, using actual win counts rather than averaging unequal-sample percentages. Each distinct cell pools600 games (200 per AI level). Diagonals are omitted; mirrors are side-win diagnostics. Cells marked * have a greater-than-20-point difficulty spread, not a formal significance label. Keep the per-level data: Champignon vs Sprig is27.5% Easy, 30.5% Medium, 78.5% Hard despite 45.5% pooled. Duration tuning improves but does not solve the zero-point sweep tradeoff, cheap extra-hit pressure or missing Easy Champignon tier 3/4 bot coverage.

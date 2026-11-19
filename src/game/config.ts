@@ -45,10 +45,10 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   champignon: {
     name: 'Sir Champignon', role: 'The garden guardian', color: '#c9e586', emblem: '♜',
     spells: [
-      { name: 'Clean Sweep', description: 'Clear current and new moles/rabbits for 3 seconds. Leave stars.' },
+      { name: 'Clean Sweep', description: 'Clear current and new moles/rabbits for 1 second. Leave stars.' },
       { name: 'Mushroom Guard', description: 'Block the next mistake for 12 seconds.' },
       { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
-      { name: 'Royal Cleanup', description: 'Sweep for 3 seconds and block three mistakes for 12 seconds.' },
+      { name: 'Royal Cleanup', description: 'Sweep for 1 second and block three mistakes for 12 seconds.' },
     ],
   },
   andromoss: {
@@ -63,10 +63,10 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   'captain-bramble': {
     name: 'Captain Bramble', role: 'The steadfast garden sentinel', color: '#da956b', emblem: '♜',
     spells: [
-      { name: 'Tin Caps', description: 'Enemy moles need one extra hit for 6 seconds.' },
+      { name: 'Tin Caps', description: 'Enemy moles need one extra hit for 2 seconds.' },
       { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
       { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
-      { name: 'Heavy Harvest', description: 'Enemy moles need two extra hits for 6 seconds.' },
+      { name: 'Heavy Harvest', description: 'Enemy moles need two extra hits for 2 seconds.' },
     ],
   },
   duskmantle: {

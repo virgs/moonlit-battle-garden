@@ -27,7 +27,7 @@ Five playable heroes use their approved idle, victory, shared casting and icon a
 
 New kits are provisional: Bramble guards mistakes and puts extra-hit armor on enemy moles; Duskmantle marks misses, dims readable target shapes and rewards manual mole hits; Sprig extends current targets, automates one/two columns of hits—including star collection and rabbit penalties—and cleanses hostile magic. Armor shows a helmet arc/remaining-hit pips, marked moles have violet rings, and active magic has board-edge placeholders. All clocks freeze during casts/pauses/recovery and reset each round. One shared hero cast is distinct from each spell’s effect animation. See [exact defaults](specs/prototype.md).
 
-The current before/after comparison uses 100 paired seeds: **7,500 matches per run**, 200 games per distinct matchup and 100 mirrors per hero/level. Both runs finished without caps. The requested spell swaps and faster automation are implemented; Clean Sweep now clears for a provisional 3 active seconds, and empty star theft has no fallback. Champignon’s bot avoids sweeping safe scoring targets, but zero-point clearing still hurts Easy/Medium results. Bramble remains dominant (82.3% Medium / 83.9% Hard against other heroes). These are explicit tuning issues, not a human-balance claim. See [updated matrices and comparison](reports/balance-retune-review.md). Mobile uses the normal browser; PWA/native packaging and the remaining three heroes stay deferred.
+Balance reports now lead with a **pooled versus matrix**, with 600 games per distinct cell across three equally sampled AI levels. Per-level results remain underneath; an asterisk flags spreads above 20 percentage points so pooling does not hide counter flips. Five duration-only variants each ran 7,500 matches without caps. The adopted 1-second sweep/2-second armor settings improve every Champignon matchup and reduce every Bramble advantage versus the reference, and a fresh default-config run reproduced the chosen trial exactly. Bramble is still favored in all matchups; Champignon’s zero-point clearing and Easy spell-coverage gaps remain tuning issues. See [current matrix and duration comparison](reports/balance-duration-review.md). Mobile uses the normal browser; PWA/native packaging and the remaining three heroes stay deferred.
 
 Menu modes are **Night Watch** (solo), **Garden Grudge** (shared keyboard), and **Beyond the Hedge** (online). **Garden Shed** contains sound settings and **Field Notes** explains play. During selection, R confirms/changes your hero, numpad + the second editable hero, Enter starts when both are ready, and Esc goes back. Key hints reuse the supplied CraftPix pack and hide on touch-primary devices.
 
@@ -71,6 +71,7 @@ pnpm balance --seeds=100 --seed=20261116
 pnpm balance:mirrors --seeds=1000 --seed=20261117
 pnpm assets:check
 pnpm balance:roster --seeds=100 --seed=20261118
+pnpm balance:duration-review
 ```
 
 The balance command runs 600 best-of-three AI matches: 100 seeds, both player-side assignments, and three same-difficulty pairings. Reports include wins, draws, match duration, tier-by-tier cast coverage, and per-match JSON. Unfinished matches at the diagnostic cap are reported separately; --fail-on-cap makes them a strict failure. These are diagnostics, not a claim that human play is balanced. See [latest results](reports/balance-latest.md).

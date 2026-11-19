@@ -27,12 +27,12 @@ it('swaps the actual spell rules and titles for Champignon and Bramble',()=>{
   expect(bramble.state.players[1].armorHits).toBe(1);expect(bramble.state.players[0].mistakeShield).toBe(0);
 });
 
-it('Clean Sweep lasts three active seconds and preserves stars and zero clearing score',()=>{
+it('Clean Sweep lasts one active second and preserves stars and zero clearing score',()=>{
   const match=game('champignon'),p=match.state.players[0];
   p.holes[0]=target(match);p.holes[1]=target(match,'rabbit');p.holes[2]=target(match,'star');
   cast(match,0,1);
-  expect(p.holes.slice(0,2)).toEqual([null,null]);expect(p.sweepUntil-match.state.time).toBe(3000);
-  match.advance(2500);p.holes[0]=target(match);p.holes[1]=target(match,'rabbit');match.advance(50);
+  expect(p.holes.slice(0,2)).toEqual([null,null]);expect(p.sweepUntil-match.state.time).toBe(1000);
+  match.advance(500);p.holes[0]=target(match);p.holes[1]=target(match,'rabbit');match.advance(50);
   expect(p.holes.slice(0,2)).toEqual([null,null]);expect(p.holes[2]?.kind).toBe('star');expect(p.score).toBe(0);
   match.advance(500);p.holes[0]=target(match);match.advance(50);expect(p.holes[0]?.kind).toBe('mole');
 });
