@@ -113,3 +113,6 @@ Tier-isolated offline diagnostics start with [one-star results](reports/balance-
 
 
 Latest one-star strength pass: Sweep cadence is now 1.5 seconds and Tin Caps affects one mole; both retain three-second windows. Controlled independent/combined trials and remaining imbalances are in [strength review](reports/balance-tier-1-strength-review.md). Royal Cleanup and Heavy Harvest retain their prior strength. No tuning of the other heroes or bot decision policy in this pass; full-kit/human follow-up remains necessary.
+
+
+Target rise/retreat animations now adapt to actual lifetime: shorter windows retain key start/end poses while omitting selected middle frames; increasing lifetime automatically restores the complete eight-frame sequences. Assets are preserved. The lifetime floor remains in `src/assets/config/game.yaml` (`pacing.minLifetimeMs`); this renderer change does not apply the proposed faster wave settings.

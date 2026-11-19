@@ -209,6 +209,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I10 | Proposed, not yet implemented/adopted FPS values: target 60 FPS rendering with readability at 30 FPS, and use up to 20 distinct target-animation frames/s (matching the existing 50 ms simulation tick). Candidate fast windows: 0.5 s = five rise + five retreat frames; 0.3 s = three rise + three retreat frames, selecting endpoints plus intermediate poses. Keep gameplay lifetime time-based and independent of actual render FPS. These are visualization/animation recommendations; pacing is still the first tuning phase per D112. |
 
+| D114 | User approves adaptive reduction of middle rise/retreat frames, with all original frames retained and automatically restored when minimum/actual target lifetime is increased. Longer hit windows must not require regenerating assets or manually rebuilding animation clips. |
+
+| I11 | Implement frame selection in the renderer as a pure function of each target’s total lifetime, using a 20-distinct-frames/s budget and the 50 ms simulation cadence. Reserve rise/retreat inside the same hit window, select evenly spaced original poses with both endpoints preserved, and use leftover time for dancing. At 300/500/800 ms, select 3/5/8 poses per phase. Full source atlases and hit animations remain intact. Current wave/lifetime/AI/cast/spell settings are unchanged; faster lifetimes remain a separate pacing decision. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

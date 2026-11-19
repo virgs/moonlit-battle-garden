@@ -38,3 +38,47 @@ it('rabbit hits carry explicit sprite metadata even when a guard absorbs the pen
     expect(match.events.at(-1)).toMatchObject({ hole: 4, targetKind: 'rabbit', kind: shield ? 'shield' : 'penalty' });
   }
 });
+
+function transitionPoses(life: number, kind: 'mole' | 'star' | 'rabbit' = 'mole', offset = 0) {
+  const target = { id: 1, kind, born: 1000, expires: 1000 + life };
+  const rise: number[] = [], retreat: number[] = [];
+  let retreatStarted = false;
+  for (let time = target.born; time < target.expires; time += 50) {
+    const frame = targetFrame(target,time);
+    if (frame >= 72 + offset && frame <= 79 + offset) {
+      expect(retreatStarted).toBe(false);
+      if (rise.at(-1) !== frame) rise.push(frame);
+    } else if (frame >= 48 + offset && frame <= 55 + offset) {
+      retreatStarted = true;
+      if (retreat.at(-1) !== frame) retreat.push(frame);
+    }
+  }
+  return { rise: rise.map(frame=>frame-72-offset), retreat: retreat.map(frame=>frame-48-offset) };
+}
+
+it('keeps complete start/end poses in shortened rise and retreat sequences for every target kind',()=>{
+  for (const [kind,offset] of [['mole',0],['star',8],['rabbit',16]] as const) {
+    for (const [life,poses] of [[300,[0,4,7]],[500,[0,2,4,5,7]],[800,[0,1,2,3,4,5,6,7]]] as const) {
+      const actual=transitionPoses(life,kind,offset);
+      expect(actual.rise).toEqual(poses);expect(actual.retreat).toEqual(poses);
+    }
+  }
+});
+
+it('restores omitted middle frames automatically when the lifetime grows',()=>{
+  const short=transitionPoses(300),medium=transitionPoses(500),long=transitionPoses(800);
+  expect(short.rise).toHaveLength(3);expect(medium.rise).toHaveLength(5);expect(long.rise).toHaveLength(8);
+  expect(long.retreat).toEqual([0,1,2,3,4,5,6,7]);
+  // Frame selection is derived each time, with no destructive edits or cached short clip.
+  expect(transitionPoses(300)).toEqual(short);
+});
+
+it('preserves both endpoints in order for intermediate and non-tick-aligned lifetimes',()=>{
+  for (const life of [350,450,528,550,650,750,799,1150,2200]) {
+    const poses=transitionPoses(life);
+    for (const sequence of [poses.rise,poses.retreat]) {
+      expect(sequence[0]).toBe(0);expect(sequence.at(-1)).toBe(7);
+      expect(sequence.every((frame,index)=>index===0||frame>sequence[index-1])).toBe(true);
+    }
+  }
+});
