@@ -1,54 +1,54 @@
 # Five-character roster diagnostic
 
-Generated 2026-11-19T02:26:44.573Z. Revision 111a5d6 + working changes; config bfbe8571b1d1; simulation 136bb75a57b23163; base seed 20261118. 1500 best-of-three matches using the actual simulation and bots. Each distinct pairing swaps sides for each seed; mirrors run once.
+Generated 2026-11-19T05:05:27.563Z. Revision 956e06e + working changes; config cf5fcf088bf8; simulation 2d279215e3bd5c3d; base seed 20261118. 7500 best-of-three matches using the actual simulation and bots. Each distinct pairing swaps sides for each seed; mirrors run once.
 
 | AI | Pair | Matches | Wins | Unfinished | Median round s | Median match s | Tier 1/2/3/4 casts |
 |---|---|---:|---|---:|---:|---:|---|
-| easy | Sir Champignon / Sir Champignon | 20 | 10 left-side wins | 0 | 59.7 | 147.5 | 353/12/1/0 · 0/0/0/0 |
-| easy | Sir Champignon / Andromoss | 40 | 18 / 22 | 0 | 47.6 | 135.9 | 332/15/1/0 · 115/32/26/22 |
-| easy | Sir Champignon / Captain Bramble | 40 | 9 / 31 | 0 | 47.3 | 136.8 | 292/18/1/0 · 133/28/19/14 |
-| easy | Sir Champignon / Duskmantle | 40 | 20 / 20 | 0 | 48.1 | 136.3 | 309/23/1/0 · 89/26/21/24 |
-| easy | Sir Champignon / Sprig | 40 | 14 / 26 | 0 | 49.0 | 159.2 | 345/16/1/0 · 75/30/29/24 |
-| easy | Andromoss / Andromoss | 20 | 14 left-side wins | 0 | 43.9 | 136.3 | 102/46/49/8 · 0/0/0/0 |
-| easy | Andromoss / Captain Bramble | 40 | 12 / 28 | 0 | 44.5 | 134.7 | 97/45/45/12 · 121/25/13/7 |
-| easy | Andromoss / Duskmantle | 40 | 19 / 21 | 0 | 43.5 | 143.8 | 121/61/61/13 · 83/30/25/20 |
-| easy | Andromoss / Sprig | 40 | 17 / 23 | 0 | 49.6 | 131.3 | 102/40/48/12 · 78/29/27/9 |
-| easy | Captain Bramble / Captain Bramble | 20 | 16 left-side wins | 0 | 42.2 | 127.5 | 118/20/19/9 · 0/0/0/0 |
-| easy | Captain Bramble / Duskmantle | 40 | 27 / 13 | 0 | 41.1 | 110.8 | 98/20/19/12 · 79/18/16/12 |
-| easy | Captain Bramble / Sprig | 40 | 20 / 20 | 0 | 43.9 | 121.0 | 136/24/20/9 · 71/26/22/13 |
-| easy | Duskmantle / Duskmantle | 20 | 11 left-side wins | 0 | 58.5 | 147.1 | 90/29/27/29 · 0/0/0/0 |
-| easy | Duskmantle / Sprig | 40 | 19 / 21 | 0 | 45.3 | 149.7 | 90/23/27/23 · 102/43/31/15 |
-| easy | Sprig / Sprig | 20 | 16 left-side wins | 0 | 48.8 | 127.9 | 80/26/20/17 · 0/0/0/0 |
-| medium | Sir Champignon / Sir Champignon | 20 | 6 left-side wins | 0 | 81.2 | 257.3 | 466/106/13/0 · 0/0/0/0 |
-| medium | Sir Champignon / Andromoss | 40 | 19 / 21 | 0 | 78.5 | 215.3 | 434/83/9/0 · 66/65/69/63 |
-| medium | Sir Champignon / Captain Bramble | 40 | 4 / 36 | 0 | 53.8 | 153.3 | 288/65/14/0 · 84/36/35/36 |
-| medium | Sir Champignon / Duskmantle | 40 | 13 / 27 | 0 | 74.2 | 211.8 | 481/98/10/1 · 62/56/40/79 |
-| medium | Sir Champignon / Sprig | 40 | 13 / 27 | 0 | 83.9 | 186.0 | 510/100/7/0 · 60/54/45/78 |
-| medium | Andromoss / Andromoss | 20 | 9 left-side wins | 0 | 58.0 | 184.6 | 56/70/103/18 · 0/0/0/0 |
-| medium | Andromoss / Captain Bramble | 40 | 7 / 33 | 0 | 54.6 | 142.3 | 58/71/95/18 · 103/37/28/24 |
-| medium | Andromoss / Duskmantle | 40 | 19 / 21 | 0 | 63.1 | 198.4 | 73/110/170/24 · 54/40/30/32 |
-| medium | Andromoss / Sprig | 40 | 21 / 19 | 0 | 71.5 | 192.3 | 63/77/121/31 · 75/55/70/24 |
-| medium | Captain Bramble / Captain Bramble | 20 | 10 left-side wins | 0 | 50.4 | 138.6 | 108/35/38/29 · 0/0/0/0 |
-| medium | Captain Bramble / Duskmantle | 40 | 36 / 4 | 0 | 52.0 | 154.5 | 94/37/43/37 · 43/42/35/42 |
-| medium | Captain Bramble / Sprig | 40 | 35 / 5 | 0 | 66.3 | 158.3 | 120/45/45/40 · 52/45/48/43 |
-| medium | Duskmantle / Duskmantle | 20 | 9 left-side wins | 0 | 60.6 | 171.6 | 45/43/38/60 · 0/0/0/0 |
-| medium | Duskmantle / Sprig | 40 | 16 / 24 | 0 | 63.0 | 193.6 | 65/44/39/81 · 52/54/84/43 |
-| medium | Sprig / Sprig | 20 | 10 left-side wins | 0 | 69.9 | 197.1 | 60/66/54/81 · 0/0/0/0 |
-| hard | Sir Champignon / Sir Champignon | 20 | 11 left-side wins | 0 | 131.3 | 312.3 | 436/188/66/34 · 0/0/0/0 |
-| hard | Sir Champignon / Andromoss | 40 | 27 / 13 | 0 | 85.9 | 211.4 | 322/98/54/4 · 69/90/135/70 |
-| hard | Sir Champignon / Captain Bramble | 40 | 4 / 36 | 0 | 71.0 | 164.5 | 208/93/43/19 · 96/41/55/59 |
-| hard | Sir Champignon / Duskmantle | 40 | 15 / 25 | 0 | 85.8 | 267.9 | 360/152/60/18 · 76/72/69/102 |
-| hard | Sir Champignon / Sprig | 40 | 22 / 18 | 0 | 85.8 | 266.1 | 353/153/58/26 · 76/95/64/110 |
-| hard | Andromoss / Andromoss | 20 | 10 left-side wins | 0 | 82.6 | 220.4 | 47/90/144/24 · 0/0/0/0 |
-| hard | Andromoss / Captain Bramble | 40 | 9 / 31 | 0 | 75.2 | 163.4 | 53/83/152/35 · 114/36/41/28 |
-| hard | Andromoss / Duskmantle | 40 | 15 / 25 | 0 | 78.1 | 158.4 | 58/121/200/45 · 47/47/41/48 |
-| hard | Andromoss / Sprig | 40 | 15 / 25 | 0 | 79.5 | 205.0 | 60/109/165/38 · 49/57/110/23 |
-| hard | Captain Bramble / Captain Bramble | 20 | 14 left-side wins | 0 | 59.3 | 178.1 | 128/44/46/42 · 0/0/0/0 |
-| hard | Captain Bramble / Duskmantle | 40 | 37 / 3 | 0 | 71.3 | 182.6 | 113/47/54/58 · 50/47/45/65 |
-| hard | Captain Bramble / Sprig | 40 | 32 / 8 | 0 | 74.7 | 197.4 | 116/61/67/69 · 71/56/77/64 |
-| hard | Duskmantle / Duskmantle | 20 | 12 left-side wins | 0 | 75.5 | 173.6 | 53/54/53/80 · 0/0/0/0 |
-| hard | Duskmantle / Sprig | 40 | 24 / 16 | 0 | 83.3 | 245.8 | 76/58/60/112 · 78/88/122/52 |
-| hard | Sprig / Sprig | 20 | 12 left-side wins | 0 | 103.3 | 264.1 | 86/79/64/119 · 0/0/0/0 |
+| easy | Sir Champignon / Sir Champignon | 100 | 51 left-side wins | 0 | 87.7 | 247.2 | 3056/25/0/0 · 0/0/0/0 |
+| easy | Sir Champignon / Andromoss | 200 | 37 / 163 | 0 | 55.6 | 149.2 | 2155/19/0/0 · 352/292/91/175 |
+| easy | Sir Champignon / Captain Bramble | 200 | 9 / 191 | 0 | 45.9 | 107.5 | 1468/14/0/0 · 371/173/76/71 |
+| easy | Sir Champignon / Duskmantle | 200 | 33 / 167 | 0 | 57.5 | 160.0 | 2147/17/0/0 · 517/175/126/115 |
+| easy | Sir Champignon / Sprig | 200 | 23 / 177 | 0 | 54.5 | 131.8 | 1870/21/0/0 · 431/176/104/104 |
+| easy | Andromoss / Andromoss | 100 | 65 left-side wins | 0 | 52.3 | 149.5 | 452/307/239/58 · 0/0/0/0 |
+| easy | Andromoss / Captain Bramble | 200 | 30 / 170 | 0 | 43.9 | 116.7 | 342/267/177/49 · 395/181/63/34 |
+| easy | Andromoss / Duskmantle | 200 | 94 / 106 | 0 | 48.3 | 141.8 | 432/373/259/69 · 397/157/109/65 |
+| easy | Andromoss / Sprig | 200 | 83 / 117 | 0 | 48.6 | 137.8 | 401/321/225/78 · 455/172/145/49 |
+| easy | Captain Bramble / Captain Bramble | 100 | 53 left-side wins | 0 | 44.9 | 109.7 | 413/212/85/47 · 0/0/0/0 |
+| easy | Captain Bramble / Duskmantle | 200 | 172 / 28 | 0 | 42.6 | 105.7 | 368/191/85/45 · 366/124/90/63 |
+| easy | Captain Bramble / Sprig | 200 | 163 / 37 | 0 | 43.0 | 109.7 | 404/201/89/46 · 399/123/93/50 |
+| easy | Duskmantle / Duskmantle | 100 | 49 left-side wins | 0 | 49.7 | 149.6 | 413/178/150/104 · 0/0/0/0 |
+| easy | Duskmantle / Sprig | 200 | 94 / 106 | 0 | 48.0 | 139.3 | 423/161/149/107 · 477/181/185/70 |
+| easy | Sprig / Sprig | 100 | 53 left-side wins | 0 | 46.8 | 135.1 | 436/169/122/102 · 0/0/0/0 |
+| medium | Sir Champignon / Sir Champignon | 100 | 56 left-side wins | 0 | 55.8 | 153.4 | 1079/705/7/4 · 0/0/0/0 |
+| medium | Sir Champignon / Andromoss | 200 | 22 / 178 | 0 | 52.6 | 127.3 | 735/559/8/1 · 189/235/220/155 |
+| medium | Sir Champignon / Captain Bramble | 200 | 15 / 185 | 0 | 48.8 | 108.7 | 634/523/6/11 · 191/261/99/107 |
+| medium | Sir Champignon / Duskmantle | 200 | 20 / 180 | 0 | 53.4 | 125.9 | 762/610/8/2 · 202/187/128/153 |
+| medium | Sir Champignon / Sprig | 200 | 39 / 161 | 0 | 53.1 | 133.5 | 784/660/7/4 · 204/201/126/175 |
+| medium | Andromoss / Andromoss | 100 | 54 left-side wins | 0 | 62.8 | 158.0 | 211/363/463/87 · 0/0/0/0 |
+| medium | Andromoss / Captain Bramble | 200 | 48 / 152 | 0 | 52.6 | 135.2 | 183/319/449/117 · 204/304/121/80 |
+| medium | Andromoss / Duskmantle | 200 | 88 / 112 | 0 | 59.5 | 155.9 | 215/426/592/155 · 217/189/118/134 |
+| medium | Andromoss / Sprig | 200 | 114 / 86 | 0 | 58.5 | 151.3 | 219/363/534/127 · 223/236/326/56 |
+| medium | Captain Bramble / Captain Bramble | 100 | 56 left-side wins | 0 | 49.5 | 125.0 | 206/348/164/129 · 0/0/0/0 |
+| medium | Captain Bramble / Duskmantle | 200 | 157 / 43 | 0 | 49.5 | 123.2 | 209/328/172/138 · 185/185/136/181 |
+| medium | Captain Bramble / Sprig | 200 | 164 / 36 | 0 | 50.0 | 124.6 | 219/335/152/156 · 200/203/171/177 |
+| medium | Duskmantle / Duskmantle | 100 | 51 left-side wins | 0 | 54.3 | 153.8 | 222/239/171/266 · 0/0/0/0 |
+| medium | Duskmantle / Sprig | 200 | 123 / 77 | 0 | 55.0 | 154.3 | 241/233/174/289 · 271/262/339/182 |
+| medium | Sprig / Sprig | 100 | 54 left-side wins | 0 | 57.0 | 156.7 | 237/257/197/282 · 0/0/0/0 |
+| hard | Sir Champignon / Sir Champignon | 100 | 50 left-side wins | 0 | 78.0 | 204.9 | 132/1446/78/103 · 0/0/0/0 |
+| hard | Sir Champignon / Andromoss | 200 | 107 / 93 | 0 | 77.7 | 206.5 | 153/1229/98/18 · 312/443/708/302 |
+| hard | Sir Champignon / Captain Bramble | 200 | 23 / 177 | 0 | 67.2 | 152.5 | 342/967/79/60 · 276/369/224/234 |
+| hard | Sir Champignon / Duskmantle | 200 | 75 / 125 | 0 | 76.0 | 196.9 | 213/1408/110/83 · 304/318/287/415 |
+| hard | Sir Champignon / Sprig | 200 | 141 / 59 | 0 | 77.1 | 194.6 | 124/1360/69/115 · 310/318/265/429 |
+| hard | Andromoss / Andromoss | 100 | 54 left-side wins | 0 | 88.5 | 231.1 | 278/506/774/150 · 0/0/0/0 |
+| hard | Andromoss / Captain Bramble | 200 | 41 / 159 | 0 | 71.9 | 181.1 | 274/525/771/212 · 234/394/187/157 |
+| hard | Andromoss / Duskmantle | 200 | 72 / 128 | 0 | 80.9 | 205.8 | 289/630/961/237 · 238/255/188/246 |
+| hard | Andromoss / Sprig | 200 | 108 / 92 | 0 | 77.9 | 211.1 | 301/532/891/239 · 319/298/579/106 |
+| hard | Captain Bramble / Captain Bramble | 100 | 63 left-side wins | 0 | 54.8 | 144.8 | 283/445/236/229 · 0/0/0/0 |
+| hard | Captain Bramble / Duskmantle | 200 | 158 / 42 | 0 | 67.8 | 164.3 | 294/449/256/264 · 275/303/210/324 |
+| hard | Captain Bramble / Sprig | 200 | 177 / 23 | 0 | 69.7 | 155.3 | 248/406/223/276 · 300/286/267/268 |
+| hard | Duskmantle / Duskmantle | 100 | 53 left-side wins | 0 | 80.3 | 221.7 | 348/362/293/493 · 0/0/0/0 |
+| hard | Duskmantle / Sprig | 200 | 138 / 62 | 0 | 76.6 | 187.3 | 314/337/255/401 · 328/328/475/276 |
+| hard | Sprig / Sprig | 100 | 54 left-side wins | 0 | 74.4 | 194.1 | 335/328/276/449 · 0/0/0/0 |
 
 ## Aggregate and coverage
 
@@ -56,22 +56,22 @@ Mirrors excluded from win rates; all battles included in tier coverage.
 
 | AI | Hero | Distinct-pair wins | Unfinished | Tier 1/2/3/4 casts | Unused tiers |
 |---|---|---:|---:|---|---|
-| easy | Sir Champignon | 61/160 (38.1%) | 0 | 1631/84/5/0 | 4 |
-| easy | Andromoss | 70/160 (43.8%) | 0 | 537/224/229/67 | none |
-| easy | Captain Bramble | 106/160 (66.3%) | 0 | 606/117/90/51 | none |
-| easy | Duskmantle | 73/160 (45.6%) | 0 | 431/126/116/108 | none |
-| easy | Sprig | 90/160 (56.3%) | 0 | 406/154/129/78 | none |
-| medium | Sir Champignon | 49/160 (30.6%) | 0 | 2179/452/53/1 | none |
-| medium | Andromoss | 68/160 (42.5%) | 0 | 316/393/558/154 | none |
-| medium | Captain Bramble | 140/160 (87.5%) | 0 | 509/190/189/166 | none |
-| medium | Duskmantle | 68/160 (42.5%) | 0 | 269/225/182/294 | none |
-| medium | Sprig | 75/160 (46.9%) | 0 | 299/274/301/269 | none |
-| hard | Sir Champignon | 68/160 (42.5%) | 0 | 1679/684/281/101 | none |
-| hard | Andromoss | 52/160 (32.5%) | 0 | 287/493/796/212 | none |
-| hard | Captain Bramble | 136/160 (85.0%) | 0 | 567/229/263/256 | none |
-| hard | Duskmantle | 77/160 (48.1%) | 0 | 302/278/268/407 | none |
-| hard | Sprig | 67/160 (41.9%) | 0 | 360/375/437/368 | none |
+| easy | Sir Champignon | 102/800 (12.8%) | 0 | 10696/96/0/0 | 3, 4 |
+| easy | Andromoss | 370/800 (46.3%) | 0 | 1979/1560/991/429 | none |
+| easy | Captain Bramble | 696/800 (87.0%) | 0 | 1951/958/398/243 | none |
+| easy | Duskmantle | 395/800 (49.4%) | 0 | 2116/795/624/454 | none |
+| easy | Sprig | 437/800 (54.6%) | 0 | 2198/821/649/375 | none |
+| medium | Sir Champignon | 96/800 (12.0%) | 0 | 3994/3057/36/22 | none |
+| medium | Andromoss | 428/800 (53.5%) | 0 | 1017/1706/2258/641 | none |
+| medium | Captain Bramble | 658/800 (82.3%) | 0 | 1029/1576/708/610 | none |
+| medium | Duskmantle | 458/800 (57.3%) | 0 | 1067/1033/727/1023 | none |
+| medium | Sprig | 360/800 (45.0%) | 0 | 1135/1159/1159/872 | none |
+| hard | Sir Champignon | 346/800 (43.3%) | 0 | 964/6410/434/379 | none |
+| hard | Andromoss | 314/800 (39.3%) | 0 | 1454/2636/4105/1140 | none |
+| hard | Captain Bramble | 671/800 (83.9%) | 0 | 1335/2063/1126/1160 | none |
+| hard | Duskmantle | 433/800 (54.1%) | 0 | 1479/1575/1233/1879 | none |
+| hard | Sprig | 236/800 (29.5%) | 0 | 1592/1558/1862/1528 | none |
 
 Provisional kits, not a human-balance claim. Mirror rows report player-side wins; casts for mirrors are combined in the first column. Medians exclude capped matches; unfinished games are never awarded invented winners. Inspect tier coverage and strategy bias before tuning. The same bot priorities currently serve all heroes, with resource/ward/cleanse awareness and repeated armor strikes; Easy timing can make multi-hit armor particularly punishing. Human playtests remain necessary. Prior two-character findings remain historical and are not overwritten.
 
-Reproduce: `pnpm balance:roster --seeds=20 --seed=20261118`.
+Reproduce: `pnpm balance:roster --seeds=100 --seed=20261118`.

@@ -1,4 +1,6 @@
-# Roster integration: balance review
+# Roster integration: historical 20-seed balance review
+
+This is the preserved launch review from commit 956e06e. The current expanded retune comparison is in [balance-retune-review.md](balance-retune-review.md). The launch raw dataset remains in Git history.
 
 The user requested all five approved heroes as playable. These runs validate the shared simulation and expose provisional-kit issues; they are not a human-balance claim.
 
