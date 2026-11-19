@@ -205,6 +205,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I09 | The wave explainer compares actual current target lifetimes with an explicitly unimplemented draft: late base 600 ms, lifetime floor 500 ms, shared lifetime for mole/rabbit/star; retain current 12 s build / 5 s peak / 8 s recovery, 60 s ramp and spawn rhythm. At equal scores the draft peaks reach about 528 ms. Show current stars separately at 2200 ms to expose their present mismatch. The plot excludes jitter, occupancy, spell effects and score-based catch-up; it is a pacing envelope, not a simulated spawn log. No game settings/AI/spells changed for this preview. |
 
+| D113 | User permits dropping selected middle frames from rise/retreat during fast waves, rather than requiring all eight frames at every speed. Preserve recognizable start/end poses and complete rise/retreat phases; dancing can shorten/disappear. Consider slower devices when choosing animation playback and frame budgets. |
+
+| I10 | Proposed, not yet implemented/adopted FPS values: target 60 FPS rendering with readability at 30 FPS, and use up to 20 distinct target-animation frames/s (matching the existing 50 ms simulation tick). Candidate fast windows: 0.5 s = five rise + five retreat frames; 0.3 s = three rise + three retreat frames, selecting endpoints plus intermediate poses. Keep gameplay lifetime time-based and independent of actual render FPS. These are visualization/animation recommendations; pacing is still the first tuning phase per D112. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
