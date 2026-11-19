@@ -67,12 +67,12 @@ it('Ominous Bud marks exactly three current/future moles, retaining its configur
   expect(p.markUntil-match.state.time).toBe(config.rosterSpells.ominousMarkMs);expect(p.holes[1]?.missBonus).toBeUndefined();
 });
 
-it('adds six penalty points on top of the ordinary miss penalty for each of three marks',()=>{
-  config.rosterSpells.ominousMarks=3;config.rosterSpells.markBonus=6;config.rosterSpells.ominousMarkMs=8000;
+it('adds eight penalty points on top of the ordinary miss penalty for each of three marks',()=>{
+  config.rosterSpells.ominousMarks=3;config.rosterSpells.markBonus=8;config.rosterSpells.ominousMarkMs=8000;
   const match=game('duskmantle'),enemy=match.state.players[1];
   for(let hole=0;hole<3;hole++)enemy.holes[hole]={...target(match,hole+1),expires:match.state.time+config.spells.warningMs+300};
   cast(match);match.advance(config.spells.warningMs);
   expect(enemy.markUntil-match.state.time).toBe(8000);expect(enemy.markCharges).toBe(0);
-  expect(enemy.holes.slice(0,3).map(t=>t?.missBonus)).toEqual([6,6,6]);
-  match.advance(300);expect(enemy.score).toBe(-42); // three times (8 normal + 6 extra)
+  expect(enemy.holes.slice(0,3).map(t=>t?.missBonus)).toEqual([8,8,8]);
+  match.advance(300);expect(enemy.score).toBe(-48); // three times (8 normal + 8 extra)
 });

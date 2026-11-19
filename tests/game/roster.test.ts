@@ -7,6 +7,7 @@ import { presentation, validSheet } from '../../src/presentation/config';
 import { chooseHome } from '../../src/game/homes';
 import { validPick } from '../../src/network/selection';
 import { Bot } from '../../src/game/Bot';
+import { modifyTarget } from '../../src/game/targetModifiers';
 
 function game(a: CharacterId, b: CharacterId) {
   const match = new Match({ characters:[a,b], mode:'local', difficulty:'medium', seed:42 });
@@ -85,7 +86,7 @@ it('Bramble guards consume one or three charges, independently of hostile armor'
   }
 });
 
-it('Duskmantle marks exactly one/four moles and increases their miss penalty only', () => {
+it('Duskmantle marks exactly three/four moles and increases their miss penalty only', () => {
   for(const tier of [1,4]) {
     const match=game('duskmantle','sprig'),victim=match.state.players[1];
     for(let i=0;i<5;i++) victim.holes[i]={...target(match,'mole',i+1),expires:match.state.time+1500};
@@ -179,4 +180,18 @@ it('bots can strike armored targets repeatedly instead of abandoning them after 
     if(!player.holes[0])cleared++;
   }
   expect(cleared).toBeGreaterThan(10);
+});
+
+
+it('Tin Caps spends exactly three armor charges across current and future moles within three seconds',()=>{
+  const match=game('captain-bramble','sprig'),victim=match.state.players[1];
+  victim.holes[0]=target(match);victim.holes[1]=target(match,'star');
+  cast(match,0,1);match.advance(config.spells.warningMs);
+  expect(victim.armorUntil-match.state.time).toBe(3000);
+  expect(victim.holes[0]?.armor).toBe(1);expect(victim.holes[1]?.armor).toBeUndefined();
+  expect(victim.armorCharges).toBe(2);
+  const arrivals=[target(match,'mole',2),target(match,'mole',3),target(match,'mole',4)];
+  for(const t of arrivals)modifyTarget(victim,t,match.state.time);
+  expect(arrivals.map(t=>t.armor)).toEqual([1,1,undefined]);expect(victim.armorCharges).toBe(0);
+  match.advance(3000);expect(victim.holes[0]?.armor).toBeUndefined();
 });

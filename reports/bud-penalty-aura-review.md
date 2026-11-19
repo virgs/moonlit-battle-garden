@@ -1,3 +1,5 @@
+Historical tuning, superseded by [three-mole / penalty / aura update](three-mole-penalty-tending-review.md).
+
 # Bud penalty and Tending duration update
 
 | Hero | Spell | Previous | Adopted |

@@ -243,6 +243,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D123 | In every balance update, include the versus matrix together with spell reminders: owning hero, current effect, explicit duration, and before→after values for changed spells. For isolated-tier runs, list the tested tier and identify unchanged spells; retain per-difficulty matrices/flags alongside the pooled view. |
 
+| D124 | User requests Tin Caps three moles (was one), retaining its 3 s window and one extra hit; Ominous Bud extra miss penalty +8 (was +6), retaining three marks/8 s; Gentle Tending 6 s (was 4.5 s), retaining +500 ms once per target. User asks about Borrowed Spark timing: explain existing 650 ms hostile warning, do not infer a request to remove it. |
+
+| I18 | Test each of the three requested changes independently and combined at 100 paired seeds per pairing/difficulty, then verify adopted defaults reproduce all combined outcomes. Preserve previous baseline and current per-level flags/strategy findings in three-mole-penalty-tending-review.md. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

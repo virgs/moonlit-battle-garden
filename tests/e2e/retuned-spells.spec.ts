@@ -47,7 +47,7 @@ test('Sprig can cast four-star automation with exactly two active columns',async
   await page.clock.runFor(1000);await expect(garden).toHaveAttribute('data-automation-columns',columns.join(','));
 });
 
-test('Sprig one-star Tending shows a 4.5-second aura and freezes it during pause',async({page})=>{
+test('Sprig one-star Tending shows a six-second aura and freezes it during pause',async({page})=>{
   await page.clock.install();await openSelection(page,'local');await chooseCharacter(page,'Player 1','sprig');await enterMatch(page);
   await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
   const garden=page.locator('.player-0');
@@ -57,7 +57,7 @@ test('Sprig one-star Tending shows a 4.5-second aura and freezes it during pause
   await expect(garden).toHaveAttribute('data-tending-active','true');await expect(page.locator('.effect-tending')).toBeVisible();
   await page.clock.runFor(1000);await page.getByRole('button',{name:'Pause',exact:true}).click();
   await page.clock.runFor(4000);await expect(garden).toHaveAttribute('data-tending-active','true');
-  await page.getByRole('button',{name:'Resume',exact:true}).click();await page.clock.runFor(2100);
+  await page.getByRole('button',{name:'Resume',exact:true}).click();await page.clock.runFor(3600);
   await expect(garden).toHaveAttribute('data-tending-active','true');
   await page.clock.runFor(1500);
   await expect(garden).toHaveAttribute('data-tending-active','false');await expect(page.locator('.effect-tending')).toHaveCount(0);

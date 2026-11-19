@@ -63,7 +63,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   'captain-bramble': {
     name: 'Captain Bramble', role: 'The steadfast garden sentinel', color: '#da956b', emblem: '♜',
     spells: [
-      { name: 'Tin Caps', description: 'Armor one enemy mole within 3 seconds; one extra hit.' },
+      { name: 'Tin Caps', description: 'Armor three enemy moles within 3 seconds; one extra hit.' },
       { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
       { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
       { name: 'Heavy Harvest', description: 'Armor up to four enemy moles within 3 seconds; two extra hits each.' },
@@ -72,7 +72,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   duskmantle: {
     name: 'Duskmantle', role: 'The keeper of garden curses', color: '#bd94e7', emblem: '☾',
     spells: [
-      { name: 'Ominous Bud', description: 'Mark three enemy moles within 8 seconds; each miss costs 6 extra points.' },
+      { name: 'Ominous Bud', description: 'Mark three enemy moles within 8 seconds; each miss costs 8 extra points.' },
       { name: 'Violet Veil', description: 'Dim enemy targets for 6.5 seconds; their shapes stay visible.' },
       { name: 'Twilight Siphon', description: 'Earn 2 extra points on manual mole hits for 7 seconds.' },
       { name: 'Withering Pact', description: 'Mark four enemy moles; each miss costs 6 extra points.' },
@@ -81,7 +81,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   sprig: {
     name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
     spells: [
-      { name: 'Gentle Tending', description: 'For 4.5 seconds, add 0.5 seconds to every current and arriving target, once per target.' },
+      { name: 'Gentle Tending', description: 'For 6 seconds, add 0.5 seconds to every current and arriving target, once per target.' },
       { name: 'Helping Tines', description: 'Work one column every 0.25 seconds for 6.5 seconds; collect stars.' },
       { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
       { name: 'Garden Clockwork', description: 'Work two columns every 0.25 seconds for 8 seconds; collect stars.' },
