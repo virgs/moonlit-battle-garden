@@ -29,7 +29,7 @@
       "shading"
     ]
   },
-  "status": "Staged head-and-shoulders portrait/icon for user visual review; no model image inspection.",
+  "status": "User approved on 2026-11-18. Visual review by user only; staged art, not playable roster expansion.",
   "costGenerations": 10,
   "technicalChecks": {
     "dimensions": [
@@ -39,5 +39,6 @@
     "transparent": true,
     "visible": true
   },
-  "installedSha256": "c7b252b336ad728a5163e0541906c07a8db8c6515c14ad6d734e3a7d8883a33d"
+  "installedSha256": "c7b252b336ad728a5163e0541906c07a8db8c6515c14ad6d734e3a7d8883a33d",
+  "userApproved": true
 }

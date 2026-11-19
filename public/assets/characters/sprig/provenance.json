@@ -3,7 +3,7 @@
   "created": "2026-11-18",
   "character": "Sprig",
   "assetDirectory": "sprig",
-  "status": "Staged for user visual review; not a playable roster expansion. No model image inspection.",
+  "status": "User approved on 2026-11-18. Visual review by user only; staged art, not playable roster expansion.",
   "base": {
     "file": "base-v6.png",
     "provenance": "base-provenance-v6.json",
@@ -112,5 +112,6 @@
     "standing.png": "3498ab133039f2706a6b4d4e72f7a838502ddf6b537090037d90c35a28b71d1e",
     "victory.png": "d0575a1fef7425a32c439e40341968168915e2163c6e432ec36509f8f8662f77",
     "cast.png": "a57cb2e5b5c15be7d8c59ad51d420c5b579dd3684ad15134537340edbd67b889"
-  }
+  },
+  "userApproved": true
 }
