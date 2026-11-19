@@ -17,10 +17,10 @@ pacing:
   minIntervalMs: 300
   jitter: 0.08
   startLifetimeMs: 2200
-  endLifetimeMs: 1300
+  endLifetimeMs: 600
   lifetimeCalm: 1.08
   lifetimePeak: 0.88
-  minLifetimeMs: 1150
+  minLifetimeMs: 500
   scoreIntervalReduction: 0.05
   scoreLifetimeReduction: 0.05
   startNaturalCap: 2
@@ -32,7 +32,6 @@ pacing:
   rabbitPeakExtra: 0.03
   maxRabbitStreak: 2
   starOffsetsMs: [5000, 14000, 22000]
-  starLifetimeMs: 2200
 points:
   mole: 10
   star: 25

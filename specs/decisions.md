@@ -213,6 +213,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I11 | Implement frame selection in the renderer as a pure function of each target’s total lifetime, using a 20-distinct-frames/s budget and the 50 ms simulation cadence. Reserve rise/retreat inside the same hit window, select evenly spaced original poses with both endpoints preserved, and use leftover time for dancing. At 300/500/800 ms, select 3/5/8 poses per phase. Full source atlases and hit animations remain intact. Current wave/lifetime/AI/cast/spell settings are unchanged; faster lifetimes remain a separate pacing decision. |
 
+| D115 | User authorizes steps 1–3: apply the approved shared lifetime wave (moles/rabbits/stars, fastest peaks around 0.5 s), keep existing AI reaction settings, and run spell-free measurements by wave phase. Do not tune AI reaction, casting delay or spell strength in this pass. Easy/Medium may fail at the fastest pace. |
+
+| I12 | Applied late base 600 ms / floor 500 ms, keeping 12 s build / 5 s peak / 8 s recovery, 60 s ramp, spawn schedules, score-pressure rules and AI values. All newly spawned target kinds/origins use the same per-board lifetime curve, removing separate star lifetime and magic-target 1450 ms cap. At equal scores late peak =528 ms, calm endpoint =648 ms; score catch-up can reach the 500 ms floor. Fixed two-minute offline reaction sessions disable casts and score victory only in explicit diagnostic mode so every AI reaches late peaks; ordinary matches keep normal victory. Run 100 sessions per five heroes/three difficulties (1,500 total); hero equivalence and zero casts checked. Outcome cohorts follow birth phase and fully drain; reports/reaction-pacing.md/.json retain counts, parameters and source hash. Easy cannot hit any late target, not just peak targets, because the whole late envelope is below its minimum reaction time; record for review, do not silently compensate. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

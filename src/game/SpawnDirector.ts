@@ -64,16 +64,16 @@ export class SpawnDirector {
         this.starIndex[id]++;
         if (Number.isFinite(player.nextSpawn) && !player.holes.some(target => target?.kind === 'star')) this.place(state, id, 'star', pace.starLifetimeMs, 'star');
       }
-      this.magicSpawn(state, player, id);
+      this.magicSpawn(state, player, id, pace.lifetimeMs);
     });
   }
-  private magicSpawn(state: MatchState, player: Player, id: PlayerId): void {
+  private magicSpawn(state: MatchState, player: Player, id: PlayerId, lifetimeMs: number): void {
     if ((player.invasionUntil <= state.time && player.decoysUntil <= state.time) || state.time < player.nextDecoy) return;
     const strong = player.decoysUntil > state.time;
     player.nextDecoy = state.time + (strong ? 650 : 950);
     if (player.holes.filter(target => target?.origin === 'magic').length >= config.pacing.maxMagicTargets) return;
     const kind = strong && this.magic[id].next() < 0.3 ? 'mole' : 'rabbit';
-    this.place(state, id, kind, Math.min(1450, pacingAt(state.time - state.roundStart).lifetimeMs), 'magic');
+    this.place(state, id, kind, lifetimeMs, 'magic');
   }
   private place(state: MatchState, id: PlayerId, kind: TargetKind, lifetime: number, origin: 'natural' | 'star' | 'magic'): void {
     const player = state.players[id];

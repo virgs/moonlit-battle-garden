@@ -79,3 +79,6 @@ D107 adds offline tier-isolated diagnostics only, initially one-star spells/one 
 D108 supersedes immediate casting for current one-star diagnostics: visible spell-specific opportunity conditions, followed by one shared random delay across difficulties; cancel/reconsider when the opportunity vanishes. Full-kit casting and spell powers remain unchanged. Exact provisional settings are in prototype.md.
 
 D109/I08: shared normal/diagnostic rules now use 1.5-second one-star Sweep strikes after the initial hit and one-mole Tin Caps. Both windows remain three seconds; Royal Cleanup/Heavy Harvest and all other powers stay unchanged. Consult the separate tier-1 matrices rather than treating historical full-kit diagnostics as current balance.
+
+
+D115/I12 applies the shared target lifetime wave with a 500 ms floor and 600 ms late-round base. AI timing is unchanged. Spell-free fixed-duration diagnostics measure target handling by birth phase, separate from competitive win matrices. Normal match victory/pause/network rules remain unchanged. See pacing.md for the actual curve and first measured results.

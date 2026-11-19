@@ -13,7 +13,7 @@ type Config = {
     scoreIntervalReduction: number; scoreLifetimeReduction: number;
     startNaturalCap: number; endNaturalCap: number; peakExtraTarget: number; maxMagicTargets: number;
     rabbitStart: number; rabbitEnd: number; rabbitPeakExtra: number; maxRabbitStreak: number;
-    starOffsetsMs: number[]; starLifetimeMs: number;
+    starOffsetsMs: number[];
   };
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };

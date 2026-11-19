@@ -237,3 +237,6 @@ D108: one-star diagnostics now use spell-specific useful-opportunity conditions 
 
 
 D109/I08 current one-star strength pass: Clean Sweep hits its fixed column immediately and then every **1.5 seconds** during its **3-second** window. Tin Caps armors **one** enemy mole (one extra hit, 3-second window). Royal Cleanup stays at 250 ms/full board/3 seconds plus its prior guards; Heavy Harvest stays four moles/two extra hits/3 seconds. Other spells and the postponed Andromoss assignment review stay unchanged. These values supersede older cadence/quota notes above and remain provisional.
+
+
+D115/I12: targets now share the faster per-board wave lifetime regardless of kind/origin. No spell cost, duration, target quota or hero-specific AI change in this pass. Earlier kit win rates predate this new pacing; reaction tests disable powers and verify hero identities do not alter hitting behavior.

@@ -72,6 +72,7 @@ pnpm balance:mirrors --seeds=1000 --seed=20261117
 pnpm assets:check
 pnpm balance:roster --seeds=100 --seed=20261118
 pnpm balance:duration-review
+pnpm diagnostic:reaction --seeds=100 --seed=20261119
 pnpm balance:roster --tier=1 --seeds=100 --seed=20261119
 ```
 
@@ -115,4 +116,7 @@ Tier-isolated offline diagnostics start with [one-star results](reports/balance-
 Latest one-star strength pass: Sweep cadence is now 1.5 seconds and Tin Caps affects one mole; both retain three-second windows. Controlled independent/combined trials and remaining imbalances are in [strength review](reports/balance-tier-1-strength-review.md). Royal Cleanup and Heavy Harvest retain their prior strength. No tuning of the other heroes or bot decision policy in this pass; full-kit/human follow-up remains necessary.
 
 
-Target rise/retreat animations now adapt to actual lifetime: shorter windows retain key start/end poses while omitting selected middle frames; increasing lifetime automatically restores the complete eight-frame sequences. Assets are preserved. The lifetime floor remains in `src/assets/config/game.yaml` (`pacing.minLifetimeMs`); this renderer change does not apply the proposed faster wave settings.
+Target rise/retreat animations now adapt to actual lifetime: shorter windows retain key start/end poses while omitting selected middle frames; increasing lifetime automatically restores the complete eight-frame sequences. Assets are preserved. The lifetime floor remains in `src/assets/config/game.yaml` (`pacing.minLifetimeMs`); that renderer-only step left pacing unchanged; the shared fast settings are now applied as described below.
+
+
+Shared fast pacing is now active: moles, rabbits and stars use the same lifetime curve (2200→600 ms base over 60 seconds, 500 ms floor), including adaptive rise/retreat inside the hit window. At tied scores late peaks are about 0.53 s and calm endpoints 0.65 s. Spell settings and AI reaction/action/accuracy values are unchanged. [Spell-free reaction measurements](reports/reaction-pacing.md) cover 100 two-minute sessions per hero/difficulty, with fixed-length diagnostic rounds so late phases are sampled. Normal games retain score-difference victory. Easy misses every post-ramp target in this baseline; Medium/Hard late-peak mole capture is 21.4%/86.4%. Earlier win matrices are historical until the later casting/spell balance pass.

@@ -20,6 +20,7 @@ export class Match {
     if (options.isolatedSpellTier !== undefined && ![1,2,3,4].includes(options.isolatedSpellTier)) throw Error('Isolated tier must be 1..4');
     if (options.isolatedCastingPolicy && !options.isolatedSpellTier) throw Error('Casting policy requires an isolated tier');
     if (options.isolatedCastingPolicy === 'opportunity' && options.isolatedSpellTier !== 1) throw Error('Opportunity conditions currently cover tier 1 only');
+    if (options.diagnosticMode && (options.mode !== 'local' || options.isolatedSpellTier || options.isolatedCastingPolicy)) throw Error('Reaction diagnostics require local mode and no isolated spell policy');
     this.spawns = new SpawnDirector(options.seed);
     this.spawns.reset(config.countdownMs);
     this.state = {
@@ -87,6 +88,7 @@ export class Match {
     if (this.state.phase !== 'playing' || this.state.paused || this.state.casting) return;
     if (action.player !== 0 && action.player !== 1) return;
     if (action.type === 'cast') {
+      if (this.options.diagnosticMode === 'reaction') return;
       const tier = this.state.players[action.player].stars;
       if (this.options.isolatedSpellTier && tier !== this.options.isolatedSpellTier) return;
       if (castSpell(this.state, action.player)) {
@@ -155,6 +157,7 @@ export class Match {
   }
 
   private checkOutcome(): void {
+    if (this.options.diagnosticMode === 'reaction') return;
     const state = this.state;
     if (state.phase !== 'playing') return;
     const [a, b] = state.players;

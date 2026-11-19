@@ -34,9 +34,9 @@ export class Bot {
     if (state.phase !== 'playing' || state.paused || state.casting) return;
     const player = state.players[this.id];
     // Casting has its own clock/RNG and does not wait on hit-action scheduling.
-    if (match.isolatedCastingPolicy === 'opportunity') {
+    if (!match.options.diagnosticMode && match.isolatedCastingPolicy === 'opportunity') {
       if (this.isolatedCasting.tryCast(match,this.id)) return;
-    } else if (match.options.isolatedSpellTier && player.stars === match.options.isolatedSpellTier && state.time >= player.nextCast) {
+    } else if (!match.options.diagnosticMode && match.options.isolatedSpellTier && player.stars === match.options.isolatedSpellTier && state.time >= player.nextCast) {
       match.action({ type: 'cast', player: this.id });
       return;
     }
@@ -49,7 +49,7 @@ export class Bot {
     if(tuning.reactionJitter)for(const target of visible)if(!this.reactionAt.has(target.id)) {
       this.reactionAt.set(target.id,target.born+Math.round(tuning.reactionMs*(1+(this.timing.next()*2-1)*tuning.reactionJitter)));
     }
-    if (!match.options.isolatedSpellTier && player.stars && state.time >= player.nextCast) {
+    if (!match.options.diagnosticMode && !match.options.isolatedSpellTier && player.stars && state.time >= player.nextCast) {
       if (!this.desiredTier) {
         const tiers = this.difficulty === 'easy' ? [1, 1, 2, 3, 4] : [1, 2, 3, 4, 4];
         this.desiredTier = tiers[Math.floor(this.random.next() * tiers.length)];

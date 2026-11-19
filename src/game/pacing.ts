@@ -10,7 +10,7 @@ export function pacingAt(elapsedMs: number) {
   const elapsed = Math.max(0, elapsedMs);
   const position = elapsed % waveDurationMs;
   const progress = Math.min(1, elapsed / tuning.rampMs);
-  const phase = position < tuning.buildMs ? 'build' : position < tuning.buildMs + tuning.peakMs ? 'peak' : 'recovery';
+  const phase: 'build' | 'peak' | 'recovery' = position < tuning.buildMs ? 'build' : position < tuning.buildMs + tuning.peakMs ? 'peak' : 'recovery';
   const pressure = phase === 'build' ? smooth(position / tuning.buildMs) : phase === 'peak' ? 1
     : 1 - smooth((position - tuning.buildMs - tuning.peakMs) / tuning.recoveryMs);
   return {
@@ -32,6 +32,6 @@ export function playerPacingAt(elapsedMs: number, score: number, opponentScore: 
     ...base, deficit, clockRate: 1 / intervalScale,
     intervalMs: Math.max(tuning.minIntervalMs, base.intervalMs * intervalScale),
     lifetimeMs: Math.max(tuning.minLifetimeMs, base.lifetimeMs * lifetimeScale),
-    starLifetimeMs: Math.max(tuning.minLifetimeMs, tuning.starLifetimeMs * lifetimeScale),
+    starLifetimeMs: Math.max(tuning.minLifetimeMs, base.lifetimeMs * lifetimeScale),
   };
 }

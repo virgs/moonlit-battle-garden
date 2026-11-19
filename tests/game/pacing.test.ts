@@ -144,3 +144,17 @@ it('respects actual spawn floors and concurrency even when the lead reverses eve
     }
   }
 });
+
+it('uses the approved half-second late peaks and a shared lifetime for every target type',()=>{
+  expect(pacingAt(64000).lifetimeMs).toBeCloseTo(528);
+  expect(pacingAt(75000).lifetimeMs).toBeCloseTo(648);
+  const match=create();match.state.players[0].decoysUntil=100000;
+  const traces=collect(match,75000)[0];
+  expect(new Set(traces.map(t=>t.kind))).toEqual(new Set(['mole','star','rabbit']));
+  expect(traces.some(t=>t.origin==='magic')).toBe(true);
+  for(const target of traces) {
+    const pace=playerPacingAt(target.born,0,0);
+    expect(target.expires-target.born).toBe(Math.round(pace.lifetimeMs));
+    expect(pace.starLifetimeMs).toBe(pace.lifetimeMs);
+  }
+});

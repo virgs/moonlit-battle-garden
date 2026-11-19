@@ -16,7 +16,8 @@
     "balance:mirrors": "vite-node scripts/balance-mirrors.ts",
     "balance:experiments": "vite-node scripts/balance-experiments.ts",
     "balance:roster": "vite-node scripts/balance-roster.ts",
-    "balance:duration-review": "vite-node scripts/balance-duration-review.ts"
+    "balance:duration-review": "vite-node scripts/balance-duration-review.ts",
+    "diagnostic:reaction": "vite-node scripts/reaction-diagnostic.ts"
   },
   "dependencies": {
     "peerjs": "^1.5.5",
