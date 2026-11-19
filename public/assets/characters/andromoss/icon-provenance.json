@@ -29,7 +29,7 @@
       "shading"
     ]
   },
-  "status": "Fresh simplified icon installed in existing presentation slot for user visual review; no model image inspection.",
+  "status": "User approved the fresh simplified set on 2026-11-18. Adopted in existing presentation slots; visual review by user only.",
   "costGenerations": 10,
   "technicalChecks": {
     "dimensions": [
@@ -39,5 +39,6 @@
     "transparent": true,
     "visible": true
   },
-  "installedSha256": "c25fe061a83c91a86be9e5d98ed9584515f458c95e96fc431cd0f2b94d5d5931"
+  "installedSha256": "c25fe061a83c91a86be9e5d98ed9584515f458c95e96fc431cd0f2b94d5d5931",
+  "userApproved": true
 }

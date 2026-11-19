@@ -3,7 +3,7 @@
   "created": "2026-11-18",
   "character": "Andromoss",
   "assetDirectory": "andromoss",
-  "status": "Fresh simplified animation drafts installed in existing presentation slots for user review. No model image inspection.",
+  "status": "User approved the fresh simplified set on 2026-11-18. Adopted in existing presentation slots; visual review by user only.",
   "base": {
     "file": "base-v6.png",
     "provenance": "base-provenance-v6.json",
@@ -112,5 +112,6 @@
     "standing.png": "fe6e27af57fba5543b0c399875c0176a6213b786452313e942c96492a1b1b87c",
     "victory.png": "17e65eca492b202da25f5dfd8c5a73cc6a85e5ffc41c5815703bea0d3145d7f5",
     "cast.png": "e8b05e186d89ca86824a82cef97bb32da9a486c8098eb9c669628abfd10ad2ab"
-  }
+  },
+  "userApproved": true
 }

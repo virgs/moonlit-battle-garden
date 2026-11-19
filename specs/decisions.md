@@ -159,6 +159,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D98 | User approves simplified Andromoss base-v6 and authorizes fresh idle, expressive victory, one shared casting animation and matching icon. Generate each animation as a full clip from this same base, preserving the simple fixed material palette, adult normal-head proportions and exposed eyes. No cleanup or multi-batch polishing. New files replace existing presentation slots once generated and technically checked; user retains visual review. Preserve historical versions/provenance. |
 
+| D99 | User approves/adopts the fresh simplified Andromoss animations and icon and requests deferring remaining new-character art to use the assets already created. All five current art sets are approved: Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig. Defer Mallow/Miyaya/Rootbeard artwork and any new PixelLab generation. Scope of playable roster expansion is being clarified separately; current live pair remains Champignon/Andromoss until new kits are implemented. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
