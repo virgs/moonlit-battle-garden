@@ -10,8 +10,9 @@ export const castingProfiles:Record<'baseline'|'fast'|'scaled',CastingSettings> 
   fast:{minDelayMs:200,maxDelayMs:400,visibleMs:100,urgentMs:1000,delayMultipliers:{easy:1,medium:1,hard:1}},
   scaled:{minDelayMs:200,maxDelayMs:400,visibleMs:100,urgentMs:1000,delayMultipliers:{easy:3,medium:2,hard:1}},
 };
-// Trials override this process-local copy; ordinary full-kit casting is separate.
-export const isolatedCasting:CastingSettings = {...castingProfiles.baseline,delayMultipliers:{...castingProfiles.baseline.delayMultipliers}};
+export const defaultCastingProfile = 'scaled' as const;
+// Explicit trial profiles can override the adopted default; full-kit casting is separate.
+export const isolatedCasting:CastingSettings = {...castingProfiles[defaultCastingProfile],delayMultipliers:{...castingProfiles[defaultCastingProfile].delayMultipliers}};
 export function useCastingProfile(name:keyof typeof castingProfiles):void {
   Object.assign(isolatedCasting,castingProfiles[name],{delayMultipliers:{...castingProfiles[name].delayMultipliers}});
 }

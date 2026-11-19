@@ -119,3 +119,6 @@ D115/I12: shared 500 ms-floor / 600 ms-late-base lifetime curve applied to all t
 
 
 D117/I13 casting-delay comparison complete: 22,500 matches across baseline/fast/scaled, same100 seeds, no caps. Scaled target-based timing Easy700–1300 ms /Medium500–900 ms /Hard300–500 ms; only decision delay is multiplied. Ordinary full-kit AI/default baseline unchanged. Counters reconcile pending/cancelled/completed decisions; Hard fast/scaled results identical across2,500 matches. Pooled/per-level matrices and counterplay findings in reports/casting-delay-review.md. 157 tests/build/six browser checks passed. No spell strength changes; user review of the experimental profile precedes adoption/full-kit follow-up.
+
+
+D118/I14: scaled profile adopted as default for isolated one-star opportunity tests. Fresh7,500-match run (100 seeds/pairing/level), zero caps, exactly reproduces all outcomes/casts/decision metrics from explicit scaled trial. Current pooled/per-level matrices and spell reminders are in balance-tier-1.md / balance-tier-1-adopted-review.md. 158 tests/build/six desktop/mobile browser checks passed. No spell-strength, pacing or reaction-setting changes; ordinary full-kit AI unchanged. Faster Sweep/at least three Tin Caps moles are still pending preferences for next strength comparison.

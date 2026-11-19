@@ -1,5 +1,5 @@
-# Current one-star diagnostic
+# Current one-star baseline
 
-Current [three matrices](balance-tier-1.md) and [strength comparison/limitations](balance-tier-1-strength-review.md).
+[Current matrices](balance-tier-1.md) · [Adopted settings, current spells and verification](balance-tier-1-adopted-review.md).
 
-The preceding opportunity-casting trial, before these nerfs, is preserved in [reference review](tier1-strength-reference-review.md) and tier1-strength-reference.md/.json; full raw data at Git commit 9db9287.
+Historical tuning: [casting-delay comparison](casting-delay-review.md), [spell-strength trials](balance-tier-1-strength-review.md), [pre-nerf reference](tier1-strength-reference-review.md). Those earlier reports retain their own pacing/profile assumptions.

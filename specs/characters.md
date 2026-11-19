@@ -243,3 +243,6 @@ D115/I12: targets now share the faster per-board wave lifetime regardless of kin
 
 
 D117/I13 casting trials use the same base decision-delay distribution for all heroes, with optional Easy3/Medium2/Hard1 multipliers. No per-character probability or power tuning. Profiles are experimental; full-kit AI and baseline defaults stay unchanged. Faster opponents can spend stars before Borrowed Spark resolves, so more completed casts need not mean better theft.
+
+
+D118/I14 freezes the adopted one-star casting profile while keeping current spell rules unchanged. Current baseline powers: Sweep1500 ms cadence/3 s; all-charge Borrowed Spark; one-mole Tin Caps/3 s; one-mole Ominous Bud +4 miss/8 s; Gentle Tending +700 ms once. The preference for faster Sweep and at least three Tin Caps moles remains pending, to be compared against this measured baseline.

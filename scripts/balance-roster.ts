@@ -6,7 +6,7 @@ import { characterIds, type CharacterId, type Difficulty, type SpellTier, type I
 import { simulateBattle, type BattleResult } from '../src/game/simulate';
 import { poolMatchups,matchupMatrix } from './roster-matrix';
 import { playerStatistics, type PlayerStatistics } from '../src/game/statistics';
-import { isolatedCasting,castingProfiles,useCastingProfile } from '../src/game/IsolatedCasting';
+import { isolatedCasting,castingProfiles,useCastingProfile,defaultCastingProfile } from '../src/game/IsolatedCasting';
 
 const count=Number(process.argv.find(arg=>arg.startsWith('--seeds='))?.split('=')[1]??100);
 const seed=Number(process.argv.find(arg=>arg.startsWith('--seed='))?.split('=')[1]??20261118);
@@ -20,7 +20,7 @@ if(policyArgument!==undefined&&!['immediate','opportunity'].includes(policyArgum
 if(policyArgument&&!isolatedSpellTier)throw Error('--casting requires --tier.');
 const castingPolicy=isolatedSpellTier?(policyArgument??(isolatedSpellTier===1?'opportunity':'immediate')) as IsolatedCastingPolicy:'normal';
 if(castingPolicy==='opportunity'&&isolatedSpellTier!==1)throw Error('Opportunity casting is implemented for tier 1 only.');
-const castProfile=process.argv.find(arg=>arg.startsWith('--cast-profile='))?.slice(15)??'baseline';
+const castProfile=process.argv.find(arg=>arg.startsWith('--cast-profile='))?.slice(15)??(castingPolicy==='opportunity'?defaultCastingProfile:'baseline');
 if(!Object.hasOwn(castingProfiles,castProfile))throw Error('Use --cast-profile=baseline|fast|scaled.');
 if(castProfile!=='baseline'&&castingPolicy!=='opportunity')throw Error('Casting trial profiles require --tier=1 --casting=opportunity.');
 useCastingProfile(castProfile as keyof typeof castingProfiles);

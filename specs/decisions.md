@@ -223,6 +223,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I13 | Three isolated tier-1 profiles baseline/fast/scaled, selected through --cast-profile. Baseline remains visibility200 ms / delay300–700 ms / multipliers1; fast uses100 /200–400 /1; scaled uses100 /200–400 /3,2,1. Target-based notice+decision ranges700–1300 /500–900 /300–500 ms; theft watches enemy charge directly without extra target visibility. Preserve separate delay RNG, witness cancellation and frozen clocks. Profiles are experimental: ordinary full-kit strategy and default baseline unchanged. Each ran7,500 matches (22,500 total), no caps; full raw outcomes/counters/pooled and per-level matrices are in casting-*.json/.md, comparison in casting-delay-review.md. Completed opportunities are valid at cast start, not guaranteed useful after warning; scheduled/cancelled/completed/pending totals are reconciled. No spell power adjustment. |
 
+| D118 | User adopts the tested scaled casting profile as the starting point for isolated one-star strength tuning, asks for tests/matrices and repeated reminders of current spells. Hold pacing, reaction settings and adopted casting delays fixed before further power changes. |
+
+| I14 | Make scaled the single default for one-star opportunity diagnostics (100 ms target visibility, 200–400 ms base decision delay ×3/×2/×1 Easy/Medium/Hard). Keep explicit baseline/fast profiles for reproduction, keep higher tiers’ immediate baseline and ordinary full-kit heuristics unchanged until their own pass. Default adoption changes no spell strength; current one-star Sweep remains immediate +1500 ms pulses/3 s and Tin Caps remains one mole/one extra hit/3 s. The user’s preferred faster Sweep/at least three Tin Caps moles remains pending for the spell-strength pass. Run fresh100-seed default tournament and compare all7,500 outcomes with prior explicit-scaled trial. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

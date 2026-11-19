@@ -2,10 +2,17 @@ import { afterEach,expect,it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { Bot } from '../../src/game/Bot';
 import { config } from '../../src/game/config';
-import { isolatedCasting,opportunityKey,useCastingProfile } from '../../src/game/IsolatedCasting';
+import { isolatedCasting,opportunityKey,useCastingProfile,defaultCastingProfile } from '../../src/game/IsolatedCasting';
 import type { Difficulty } from '../../src/game/types';
 
-afterEach(()=>useCastingProfile('baseline'));
+afterEach(()=>useCastingProfile(defaultCastingProfile));
+
+it('adopts the scaled profile as the single shared default for isolated diagnostics',()=>{
+  expect(defaultCastingProfile).toBe('scaled');
+  useCastingProfile(defaultCastingProfile);
+  expect(isolatedCasting.visibleMs).toBe(100);
+  expect(isolatedCasting.delayMultipliers).toEqual({easy:3,medium:2,hard:1});
+});
 function garden(difficulty:Difficulty='hard') {
   const match=new Match({characters:['captain-bramble','sprig'],mode:'local',difficulty,seed:41,isolatedSpellTier:1});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);

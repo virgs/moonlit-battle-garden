@@ -85,3 +85,6 @@ D115/I12 applies the shared target lifetime wave with a 500 ms floor and 600 ms 
 
 
 D117/I13 adds experimental baseline/fast/scaled delay profiles to isolated one-star diagnostics; scaling applies only to decision delay, with shared target visibility. Pooled versus overview retains per-level flags/details per D116. Normal full-kit AI, pacing and spell powers stay unchanged during this test.
+
+
+D118/I14 adopts the scaled casting profile for isolated one-star diagnostics only. Normal full-kit AI remains separate. No spell-strength or pacing/reaction changes accompany this adoption; current spell rules are reiterated in the baseline review and prototype.md before the next power-tuning pass.

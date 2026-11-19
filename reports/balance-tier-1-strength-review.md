@@ -1,5 +1,7 @@
 # Controlled one-star strength pass
 
+Historical: these trials precede the shared half-second pacing and adopted scaled casting baseline. Current results are in balance-tier-1.md; this report preserves the earlier controlled comparisons.
+
 Current [Easy/Medium/Hard matrices](balance-tier-1.md) and full per-match records in balance-tier-1.json. This pass changes only Clean Sweep cadence and Tin Caps target quota.
 
 ## Adopted settings

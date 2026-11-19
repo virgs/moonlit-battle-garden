@@ -1,9 +1,13 @@
-import { expect,it } from 'vitest';
+import { afterEach,beforeEach,expect,it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { Bot } from '../../src/game/Bot';
 import { config } from '../../src/game/config';
-import { isolatedCasting,opportunityKey } from '../../src/game/IsolatedCasting';
+import { isolatedCasting,opportunityKey,useCastingProfile,defaultCastingProfile } from '../../src/game/IsolatedCasting';
 import type { CharacterId,Difficulty,Target } from '../../src/game/types';
+
+// Retain historical-policy coverage explicitly; the adopted default is tested separately.
+beforeEach(()=>useCastingProfile('baseline'));
+afterEach(()=>useCastingProfile(defaultCastingProfile));
 
 function game(character:CharacterId='andromoss',difficulty:Difficulty='medium') {
   const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:41,isolatedSpellTier:1});
