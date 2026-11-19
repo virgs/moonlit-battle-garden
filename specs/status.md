@@ -104,3 +104,6 @@ The primary balance view is now the user-requested versus matrix, pooled equally
 
 
 D106 correction: one-star Sweep now uses one fixed column (busiest at cast time, leftmost ties); Royal Cleanup remains full-board. Borrowed Spark steals all enemy stars subject to the four-charge caster cap; empty meter wastes it, wards still block. See reports/balance-column-theft-review.md for the new 7,500-match run; previous full-board results are historical. No additional durations/points or other spells changed.
+
+
+D107: offline tier-isolated harness implemented, with one-slot/one-star trials and uniform immediate casting. First tier-1 run: 7,500 matches, no caps; no power changes. Three matrices, measured impact and interpretation limits are in reports/balance-tier-1.md and balance-tier-1-review.md. Borrowed Spark is wasted against an empty meter about 98% of casts under this restrictive policy; Champignon changes from Easy-favored to Hard-unfavored; mirror samples have 61–62% Champignon side-win signals requiring follow-up before fine tuning. Higher tiers are supported but not yet run. Normal browser mode remains unchanged.

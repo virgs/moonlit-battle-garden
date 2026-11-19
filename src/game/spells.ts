@@ -1,5 +1,6 @@
 import { config, characters } from './config';
 import { busiestColumns } from './targetColumns';
+import type { MatchStatistics } from './statistics';
 import type { MatchState, Player, PlayerId } from './types';
 import { cleanse, expireTargetModifiers, modifyTarget } from './targetModifiers';
 
@@ -48,14 +49,15 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   return true;
 }
 
-export function resolveSpells(state: MatchState): void {
+export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: MatchStatistics): void {
   expireTargetModifiers(state);
-  for (const player of state.players) {
+  for (const [id, player] of state.players.entries()) {
     const due = player.pending.filter(spell => spell.at <= state.time);
     player.pending = player.pending.filter(spell => spell.at > state.time);
     for (const spell of due) {
       if (player.magicShieldUntil > state.time) {
         player.magicShieldUntil = 0;
+        if (statistics) statistics[id].wardBlocks++;
         message(player, `${characters[player.character].spells[2].name} blocked the spell!`, state.time);
         continue;
       }
@@ -83,7 +85,13 @@ export function resolveSpells(state: MatchState): void {
       if (spell.tier === 1 || spell.tier === 3) {
         const stars = spell.tier === 1 ? player.stars : Math.min(player.stars, 2);
         player.stars -= stars;
-        caster.stars = Math.min(4, caster.stars + stars);
+        const received = Math.min(starCapacity - caster.stars, stars);
+        caster.stars = Math.min(starCapacity, caster.stars + stars);
+        if (statistics) {
+          statistics[spell.from].starsStolen += stars;
+          statistics[spell.from].stolenStarsReceived += received;
+          if (!stars) statistics[spell.from].emptyThefts++;
+        }
         // Empty theft has no fallback effect; the cast still spends its charge.
       }
       // A stronger pressure spell replaces the weaker one, rather than stacking.

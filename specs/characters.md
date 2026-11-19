@@ -229,3 +229,6 @@ Supersedes I03: Sweep/Royal Cleanup and Bramble armor last 3 seconds. Sweep hits
 ### Current column/theft correction (D106/I05)
 
 Clean Sweep (one star) hits one fixed column for three seconds; Royal Cleanup (four) keeps full-board coverage and its guards. The provisional selector chooses the busiest column at cast time, leftmost on ties. Borrowed Spark steals **all** enemy charge at resolution, up to the caster’s four-star capacity, and is wasted against an empty meter. Other spells remain unchanged, including Sticky Fingers stealing at most two stars. The resulting tier-1/tier-3 resource overlap needs future design review, rather than silently changing tier 3. Previous copy-one/full-board-one-star descriptions are historical.
+
+
+D107: initial isolated-tier diagnostics make no changes to these powers or costs. Borrowed Spark/Sticky Fingers assignment changes remain deferred. One-slot tests alter the resource economy and omit cross-tier options; preserve that limitation when interpreting each hero’s spell strength.

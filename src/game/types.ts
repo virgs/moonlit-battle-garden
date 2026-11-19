@@ -57,7 +57,10 @@ export type MatchState = {
   paused: boolean;
   casting: { player: PlayerId; tier: number; remainingMs: number } | null;
 };
+export type SpellTier = 1 | 2 | 3 | 4;
 export type MatchOptions = {
+  /** Offline diagnostic only: capacity/casting cost equals this tier. */
+  isolatedSpellTier?: SpellTier;
   characters: [CharacterId, CharacterId];
   mode: 'ai' | 'local' | 'online';
   difficulty: Difficulty;

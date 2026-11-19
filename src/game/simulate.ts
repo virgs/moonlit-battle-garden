@@ -1,7 +1,8 @@
 import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
-import type { CharacterId, Difficulty, PlayerId } from './types';
+import type { MatchStatistics } from './statistics';
+import type { CharacterId, Difficulty, PlayerId, SpellTier } from './types';
 
 export type BattleResult = {
   winner: CharacterId | null;
@@ -13,11 +14,12 @@ export type BattleResult = {
   scores: [number, number];
   casts: [number[], number[]];
   timedOut: boolean;
+  statistics: MatchStatistics;
 };
 
 /** Same match and bot code as the browser; no rendering, timers, or network. */
-export function simulateBattle(characters: [CharacterId, CharacterId], difficulty: Difficulty, seed: number): BattleResult {
-  const match = new Match({ characters, difficulty, mode: 'local', seed });
+export function simulateBattle(characters: [CharacterId, CharacterId], difficulty: Difficulty, seed: number, isolatedSpellTier?: SpellTier): BattleResult {
+  const match = new Match({ characters, difficulty, mode: 'local', seed, isolatedSpellTier });
   const bots = [new Bot(difficulty, seed ^ 0x123456, 0), new Bot(difficulty, seed ^ 0x654321, 1)];
   const casts: [number[], number[]] = [[0, 0, 0, 0], [0, 0, 0, 0]];
   const scores: [number, number] = [0, 0];
@@ -50,6 +52,6 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   return {
     winner: !timedOut && match.state.winner !== null ? characters[match.state.winner] : null,
     winnerSide: timedOut ? null : match.state.winner,
-    rounds: match.state.round, durationMs: elapsedMs, roundDurationsMs, unfinishedRoundMs:timedOut&&match.state.phase!=='round-over'?elapsedMs-roundStartedMs:null, scores, casts, timedOut,
+    rounds: match.state.round, durationMs: elapsedMs, roundDurationsMs, unfinishedRoundMs:timedOut&&match.state.phase!=='round-over'?elapsedMs-roundStartedMs:null, scores, casts, timedOut, statistics: match.statistics,
   };
 }

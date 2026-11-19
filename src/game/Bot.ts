@@ -28,8 +28,14 @@ export class Bot {
 
   update(match: Match): void {
     const state = match.state;
-    if (state.phase !== 'playing' || state.paused || state.casting || state.time < this.nextAction) return;
+    if (state.phase !== 'playing' || state.paused || state.casting) return;
     const player = state.players[this.id];
+    // Isolated diagnostics have one identical cast rule, independent of hit timing/strategy.
+    if (match.options.isolatedSpellTier && player.stars === match.options.isolatedSpellTier && state.time >= player.nextCast) {
+      match.action({ type: 'cast', player: this.id });
+      return;
+    }
+    if (state.time < this.nextAction) return;
     const tuning = config.ai[this.difficulty];
     const visible = player.holes.filter(target => target !== null);
     const activeIds = new Set(visible.map(target => target.id));
@@ -38,7 +44,7 @@ export class Bot {
     if(tuning.reactionJitter)for(const target of visible)if(!this.reactionAt.has(target.id)) {
       this.reactionAt.set(target.id,target.born+Math.round(tuning.reactionMs*(1+(this.timing.next()*2-1)*tuning.reactionJitter)));
     }
-    if (player.stars && state.time >= player.nextCast) {
+    if (!match.options.isolatedSpellTier && player.stars && state.time >= player.nextCast) {
       if (!this.desiredTier) {
         const tiers = this.difficulty === 'easy' ? [1, 1, 2, 3, 4] : [1, 2, 3, 4, 4];
         this.desiredTier = tiers[Math.floor(this.random.next() * tiers.length)];

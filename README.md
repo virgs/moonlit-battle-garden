@@ -72,6 +72,7 @@ pnpm balance:mirrors --seeds=1000 --seed=20261117
 pnpm assets:check
 pnpm balance:roster --seeds=100 --seed=20261118
 pnpm balance:duration-review
+pnpm balance:roster --tier=1 --seeds=100 --seed=20261119
 ```
 
 The balance command runs 600 best-of-three AI matches: 100 seeds, both player-side assignments, and three same-difficulty pairings. Reports include wins, draws, match duration, tier-by-tier cast coverage, and per-match JSON. Unfinished matches at the diagnostic cap are reported separately; --fail-on-cap makes them a strict failure. These are diagnostics, not a claim that human play is balanced. See [latest results](reports/balance-latest.md).
@@ -106,3 +107,6 @@ Open `?network-check=host` on the website to create an automatic diagnostic room
 The [mirror-match audit](reports/balance-mirrors.md) checks Andromoss/Andromoss and Champignon/Champignon at each AI level with side wins and unfinished matches reported separately. Approximately 50/50 side results are a sanity check, not proof of bot strength or cross-character balance.
 
 Current AI uses bounded seeded reaction/action variation and occasional hesitation on every difficulty, with 70/87/92% hit accuracy. Stronger wave peaks and a faster round ramp shorten matches; every round still starts identically. The [duration tuning review](reports/balance-duration-review.md) compares the original and selected settings on 12,000 held-out simulations: selected mixed-character median rounds 53/66/89 seconds, and no capped matches in 6,000 selected-config runs. Hard still favors Champignon; human playtesting and spell balance remain open.
+
+
+Tier-isolated offline diagnostics start with [one-star results](reports/balance-tier-1.md): `--tier=1` gives one charge slot and only the one-star spell. `--tier=2..4` prepares later trials with matching capacity/cost and no lower-tier casts. All bots cast immediately when full/cooldown-ready, even if wasteful. Hitting still follows difficulty. Normal browser play and reports without `--tier` retain the four-slot meter and existing strategy. No spell powers changed. These trials omit normal resource economy/cross-tier counters; compare spell coverage/impact and human play before tuning complete kits.

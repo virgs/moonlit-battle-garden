@@ -1,4 +1,5 @@
 import { config } from './config';
+import { playerStatistics, type MatchStatistics } from './statistics';
 import { SpawnDirector } from './SpawnDirector';
 import { castSpell, message, resolveSpells } from './spells';
 import type { GameAction, GameEvent, MatchOptions, MatchState, Player, PlayerId, TargetKind } from './types';
@@ -6,11 +7,14 @@ import type { GameAction, GameEvent, MatchOptions, MatchState, Player, PlayerId,
 export class Match {
   readonly state: MatchState;
   events: GameEvent[] = [];
+  readonly statistics: MatchStatistics = [playerStatistics(), playerStatistics()];
+  get starCapacity(): number { return this.options.isolatedSpellTier ?? 4; }
   private spawns: SpawnDirector;
   private eventId = 0;
   private accumulator = 0;
 
   constructor(readonly options: MatchOptions) {
+    if (options.isolatedSpellTier !== undefined && ![1,2,3,4].includes(options.isolatedSpellTier)) throw Error('Isolated tier must be 1..4');
     this.spawns = new SpawnDirector(options.seed);
     this.spawns.reset(config.countdownMs);
     this.state = {
@@ -51,7 +55,7 @@ export class Match {
       if (state.time >= state.countdownUntil) state.phase = 'playing';
       return;
     }
-    resolveSpells(state);
+    resolveSpells(state, this.starCapacity, this.statistics);
     state.players.forEach((player, id) => {
       if (player.sweepUntil > state.time && state.time >= player.nextSweep) {
         player.nextSweep = state.time + config.rosterSpells.sweepIntervalMs;
@@ -79,6 +83,7 @@ export class Match {
     if (action.player !== 0 && action.player !== 1) return;
     if (action.type === 'cast') {
       const tier = this.state.players[action.player].stars;
+      if (this.options.isolatedSpellTier && tier !== this.options.isolatedSpellTier) return;
       if (castSpell(this.state, action.player)) {
         this.emit(action.player, 'cast', undefined, tier);
         this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
@@ -113,9 +118,14 @@ export class Match {
       this.penalize(id, config.penalties.rabbit, hole, 'rabbit', 'rabbit');
       return;
     }
-    player.score += config.points[target.kind]
+    const points = config.points[target.kind]
       + (!automated && target.kind === 'mole' && player.drainUntil > this.state.time ? config.rosterSpells.drainBonus : 0);
-    if (target.kind === 'star') player.stars = Math.min(4, player.stars + 1);
+    player.score += points;
+    this.statistics[id].pointsEarned += points;
+    if (target.kind === 'star') {
+      this.statistics[id].starsCollected += Math.min(1, this.starCapacity - player.stars);
+      player.stars = Math.min(this.starCapacity, player.stars + 1);
+    }
     this.emit(id, target.kind === 'star' ? 'star' : 'hit', hole, undefined, target.kind);
   }
 
@@ -123,10 +133,13 @@ export class Match {
     const player = this.state.players[id];
     if (player.mistakeShield > 0 && player.shieldUntil > this.state.time) {
       player.mistakeShield--;
+      this.statistics[id].guardBlocks++;
+      this.statistics[id].guardPointsPrevented += amount;
       message(player, 'Guard absorbed a mistake', this.state.time);
       this.emit(id, 'shield', hole, undefined, targetKind, reason);
     } else {
       player.score -= amount;
+      this.statistics[id].pointsLost += amount;
       this.emit(id, 'penalty', hole, undefined, targetKind, reason);
     }
   }
