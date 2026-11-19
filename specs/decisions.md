@@ -155,6 +155,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D96 | User approves Sprig base-v6 and authorizes idle, victory, one shared magical casting animation and head-and-shoulders portrait/icon. Preserve matched head/torso paint and directly integrated shovel/cultivator hands without handles or fingers. Generate each animation as one complete clip; no automatic cleanup. User-only visual review; stage assets without playable roster expansion. |
 
+| D97 | User reopens Andromoss for one last from-scratch attempt with a much simpler design and permits removing glasses in favor of big wide-open eyes. Generate one fresh base first: normal adult head/body proportions, rigid skin-continuous crown, simple gills/tail; proposed simplified jacket and removal of hook/chain/rear braid reduce clutter. Tight palette, broad flat shapes and minimal shading. User reviews before new animations; preserve old runtime assets until replacement approval. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

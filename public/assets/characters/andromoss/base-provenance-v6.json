@@ -1,0 +1,42 @@
+{
+  "generator": "PixelLab create_image_pro",
+  "created": "2026-11-18",
+  "character": "Andromoss",
+  "jobId": "9998e08c-1d0b-4e41-8549-a0b0ccfb8b79",
+  "assetId": "e571e2f9-6ebb-5adc-8abb-0b77930e3d82",
+  "request": {
+    "description": "Create a FRESH FROM-SCRATCH simplified BASE DESIGN of ANDROMOSS, a lean adult extraterrestrial trickster from Andromeda living in a moonlit garden. Much simpler and cleaner than the reference. Remove sunglasses completely: give him TWO LARGE WIDE-OPEN EXPRESSIVE EYES with simple broad pale eye shapes and dark readable pupils, a curious mischievous alert look. Eyes can be large WITHIN a NORMAL-SIZED ADULT HEAD: do NOT enlarge the skull or make a balloon/baby/chibi head. Keep slender adult body and long legs. His small short crown points are RIGID SKIN, one continuous surface with forehead, not hair/cap and no dividing hairline. Two simple bold neck gill marks, a slender lion-like tail with a tiny compact tip tuft. REMOVE hook, chain, rear braid/ponytail and tiny outfit details. Bare simple three-finger alien hands held naturally. Plain dark short jacket over one flat-color shirt, simple trousers/boots; no zippers, studs, buckles, seams, jewelry or equipment. Use few big readable shapes, thick consistent dark outlines, broad flat clean clusters, ONLY 2 shades per material and a tight palette. Preserve alien skin-color family from reference1 but redesign freely rather than tracing old pose/art. Match approved knight's clean adult pixel style and final game art. No white/light-gray noise, tiny isolated highlights, texture, dithering, gradients or magical particles. Full body and tail fit inside transparent 192x192 with generous animation margins, relaxed standing three-quarter facing slightly left. No scenery, writing, props or effects.",
+    "width": 192,
+    "height": 192,
+    "no_background": true,
+    "max_colors": 20,
+    "seed": 2026111840,
+    "style_image_url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/base-v3.png",
+    "style_copy": [
+      "outline",
+      "detail",
+      "shading"
+    ],
+    "reference_images": [
+      {
+        "url": "https://api.pixellab.ai/mcp/images/f41132a2-bbfc-4482-8c9e-f6a709781642/download",
+        "usage": "Alien species/anatomy and skin-color family only: normal adult head, skin-continuous crown, neck gills and slender tail. Do NOT copy sunglasses, hook/chain, rear braid, outfit detail or rendering. Draw a simpler new character from scratch with large exposed eyes."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/references/final-art-style-plate.png",
+        "usage": "Bold dark outlines and simple clean broad flat clusters of the final mole/rabbit/star/board art. Style only, not species or props."
+      }
+    ]
+  },
+  "status": "Staged simplified from-scratch base for user visual review; existing runtime assets unchanged. No model image inspection.",
+  "costGenerations": 10,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "565acc2416f1d245676b0bd01be897771c4dfdaac4bec5e7bd7a0fa3cfbe278e"
+}
