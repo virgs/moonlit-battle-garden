@@ -57,7 +57,7 @@ it('uses the same charge/cooldown/freeze contract for every tier of all five kit
 });
 
 it('Bramble armor takes extra strikes without granting early points, and expires', () => {
-  for (const tier of [2,4]) {
+  for (const tier of [1,4]) {
     const match=game('captain-bramble','andromoss'), victim=match.state.players[1];
     victim.holes[0]=target(match);
     cast(match,0,tier);resolve(match);
@@ -76,10 +76,10 @@ it('Bramble armor takes extra strikes without granting early points, and expires
 });
 
 it('Bramble guards consume one or three charges, independently of hostile armor', () => {
-  for(const tier of [1,3]) {
+  for(const tier of [2,3]) {
     const match=game('captain-bramble','sprig'),player=match.state.players[0];
     cast(match,0,tier);
-    for(let n=0;n<(tier===1?1:3);n++) match.action({type:'hit',player:0,hole:8});
+    for(let n=0;n<(tier===2?1:3);n++) match.action({type:'hit',player:0,hole:8});
     expect(player.score).toBe(0);
     match.action({type:'hit',player:0,hole:8});expect(player.score).toBe(-config.penalties.empty);
   }
@@ -106,7 +106,7 @@ it('Duskmantle siphon rewards manual mole hits, not star collection', () => {
   expect(player.score).toBe(config.points.mole+config.rosterSpells.drainBonus+config.points.star);
 });
 
-it('Sprig extends a target only once and automation never collects stars or rabbits', () => {
+it('Sprig extends a target only once and automation collects stars in its selected column', () => {
   const match=game('sprig','andromoss'),player=match.state.players[0];
   player.holes[0]=target(match);const expiry=player.holes[0].expires;
   cast(match,0,1);expect(player.holes[0]?.expires).toBe(expiry+config.rosterSpells.extensionMs);
@@ -114,11 +114,11 @@ it('Sprig extends a target only once and automation never collects stars or rabb
   expect(player.holes[0]?.expires).toBe(expiry+config.rosterSpells.extensionMs);
   match.advance(config.spells.cooldownMs);
   player.holes[3]=target(match,'mole',100);player.holes[6]=target(match,'star',101);player.holes[1]=target(match,'rabbit',102);
-  cast(match,0,2);expect(player.automationColumn).toBe(0);
-  match.advance(config.rosterSpells.automationIntervalMs*2);
+  cast(match,0,2);expect(player.automationColumns).toEqual([0]);
+  match.advance(config.rosterSpells.automationIntervalMs*3);
   expect(player.holes[0]).toBeNull();expect(player.holes[3]).toBeNull();
-  expect(player.holes[6]?.kind).toBe('star');expect(player.holes[1]?.kind).toBe('rabbit');
-  expect(player.stars).toBe(0);expect(player.score).toBe(config.rosterSpells.automationPoints*2);
+  expect(player.holes[6]).toBeNull();expect(player.holes[1]?.kind).toBe('rabbit');
+  expect(player.stars).toBe(1);expect(player.score).toBe(config.rosterSpells.automationPoints*2+config.points.star);
 });
 
 it('wards block new hostile spells; Sprig cleanse removes pending and active modifiers', () => {
@@ -129,12 +129,12 @@ it('wards block new hostile spells; Sprig cleanse removes pending and active mod
   cast(match,1,3);
   expect(victim.holes[0]?.armor).toBeUndefined();expect(victim.holes[0]?.missBonus).toBeUndefined();
   expect(victim.camouflageUntil).toBe(0);expect(victim.pending).toHaveLength(0);
-  match.advance(config.spells.cooldownMs);cast(match,0,2);resolve(match);
+  match.advance(config.spells.cooldownMs);cast(match,0,1);resolve(match);
   expect(victim.holes[0]?.armor).toBeUndefined();expect(victim.magicShieldUntil).toBe(0);
 });
 
 it('new modifier clocks freeze during casts and reset for the next round', () => {
-  const match=game('duskmantle','sprig');cast(match,0,2);resolve(match);
+  const match=game('duskmantle','sprig');cast(match,0,1);resolve(match);
   const until=match.state.players[1].camouflageUntil,time=match.state.time;
   cast(match,1,4);expect(match.state.time).toBe(time);expect(match.state.players[1].camouflageUntil).toBe(until);
   match.state.phase='round-over';match.nextRound();
@@ -145,7 +145,7 @@ it('new modifier clocks freeze during casts and reset for the next round', () =>
 
 it('armor/marks apply to future actual spawns, stop at expiry and do not affect stars', () => {
   const match=game('captain-bramble','duskmantle');
-  cast(match,0,2);resolve(match);
+  cast(match,0,1);resolve(match);
   const victim=match.state.players[1];victim.nextSpawn=match.state.time;
   for(let time=0;time<4000&&!victim.holes.some(t=>t?.kind==='mole'&&t.armor===1);time+=config.tickMs)match.advance(config.tickMs);
   expect(victim.holes.some(t=>t?.kind==='mole'&&t.armor===1)).toBe(true);
@@ -156,7 +156,7 @@ it('armor/marks apply to future actual spawns, stop at expiry and do not affect 
   expect(other.state.players[1].holes.some(t=>t?.missBonus)).toBe(true);
 });
 
-it('Sprig full automation works across columns but spends one action per armor strike', () => {
+it('Sprig two-column automation works across its selected columns but spends one action per armor strike', () => {
   const match=game('sprig','andromoss'),player=match.state.players[0];
   player.holes[0]={...target(match),armor:1};player.armorUntil=match.state.time+10000;
   player.holes[1]=target(match,'mole',100);player.holes[2]=target(match,'star',101);
@@ -165,6 +165,7 @@ it('Sprig full automation works across columns but spends one action per armor s
   expect(player.holes[0]?.armor).toBe(0);expect(player.score).toBe(0);
   match.advance(config.rosterSpells.automationIntervalMs*2);
   expect(player.holes[0]).toBeNull();expect(player.holes[1]).toBeNull();
+  expect(player.automationColumns).toHaveLength(2);
   expect(player.holes[2]?.kind).toBe('star');expect(player.score).toBe(config.rosterSpells.automationPoints*2);
 });
 

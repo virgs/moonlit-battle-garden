@@ -42,7 +42,7 @@ for (const valid of [true, false]) test(`drop-in idle/home art and ${valid ? 'va
   await page.getByRole('button', { name: 'Resume', exact: true }).click();
   for (let tick = 0; tick < 40 && await cast.count(); tick++) await page.clock.runFor(50);
   await expect(cast).toHaveCount(0);
-  const guard = page.locator('.effect-guard');
+  const guard = page.locator('.effect-sweep');
   await expect(guard).toHaveAttribute('data-asset',valid ? 'ready' : 'fallback');
   expect(await guard.evaluate(element => getComputedStyle(element).pointerEvents)).toBe('none');
   expect(errors).toEqual([]);

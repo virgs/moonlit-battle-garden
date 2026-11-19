@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
-  rosterSpells: { brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; automationPoints: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; automationPoints: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -45,26 +45,26 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   champignon: {
     name: 'Sir Champignon', role: 'The garden guardian', color: '#c9e586', emblem: '♜',
     spells: [
+      { name: 'Clean Sweep', description: 'Clear current and new moles/rabbits for 3 seconds. Leave stars.' },
       { name: 'Mushroom Guard', description: 'Block the next mistake for 12 seconds.' },
-      { name: 'Clean Sweep', description: 'Safely clear moles and rabbits. Leave stars to collect.' },
       { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
-      { name: 'Royal Cleanup', description: 'Sweep the board and block three mistakes for 12 seconds.' },
+      { name: 'Royal Cleanup', description: 'Sweep for 3 seconds and block three mistakes for 12 seconds.' },
     ],
   },
   andromoss: {
     name: 'Andromoss', role: 'The star-stealing troublemaker', color: '#ffb27c', emblem: '✦',
     spells: [
-      { name: 'Borrowed Spark', description: 'Copy one enemy star. Gain a guard if they have none.' },
+      { name: 'Borrowed Spark', description: 'Copy one enemy star, if available.' },
       { name: 'Rabbit Riot', description: 'Fill upcoming enemy waves with extra rabbits for 7.5 seconds.' },
-      { name: 'Sticky Fingers', description: 'Steal up to two enemy stars. Gain a guard if they have none.' },
+      { name: 'Sticky Fingers', description: 'Steal up to two enemy stars, if available.' },
       { name: 'Double Trouble', description: 'Send faster, rabbit-heavy waves for 8.5 seconds.' },
     ],
   },
   'captain-bramble': {
     name: 'Captain Bramble', role: 'The steadfast garden sentinel', color: '#da956b', emblem: '♜',
     spells: [
-      { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
       { name: 'Tin Caps', description: 'Enemy moles need one extra hit for 6 seconds.' },
+      { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
       { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
       { name: 'Heavy Harvest', description: 'Enemy moles need two extra hits for 6 seconds.' },
     ],
@@ -82,9 +82,9 @@ export const characters: Record<CharacterId, { name: string; role: string; color
     name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
     spells: [
       { name: 'Gentle Tending', description: 'Extend current targets by 0.7 seconds, once per target.' },
-      { name: 'Helping Tines', description: 'Automate one column for 6.5 seconds; cleared moles earn 6 points.' },
+      { name: 'Helping Tines', description: 'Work one column every 0.25 seconds for 6.5 seconds; collect stars.' },
       { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
-      { name: 'Garden Clockwork', description: 'Automate the whole garden for 8 seconds; never collect stars.' },
+      { name: 'Garden Clockwork', description: 'Work two columns every 0.25 seconds for 8 seconds; collect stars.' },
     ],
   },
 };

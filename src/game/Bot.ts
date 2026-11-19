@@ -44,17 +44,23 @@ export class Bot {
       }
       const opponent = state.players[this.id === 0 ? 1 : 0];
       const defender = player.character === 'champignon' || player.character === 'captain-bramble';
+      const atRisk = visible.filter(target => target.kind === 'mole' && target.expires - state.time <= tuning.reactionMs + tuning.intervalMs * (1 + (target.armor ?? 0)));
+      const sweepNeeded = atRisk.length >= 2 || (player.armorUntil > state.time && visible.filter(target => target.kind === 'mole').length >= 2)
+        || atRisk.some(target => !!target.missBonus);
       const emergency = (player.character === 'champignon' && (
-        (player.pending.length > 0 && player.stars === 3) ||
-        (opponent.score - player.score >= config.winScoreDifference * 0.65 && player.mistakeShield === 0) ||
-        visible.filter(target => target.kind === 'mole').length >= 3
-      )) || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 3) && player.mistakeShield === 0 && opponent.score - player.score >= config.winScoreDifference * 0.65);
+        (player.stars === 1 && sweepNeeded) ||
+        (player.stars === 2 && player.mistakeShield === 0 && atRisk.length > 0) ||
+        (player.stars === 3 && player.pending.length > 0)
+      )) || (player.character === 'captain-bramble' && (player.stars === 2 || player.stars === 3) && player.mistakeShield === 0 && opponent.score - player.score >= config.winScoreDifference * 0.65);
+      // A zero-point sweep is defensive: do not erase safe scoring targets just to spend one star.
+      const pointlessSweep = player.character === 'champignon' && player.stars === 1 && (!sweepNeeded || player.sweepUntil > state.time);
       const canSteal = player.character === 'andromoss' && player.stars === 3 && opponent.stars >= 2;
-      const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 2 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
+      const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
       const waitForWard = hostile && opponent.magicShieldUntil > state.time;
-      const alreadyGuarded = defender && player.stars === 1 && player.mistakeShield > 0 && player.shieldUntil > state.time;
+      const alreadyGuarded = defender && player.stars === 2 && player.mistakeShield > 0 && player.shieldUntil > state.time;
       const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || player.armorUntil > state.time || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
-      if (!waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {
+      const emptyTheft = player.character === 'andromoss' && (player.stars === 1 || player.stars === 3) && opponent.stars === 0;
+      if (!pointlessSweep && !emptyTheft && !waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {
         match.action({ type: 'cast', player: this.id });
         this.desiredTier = 0;
         this.scheduleAction(state.time);

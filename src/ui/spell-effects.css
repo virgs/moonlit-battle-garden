@@ -1,3 +1,5 @@
 .spell-effects{position:absolute;pointer-events:none;z-index:2}.spell-effect{position:absolute;inset:0;color:#d0e98b;pointer-events:none;filter:drop-shadow(0 0 3px currentColor)}.spell-effect>svg{display:block;width:100%;height:100%;image-rendering:pixelated}.spell-effect[data-asset=fallback] rect{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke}.spell-effect[data-asset=fallback] path{fill:currentColor;stroke:none}.effect-ward{color:#b6a5ff;inset:-5px}.effect-invasion,.effect-decoys{color:#ffad76}.effect-decoys rect{stroke-dasharray:5 4}.effect-incoming{color:#ff8585;inset:-8px}.effect-incoming rect{stroke-dasharray:3 4}.effect-impact{color:#fff3ab;inset:8px}.effect-impact rect{stroke-dasharray:8 20}
 
 .effect-armor{color:#b7c7da}.effect-armor rect{stroke-dasharray:8 3}.effect-curse,.effect-veil{color:#cb8fea}.effect-curse rect{stroke-dasharray:2 5}.effect-drain{color:#dfb0f3}.effect-automation{color:#98dca7}.effect-automation rect{stroke-dasharray:12 8}
+
+.effect-sweep{color:#d7e895}.effect-sweep rect{stroke-dasharray:14 8}

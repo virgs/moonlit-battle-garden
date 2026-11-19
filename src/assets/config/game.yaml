@@ -48,6 +48,7 @@ spells:
   decoysMs: 8500
   shieldMs: 12000
 rosterSpells:
+  cleanSweepMs: 3000
   brambleGuardMs: 8000
   armorMs: 6000
   markMs: 8000
@@ -59,7 +60,7 @@ rosterSpells:
   extensionMs: 700
   columnAutomationMs: 6500
   fullAutomationMs: 8000
-  automationIntervalMs: 750
+  automationIntervalMs: 250
   automationPoints: 6
   cleanseWardMs: 6000
 ai:

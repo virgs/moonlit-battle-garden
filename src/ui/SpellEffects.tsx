@@ -13,6 +13,7 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   const { state } = snapshot, player = state.players[garden.id];
   if (state.phase !== 'playing' || state.casting) return null;
   const effects: { kind: string; character: CharacterId; tier: number }[] = [];
+  if (player.sweepUntil > state.time) effects.push({ kind: 'sweep', character: 'champignon', tier: player.sweepTier });
   if (player.mistakeShield > 0 && player.shieldUntil > state.time) effects.push({ kind: 'guard', character: player.character, tier: player.shieldTier });
   if (player.magicShieldUntil > state.time) effects.push({ kind: 'ward', character: player.character, tier: 3 });
   if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andromoss', tier: 2 });

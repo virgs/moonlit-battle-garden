@@ -1,6 +1,6 @@
 import { config } from './config';
 import { SpawnDirector } from './SpawnDirector';
-import { castSpell, message, resolveSpells } from './spells';
+import { castSpell, message, resolveSpells, sweep } from './spells';
 import type { GameAction, GameEvent, MatchOptions, MatchState, Player, PlayerId, TargetKind } from './types';
 
 export class Match {
@@ -25,7 +25,7 @@ export class Match {
       character: this.options.characters[id], score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + config.pacing.firstSpawnMs,
       nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldTier: 1, shieldUntil: 0, magicShieldUntil: 0,
-      invasionUntil: 0, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, automationUntil: 0, automationColumn: null, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
+      invasionUntil: 0, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepTier: 1, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
     };
   }
 
@@ -53,14 +53,11 @@ export class Match {
     }
     resolveSpells(state);
     state.players.forEach((player, id) => {
+      if (player.sweepUntil > state.time) sweep(player);
       if (player.automationUntil > state.time && state.time >= player.nextAutomation) {
         player.nextAutomation = state.time + config.rosterSpells.automationIntervalMs;
-        const hole = player.holes.findIndex((target, index) => target?.kind === 'mole' && target.expires > state.time && state.time - target.born >= 200 && (player.automationColumn === null || index % 3 === player.automationColumn));
-        if (hole >= 0) {
-          const target = player.holes[hole]!;
-          if (target.armor) target.armor--;
-          else { player.holes[hole] = null; player.score += config.rosterSpells.automationPoints; this.emit(id as PlayerId, 'hit', hole, undefined, 'mole'); }
-        }
+        const hole = player.holes.findIndex((target, index) => target && target.expires > state.time && state.time - target.born >= 200 && player.automationColumns.includes(index % 3));
+        if (hole >= 0) this.hitTarget(id as PlayerId, hole, true);
       }
       player.holes.forEach((target, hole) => {
         if (target && target.expires <= state.time) {
@@ -71,6 +68,7 @@ export class Match {
       if (player.shieldUntil <= state.time) player.mistakeShield = 0;
     });
     this.spawns.update(state);
+    state.players.forEach(player => { if (player.sweepUntil > state.time) sweep(player); });
     this.checkOutcome();
   }
 
@@ -86,24 +84,28 @@ export class Match {
       return;
     }
     if (!Number.isInteger(action.hole) || action.hole < 0 || action.hole >= 9) return;
-    const player = this.state.players[action.player];
-    const target = player.holes[action.hole];
-    if (!target) this.penalize(action.player, config.penalties.empty, undefined, undefined, 'empty');
-    else {
-      if (target.kind === 'mole' && target.armor) {
-        target.armor--;
-        this.emit(action.player, 'shield', undefined, undefined, 'mole');
-        return;
-      }
-      player.holes[action.hole] = null;
-      if (target.kind === 'rabbit') this.penalize(action.player, config.penalties.rabbit, action.hole, 'rabbit', 'rabbit');
-      else {
-        player.score += config.points[target.kind] + (target.kind === 'mole' && player.drainUntil > this.state.time ? config.rosterSpells.drainBonus : 0);
-        if (target.kind === 'star') player.stars = Math.min(4, player.stars + 1);
-        this.emit(action.player, target.kind === 'star' ? 'star' : 'hit', action.hole, undefined, target.kind);
-      }
-    }
+    this.hitTarget(action.player, action.hole);
     this.checkOutcome();
+  }
+
+  /** Automation shares armor, star and rabbit-penalty rules with manual hits. */
+  private hitTarget(id: PlayerId, hole: number, automated = false): void {
+    const player = this.state.players[id], target = player.holes[hole];
+    if (!target) { if (!automated) this.penalize(id, config.penalties.empty, undefined, undefined, 'empty'); return; }
+    if (target.kind === 'mole' && target.armor) {
+      target.armor--;
+      this.emit(id, 'shield', undefined, undefined, 'mole');
+      return;
+    }
+    player.holes[hole] = null;
+    if (target.kind === 'rabbit') {
+      this.penalize(id, config.penalties.rabbit, hole, 'rabbit', 'rabbit');
+      return;
+    }
+    player.score += (automated && target.kind === 'mole' ? config.rosterSpells.automationPoints : config.points[target.kind])
+      + (!automated && target.kind === 'mole' && player.drainUntil > this.state.time ? config.rosterSpells.drainBonus : 0);
+    if (target.kind === 'star') player.stars = Math.min(4, player.stars + 1);
+    this.emit(id, target.kind === 'star' ? 'star' : 'hit', hole, undefined, target.kind);
   }
 
   private penalize(id: PlayerId, amount: number, hole?: number, targetKind?: TargetKind, reason?: GameEvent['reason']): void {

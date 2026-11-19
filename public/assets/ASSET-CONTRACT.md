@@ -23,9 +23,9 @@ Default effect contract: transparent 1024×128 PNG, eight 128×128 frames at 12 
 
 | Character | effect-1 | effect-2 | effect-3 | effect-4 |
 |---|---|---|---|---|
-| Sir Champignon | Mushroom Guard | Clean Sweep | Spore Ward | Royal Cleanup |
+| Sir Champignon | Clean Sweep | Mushroom Guard | Spore Ward | Royal Cleanup |
 | Andromoss | Borrowed Spark | Rabbit Riot | Sticky Fingers | Double Trouble |
-| Captain Bramble | Bramble Brace | Tin Caps | Iron Resolve | Heavy Harvest |
+| Captain Bramble | Tin Caps | Bramble Brace | Iron Resolve | Heavy Harvest |
 | Duskmantle | Ominous Bud | Violet Veil | Twilight Siphon | Withering Pact |
 | Sprig | Gentle Tending | Helping Tines | Weed Out | Garden Clockwork |
 

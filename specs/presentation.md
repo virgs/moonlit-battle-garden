@@ -67,3 +67,5 @@ PixelLab fills specific asset gaps after the initial character and spell require
 ## Delivery scope
 
 First release focuses on two characters with complete magic kits, local versus, online versus, mobile presentation, and three AI difficulties. Exact release checks and sequencing are still open. Keep the other six character concepts documented for expansion after this version is ready. Local/AI play is now implemented; see prototype.md for actual defaults. Offline AI self-play at all three difficulties is required to evaluate balance. Private online play is implemented; cross-network/mobile QA, optional relay provisioning remain pending. PWA delivery is deferred.
+
+Retune presentation: Clean Sweep’s procedural edge effect follows its 3-second gameplay window. Sprig’s active one/two columns have faint green bounds derived from actual hole hit areas, scaled uniformly with the board. Both hero casting animations and stars-spent overlays remain unchanged. Automation star pickups use the ordinary charge animation/SFX; rabbit hits use ordinary penalty/guard feedback. New snapshot fields use wire version8; mismatched clients must refresh.

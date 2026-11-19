@@ -33,7 +33,9 @@ export type Player = {
   camouflageUntil: number;
   drainUntil: number;
   automationUntil: number;
-  automationColumn: number | null;
+  automationColumns: number[];
+  sweepUntil: number;
+  sweepTier: number;
   automationTier: number;
   nextAutomation: number;
   pending: PendingSpell[];

@@ -88,7 +88,7 @@ describe('magic', () => {
   it('sweeps safely without awarding score or consuming stars on the board', () => {
     const match = create(); const player = match.state.players[0];
     target(match, 'mole', 0, 0); target(match, 'rabbit', 0, 1); target(match, 'star', 0, 2);
-    player.stars = 2;
+    player.stars = 1;
     match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     expect(player.holes.slice(0, 2)).toEqual([null, null]);
     expect(player.holes[2]?.kind).toBe('star');
@@ -96,7 +96,7 @@ describe('magic', () => {
   });
   it('a mistake guard absorbs one hit then expires', () => {
     const match = create(); const player = match.state.players[0];
-    player.stars = 1; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
+    player.stars = 2; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.score).toBe(0);
     match.action({ type: 'hit', player: 0, hole: 0 });
@@ -117,10 +117,10 @@ describe('magic', () => {
     expect(guardian.stars).toBe(2); expect(andromoss.stars).toBe(2);
     match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); expect(andromoss.stars).toBe(2);
   });
-  it('copying cannot generate stars without an opponent resource; empty targets give guard', () => {
+  it('copying cannot generate stars without an opponent resource; empty targets do nothing', () => {
     const match = create(); const andromoss = match.state.players[1];
     andromoss.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
-    expect(andromoss.stars).toBe(0); expect(andromoss.mistakeShield).toBe(1);
+    expect(andromoss.stars).toBe(0); expect(andromoss.mistakeShield).toBe(0);
   });
   it('four-star cleanup grants three mistake blocks', () => {
     const match = create(); const player = match.state.players[0];

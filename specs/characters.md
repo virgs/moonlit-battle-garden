@@ -213,3 +213,7 @@ The user adopted the fresh simplified Andromoss animations/icon on 2026-11-18. *
 ### Five-character gameplay adoption
 
 User explicitly requested all five approved heroes be playable. Runtime IDs match display names: `champignon`, `andromoss`, `captain-bramble`, `duskmantle`, `sprig`. All 20 spells now execute in the shared rules, not merely character-selection labels. See `specs/prototype.md` for new provisional timings and semantics. The approved art and home/music files are wired into selection, HUD, pause, cast/round/match results, AI/local matches and online rooms. No new PixelLab work. Historical art-staging notes above are superseded by this milestone.
+
+### Current spell costs and automation (D101/D102)
+
+Champignon now has Clean Sweep at 1 star (3-second clearing window), Mushroom Guard at 2, Spore Ward at 3 and Royal Cleanup at 4 (same sweep window plus three guards). Andromoss’s Borrowed Spark/Sticky Fingers have no fallback when the enemy has no stars; Double Trouble still affects the opponent. Bramble now has Tin Caps at 1 and Bramble Brace at 2; tiers 3/4 unchanged. Sprig automation strikes every 250 ms in one column (tier2,6.5s) or two (tier4,8s), collecting stars and taking normal rabbit penalties; armor consumes repeated strikes. Weed Out remains cleanse plus one 6-second hostile ward. No art changes; old concept/kit tables above are historical where they conflict with these current rules.

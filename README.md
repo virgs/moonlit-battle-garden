@@ -25,9 +25,9 @@ A single animated blue/red bar shows score difference, with blue on your side. T
 
 Five playable heroes use their approved idle, victory, shared casting and icon assets: Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig. All have four spells in the shared simulation, work as either human or AI opponents, and can be chosen in online rooms. Each match uses one participant’s distinct approved home/music. The same menus/HUD show all five heroes without extra permanent panels. Missing optional large portraits and per-spell effect sheets use existing fallbacks; no new artwork was generated for roster integration.
 
-New kits are provisional: Bramble guards mistakes and puts extra-hit armor on enemy moles; Duskmantle marks misses, dims readable target shapes and rewards manual mole hits; Sprig extends current targets, automates bounded mole clearing and cleanses hostile magic. Armor shows a helmet arc/remaining-hit pips, marked moles have violet rings, and active magic has board-edge placeholders. All clocks freeze during casts/pauses/recovery and reset each round. One shared hero cast is distinct from each spell’s effect animation. See [exact defaults](specs/prototype.md).
+New kits are provisional: Bramble guards mistakes and puts extra-hit armor on enemy moles; Duskmantle marks misses, dims readable target shapes and rewards manual mole hits; Sprig extends current targets, automates one/two columns of hits—including star collection and rabbit penalties—and cleanses hostile magic. Armor shows a helmet arc/remaining-hit pips, marked moles have violet rings, and active magic has board-edge placeholders. All clocks freeze during casts/pauses/recovery and reset each round. One shared hero cast is distinct from each spell’s effect animation. See [exact defaults](specs/prototype.md).
 
-The 1,500-match five-roster diagnostic finished without caps. Bramble won 87.5% Medium and 85.0% Hard across distinct-character pairings under current bot policies; armor is particularly sensitive to action timing and accuracy, so this remains a tuning issue, not proof of human balance. See [full pair and tier coverage](reports/balance-roster.md). Mobile uses the normal browser; PWA/native packaging and the remaining three heroes stay deferred.
+The current before/after comparison uses 100 paired seeds: **7,500 matches per run**, 200 games per distinct matchup and 100 mirrors per hero/level. Both runs finished without caps. The requested spell swaps and faster automation are implemented; Clean Sweep now clears for a provisional 3 active seconds, and empty star theft has no fallback. Champignon’s bot avoids sweeping safe scoring targets, but zero-point clearing still hurts Easy/Medium results. Bramble remains dominant (82.3% Medium / 83.9% Hard against other heroes). These are explicit tuning issues, not a human-balance claim. See [updated matrices and comparison](reports/balance-retune-review.md). Mobile uses the normal browser; PWA/native packaging and the remaining three heroes stay deferred.
 
 Menu modes are **Night Watch** (solo), **Garden Grudge** (shared keyboard), and **Beyond the Hedge** (online). **Garden Shed** contains sound settings and **Field Notes** explains play. During selection, R confirms/changes your hero, numpad + the second editable hero, Enter starts when both are ready, and Esc goes back. Key hints reuse the supplied CraftPix pack and hide on touch-primary devices.
 
@@ -70,7 +70,7 @@ pnpm e2e
 pnpm balance --seeds=100 --seed=20261116
 pnpm balance:mirrors --seeds=1000 --seed=20261117
 pnpm assets:check
-pnpm balance:roster --seeds=20 --seed=20261118
+pnpm balance:roster --seeds=100 --seed=20261118
 ```
 
 The balance command runs 600 best-of-three AI matches: 100 seeds, both player-side assignments, and three same-difficulty pairings. Reports include wins, draws, match duration, tier-by-tier cast coverage, and per-match JSON. Unfinished matches at the diagnostic cap are reported separately; --fail-on-cap makes them a strict failure. These are diagnostics, not a claim that human play is balanced. See [latest results](reports/balance-latest.md).
