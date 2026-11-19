@@ -1,5 +1,7 @@
 # Adopted one-star casting baseline
 
+Historical before the continuous Sweep correction and longer Bud/Tending trials. Current rules/results: continuous-sweep-duration-review.md and balance-tier-1.md.
+
 Current [pooled overview and Easy/Medium/Hard matrices](balance-tier-1.md); complete outcomes in balance-tier-1.json. This is an isolated one-star trial: one slot, no other tiers. Scaled is now the default, with 100 ms on-board visibility and 200–400 ms decision delay multiplied by Easy3/Medium2/Hard1. Normal full-kit AI is unchanged. Pacing and reaction settings remain fixed.
 
 ## Verification

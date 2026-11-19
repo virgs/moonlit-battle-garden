@@ -24,7 +24,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   message(player, characters[player.character].spells[tier - 1].name, state.time);
   if (player.character === 'champignon') {
     if (tier === 2 || tier === 4) guard(player, state.time, tier === 4 ? 3 : 1, tier);
-    if (tier === 1 || tier === 4) { player.nextSweep = state.time + (tier === 4 ? config.rosterSpells.royalSweepIntervalMs : config.rosterSpells.sweepIntervalMs); player.sweepUntil = state.time + config.rosterSpells.cleanSweepMs; player.sweepTier = tier; player.sweepColumns = tier === 1 ? busiestColumns(player, 1) : [0, 1, 2]; }
+    if (tier === 1 || tier === 4) { player.nextSweep = tier === 4 ? state.time + config.rosterSpells.royalSweepIntervalMs : 0; player.sweepUntil = state.time + config.rosterSpells.cleanSweepMs; player.sweepTier = tier; player.sweepColumns = tier === 1 ? busiestColumns(player, 1) : [0, 1, 2]; }
     if (tier === 3) player.magicShieldUntil = state.time + config.spells.shieldMs;
   } else if (player.character === 'captain-bramble' && (tier === 2 || tier === 3)) {
     guard(player, state.time, tier === 3 ? 3 : 1, tier, config.rosterSpells.brambleGuardMs);
@@ -75,7 +75,7 @@ export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: 
         if (spell.tier === 2) player.camouflageUntil = state.time + config.rosterSpells.camouflageMs;
         else {
           player.markTier = spell.tier;
-          player.markUntil = state.time + config.rosterSpells.markMs;
+          player.markUntil = state.time + (spell.tier === 1 ? config.rosterSpells.ominousMarkMs : config.rosterSpells.markMs);
           player.markCharges = spell.tier === 4 ? 4 : 1;
           player.markBonus = spell.tier === 4 ? config.rosterSpells.curseBonus : config.rosterSpells.markBonus;
           for (const target of player.holes) if (target) modifyTarget(player, target, state.time);

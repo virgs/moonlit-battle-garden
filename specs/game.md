@@ -88,3 +88,6 @@ D117/I13 adds experimental baseline/fast/scaled delay profiles to isolated one-s
 
 
 D118/I14 adopts the scaled casting profile for isolated one-star diagnostics only. Normal full-kit AI remains separate. No spell-strength or pacing/reaction changes accompany this adoption; current spell rules are reiterated in the baseline review and prototype.md before the next power-tuning pass.
+
+
+D119/I15 clarifies Clean Sweep owns its selected column for 3 active seconds and hits all arrivals on the same update, using normal hit rules; there is no 1500 ms strike delay. Longer provisional one-star durations are Ominous Bud 12 s marking window and Gentle Tending instant +1.2 s target extension. No additional mark quota/aura or other spell changes. See prototype.md and continuous-sweep-duration-review.md for exact rules and controlled results.

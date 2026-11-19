@@ -246,3 +246,6 @@ D117/I13 casting trials use the same base decision-delay distribution for all he
 
 
 D118/I14 freezes the adopted one-star casting profile while keeping current spell rules unchanged. Current baseline powers: Sweep1500 ms cadence/3 s; all-charge Borrowed Spark; one-mole Tin Caps/3 s; one-mole Ominous Bud +4 miss/8 s; Gentle Tending +700 ms once. The preference for faster Sweep and at least three Tin Caps moles remains pending, to be compared against this measured baseline.
+
+
+D119/I15 current one-star rules supersede earlier cadence/duration notes: Clean Sweep hits the busiest fixed column immediately and continuously intercepts its arrivals for 3 s; normal rewards/rabbit penalties and repeated armor strikes. Ominous Bud one mark/+4 miss has a 12 s window (8 s before); Withering Pact remains 8 s/four marks. Gentle Tending instantly extends current targets by1.2 s once (0.7 s before), without a lasting aura. These longer values are provisional, not proven balance improvements; controls showed no Bud outcome change and mixed Tending results. Tin Caps remains one mole/one extra hit/3 s; other powers and scaled casting profile unchanged.

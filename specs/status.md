@@ -122,3 +122,6 @@ D117/I13 casting-delay comparison complete: 22,500 matches across baseline/fast/
 
 
 D118/I14: scaled profile adopted as default for isolated one-star opportunity tests. Fresh7,500-match run (100 seeds/pairing/level), zero caps, exactly reproduces all outcomes/casts/decision metrics from explicit scaled trial. Current pooled/per-level matrices and spell reminders are in balance-tier-1.md / balance-tier-1-adopted-review.md. 158 tests/build/six desktop/mobile browser checks passed. No spell-strength, pacing or reaction-setting changes; ordinary full-kit AI unchanged. Faster Sweep/at least three Tin Caps moles are still pending preferences for next strength comparison.
+
+
+D119/I15: corrected Clean Sweep to immediate +same-update arrival hits for its 3 s column window. Tested Bud 8→12 s and Tending 700→1200 ms independently/together; adopted provisionally, not claimed balanced. Four 7,500-match trials +exact default rerun (37,500, no caps); Bud has zero outcome effect from longer duration, Tending mixed due partly to one-attempt bot strategy/occupancy. Royal Cleanup/Withering Pact and other powers unchanged. 161 tests/build/12 browser checks passed. Current pooled/per-level matrices and spell reminders in balance-tier-1.md and continuous-sweep-duration-review.md.

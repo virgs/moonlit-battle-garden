@@ -37,17 +37,17 @@ it('Clean Sweep hits only its fixed column for three seconds, with normal reward
   expect([p.holes[0],p.holes[3],p.holes[6]]).toEqual([null,null,null]);expect(p.sweepColumns).toEqual([0]);
   expect(p.holes[1]?.kind).toBe('star');expect(p.holes[2]?.kind).toBe('mole');expect(p.sweepUntil-match.state.time).toBe(3000);
   expect(p.score).toBe(reward);expect(p.stars).toBe(1);
-  match.advance(config.rosterSpells.sweepIntervalMs/2);p.holes[0]=target(match);match.advance(config.rosterSpells.sweepIntervalMs/2);
+  match.advance(100);p.holes[0]=target(match);match.advance(100);
   expect(p.holes[0]).toBeNull();expect(p.score).toBe(reward+config.points.mole);expect(p.holes[1]?.kind).toBe('star');
-  match.advance(config.rosterSpells.cleanSweepMs-config.rosterSpells.sweepIntervalMs);p.holes[0]=target(match);match.advance(250);expect(p.holes[0]?.kind).toBe('mole');
+  match.advance(config.rosterSpells.cleanSweepMs-200);p.holes[0]=target(match);match.advance(250);expect(p.holes[0]?.kind).toBe('mole');
 });
 
 it('sweep spends separate strikes on armor and cannot score a target twice',()=>{
   const match=game('champignon'),p=match.state.players[0];p.armorUntil=match.state.time+3000;
   p.holes[0]=target(match,'mole',1);cast(match,0,1);
   expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
-  match.advance(config.rosterSpells.sweepIntervalMs-50);expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
-  match.advance(50);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.points.mole);
+  match.advance(config.tickMs-1);expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
+  match.advance(1);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.points.mole);
   match.advance(1000);expect(p.score).toBe(config.points.mole);
 });
 

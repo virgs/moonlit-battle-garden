@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
-  rosterSpells: { cleanSweepMs: number; sweepIntervalMs: number; royalSweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; ominousMarkMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -45,7 +45,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   champignon: {
     name: 'Sir Champignon', role: 'The garden guardian', color: '#c9e586', emblem: '♜',
     spells: [
-      { name: 'Clean Sweep', description: 'Hit one column immediately, then every 1.5 seconds for 3 seconds; normal hit rules.' },
+      { name: 'Clean Sweep', description: 'Hits the busiest column immediately and keeps hitting whatever appears there for 3 seconds; normal rewards and rabbit penalties.' },
       { name: 'Mushroom Guard', description: 'Block the next mistake for 12 seconds.' },
       { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
       { name: 'Royal Cleanup', description: 'Hit all targets for 3 seconds and block three mistakes for 12 seconds.' },
@@ -72,7 +72,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   duskmantle: {
     name: 'Duskmantle', role: 'The keeper of garden curses', color: '#bd94e7', emblem: '☾',
     spells: [
-      { name: 'Ominous Bud', description: 'Mark one enemy mole; missing it costs 4 extra points.' },
+      { name: 'Ominous Bud', description: 'Mark one enemy mole within 12 seconds; missing it costs 4 extra points.' },
       { name: 'Violet Veil', description: 'Dim enemy targets for 6.5 seconds; their shapes stay visible.' },
       { name: 'Twilight Siphon', description: 'Earn 2 extra points on manual mole hits for 7 seconds.' },
       { name: 'Withering Pact', description: 'Mark four enemy moles; each miss costs 6 extra points.' },
@@ -81,7 +81,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   sprig: {
     name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
     spells: [
-      { name: 'Gentle Tending', description: 'Extend current targets by 0.7 seconds, once per target.' },
+      { name: 'Gentle Tending', description: 'Extend current targets by 1.2 seconds, once per target.' },
       { name: 'Helping Tines', description: 'Work one column every 0.25 seconds for 6.5 seconds; collect stars.' },
       { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
       { name: 'Garden Clockwork', description: 'Work two columns every 0.25 seconds for 8 seconds; collect stars.' },
@@ -91,7 +91,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
 
 // Active-effect windows have a user-requested three-second floor. Instant actions,
 // casting/warning/cooldown clocks and one-time lifetime extensions are separate.
-for (const key of ['cleanSweepMs','armorMs','brambleGuardMs','markMs','camouflageMs','drainMs','columnAutomationMs','fullAutomationMs','cleanseWardMs'] as const) {
+for (const key of ['cleanSweepMs','ominousMarkMs','armorMs','brambleGuardMs','markMs','camouflageMs','drainMs','columnAutomationMs','fullAutomationMs','cleanseWardMs'] as const) {
   if (config.rosterSpells[key] < 3000) throw new Error(`Active effect below 3 seconds: ${key}`);
 }
 if ([config.spells.shieldMs,config.spells.invasionMs,config.spells.decoysMs].some(ms=>ms<3000)) throw new Error('Active spell windows must be at least 3 seconds');

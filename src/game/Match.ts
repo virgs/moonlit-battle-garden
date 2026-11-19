@@ -63,8 +63,8 @@ export class Match {
     }
     resolveSpells(state, this.starCapacity, this.statistics);
     state.players.forEach((player, id) => {
-      if (player.sweepUntil > state.time && state.time >= player.nextSweep) {
-        player.nextSweep = state.time + (player.sweepTier === 4 ? config.rosterSpells.royalSweepIntervalMs : config.rosterSpells.sweepIntervalMs);
+      if (player.sweepTier === 4 && player.sweepUntil > state.time && state.time >= player.nextSweep) {
+        player.nextSweep = state.time + config.rosterSpells.royalSweepIntervalMs;
         this.sweepBoard(id as PlayerId);
       }
       if (player.automationUntil > state.time && state.time >= player.nextAutomation) {
@@ -81,6 +81,10 @@ export class Match {
       if (player.shieldUntil <= state.time) player.mistakeShield = 0;
     });
     this.spawns.update(state);
+    // Tier 1 owns its column for the full window: include targets born this tick.
+    state.players.forEach((player,id)=>{
+      if(player.sweepTier===1 && player.sweepUntil>state.time)this.sweepBoard(id as PlayerId);
+    });
     this.checkOutcome();
   }
 

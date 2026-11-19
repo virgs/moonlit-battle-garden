@@ -48,19 +48,19 @@ spells:
   shieldMs: 12000
 rosterSpells:
   cleanSweepMs: 3000
-  sweepIntervalMs: 1500
   royalSweepIntervalMs: 250
   brambleGuardMs: 8000
   armorMs: 3000
   armorTargets: 1
   heavyArmorTargets: 4
+  ominousMarkMs: 12000
   markMs: 8000
   markBonus: 4
   curseBonus: 6
   camouflageMs: 6500
   drainMs: 7000
   drainBonus: 2
-  extensionMs: 700
+  extensionMs: 1200
   columnAutomationMs: 6500
   fullAutomationMs: 8000
   automationIntervalMs: 250

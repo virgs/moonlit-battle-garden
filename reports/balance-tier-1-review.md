@@ -1,5 +1,5 @@
-# Current one-star baseline
+# Current one-star diagnostic
 
-[Current matrices](balance-tier-1.md) · [Adopted settings, current spells and verification](balance-tier-1-adopted-review.md).
+[Current pooled/per-level matrices](balance-tier-1.md) · [Continuous Sweep correction, current spell durations and trial results](continuous-sweep-duration-review.md).
 
-Historical tuning: [casting-delay comparison](casting-delay-review.md), [spell-strength trials](balance-tier-1-strength-review.md), [pre-nerf reference](tier1-strength-reference-review.md). Those earlier reports retain their own pacing/profile assumptions.
+Historical: [adopted casting baseline](balance-tier-1-adopted-review.md), [casting trials](casting-delay-review.md), [earlier cadence/quota experiments](balance-tier-1-strength-review.md).
