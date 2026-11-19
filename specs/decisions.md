@@ -241,6 +241,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I17 | Adopt D122 values; keep other powers, wave pacing, reactions and scaled one-star casting fixed. Test old control, Bud-only, Tending-only and combined changes with 100 paired seeds per matchup/difficulty (7,500 matches each), then verify adopted defaults against the combined run. Preserve pooled/per-level matrices and strategy limitations in bud-penalty-aura-review.md. |
 
+| D123 | In every balance update, include the versus matrix together with spell reminders: owning hero, current effect, explicit duration, and before→after values for changed spells. For isolated-tier runs, list the tested tier and identify unchanged spells; retain per-difficulty matrices/flags alongside the pooled view. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
