@@ -1,4 +1,6 @@
-# Spell retune: 100-seed comparison
+# Spell retune: historical 100-seed comparison
+
+Current duration defaults and matrices are in [balance-duration-review.md](balance-duration-review.md). This file preserves the preceding 3-second sweep / 6-second armor iteration; its raw outcomes remain in commit 8dffc52.
 
 ## Sample and controls
 

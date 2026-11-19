@@ -1,0 +1,1402 @@
+{
+  "overrides": {
+    "armorMs": 4000,
+    "cleanSweepMs": 1000
+  },
+  "simulationHash": "2d279215e3bd5c3d",
+  "summaries": [
+    {
+      "difficulty": "easy",
+      "character": "champignon",
+      "total": 800,
+      "wins": 229,
+      "unfinished": 0,
+      "casts": [
+        10354,
+        104,
+        0,
+        0
+      ],
+      "untestedTiers": [
+        3,
+        4
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "character": "andromoss",
+      "total": 800,
+      "wins": 345,
+      "unfinished": 0,
+      "casts": [
+        2034,
+        1621,
+        1040,
+        415
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "easy",
+      "character": "captain-bramble",
+      "total": 800,
+      "wins": 634,
+      "unfinished": 0,
+      "casts": [
+        2133,
+        1132,
+        504,
+        273
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "easy",
+      "character": "duskmantle",
+      "total": 800,
+      "wins": 366,
+      "unfinished": 0,
+      "casts": [
+        2125,
+        833,
+        635,
+        476
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "easy",
+      "character": "sprig",
+      "total": 800,
+      "wins": 426,
+      "unfinished": 0,
+      "casts": [
+        2258,
+        841,
+        721,
+        401
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "medium",
+      "character": "champignon",
+      "total": 800,
+      "wins": 173,
+      "unfinished": 0,
+      "casts": [
+        6066,
+        3367,
+        43,
+        18
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "medium",
+      "character": "andromoss",
+      "total": 800,
+      "wins": 414,
+      "unfinished": 0,
+      "casts": [
+        1035,
+        1771,
+        2299,
+        711
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "medium",
+      "character": "captain-bramble",
+      "total": 800,
+      "wins": 631,
+      "unfinished": 0,
+      "casts": [
+        1158,
+        1757,
+        794,
+        751
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "medium",
+      "character": "duskmantle",
+      "total": 800,
+      "wins": 437,
+      "unfinished": 0,
+      "casts": [
+        1115,
+        1073,
+        792,
+        1139
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "medium",
+      "character": "sprig",
+      "total": 800,
+      "wins": 345,
+      "unfinished": 0,
+      "casts": [
+        1186,
+        1225,
+        1280,
+        980
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "hard",
+      "character": "champignon",
+      "total": 800,
+      "wins": 420,
+      "unfinished": 0,
+      "casts": [
+        1107,
+        7174,
+        461,
+        434
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "hard",
+      "character": "andromoss",
+      "total": 800,
+      "wins": 304,
+      "unfinished": 0,
+      "casts": [
+        1479,
+        2669,
+        4166,
+        1168
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "hard",
+      "character": "captain-bramble",
+      "total": 800,
+      "wins": 636,
+      "unfinished": 0,
+      "casts": [
+        1485,
+        2325,
+        1229,
+        1362
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "hard",
+      "character": "duskmantle",
+      "total": 800,
+      "wins": 420,
+      "unfinished": 0,
+      "casts": [
+        1490,
+        1608,
+        1279,
+        1992
+      ],
+      "untestedTiers": []
+    },
+    {
+      "difficulty": "hard",
+      "character": "sprig",
+      "total": 800,
+      "wins": 220,
+      "unfinished": 0,
+      "casts": [
+        1598,
+        1552,
+        1912,
+        1584
+      ],
+      "untestedTiers": []
+    }
+  ],
+  "generated": "2026-11-19T05:18:51.968Z",
+  "revision": "8dffc52",
+  "workingChanges": true,
+  "configHash": "3278c7e7286a",
+  "seeds": 100,
+  "seed": 20261118,
+  "rows": [
+    {
+      "difficulty": "easy",
+      "left": "champignon",
+      "right": "champignon",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 47,
+      "unfinished": 0,
+      "medianMatchSeconds": 187.05,
+      "medianRoundSeconds": 60.65,
+      "casts": [
+        [
+          2300,
+          20,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "champignon",
+      "right": "andromoss",
+      "total": 200,
+      "leftWins": 74,
+      "rightWins": 126,
+      "side0": 114,
+      "unfinished": 0,
+      "medianMatchSeconds": 150.9,
+      "medianRoundSeconds": 54.6,
+      "casts": [
+        [
+          2136,
+          20,
+          0,
+          0
+        ],
+        [
+          387,
+          315,
+          112,
+          153
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "champignon",
+      "right": "captain-bramble",
+      "total": 200,
+      "leftWins": 29,
+      "rightWins": 171,
+      "side0": 109,
+      "unfinished": 0,
+      "medianMatchSeconds": 127.8,
+      "medianRoundSeconds": 49.2,
+      "casts": [
+        [
+          1703,
+          19,
+          0,
+          0
+        ],
+        [
+          437,
+          220,
+          119,
+          60
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "champignon",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 71,
+      "rightWins": 129,
+      "side0": 107,
+      "unfinished": 0,
+      "medianMatchSeconds": 158.35,
+      "medianRoundSeconds": 56.65,
+      "casts": [
+        [
+          2167,
+          24,
+          0,
+          0
+        ],
+        [
+          506,
+          195,
+          127,
+          119
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "champignon",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 55,
+      "rightWins": 145,
+      "side0": 101,
+      "unfinished": 0,
+      "medianMatchSeconds": 144.7,
+      "medianRoundSeconds": 51.55,
+      "casts": [
+        [
+          2048,
+          21,
+          0,
+          0
+        ],
+        [
+          449,
+          173,
+          133,
+          112
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "andromoss",
+      "right": "andromoss",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 65,
+      "unfinished": 0,
+      "medianMatchSeconds": 149.5,
+      "medianRoundSeconds": 52.3,
+      "casts": [
+        [
+          452,
+          307,
+          239,
+          58
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "andromoss",
+      "right": "captain-bramble",
+      "total": 200,
+      "leftWins": 42,
+      "rightWins": 158,
+      "side0": 98,
+      "unfinished": 0,
+      "medianMatchSeconds": 128.75,
+      "medianRoundSeconds": 46.4,
+      "casts": [
+        [
+          362,
+          305,
+          205,
+          57
+        ],
+        [
+          415,
+          193,
+          71,
+          29
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "andromoss",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 94,
+      "rightWins": 106,
+      "side0": 104,
+      "unfinished": 0,
+      "medianMatchSeconds": 141.75,
+      "medianRoundSeconds": 48.25,
+      "casts": [
+        [
+          432,
+          373,
+          259,
+          69
+        ],
+        [
+          397,
+          157,
+          109,
+          65
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "andromoss",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 83,
+      "rightWins": 117,
+      "side0": 107,
+      "unfinished": 0,
+      "medianMatchSeconds": 137.8,
+      "medianRoundSeconds": 48.65,
+      "casts": [
+        [
+          401,
+          321,
+          225,
+          78
+        ],
+        [
+          455,
+          172,
+          145,
+          49
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "captain-bramble",
+      "right": "captain-bramble",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 58,
+      "unfinished": 0,
+      "medianMatchSeconds": 119.15,
+      "medianRoundSeconds": 46.95,
+      "casts": [
+        [
+          449,
+          283,
+          89,
+          62
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "captain-bramble",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 163,
+      "rightWins": 37,
+      "side0": 105,
+      "unfinished": 0,
+      "medianMatchSeconds": 116.1,
+      "medianRoundSeconds": 43.8,
+      "casts": [
+        [
+          403,
+          209,
+          108,
+          56
+        ],
+        [
+          386,
+          142,
+          100,
+          81
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "captain-bramble",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 142,
+      "rightWins": 58,
+      "side0": 114,
+      "unfinished": 0,
+      "medianMatchSeconds": 122.15,
+      "medianRoundSeconds": 46.5,
+      "casts": [
+        [
+          429,
+          227,
+          117,
+          66
+        ],
+        [
+          441,
+          146,
+          136,
+          68
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "duskmantle",
+      "right": "duskmantle",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 49,
+      "unfinished": 0,
+      "medianMatchSeconds": 149.6,
+      "medianRoundSeconds": 49.7,
+      "casts": [
+        [
+          413,
+          178,
+          150,
+          104
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "duskmantle",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 94,
+      "rightWins": 106,
+      "side0": 112,
+      "unfinished": 0,
+      "medianMatchSeconds": 139.3,
+      "medianRoundSeconds": 47.95,
+      "casts": [
+        [
+          423,
+          161,
+          149,
+          107
+        ],
+        [
+          477,
+          181,
+          185,
+          70
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "left": "sprig",
+      "right": "sprig",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 53,
+      "unfinished": 0,
+      "medianMatchSeconds": 135.05,
+      "medianRoundSeconds": 46.75,
+      "casts": [
+        [
+          436,
+          169,
+          122,
+          102
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "champignon",
+      "right": "champignon",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 50,
+      "unfinished": 0,
+      "medianMatchSeconds": 175.25,
+      "medianRoundSeconds": 70.2,
+      "casts": [
+        [
+          1472,
+          752,
+          10,
+          7
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "champignon",
+      "right": "andromoss",
+      "total": 200,
+      "leftWins": 48,
+      "rightWins": 152,
+      "side0": 106,
+      "unfinished": 0,
+      "medianMatchSeconds": 152.4,
+      "medianRoundSeconds": 56.55,
+      "casts": [
+        [
+          1121,
+          616,
+          6,
+          0
+        ],
+        [
+          205,
+          268,
+          269,
+          220
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "champignon",
+      "right": "captain-bramble",
+      "total": 200,
+      "leftWins": 23,
+      "rightWins": 177,
+      "side0": 99,
+      "unfinished": 0,
+      "medianMatchSeconds": 129.8,
+      "medianRoundSeconds": 53.25,
+      "casts": [
+        [
+          952,
+          583,
+          8,
+          5
+        ],
+        [
+          224,
+          323,
+          138,
+          159
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "champignon",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 41,
+      "rightWins": 159,
+      "side0": 103,
+      "unfinished": 0,
+      "medianMatchSeconds": 151.4,
+      "medianRoundSeconds": 56.4,
+      "casts": [
+        [
+          1241,
+          669,
+          9,
+          1
+        ],
+        [
+          224,
+          215,
+          173,
+          242
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "champignon",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 61,
+      "rightWins": 139,
+      "side0": 111,
+      "unfinished": 0,
+      "medianMatchSeconds": 163.75,
+      "medianRoundSeconds": 60.85,
+      "casts": [
+        [
+          1280,
+          747,
+          10,
+          5
+        ],
+        [
+          235,
+          252,
+          200,
+          259
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "andromoss",
+      "right": "andromoss",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 54,
+      "unfinished": 0,
+      "medianMatchSeconds": 158,
+      "medianRoundSeconds": 62.8,
+      "casts": [
+        [
+          211,
+          363,
+          463,
+          87
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "andromoss",
+      "right": "captain-bramble",
+      "total": 200,
+      "leftWins": 60,
+      "rightWins": 140,
+      "side0": 106,
+      "unfinished": 0,
+      "medianMatchSeconds": 143.25,
+      "medianRoundSeconds": 54.1,
+      "casts": [
+        [
+          185,
+          351,
+          441,
+          122
+        ],
+        [
+          209,
+          325,
+          137,
+          93
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "andromoss",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 88,
+      "rightWins": 112,
+      "side0": 106,
+      "unfinished": 0,
+      "medianMatchSeconds": 155.9,
+      "medianRoundSeconds": 59.55,
+      "casts": [
+        [
+          215,
+          426,
+          592,
+          155
+        ],
+        [
+          217,
+          189,
+          118,
+          134
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "andromoss",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 114,
+      "rightWins": 86,
+      "side0": 100,
+      "unfinished": 0,
+      "medianMatchSeconds": 151.3,
+      "medianRoundSeconds": 58.5,
+      "casts": [
+        [
+          219,
+          363,
+          534,
+          127
+        ],
+        [
+          223,
+          236,
+          326,
+          56
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "captain-bramble",
+      "right": "captain-bramble",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 52,
+      "unfinished": 0,
+      "medianMatchSeconds": 138.55,
+      "medianRoundSeconds": 52.35,
+      "casts": [
+        [
+          253,
+          399,
+          177,
+          158
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "captain-bramble",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 157,
+      "rightWins": 43,
+      "side0": 105,
+      "unfinished": 0,
+      "medianMatchSeconds": 135.4,
+      "medianRoundSeconds": 51.7,
+      "casts": [
+        [
+          235,
+          348,
+          172,
+          158
+        ],
+        [
+          211,
+          197,
+          156,
+          208
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "captain-bramble",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 157,
+      "rightWins": 43,
+      "side0": 109,
+      "unfinished": 0,
+      "medianMatchSeconds": 133.85,
+      "medianRoundSeconds": 55.05,
+      "casts": [
+        [
+          237,
+          362,
+          170,
+          183
+        ],
+        [
+          220,
+          218,
+          218,
+          201
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "duskmantle",
+      "right": "duskmantle",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 51,
+      "unfinished": 0,
+      "medianMatchSeconds": 153.8,
+      "medianRoundSeconds": 54.25,
+      "casts": [
+        [
+          222,
+          239,
+          171,
+          266
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "duskmantle",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 123,
+      "rightWins": 77,
+      "side0": 107,
+      "unfinished": 0,
+      "medianMatchSeconds": 154.3,
+      "medianRoundSeconds": 54.95,
+      "casts": [
+        [
+          241,
+          233,
+          174,
+          289
+        ],
+        [
+          271,
+          262,
+          339,
+          182
+        ]
+      ]
+    },
+    {
+      "difficulty": "medium",
+      "left": "sprig",
+      "right": "sprig",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 54,
+      "unfinished": 0,
+      "medianMatchSeconds": 156.65,
+      "medianRoundSeconds": 57,
+      "casts": [
+        [
+          237,
+          257,
+          197,
+          282
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "champignon",
+      "right": "champignon",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 53,
+      "unfinished": 0,
+      "medianMatchSeconds": 242.8,
+      "medianRoundSeconds": 87.6,
+      "casts": [
+        [
+          169,
+          1716,
+          88,
+          131
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "champignon",
+      "right": "andromoss",
+      "total": 200,
+      "leftWins": 121,
+      "rightWins": 79,
+      "side0": 105,
+      "unfinished": 0,
+      "medianMatchSeconds": 209.6,
+      "medianRoundSeconds": 78.1,
+      "casts": [
+        [
+          163,
+          1296,
+          106,
+          23
+        ],
+        [
+          318,
+          471,
+          729,
+          318
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "champignon",
+      "right": "captain-bramble",
+      "total": 200,
+      "leftWins": 45,
+      "rightWins": 155,
+      "side0": 109,
+      "unfinished": 0,
+      "medianMatchSeconds": 182.95,
+      "medianRoundSeconds": 77.1,
+      "casts": [
+        [
+          405,
+          1248,
+          79,
+          84
+        ],
+        [
+          308,
+          498,
+          283,
+          308
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "champignon",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 97,
+      "rightWins": 103,
+      "side0": 103,
+      "unfinished": 0,
+      "medianMatchSeconds": 208.35,
+      "medianRoundSeconds": 79.85,
+      "casts": [
+        [
+          245,
+          1508,
+          114,
+          81
+        ],
+        [
+          306,
+          351,
+          297,
+          453
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "champignon",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 157,
+      "rightWins": 43,
+      "side0": 103,
+      "unfinished": 0,
+      "medianMatchSeconds": 191.55,
+      "medianRoundSeconds": 77.8,
+      "casts": [
+        [
+          125,
+          1406,
+          74,
+          115
+        ],
+        [
+          326,
+          317,
+          280,
+          449
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "andromoss",
+      "right": "andromoss",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 54,
+      "unfinished": 0,
+      "medianMatchSeconds": 231.1,
+      "medianRoundSeconds": 88.5,
+      "casts": [
+        [
+          278,
+          506,
+          774,
+          150
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "andromoss",
+      "right": "captain-bramble",
+      "total": 200,
+      "leftWins": 45,
+      "rightWins": 155,
+      "side0": 103,
+      "unfinished": 0,
+      "medianMatchSeconds": 183,
+      "medianRoundSeconds": 77.05,
+      "casts": [
+        [
+          293,
+          530,
+          811,
+          224
+        ],
+        [
+          247,
+          423,
+          196,
+          157
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "andromoss",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 72,
+      "rightWins": 128,
+      "side0": 96,
+      "unfinished": 0,
+      "medianMatchSeconds": 205.8,
+      "medianRoundSeconds": 80.9,
+      "casts": [
+        [
+          289,
+          630,
+          961,
+          237
+        ],
+        [
+          238,
+          255,
+          188,
+          246
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "andromoss",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 108,
+      "rightWins": 92,
+      "side0": 102,
+      "unfinished": 0,
+      "medianMatchSeconds": 211.05,
+      "medianRoundSeconds": 77.9,
+      "casts": [
+        [
+          301,
+          532,
+          891,
+          239
+        ],
+        [
+          319,
+          298,
+          579,
+          106
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "captain-bramble",
+      "right": "captain-bramble",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 57,
+      "unfinished": 0,
+      "medianMatchSeconds": 178.35,
+      "medianRoundSeconds": 69.85,
+      "casts": [
+        [
+          310,
+          506,
+          254,
+          269
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "captain-bramble",
+      "right": "duskmantle",
+      "total": 200,
+      "leftWins": 149,
+      "rightWins": 51,
+      "side0": 111,
+      "unfinished": 0,
+      "medianMatchSeconds": 181.8,
+      "medianRoundSeconds": 74.6,
+      "casts": [
+        [
+          322,
+          508,
+          253,
+          328
+        ],
+        [
+          284,
+          303,
+          246,
+          399
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "captain-bramble",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 177,
+      "rightWins": 23,
+      "side0": 105,
+      "unfinished": 0,
+      "medianMatchSeconds": 160.1,
+      "medianRoundSeconds": 70.8,
+      "casts": [
+        [
+          298,
+          390,
+          243,
+          300
+        ],
+        [
+          290,
+          281,
+          302,
+          304
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "duskmantle",
+      "right": "duskmantle",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 53,
+      "unfinished": 0,
+      "medianMatchSeconds": 221.7,
+      "medianRoundSeconds": 80.3,
+      "casts": [
+        [
+          348,
+          362,
+          293,
+          493
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "duskmantle",
+      "right": "sprig",
+      "total": 200,
+      "leftWins": 138,
+      "rightWins": 62,
+      "side0": 106,
+      "unfinished": 0,
+      "medianMatchSeconds": 187.35,
+      "medianRoundSeconds": 76.6,
+      "casts": [
+        [
+          314,
+          337,
+          255,
+          401
+        ],
+        [
+          328,
+          328,
+          475,
+          276
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "left": "sprig",
+      "right": "sprig",
+      "total": 100,
+      "leftWins": 100,
+      "rightWins": 0,
+      "side0": 54,
+      "unfinished": 0,
+      "medianMatchSeconds": 194.1,
+      "medianRoundSeconds": 74.4,
+      "casts": [
+        [
+          335,
+          328,
+          276,
+          449
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "summaryOnly": true,
+  "rawOutcomeNote": "Per-pair/per-level/tier aggregates and reproduction parameters retained. Selected raw outcomes are in balance-roster.json; the final adopted run was checked identical before discarding duplicate raw logs."
+}
