@@ -45,3 +45,10 @@ The 20% interval / 15% lifetime prototype produced 44/200 unfinished Hard matche
 ## Duration tuning, 2026-11-17
 
 Current defaults use the 60-second ramp, stronger peaks, 300 ms arrival floor and 5%/5% losing-board modifier described above. These supersede the historical 120-second / 500 ms / 10% controls. AI timing also varies with seeded per-target reaction samples, per-action jitter and occasional hesitation. Minimum target visibility remains 1150 ms; score threshold, spell effects, cast freezes, concurrency and identical per-round reset remain. See reports/balance-duration-review.md for controlled experiments, held-out validation, and the unresolved Hard character advantage/tails.
+
+
+## Current tuning discussion (D110–D112/I09)
+
+User wants moles, rabbits and stars to follow the wave, including shorter target lifetimes near 0.5 s at the fastest peaks. Easy AI may fail to react there; target pacing must not be clamped to Easy reaction speed. Work order: plot and understand the curve → tune pacing → reaction times → casting delay → spell strength.
+
+The conversation preview uses the actual current pacing formula, 25-second waves (12 build / 5 peak / 8 recovery) and a 60-second baseline ramp. Current natural lifetime starts at a 2200 ms base and ends at 1300 ms, floored at 1150 ms; stars separately stay for a 2200 ms base. Draft only: end base 600 ms / floor 500 ms, giving about 528 ms at a late peak at equal scores, shared across all three target types. Current spawn frequency is shown separately, without changing it. Curves exclude timing jitter, occupancy, spells and score catch-up; they describe requested lifetime/schedule envelopes, not guaranteed spawn counts. These draft numbers have not been applied.

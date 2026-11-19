@@ -197,6 +197,14 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I08 | Test cadence 750/1500 ms and Tin Caps quota one independently, then together, using 100 seeds/pairing/difficulty and fixed opportunity policy. Adopt Clean Sweep **1500 ms** cadence (initial column hit retained), and Tin Caps **one mole** with one extra strike within the same three-second window. Royal Cleanup gets a separate unchanged 250 ms cadence; Heavy Harvest remains four moles/two extra strikes/3 s. Other powers, cast decisions, point values and timings unchanged. These are provisional nerfs, not a balanced roster: Sweep cadence alone has mixed Hard results and Champignon remains favored. See balance-tier-1-strength-review.md. |
 
+| D110 | When suggesting any spell change, always state its current effect/duration alongside the proposal so the user can compare without recalling prior messages. |
+
+| D111 | User confirms stars and rabbits must follow the wave along with moles. Faster peaks should allow much shorter target lifetimes, around 0.5 s as a tuning candidate. It is acceptable for Easy AI to be unable to react at the fastest pace. Do not silently impose an Easy-reaction floor on target lifetime. |
+
+| D112 | User sets the tuning sequence: visualize the wave first; tune pacing next; then reaction times; then casting delay; finally spell strength. Defer further spell adjustments while discussing pacing. The earlier preference for faster Sweep and at least three Tin Caps moles is retained for the later spell pass, not applied during this visualization step. |
+
+| I09 | The wave explainer compares actual current target lifetimes with an explicitly unimplemented draft: late base 600 ms, lifetime floor 500 ms, shared lifetime for mole/rabbit/star; retain current 12 s build / 5 s peak / 8 s recovery, 60 s ramp and spawn rhythm. At equal scores the draft peaks reach about 528 ms. Show current stars separately at 2200 ms to expose their present mismatch. The plot excludes jitter, occupancy, spell effects and score-based catch-up; it is a pacing envelope, not a simulated spawn log. No game settings/AI/spells changed for this preview. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
