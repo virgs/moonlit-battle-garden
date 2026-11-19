@@ -20,6 +20,7 @@ type GardenView = {
 
 export class GardenScene extends Phaser.Scene {
   private gardens: GardenView[] = [];
+  private targetMarks!: Phaser.GameObjects.Graphics;
   private backdrop!: Phaser.GameObjects.Graphics;
   private lastLayout: ArenaLayout | null = null;
   private lastEvent = 0;
@@ -54,6 +55,7 @@ export class GardenScene extends Phaser.Scene {
         previous: Array.from({ length: 9 }, () => null),
       });
     }
+    this.targetMarks = this.add.graphics().setDepth(3);
     this.game.canvas.dataset.boardColors = '000080,800000';
     this.game.canvas.setAttribute('aria-hidden', 'true');
     this.game.canvas.dataset.homeBackground = this.home.background.fallback;
@@ -103,6 +105,7 @@ export class GardenScene extends Phaser.Scene {
     const layout = this.getLayout();
     if (layout !== this.lastLayout) this.arrange(layout);
     const { state, events } = this.getSnapshot();
+    this.targetMarks.clear();
     for (const garden of layout.gardens) {
       const view = this.gardens[garden.id];
       view.dust.forEach((dust, index) => {
@@ -117,6 +120,16 @@ export class GardenScene extends Phaser.Scene {
         }
       }
       this.updateTargets(garden.id, state.time);
+      const player = state.players[garden.id];
+      player.holes.forEach((target, index) => {
+        if (!target || state.time - target.born < 180) return;
+        const hole = garden.holes[index], radius = 17 * garden.scale, y = hole.feet.y - 34 * garden.scale;
+        if (target.armor) {
+          this.targetMarks.lineStyle(3 * garden.scale, 0xbacddd, 0.95).beginPath().arc(hole.feet.x, y, radius, Math.PI, 0).strokePath();
+          for (let pip = 0; pip < target.armor; pip++) this.targetMarks.fillStyle(0xdde8e9).fillCircle(hole.feet.x + (pip - (target.armor - 1) / 2) * 9 * garden.scale, y - radius - 6 * garden.scale, 3 * garden.scale);
+        }
+        if (target.missBonus) this.targetMarks.lineStyle(2 * garden.scale, 0xe385eb, 0.95).strokeCircle(hole.feet.x, y, radius + 4 * garden.scale);
+      });
     }
     this.lastEvent = events.at(-1)?.id ?? this.lastEvent;
   }
@@ -127,7 +140,7 @@ export class GardenScene extends Phaser.Scene {
       const flash = view.flashes[hole];
       view.previous[hole] = target?.kind ?? null;
       if (target) {
-        sprite.setVisible(true).setFrame(targetFrame(target, time, this.reducedMotion.matches));
+        sprite.setVisible(true).setAlpha(this.getSnapshot().state.players[id].camouflageUntil > time ? 0.72 : 1).setFrame(targetFrame(target, time, this.reducedMotion.matches));
       } else sprite.setVisible(false);
       // Outgoing hit feedback must not hide or get cancelled by a new target.
       const hit = view.hitSprites[hole];

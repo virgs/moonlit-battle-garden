@@ -1,5 +1,5 @@
 import { expect, test, type Locator } from '@playwright/test';
-import { openSelection, enterMatch } from './frontMenu';
+import { openSelection, enterMatch, chooseCharacter } from './frontMenu';
 
 async function expectRealIcon(icon: Locator, character: string) {
   await expect(icon).toHaveAttribute('data-state', 'ready');
@@ -7,9 +7,10 @@ async function expectRealIcon(icon: Locator, character: string) {
   await expect.poll(() => icon.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth === 192 && image.naturalHeight === 192)).toBe(true);
 }
 
-for (const character of ['champignon', 'andromoss'] as const) test(`${character}: real icon in HUD, pause and round result`, async ({ page }, testInfo) => {
+for (const character of ['champignon', 'andromoss', 'captain-bramble', 'duskmantle', 'sprig'] as const) test(`${character}: real icon in HUD, pause and round result`, async ({ page }, testInfo) => {
   await openSelection(page, 'local');
-  await page.getByRole('button', { name: character === 'champignon' ? 'Next character for Player 2' : 'Next character for Player 1' }).click();
+  await chooseCharacter(page,'Player 1',character);
+  await chooseCharacter(page,'Player 2',character);
   await enterMatch(page);
   const hud = page.locator(`.score-legend .character-icon[data-character="${character}"]`);
   await expect(hud).toHaveCount(2);

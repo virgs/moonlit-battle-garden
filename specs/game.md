@@ -10,6 +10,10 @@ Each garden is a 3×3 board. Hits earn points; missed moles and incorrect hits s
 
 Proposed magic economy: collectible stars charge a meter capped at four. Casting uses the character's spell at the exact current tier and consumes the charge. Lower tiers should remain useful tactical choices rather than strictly weaker versions of higher tiers.
 
+## Playable roster
+
+Five approved heroes are playable: Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig. Each has a distinct four-spell kit, approved art and assigned home/music. Exact provisional effects are in prototype.md. Mallow, Miyaya and Rootbeard remain deferred; no more character generation is part of this integration phase.
+
 ## Modes and presentation
 
 | Mode | Presentation | Connection |

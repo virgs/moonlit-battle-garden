@@ -12,7 +12,7 @@ test('all eight sourced homes decode and play independently in the review collec
   ]);
   await expect(page.locator('[data-home="bluebell-thicket"]').getByRole('link', { name: 'Artwork: ThQian' })).toBeVisible();
   await expect(page.locator('[data-home="bluebell-thicket"]').getByRole('link', { name: 'CC BY 4.0', exact: true })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/4.0/');
-  await expect(page.getByText('Character to be chosen', { exact: true })).toHaveCount(6);
+  await expect(page.getByText('Character to be chosen', { exact: true })).toHaveCount(3);
   await expect.poll(() => page.locator('article img').evaluateAll(images => images.every(image => (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   for (let index = 0; index < 8; index++) {

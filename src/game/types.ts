@@ -1,9 +1,11 @@
-export type CharacterId = 'champignon' | 'andromoss';
+export const characterIds = ['champignon', 'andromoss', 'captain-bramble', 'duskmantle', 'sprig'] as const;
+export type CharacterId = typeof characterIds[number];
+export function isCharacterId(value: unknown): value is CharacterId { return typeof value === 'string' && (characterIds as readonly string[]).includes(value); }
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type PlayerId = 0 | 1;
 export type TargetKind = 'mole' | 'rabbit' | 'star';
 export type Phase = 'countdown' | 'playing' | 'round-over' | 'match-over';
-export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic' };
+export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic'; armor?: number; missBonus?: number; extended?: boolean };
 export type PendingSpell = { tier: number; at: number; from: PlayerId };
 export type Player = {
   character: CharacterId;
@@ -21,6 +23,19 @@ export type Player = {
   magicShieldUntil: number;
   invasionUntil: number;
   decoysUntil: number;
+  armorUntil: number;
+  armorHits: number;
+  armorTier: number;
+  markUntil: number;
+  markCharges: number;
+  markBonus: number;
+  markTier: number;
+  camouflageUntil: number;
+  drainUntil: number;
+  automationUntil: number;
+  automationColumn: number | null;
+  automationTier: number;
+  nextAutomation: number;
   pending: PendingSpell[];
   message: string;
   messageUntil: number;

@@ -14,9 +14,14 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   if (state.phase !== 'playing' || state.casting) return null;
   const effects: { kind: string; character: CharacterId; tier: number }[] = [];
   if (player.mistakeShield > 0 && player.shieldUntil > state.time) effects.push({ kind: 'guard', character: player.character, tier: player.shieldTier });
-  if (player.magicShieldUntil > state.time) effects.push({ kind: 'ward', character: 'champignon', tier: 3 });
+  if (player.magicShieldUntil > state.time) effects.push({ kind: 'ward', character: player.character, tier: 3 });
   if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andromoss', tier: 2 });
   if (player.decoysUntil > state.time) effects.push({ kind: 'decoys', character: 'andromoss', tier: 4 });
+  if (player.armorUntil > state.time) effects.push({ kind: 'armor', character: 'captain-bramble', tier: player.armorTier });
+  if (player.markUntil > state.time && (player.markCharges > 0 || player.holes.some(target => target?.missBonus))) effects.push({ kind: 'curse', character: 'duskmantle', tier: player.markTier });
+  if (player.camouflageUntil > state.time) effects.push({ kind: 'veil', character: 'duskmantle', tier: 2 });
+  if (player.drainUntil > state.time) effects.push({ kind: 'drain', character: 'duskmantle', tier: 3 });
+  if (player.automationUntil > state.time) effects.push({ kind: 'automation', character: 'sprig', tier: player.automationTier });
   if (player.pending.length) effects.push({ kind: 'incoming', character: state.players[player.pending[0].from].character, tier: player.pending[0].tier });
   const recent = [...snapshot.events].reverse().find(event => event.kind === 'cast' && event.player === garden.id && event.round === state.round && state.time - event.time < 700);
   if (recent?.tier) effects.push({ kind: 'impact', character: player.character, tier: recent.tier });

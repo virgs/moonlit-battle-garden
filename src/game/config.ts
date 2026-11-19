@@ -18,6 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
+  rosterSpells: { brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; automationPoints: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -57,6 +58,33 @@ export const characters: Record<CharacterId, { name: string; role: string; color
       { name: 'Rabbit Riot', description: 'Fill upcoming enemy waves with extra rabbits for 7.5 seconds.' },
       { name: 'Sticky Fingers', description: 'Steal up to two enemy stars. Gain a guard if they have none.' },
       { name: 'Double Trouble', description: 'Send faster, rabbit-heavy waves for 8.5 seconds.' },
+    ],
+  },
+  'captain-bramble': {
+    name: 'Captain Bramble', role: 'The steadfast garden sentinel', color: '#da956b', emblem: '♜',
+    spells: [
+      { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
+      { name: 'Tin Caps', description: 'Enemy moles need one extra hit for 6 seconds.' },
+      { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
+      { name: 'Heavy Harvest', description: 'Enemy moles need two extra hits for 6 seconds.' },
+    ],
+  },
+  duskmantle: {
+    name: 'Duskmantle', role: 'The keeper of garden curses', color: '#bd94e7', emblem: '☾',
+    spells: [
+      { name: 'Ominous Bud', description: 'Mark one enemy mole; missing it costs 4 extra points.' },
+      { name: 'Violet Veil', description: 'Dim enemy targets for 6.5 seconds; their shapes stay visible.' },
+      { name: 'Twilight Siphon', description: 'Earn 2 extra points on manual mole hits for 7 seconds.' },
+      { name: 'Withering Pact', description: 'Mark four enemy moles; each miss costs 6 extra points.' },
+    ],
+  },
+  sprig: {
+    name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
+    spells: [
+      { name: 'Gentle Tending', description: 'Extend current targets by 0.7 seconds, once per target.' },
+      { name: 'Helping Tines', description: 'Automate one column for 6.5 seconds; cleared moles earn 6 points.' },
+      { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
+      { name: 'Garden Clockwork', description: 'Automate the whole garden for 8 seconds; never collect stars.' },
     ],
   },
 };

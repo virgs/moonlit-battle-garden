@@ -1,14 +1,14 @@
 import { expect, test } from '@playwright/test';
-import { openSelection, enterMatch } from './frontMenu';
+import { openSelection, enterMatch, chooseCharacter } from './frontMenu';
 
-for (const character of ['champignon', 'andromoss'] as const) test(`${character}: real idle, victory and shared casting sprites`, async ({ page }, testInfo) => {
+for (const character of ['champignon', 'andromoss', 'captain-bramble', 'duskmantle', 'sprig'] as const) test(`${character}: real idle, victory and shared casting sprites`, async ({ page }, testInfo) => {
   await page.clock.install();
   const failures: string[] = [];
   page.on('response', response => {
     if (response.url().includes(`/assets/characters/${character}/`) && /\/(standing|victory|cast)\.png$/.test(response.url()) && response.status() >= 400) failures.push(response.url());
   });
   await openSelection(page);
-  if (character === 'andromoss') await page.getByRole('button', { name: 'Next character for Player 1' }).click();
+  await chooseCharacter(page,'Player 1',character);
   const own = page.locator('.carousel-side-0');
   const idle = own.locator('.standing-hero');
   await expect(idle).toHaveAttribute('data-asset', 'ready');

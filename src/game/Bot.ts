@@ -43,15 +43,18 @@ export class Bot {
         this.desiredTier = tiers[Math.floor(this.random.next() * tiers.length)];
       }
       const opponent = state.players[this.id === 0 ? 1 : 0];
-      const emergency = player.character === 'champignon' && (
+      const defender = player.character === 'champignon' || player.character === 'captain-bramble';
+      const emergency = (player.character === 'champignon' && (
         (player.pending.length > 0 && player.stars === 3) ||
         (opponent.score - player.score >= config.winScoreDifference * 0.65 && player.mistakeShield === 0) ||
         visible.filter(target => target.kind === 'mole').length >= 3
-      );
+      )) || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 3) && player.mistakeShield === 0 && opponent.score - player.score >= config.winScoreDifference * 0.65);
       const canSteal = player.character === 'andromoss' && player.stars === 3 && opponent.stars >= 2;
-      const waitForWard = player.character === 'andromoss' && opponent.magicShieldUntil > state.time;
-      const alreadyGuarded = player.character === 'champignon' && player.stars === 1 && player.mistakeShield > 0 && player.shieldUntil > state.time;
-      if (!waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal)) {
+      const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 2 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
+      const waitForWard = hostile && opponent.magicShieldUntil > state.time;
+      const alreadyGuarded = defender && player.stars === 1 && player.mistakeShield > 0 && player.shieldUntil > state.time;
+      const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || player.armorUntil > state.time || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
+      if (!waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {
         match.action({ type: 'cast', player: this.id });
         this.desiredTier = 0;
         this.scheduleAction(state.time);
@@ -60,13 +63,15 @@ export class Bot {
     }
     // Only inspect already visible targets; no access to future spawn randomness.
     const targets = player.holes.flatMap((target, hole) => target ? [{ ...target, hole }] : [])
-      .filter(target => state.time >= (this.reactionAt.get(target.id)??target.born+tuning.reactionMs) && !this.considered.has(target.id))
-      .sort((a, b) => Number(b.kind === 'star') - Number(a.kind === 'star') || a.expires - b.expires);
+      .filter(target => state.time >= (this.reactionAt.get(target.id)??target.born+tuning.reactionMs) + (player.camouflageUntil > state.time ? 200 : 0) && !this.considered.has(target.id))
+      .sort((a, b) => Number(b.kind === 'star') - Number(a.kind === 'star') || (b.missBonus ?? 0) - (a.missBonus ?? 0) || a.expires - b.expires);
     for (const target of targets) {
       this.considered.add(target.id);
       const hit = this.random.next() < (target.kind === 'rabbit' ? tuning.rabbitMistake : tuning.accuracy);
       if (hit) {
         match.action({ type: 'hit', player: this.id, hole: target.hole });
+        // An armor strike preserves the target: a later action may hit it again.
+        if (player.holes[target.hole]?.id === target.id) this.considered.delete(target.id);
         this.scheduleAction(state.time);
         return;
       }

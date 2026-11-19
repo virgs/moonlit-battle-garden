@@ -70,3 +70,99 @@ characters:
       2: *andromossCast
       3: *andromossCast
       4: *andromossCast
+
+  captain-bramble:
+    victory: { src: /assets/characters/captain-bramble/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/captain-bramble/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 3, holdMs: 0, sound: null }
+    icon: /assets/characters/captain-bramble/icon.png
+    portrait: /assets/characters/captain-bramble/portrait.png
+    effects:
+      1: { src: /assets/characters/captain-bramble/effect-1.png }
+      2: { src: /assets/characters/captain-bramble/effect-2.png }
+      3: { src: /assets/characters/captain-bramble/effect-3.png }
+      4: { src: /assets/characters/captain-bramble/effect-4.png }
+    home:
+      name: Mossroot Path
+      background:
+        src: /assets/homes/mossroot-path/background.png
+        fallback: /assets/background-castle.png
+        opacity: 0.64
+        fallbackOpacity: 0.22
+        fallbackTint: 11065008
+        focusX: 0.5
+        focusY: 1
+      music:
+        src: /assets/homes/mossroot-path/music.mp3
+        fallback: /assets/backgroundMusic.mp3
+        volume: 0.16
+        loopStartMs: 0
+        loopEndMs: null
+    casts:
+      1: &captainbrambleCast { src: /assets/characters/captain-bramble/cast.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 9, holdMs: 500 }
+      2: *captainbrambleCast
+      3: *captainbrambleCast
+      4: *captainbrambleCast
+
+  duskmantle:
+    victory: { src: /assets/characters/duskmantle/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/duskmantle/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 3, holdMs: 0, sound: null }
+    icon: /assets/characters/duskmantle/icon.png
+    portrait: /assets/characters/duskmantle/portrait.png
+    effects:
+      1: { src: /assets/characters/duskmantle/effect-1.png }
+      2: { src: /assets/characters/duskmantle/effect-2.png }
+      3: { src: /assets/characters/duskmantle/effect-3.png }
+      4: { src: /assets/characters/duskmantle/effect-4.png }
+    home:
+      name: Violet Veil
+      background:
+        src: /assets/homes/violet-veil/background.png
+        fallback: /assets/background-castle.png
+        opacity: 0.64
+        fallbackOpacity: 0.22
+        fallbackTint: 11065008
+        focusX: 0.5
+        focusY: 0.5
+      music:
+        src: /assets/homes/violet-veil/music.mp3
+        fallback: /assets/backgroundMusic.mp3
+        volume: 0.16
+        loopStartMs: 0
+        loopEndMs: null
+    casts:
+      1: &duskmantleCast { src: /assets/characters/duskmantle/cast.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 9, holdMs: 500 }
+      2: *duskmantleCast
+      3: *duskmantleCast
+      4: *duskmantleCast
+
+  sprig:
+    victory: { src: /assets/characters/sprig/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 8, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/sprig/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 3, holdMs: 0, sound: null }
+    icon: /assets/characters/sprig/icon.png
+    portrait: /assets/characters/sprig/portrait.png
+    effects:
+      1: { src: /assets/characters/sprig/effect-1.png }
+      2: { src: /assets/characters/sprig/effect-2.png }
+      3: { src: /assets/characters/sprig/effect-3.png }
+      4: { src: /assets/characters/sprig/effect-4.png }
+    home:
+      name: Lanternbloom Garden
+      background:
+        src: /assets/homes/lanternbloom-garden/background.png
+        fallback: /assets/background-castle.png
+        opacity: 0.64
+        fallbackOpacity: 0.22
+        fallbackTint: 11065008
+        focusX: 0.5
+        focusY: 0.5
+      music:
+        src: /assets/homes/lanternbloom-garden/music.mp3
+        fallback: /assets/backgroundMusic.mp3
+        volume: 0.16
+        loopStartMs: 0
+        loopEndMs: null
+    casts:
+      1: &sprigCast { src: /assets/characters/sprig/cast.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 9, holdMs: 500 }
+      2: *sprigCast
+      3: *sprigCast
+      4: *sprigCast

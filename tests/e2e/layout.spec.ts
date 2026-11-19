@@ -1,4 +1,4 @@
-import { openSelection, enterMatch } from './frontMenu';
+import { openSelection, enterMatch, chooseCharacter } from './frontMenu';
 import { expect, test } from '@playwright/test';
 import { gardenArt } from '../../src/render/layout';
 
@@ -10,7 +10,7 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
   await expect(page.locator('body')).toHaveCSS('font-family', 'Literata, Georgia, serif');
   expect(await page.evaluate(() => document.fonts.check('400 30px Almendra') && document.fonts.check('400 15px Literata'))).toBe(true);
   await page.getByRole('button', { name:'Next character for Player 1' }).click();
-  await page.getByRole('button', { name:'Next character for Player 2' }).click();
+  await chooseCharacter(page,'Player 2','champignon');
   await enterMatch(page);
   await expect(page.locator('canvas')).toHaveCount(1);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });

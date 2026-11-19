@@ -1,5 +1,5 @@
 import { expect,test } from '@playwright/test';
-import { openSelection } from './frontMenu';
+import { openSelection, chooseCharacter } from './frontMenu';
 for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['landscape',844,390],['small-phone',320,568]] as const)test(`${name}: two carousels browse independently and confirm with real sprite frames`,async({page},testInfo)=>{
   await page.setViewportSize({width,height});await openSelection(page,'local');
   const first=page.locator('.carousel-side-0'),second=page.locator('.carousel-side-1');
@@ -38,7 +38,7 @@ test('single player still shows a second editable opponent carousel',async({page
   await expect(page.locator('.carousel-side-0')).toHaveAttribute('data-character','andromoss');
   await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andromoss');
   await page.getByRole('button',{name:'Change selection for Computer'}).click();
-  await page.getByRole('button',{name:'Next character for Computer'}).click();
+  await chooseCharacter(page,'Computer','champignon');
   await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');
   await expect(page.getByRole('button',{name:'Enter the garden'})).toBeDisabled();
   await page.keyboard.press('NumpadAdd');await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','true');

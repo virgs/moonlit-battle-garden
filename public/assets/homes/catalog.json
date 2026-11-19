@@ -1,5 +1,5 @@
 {
-  "note": "Eight sourced home pairs. Six theme names and character assignments remain provisional; only Champignon and Andromoss are playable.",
+  "note": "Eight approved home/music pairs. Five playable caretakers; three future characters remain deferred.",
   "homes": [
     {
       "id": "champignon",
@@ -32,7 +32,7 @@
     {
       "id": "mossroot-path",
       "name": "Mossroot Path",
-      "character": null,
+      "character": "captain-bramble",
       "background": "mossroot-path/background.png",
       "music": "mossroot-path/music.mp3",
       "mood": "Shaded foliage, mossy roots and a woodland path, with an enchanted forest melody.",
@@ -74,7 +74,7 @@
     {
       "id": "lanternbloom-garden",
       "name": "Lanternbloom Garden",
-      "character": null,
+      "character": "sprig",
       "background": "lanternbloom-garden/background.png",
       "music": "lanternbloom-garden/music.mp3",
       "mood": "Purple canopies, glowing flowers and hanging lights, with gentle piano/synth mystery.",
@@ -88,7 +88,7 @@
     {
       "id": "violet-veil",
       "name": "Violet Veil",
-      "character": null,
+      "character": "duskmantle",
       "background": "violet-veil/background.png",
       "music": "violet-veil/music.mp3",
       "mood": "A violet vortex framed by dark branches, with haunting chiptune.",

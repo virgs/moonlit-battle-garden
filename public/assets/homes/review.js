@@ -13,7 +13,7 @@ try {
     const title = document.createElement('h2');
     title.textContent = home.name;
     const assignment = document.createElement('small');
-    assignment.textContent = home.character === 'champignon' ? 'Sir Champignon' : home.character === 'andromoss' ? 'Andromoss' : 'Character to be chosen';
+    assignment.textContent = ({champignon:'Sir Champignon',andromoss:'Andromoss','captain-bramble':'Captain Bramble',duskmantle:'Duskmantle',sprig:'Sprig'})[home.character] ?? 'Character to be chosen';
     const mood = document.createElement('p');
     mood.textContent = home.mood;
     const audio = document.createElement('audio');

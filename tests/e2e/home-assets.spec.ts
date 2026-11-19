@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { openSelection } from './frontMenu';
+import { openSelection, chooseCharacter } from './frontMenu';
 
 declare global { interface Window { homeAudio?: HTMLAudioElement[] } }
 
@@ -15,7 +15,7 @@ for(const character of ['champignon','andromoss'] as const)test(`${character}: s
   await openSelection(page);
   if(character==='champignon'){
     await page.getByRole('button',{name:'Change selection for Computer'}).click();
-    await page.getByRole('button',{name:'Next character for Computer'}).click();
+    await chooseCharacter(page,'Computer','champignon');
     await page.getByRole('button',{name:'Confirm Computer'}).click();
   }else await page.getByRole('button',{name:'Next character for Player 1'}).click();
   await page.getByRole('button',{name:'Confirm Player 1'}).click();

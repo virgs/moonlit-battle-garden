@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { config } from '../src/game/config';
 import { simulateBattle } from '../src/game/simulate';
-import type { CharacterId, Difficulty } from '../src/game/types';
+import { characterIds, type CharacterId, type Difficulty } from '../src/game/types';
 
 const count = Number(process.argv.find(arg => arg.startsWith('--seeds='))?.split('=')[1] ?? 100);
 const baseSeed = Number(process.argv.find(arg => arg.startsWith('--seed='))?.split('=')[1] ?? 20261116);
@@ -22,7 +22,7 @@ const summaries = [];
 const battles = [];
 for (const difficulty of ['easy', 'medium', 'hard'] as Difficulty[]) {
   let champignon = 0, andromoss = 0, draws = 0, timedOut = 0, duration = 0, firstSideWins = 0;
-  const casts = { champignon: [0, 0, 0, 0], andromoss: [0, 0, 0, 0] };
+  const casts = Object.fromEntries(characterIds.map(id => [id, [0, 0, 0, 0]])) as Record<CharacterId, number[]>;
   for (let n = 0; n < count; n++) {
     for (const characters of [['champignon', 'andromoss'], ['andromoss', 'champignon']] as [CharacterId, CharacterId][]) {
       const seed = baseSeed + n;

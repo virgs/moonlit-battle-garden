@@ -161,9 +161,13 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D99 | User approves/adopts the fresh simplified Andromoss animations and icon and requests deferring remaining new-character art to use the assets already created. All five current art sets are approved: Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig. Defer Mallow/Miyaya/Rootbeard artwork and any new PixelLab generation. Scope of playable roster expansion is being clarified separately; current live pair remains Champignon/Andromoss until new kits are implemented. |
 
+| D100 | User explicitly selects **make all five playable**: Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig. Supersedes initial two-character scope and art-only staging for these three. Adopt existing approved sprites/icons/homes/music across AI/local/online; implement distinct four-spell kits using the adopted concepts. Exact new values are provisional implementation defaults, not user-approved final balance. Preserve separate per-spell effect placeholders, simulation independence and bot diagnostics. Remaining three characters/art stay deferred. |
+
+| I01 | Five-roster implementation defaults: preserve the original pair’s numeric rules; add bounded extra-hit mole armor/guards (Bramble), marked-miss/camouflage/manual-hit siphon (Duskmantle), and one-time target extension/column or board automation/cleanse (Sprig). Detailed values and limitations are in prototype.md and game.yaml. These are provisional engineering choices, not final user-approved balance. A 1,500-match diagnostic has zero caps but Bramble remains strong under current bots. Per-tier coverage and strategy bias are preserved in balance-roster-review.md before further tuning. |
+
 ## Current proposals, not yet confirmed
 
-- Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
+- Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
 - 3×3 boards and best-of-three matches. Victory uses the user-confirmed score-difference threshold, not health.
 - Four collectible stars maximum; one cast button uses the spell matching the current star count and consumes those stars.
 - The earlier PartyServer backend proposal is superseded by D25. Private invites use PeerJS signaling and player-hosted WebRTC matches; no gameplay backend is deployed.

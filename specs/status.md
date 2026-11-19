@@ -4,12 +4,12 @@ Updated 2026-11-17 after comparing the remake with the oldest Dig Hole Battle Ga
 
 ## Implemented
 
-- Eight sourced background/music pairs, including the two active homes and six unassigned future homes. The approved Sporelight Keep, Moonlit Hideout, Whispering Wood and Violet Veil are preserved; the rejected town/harbor/lava/chapel have been replaced by garden/woodland scenes. Fourteen files are CC0, Bluebell Thicket art is CC BY 4.0 with visible attribution, and Stillwater Grove art has explicit creator permission. A responsive review collection at assets/homes/index.html shows the artwork and plays one looping track at a time. Character names/minibios and six-character gameplay expansion remain deferred. No new artwork or music generated.
+- Eight sourced background/music pairs, including five active homes and three future homes. The approved Sporelight Keep, Moonlit Hideout, Whispering Wood and Violet Veil are preserved; the rejected town/harbor/lava/chapel have been replaced by garden/woodland scenes. Fourteen files are CC0, Bluebell Thicket art is CC BY 4.0 with visible attribution, and Stillwater Grove art has explicit creator permission. A responsive review collection at assets/homes/index.html shows the artwork and plays one looping track at a time. All approved identities remain in characters.md; three-character gameplay expansion remains deferred. No new artwork or music generated.
 
 - Public static website at https://virgs.github.io/moonlit-battle-garden/, automatically deployed from main. User authorized the public repository. Deployment checks and a live HTTPS invite/WebRTC/touch smoke test passed.
 
 - Private player-hosted online 1v1 with invite links, real WebRTC transport, local-side remapping, target-aware inputs, synchronized round transitions, local non-pausing online menus and automatic reconnect recovery, version/capacity checks, heartbeat RTT and 30-second transient reconnect grace.
-- Local two-player and three AI difficulties; Sir Champignon and Andromoss each have four functional spells.
+- Local two-player and three AI difficulties; five heroes each have four functional spells (Champignon, Andromoss, Captain Bramble, Duskmantle, Sprig).
 - Full-viewport canvas, HUD overlays, uniform sprite scale, measured hole anchors, and a fixed left/local player identity. Responsive single-board mobile presentation. D30 replaces permanent panels with a minimal HUD.
 - One shared animated bar using the oldest efeitoLife.pcx and bordalife.pcx artwork, a moving source window, four frames at 12 fps, and the original incremental easing. No repeated/tiled mini-bars or separate player health meters. Numeric scores are hidden; the bar is driven solely by score difference.
 - Minimal play HUD with no score/portrait/spell/wave panels; original vertical star containers cast on tap/click (horizontal on narrow portrait layouts), and tapping the bar/Escape opens controls (pause only in AI/local modes).
@@ -85,3 +85,9 @@ Four CC0 assets are installed at the configured home paths: Champignon uses the 
 ### Andromoss naming and art verification (2026-11-18)
 
 The approved alien base-v5 now drives installed idle (5 frames), victory (9 frames), shared cast (9 frames) and icon assets. Runtime IDs, home/character paths, CSS, networking and diagnostic scripts use `andromoss`; source artwork names and old balance reports remain historical records. Network rules version is bumped to reject incompatible builds. No rule, bot strategy or tuning changes were made. A 60-match seeded smoke diagnostic completed without unfinished games; the small sample is not a new balance conclusion. See `reports/balance-andromoss-rename-smoke.md`. Generated visuals await user review.
+
+## Current five-character milestone (2026-11-18)
+
+User authorized all five approved heroes as playable. All five can be selected for either side/AI level and online rooms; their approved art and distinct homes/music are wired in. Twenty functional spells use the shared simulation, with new armor/mark/camouflage/siphon/extension/cleanse/automation semantics documented in prototype.md. Previous art-only staging/two-hero scope notes above are historical. Source-of-truth roster validation now serves selection, presentation and networking, with wire version bumped for the new state schema. No new artwork.
+
+Current checks: 109 simulation tests, production build, native-asset validation and 48 desktop/phone browser cases (four legacy carousel tests rerun after fixing two-roster assumptions); 1,500 paired/mirror AI matches completed with no caps. Bramble dominates current Medium/Hard bot matchups (87.5/85.0% distinct-pair wins). Remaining: human balancing, physical-device/network QA, optional relay service, per-spell final effect assets and optional large portraits. Remaining three heroes and new art stay deferred.

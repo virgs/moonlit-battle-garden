@@ -1,4 +1,4 @@
-import type { CharacterId, PlayerId } from '../game/types';
+import { isCharacterId, type CharacterId, type PlayerId } from '../game/types';
 export type CharacterPick = { character: CharacterId; ready: boolean };
 export type LobbyPicks = [CharacterPick, CharacterPick | null];
 /** Always local first, irrespective of which browser hosts. */
@@ -6,7 +6,7 @@ export type SelectionView = { players: [CharacterPick, CharacterPick | null]; co
 export function validPick(value: unknown): value is CharacterPick {
   if(!value||typeof value!=='object')return false;
   const pick=value as CharacterPick;
-  return ['champignon','andromoss'].includes(pick.character)&&typeof pick.ready==='boolean';
+  return isCharacterId(pick.character)&&typeof pick.ready==='boolean';
 }
 export function validPicks(value: unknown): value is LobbyPicks {
   return Array.isArray(value)&&value.length===2&&validPick(value[0])&&(value[1]===null||validPick(value[1]));

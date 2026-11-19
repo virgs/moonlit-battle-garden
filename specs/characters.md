@@ -1,6 +1,6 @@
 # Characters and magic
 
-Status: all eight concepts were adopted on 2026-11-16. Sir Champignon and Andromoss are the initial implemented pair. Spell names, numbers, durations, and interactions remain provisional; see prototype.md for actual behavior.
+Status: all eight concepts were adopted on 2026-11-16. The playable roster is now Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig; the other three remain deferred. Spell names, numbers, durations, and interactions remain provisional; see prototype.md for actual behavior.
 
 These spell assignments are new remake designs. The original repository has named artwork but only generic test loadouts, so do not describe these as recovered historical kits.
 
@@ -81,7 +81,7 @@ Rootbeard followed the scent of mushroom stew into Whispering Wood and never fou
 | Sir Champignon | Block one mistake | Sweep own board | Protect against the next hostile spell | Clear own board and grant a temporary shield |
 | Urthgar | Recover some points | Gain bonus points from the next few successful hits | Send armored enemy moles | Feast rewards sustained accurate play with bonus points |
 
-## Initial two-character proposal
+## Original two-character proposal (historical)
 
 **Sir Champignon and Andromoss** offer contrasting defense and disruption and are the current implementation defaults following authorization to start coding.
 
@@ -209,3 +209,7 @@ The simplified Andromoss set is installed in existing paths: idle 5 frames at 3 
 ### Current approved art milestone
 
 The user adopted the fresh simplified Andromoss animations/icon on 2026-11-18. **All five sets are now approved:** Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig. Use the current assets; defer new character generation for Mallow/Miyaya/Rootbeard. Every current set has idle, victory, one shared casting animation and a head-and-shoulders icon. Individual spell-effect assets remain separate and use existing placeholders. Current playable kits are still Champignon/Andromoss; roster expansion requires explicit implemented rules, bot support and network validation rather than giving the staged heroes another character’s kit.
+
+### Five-character gameplay adoption
+
+User explicitly requested all five approved heroes be playable. Runtime IDs match display names: `champignon`, `andromoss`, `captain-bramble`, `duskmantle`, `sprig`. All 20 spells now execute in the shared rules, not merely character-selection labels. See `specs/prototype.md` for new provisional timings and semantics. The approved art and home/music files are wired into selection, HUD, pause, cast/round/match results, AI/local matches and online rooms. No new PixelLab work. Historical art-staging notes above are superseded by this milestone.

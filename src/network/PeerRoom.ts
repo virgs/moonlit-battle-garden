@@ -1,6 +1,6 @@
 import Peer, { type DataConnection, type PeerOptions } from 'peerjs';
 import { Session } from '../game/Session';
-import type { CharacterId, MatchOptions } from '../game/types';
+import { isCharacterId, type CharacterId, type MatchOptions } from '../game/types';
 import { selectionView, validPick, validPicks, type LobbyPicks, type SelectionView } from './selection';
 import { isWire, RULESET, type Wire } from './protocol';
 
@@ -111,7 +111,7 @@ export class PeerRoom {
   private accept(connection: DataConnection, message: Extract<Wire, { kind: 'hello' }>): void {
     let reason = '';
     if (message.rules !== RULESET) reason = 'Game versions differ. Both players should refresh the game.';
-    else if (!['champignon', 'andromoss'].includes(message.character) || typeof message.token !== 'string') reason = 'Invalid character selection.';
+    else if (!isCharacterId(message.character) || typeof message.token !== 'string') reason = 'Invalid character selection.';
     else if (this.guestToken && this.guestToken !== message.token) reason = 'This garden already has two players.';
     if (reason) { connection.send({ kind: 'reject', reason }); setTimeout(() => connection.close(), 200); return; }
     const previous = this.conn;

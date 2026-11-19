@@ -1,6 +1,7 @@
 import { config } from './config';
 import { pacingAt, playerPacingAt, waveDurationMs } from './pacing';
 import { Random } from './random';
+import { modifyTarget } from './targetModifiers';
 import type { MatchState, Player, PlayerId, TargetKind } from './types';
 
 /** Independent board clocks share the real-time wave; score pressure speeds only the trailing board. */
@@ -80,6 +81,7 @@ export class SpawnDirector {
     if (!empty.length) return;
     const hole = empty[Math.floor(this.positions[id].next() * empty.length)];
     player.holes[hole] = { id: ++this.targetId, kind, origin, born: state.time, expires: state.time + Math.round(lifetime) };
+    modifyTarget(player, player.holes[hole]!, state.time);
     player.spawned++;
   }
 }

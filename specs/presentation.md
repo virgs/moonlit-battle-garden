@@ -1,208 +1,69 @@
-# Character homes, round bar, and board effects
+# Game specification
 
-## Animated shared bar
+Status: design in progress. See decisions.md for agreement status; proposals here must not silently become confirmed requirements.
 
-Restore the original shared blue/red presentation across the top HUD. Blue always represents the left/local player (Player 1 locally); red represents the opponent. Keep numeric points hidden. Names sit at the left/right extremes immediately below the bar; there is no center leader caption.
+## Identity and loop
 
-The user clarified the mechanic: the bar represents the difference between two scores. Equal scores mean 50/50, and a lead of X ends the round with one color filling the bar. The current formula is bluePercent = clamp(50 + 50 × (blueScore − redScore) / X, 0, 100). X is configurable and starts at a provisional 100. Scores may be negative; absolute totals do not decide the round. There is no independent health or linked-life pool. Scores and bar reset each round. The finished bar remains visible above the results scrim while its original easing completes.
+Two rival gardens. Each player hits moles before they retreat, avoids rabbits and empty holes, collects stars, and casts character-specific magic to survive or disrupt the opponent. No stacking mechanic.
 
-The bar now uses the oldest game's actual efeitoLife.pcx (1010×164, four 41-pixel rows) and bordalife.pcx (499×45), converted to PNG with Allegro's magenta transparency mask. Life.cpp reveals a single 493-pixel source window at x=5+500×(1-blueShare), not tiled images or separate blue/red strips. The source window shifts through the original joined blue/red sheet, with the four animation frames at the original 12 fps and incremental smoothing. The border and viewport scale together uniformly, keeping one bar at its native aspect ratio. Pause freezes animation; reduced motion uses a static frame and immediate updates. Separate per-player health bars are removed; numeric points remain.
+Each garden is a 3×3 board. Hits earn points; missed moles and incorrect hits subtract points. A score lead of X wins the round; first to two round wins wins the match. The shared blue/red bar maps score difference linearly: ties center it, and a lead of X fills one color. X is configurable (currently a provisional 100). There are no separate health pools or time-based round wins. Both scores and pacing reset each round.
 
-## Board decoration
+Proposed magic economy: collectible stars charge a meter capped at four. Casting uses the character's spell at the exact current tier and consumes the charge. Lower tiers should remain useful tactical choices rather than strictly weaker versions of higher tiers.
 
-The oldest version draws static roots within TabuleiroProfissional.pcx and overlays terra.pcx falling earth (four 45×45 frames). Both originals are now used, replacing the misplaced animated root.png motifs from the later game.
+## Playable roster
 
-Fase.cpp places boards at (50,200)/(450,200) and earth at (110,560), (610,560), and (710,560). Therefore the restored board-local earth positions are left (60,360), right (160,360) and (260,360). The left sequence is reversed and the right sequences are offset, matching the old code. The opponent's underground strip is mirrored so root placement also differs, while the upper board and hole geometry remain unchanged. Player.cpp::mudaCor identifies pure green RGB(0,255,0) pixels below source row 310 as a side-color mask. The renderer replaces those pixels with blue RGB(0,0,128) for local/left and red RGB(128,0,0) for the opponent, preserving all other artwork and alpha. Network seat/character do not affect side color. Earth and roots scale uniformly with the board; layout reserves the falling-earth tail before the bottom HUD. They have no collision or influence on game randomness. Pause/reduced motion freeze decorative animation.
+Five approved heroes are playable: Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig. Each has a distinct four-spell kit, approved art and assigned home/music. Exact provisional effects are in prototype.md. Mallow, Miyaya and Rootbeard remain deferred; no more character generation is part of this integration phase.
 
-## Character homes
+## Modes and presentation
 
-Every character should eventually own a distinctive background and music track. A match's stage always belongs to one of the current participating characters and is purely cosmetic: no change to rules, pacing, spell strength, AI difficulty, score, or hit geometry.
+| Mode | Presentation | Connection |
+| --- | --- | --- |
+| Local human versus human | Two boards on one computer | Offline |
+| Online human versus human | Two-board desktop layout; own board on mobile | Online |
+| Human versus AI | Device-appropriate layout | Offline supported |
 
-Current default: choose an eligible owner deterministically at match creation using a separate seed hash, and keep that home across the match's rounds. The online host announces raw match options to both clients; the shared seed and raw character order select the same home before local-side remapping.
+Mobile must prioritize large touch targets and the player's board, score, stars, and casting control. D30 removes the opponent statistics strip; the shared bar and per-side trophies represent both players. Cross-device matches are intended; input fairness needs playtesting and a policy decision.
 
-Initial home names are provisional: Sir Champignon's **Sporelight Keep** and Andromoss's **Moonlit Hideout**. Each now has a distinct configured background/music path in src/assets/config/presentation.yaml. Final files are absent; background-castle.png and backgroundMusic.mp3 remain fallbacks. The final background loads asynchronously after the playable scene, then switches in without delaying the countdown. It uses uniform cover scaling with configurable focal cropping and opacity. Home music has its own source, shared fallback, volume, and optional intro/loop segment points. Missing/unsupported audio falls back once; mute, pause, round end, and exit control its lifecycle.
+Matches fill the viewport with one canvas; menus, status, controls, and pause/results UI are HUD overlays. Preserve image proportions with uniform scaling and responsive positioning. Sprite feet and hit areas share measured source-art anchors. On two-board views, the local player is always left, and same-computer Player 1 is always left. No side selector is needed. Online transport maps network seat into this local presentation. Single-board mobile views show the local player; phone landscape can place HUDs beside the board to keep targets large.
 
-Code and browser/audio fallback tests are ready; distinct artwork/music files remain for the asset pass. Extend the same manifest to the other six characters later. See public/assets/ASSET-CONTRACT.md for exact paths and formats.
+Original direct keyboard layout is a starting proposal: QWE/ASD/ZXC for one player and numpad 789/456/123 for the other. Casting keys, rebinding, mouse, gamepad, and touch details are not finalized. Keyboard-mapping shuffle is excluded.
 
-## Spell-cast character animation
+## AI
 
-The user authorized implementing the portrait/cast playback pipeline now, with final assets deferred. Portraits load in the lobby, falling back to recovered hero art/standing previews. D30 removes persistent in-game portraits. Each character/tier has its own cast sheet metadata: path, frame size/count/columns, fps, hold duration, and optional sound.
+Easy, medium, and hard opponents must run offline. Use ordinary game logic, not an external language model.
 
-A successful cast emits tier, player, logical time, and round before consuming stars. HUD cameo playback uses that event once, preserves aspect ratio, freezes on pause, clamps the final frame, and ignores old-round events. Reduced motion uses a static pose. D47 supersedes the original non-blocking cameo: both boards freeze for 1500 ms, with the cast visual advancing on a separate shared countdown. Missing/invalid cast sheets use recovered hero art over the caster’s board; an opponent cast uses the visible board on single-board screens. Inputs, targets, pacing, cooldowns, pending spells and effect expiry remain frozen. Manual pause/reconnection freezes the cast countdown too. Spells commit once on accepted cast; hostile warning time starts advancing after the freeze. Browser tests supply valid/invalid synthetic sheets to verify both paths. Actual portraits and cast art are still absent.
+Proposed differentiation:
 
+- Easy: slower reactions, more misses and rabbit mistakes, predictable casting.
+- Medium: moderate reaction speed and accuracy, basic recovery and star-saving decisions.
+- Hard: fast but fallible reactions, target prioritization, strategic spell timing.
 
-## Star containers and round trophies
+Proposed fairness constraints: bots react only after targets become visible, obey a minimum interval between actions, and respect the same spell and hit rules as humans. Do not grant advance spawn knowledge or free points. Difficulty values require playtesting.
 
-Use the original estrelinhas.bmp sheet (seven 60×200 columns, five charge rows) with magenta transparency. The default HUD uses the intact original vertical 60×200 column, with charge building from the small bottom star toward the large top star. Narrow portrait lanes can recompose the four slots horizontally below the board, ordered from the first small star to the fourth large star, without stretching or cutting rotating tips. Each charge change plays frames 0–1 once, then loops frames 2–5 at 12 fps, matching Fase.cpp and the later browser SpecialBar. Frame 6 is the old active-magic red pose and is not used as a charge state. The mobile opponent statistics panel is removed. On a single-board view only the local star container is shown. Star animations follow logical match time and freeze on pause; reduced motion selects static frame 2. The star container itself is the casting button, including keyboard focus/activation; R/numpad+ still cast normally. There are no Unicode star replacements in the HUD or cast captions.
+## Technical direction
 
-Use the original trofeu.bmp sheet (six 150×75 columns, three rows representing 0/1/2 wins). Trophy indicators sit beneath each end of the shared score bar on phones; desktop indicators align above the star columns. The opponent frames are mirrored, matching the oldest game. Winning a round updates that player's trophy row; counts persist into subsequent rounds and reach two at match victory. Zero wins uses the blank row, not an invented placeholder. Layout permanently reserves this row so gaining a trophy never moves the boards.
+Frontend: TypeScript, React, Phaser, Vite, pnpm; follow shinobi-arena's tooling conventions, including Vitest and Playwright where appropriate. React handles menus/room screens; Phaser handles board rendering, animation, and effects. No physics requirement has been identified.
 
-Every round verdict shows a large original trophy in the central overlay; match verdicts use the winning hero sprite. It fades in over 600 ms and plays appearance frames 0–1, then spins through frames 2–5 at 12 fps. Presentation time keeps it moving after the simulation stops at round end. HUD trophies pause with the game. Reduced motion removes the fade and keeps a static trophy pose. No trophy animation changes scores, adds a delay to magic, or advances rounds automatically.
+Implemented architecture: shared TypeScript rules independent of rendering/networking. Local/AI matches run locally. Online matches run the same rules in the creator's browser; the guest sends target-identified hit/cast inputs and receives authoritative snapshots. Each client maps its own seat to the left. No cheating protection or dedicated gameplay server is required by the user.
 
+PeerJS Cloud signaling is the default; WebRTC data channels carry gameplay. Optional ICE overrides allow a managed TURN relay on networks where direct connection fails. Private invite links, version/config checks, two-player capacity, non-pausing online menus and synchronized round changes, heartbeat/latency feedback and 30-second reconnect grace are implemented. Host exit ends the match; no host migration or refresh recovery. See online.md for exact behavior and known limits. Networking services are never required for local/AI modes.
 
-## Minimal play screen (D30)
+Confirmed mobile delivery: responsive browser website, hosted on GitHub Pages. PWA installation/offline caching and native packaging are deferred. Phone players tap holes and tap the star container to cast. Tap the bar or press Escape for controls. AI/local modes pause; online continues behind its menu.
 
-During active play the visible HUD contains only the shared bar, character names above trophies, per-side trophies and star controls alongside the board(s). Remove numeric score panels, portrait/name headers, spell names/descriptions, wave/messages, effect-tag text, keycaps, VS labels, online latency text and the permanent toolbar. The score bar doubles as the menu control; Escape remains supported. AI/local modes pause, while online menus keep the match running. Sound, exit and resume controls appear only in the pause/results overlay. Countdown, victory and connection-interruption overlays remain transient. The lobby explains tapping stars to cast and tapping the bar to pause.
+## Art and sound
 
-Layout uses the released header/footer space for uniformly larger boards. Desktop columns stand outside each player's board; narrow portrait layouts put the horizontal control below the board, with no overlap against holes, roots or trophies. Phone landscape uses a vertical star column to the left of the horizontally centered board. Source hit-region bleed above the garden is included in the top clearance even at 4K sizes. Cosmetic homes/music and character spell logic are unchanged.
+Reuse suitable assets from Molecide Gaiden and Dig Hole Battle Garden. Molecide supplies a character atlas, rise/idle/hit/miss animations, gardens, HUD assets, and sound effects. The older game supplies character portraits and additional effects/art/audio. Inspect assets and their provenance before selecting final release content; avoid assuming every repository asset is original.
 
+PixelLab fills specific asset gaps after the initial character and spell requirements are defined. Preserve the original cast's playful identities and recognizable props.
 
-## Readability sizes and animation audit (D31)
+## Proposed spell readability rules
 
-Per-side HUD trophies scale from 56×28 to 112×56 on phone-sized screens and 168×84 on desktop. Name fonts scale from 9 to 18 px on narrow phones, and 10 to 30 px on desktop, with corresponding reserved line/trophy space. Vertical star columns grow from a nominal 64 to 96 px wide where space permits; horizontal strips grow from 240 to up to 320 px wide. Short phone landscape layouts keep the vertical column left of the centered board. Compact victory cards remain below the shared bar/trophies in landscape.
+- Show the currently available spell next to the star meter.
+- Give hostile spells a brief recognizable visual/audio warning and clear duration feedback.
+- Limit simultaneous disruptive effects so boards remain playable.
+- Define automatic clearing explicitly: proposed safe rabbit removal, no mole combo rewards, and stars left for manual collection.
+- Casts use a brief shared 1500 ms freeze with character presentation; do not extend the freeze to wait for assets.
 
-The original target atlas rows are alive/idle (including the dancing movement), hit, miss/hide, and raise, each with eight frames per kind. Rising and hiding now traverse their frames in order relative to target age/expiry, instead of taking hiding frames from global time. They adapt to the existing target lifetime and allow at least eight simulation ticks per transition; reaction windows and score rules do not change. Idle loops at 12 fps. Hits use all eight frames at 12 fps, including rabbit hits and shielded rabbit penalties. Events carry the actual target kind, avoiding guesses from the last rendered hole. An independent hit-feedback sprite finishes its sequence even if a new target appears; it becomes translucent over the new target without delaying or hiding gameplay.
+## Delivery scope
 
-Star-container charge changes already play their two-frame appearing intro at 12 fps and then the four-frame idle loop. This is independent from the rising/hiding animation of collectible stars inside holes. Reduced motion uses static poses; pause freezes logical target/charge animation. Match winners now play dedicated PixelLab victory sprite sheets derived from the correct original named hero illustrations. Defeat/hurt clips are excluded by D48. Final hero cast sheets remain asset slots.
-
-
-## Audio and match ending (D32)
-
-All 33 recovered effect files/variants are enabled through a manifest: browser spawn/hit/rabbit/star/cast/game-over samples plus the oldest WAV voice/impact variations. Play one spawn cue per snapshot rather than doubling simultaneous board offers. Explicit event reasons distinguish empty mistakes from missed moles; rabbit penalties retain their distinct hit cue. Hit and impact sounds can overlap, sweep casts have their original effect, and a match-over edge plays the game-over cue once. Effect voice rotation is cosmetic and never touches simulation RNG. Web Audio buffers are preloaded/decoded and capped at 12 simultaneous sources; unsupported contexts use a bounded native-audio fallback. Muted/paused/interrupted events are consumed without later replay, pending decoded effects are cancelled on silence/exit, and custom per-tier cast audio remains supported.
-
-Audio starts enabled on Enter/Create/Join gestures. Web Audio is unlocked immediately and the same native music element is primed for asynchronous online matchmaking. Home music retains its per-character path/shared fallback and configurable looping. Mute remains in the menu. The original non-browser MIDI collection is not bundled; the configured shared MP3 is currently audible until final home music files are supplied.
-
-Results overlay the final arena without unmounting its canvas or replacing its home background. Round wins show the spinning trophy; match wins show the winning hero. Both retain the score bar, boards and trophies under a fully transparent overlay (no color fill, image or blur), with gameplay inputs disabled. After four real-time seconds a fresh key, tap/click or controller press starts the next round or returns to setup. Early/held input is ignored. Match results take precedence over a peer leaving. Audio and network resources release on return to setup.
-
-
-The selected pairing is Almendra for titles and character names, with Literata for menus, controls and supporting text. Fonts are bundled locally with their SIL Open Font Licenses, so loading them needs no external font service. Literata uses its variable weight/optical-size face; Almendra includes regular and bold.
-
-
-## Round results and menu panels (D34)
-
-Round and match victories share the same winner/prompt overlay, with a round trophy or winning hero respectively. Both ignore early input and reveal the prompt after four seconds; a fresh key, tap/click or gamepad press then starts the next round or returns to setup respectively. The final boards, score bar and trophies remain visible underneath; gameplay is frozen. Either online player can advance; connection interruption still shows the recovery/exit screen.
-
-Setup, online and pause/countdown menu panels have transparent backgrounds, no borders and no shadows. Character cards also have transparent surfaces, with a selection outline identifying the chosen hero. Form controls and action buttons retain their visual affordances. The page/arena backdrop remains visible behind menus.
-
-
-## Mobile charge, controls and hero victory (D35)
-
-Single-board layouts show a compact read-only original star meter for the rival under the red side of the shared bar. Portrait reserves its space; landscape places it beside the bar to preserve hole targets. Desktop/two-board layouts already show each board’s stars.
-
-Escape or tapping the bar opens a transparent borderless menu. AI/local play pauses; online play continues behind its local menu. Resume, Mute/Unmute, Quit, keyboard grids/cast keys, touch guidance and both selected heroes’ four spells are included. Connection interruption uses the same menu with frozen-play status, disabled Resume and automatic recovery. Mute and Quit remain available. Long content scrolls within the viewport on small/short screens.
-
-Original named hero illustrations from Personagens/SIR CHAMPIGNON.bmp and ANDY.bmp are converted with magenta transparency. They are retained as static error fallbacks; successful match victories use generated sprite frames. The unrelated prototype Fx/Personagem sheets are not assigned to named heroes. Both hero victory.png sheets are now supplied: nine 128×160 frames at 8 fps, including the original pose and eight PixelLab motion frames. Missing/invalid sheets use the still illustration, never a wobble. Reduced motion disables celebration movement and uses a static sheet frame.
-
-
-## Clear result overlays and large countdown
-
-Round/match result surfaces have no background fill, background image or backdrop filter. Keep the original canvas mounted and rendered beneath the text/art, with board pixels unobscured away from result content. Countdown uses a 50 px round label (previously 10 px) and a 225 px numeral (previously up to 45 px), capped at 55% viewport height on short landscape screens. Both stay centered without a panel, fill or blur. Browser coverage verifies the same canvas identity, unchanged rendered board patches with/without the result overlay, nonblank artwork, frozen simulation time, exact countdown sizes and viewport fit. Screenshots cover desktop, phone portrait and phone landscape.
-
-
-## Outlined text, column alignment and sprite victories (D37)
-
-Eight directional dark shadows plus a lower soft shadow outline match/lobby text, including names, results, countdowns and pause references. Light action buttons and form fields keep their contrasting text without the dark outline.
-
-On desktop with vertical star columns, round trophy centers use the same horizontal coordinates as their corresponding columns, beneath the score/name line. The desktop outer margin reserves room for the enlarged trophy width. Phone portrait keeps trophy positions beneath the bar. Phone landscape centers the board itself in the viewport and places a vertical original star column to its left, preserving uniform scales and hole anchors.
-
-Match wins play the bundled 9-frame 128×160 transparent sprite sheets at 8 fps, with articulated pose changes. There is no CSS translation/rotation animation. Reduced motion holds frame 0. PixelLab provenance, job IDs and original artwork references are in assets/characters/victory-provenance.json. Raw generated frames can be repacked using scripts/pack-victory-sprites.mjs.
-
-
-Text outline width is now 2 px in each of the eight directions (doubled from 1 px), with a 4 px offset / 6 px blur lower shadow.
-
-
-## Names and trophies (D40, revised D41)
-
-The current order is score bar → character names → round trophies (D41 supersedes D40). Each name is centered on its own trophy. Desktop trophy/star column alignment is preserved; phone names use the corresponding compact trophy positions. Name widths respect viewport edges and the opposing label; desktop reserves room for a two-line long name on narrow column layouts. Name text does not truncate or stretch. Portrait rival stars remain below the names; landscape rival charge remains beside the bar.
-
-Previewed at 1440×900 desktop, 768×1024 tablet, 390×844 and 320×568 portrait, 844×390 landscape, plus narrow local two-player layouts in both orientations. Preview-only staged state uses one win per player and three/four stars, without adding production debug controls.
-
-Narrow local two-player landscape also uses vertical star columns, so large horizontal strips do not consume the boards’ limited height. Portrait local layouts retain horizontal strips below each board.
-
-
-## Reference-style pause menu (D42)
-
-The menu follows the supplied shinobi-arena/output/hud/pause.jpeg reference: centered top Pause title, a large vertical action list on the left and controls/magic references on the right. The active action has a garden-colored brush highlight. There are no filled information panels, walls of help text or spell descriptions. Current heroes show only their names and four numbered magic titles.
-
-The supplied CraftPix free keyboard/mouse pack provides exact-pixel cropped keycaps and mouse sprites. Controlled players get a 3×3 key map matching row-major board order, plus a casting key. AI/online opponents show spells only because their physical input is not local. Board hit labels, actual keyboard input and menu key maps share src/game/controls.ts.
-
-Resume/Mute/Unmute/Quit behavior is preserved. Up/Down navigate actions, Enter activates, Tab stays within the modal including its scrollable reference region, and Escape closes ordinary menus. Disconnection disables Resume and keeps recovery status, mute and quit; online menus still do not pause the match. On narrow phones actions remain left and available while the reference region scrolls; short landscape uses two hero columns. Source/license notes are in public/assets/input/README.md. No AI sprite generation was used.
-
-The Esc/Back visual hint is removed; Escape still closes the menu. Keys and spell names have a 56 px desktop gap, 28 px stacked portrait gap, and 24 px stacked landscape gap.
-
-
-## Menu typography hierarchy (D44)
-
-PAUSE uses locally bundled Cinzel variable (700 weight), uppercase and .08em tracking: up to 128 px desktop, 72 px portrait phones and 64 px short landscape. Connection/online status titles use a separate smaller responsive size. Action labels stay Almendra and scale with their sidebar (about 82 px at 1440 desktop, 35 px at 390 portrait, 48 px landscape). Selected/hovered brush highlights use fully opaque green with no opacity fade.
-
-Reference keycaps shrink to 40 px desktop and 24 px compact; spell titles shrink to at most 23 px desktop and 18 px compact. Portrait action columns get more width to keep larger labels readable, while the reference region retains independent scrolling. Existing key-to-magic spacing remains. The title font is self-hosted with its OFL license; no image/sprite generation is involved. Browser checks cover the hierarchy, highlight opacity, clipping, key layouts, navigation and production font loading.
-
-
-## Balanced menu composition (D45)
-
-The Cinzel PAUSE title is reduced to up to 104 px desktop, 60 px portrait and 56 px short landscape. Action labels and the opaque brush selection retain their D44 styling.
-
-Desktop/landscape references use their actual content width and align to the right edge of the centered menu; options start at its left edge. This removes unused space after the spell list and matches visible text margins on both sides. Tablet references stack when necessary.
-
-Portrait phones use a full-width top row of Resume/Mute/Quit beneath the title, with the control/spell reference anchored toward the bottom. Key maps sit left and spell titles align right within that lower region. On short phones only the lower reference region scrolls; actions stay reachable. Left/Right navigate the horizontal action row, alongside the existing Up/Down keys. Browser checks compare both container and actual text margins at desktop, tablet and phone sizes.
-
-
-## Character icons (D46)
-
-Both portrait pause headings share the same left edge, including an AI/online rival without a key map; spell lists remain right aligned. Each character has a separate `/assets/characters/CHARACTER/icon.png` slot. Supplied icons appear above the pause reference name and beside the round winner text; the spinning round trophy remains. Match victory keeps its animated hero sprite. D47 replaces missing icons with recovered hero illustrations. Recommended transparent 128×128 head/bust icons will be generated in the deferred PixelLab pass, with matching framing/padding across heroes.
-
-
-## Visible placeholders and idle/effect slots (D47)
-
-Every existing art-dependent flow stays visible: recovered hero images for selection portraits, icons and casts; original tinted castle/music for homes; bundled actual sprite sheets for match victory. No new PixelLab art is generated. Standing/idle sheets have stable per-character paths and loop in the selection fallback, with a still hero when absent. Idle characters are not added to the minimal gameplay HUD.
-
-Each tier has a separate drop-in spell-effect sheet. State-driven edge overlays show guard/ward, invasion/decoys and incoming magic until consumed or expired, plus a 700 ms cast-impact flourish for instantaneous effects. They do not intercept input. Placeholder markers advance on logical game time, so pause/cast freeze stops them. Reduced motion uses static frames. Final effect art should preserve a transparent center for target visibility.
-
-The shared ruleset version advances to 4 for the cast-freeze snapshot field. Host-authoritative casting and its remaining time remap to local identity. The headless diagnostic includes freeze time in wall-duration/cap, and bots do not make decisions during casts. Defeat/hurt clips are excluded by user request. More distinctive arrival/impact/block art remains future polish; recovered audio already supplies generic cast/impact sounds.
-
-
-## Cast star cost (D48)
-
-During the shared cast freeze, show only the spent tier as 1–4 equally sized charged stars under the casting character. Reuse the largest charged slot from the original star atlas, with no empty slots or text captions. The count comes from `state.casting.tier`, preserved before live charge is consumed; its animation follows cast presentation time and freezes during pause. A blue/red underline identifies the local/left caster versus the rival, including when both use the same visible mobile board. The row scales uniformly and stays inside that board on narrow screens. Screen readers receive caster and star cost. Defeat/hurt character reactions are explicitly out of scope; no corresponding asset slots are needed.
-
-
-## Temporary visuals during screen work (D49)
-
-Defer further asset/animation creation. Missing visual slots may use simple single-color semi-transparent boxes until the final art pass. Do not expand spell-animation polish before the menu/title/setup screens. Existing recovered art and bundled clips remain usable; this decision does not require generating replacements.
-
-
-## Title and merged main menu (D50)
-
-Normal entry opens a full-viewport Moonlit Battle Garden title with an unmodified key or tap to continue. Modifier keys, Tab and repeated keys do not dismiss it. The accepting input does not also start a match. Existing pixel-art castle imagery provides a uniformly cropped moonlit backdrop; no new imagery or animation assets are created.
-
-The main menu uses transparent content, outlined Almendra typography and the pause menu's opaque brush selection. Mode choices stay left on desktop/landscape, with setup and character previews to the right. Phone portrait stacks choices above an independently scrollable setup region. AI difficulty defaults to Medium; both heroes and opponent selection remain available for local/AI. Selected spell titles appear in setup only.
-
-Online is a main-menu section containing character choice, create/join, pasted links or room IDs, share/copy, connection status and cancellation. No extra Enter/setup/lobby transition is required. Invite URLs open this section directly and preserve the code; leaving cancels any pending room. Existing real WebRTC match/reconnect behavior remains. Options stores sound preference when storage is available, applies it to local/online starts, and remembers in-match mute changes. How to Play explains scoring, casting and controls. Up/Down chooses menu modes; Right enters setup controls; Escape focuses the active menu choice. Returning from a match keeps the main menu and current setup rather than replaying the title.
-
-
-## Dual character carousels (D51)
-
-The main menu chooses modes/options and hosts online create/join controls; it no longer contains character selection. AI/local mode activation opens a separate full-screen selection. Creating/joining an online garden opens the same selection layout with status controls and an invite link while waiting for the rival; the link hides once both are connected to leave room for both previews. Every mode has exactly two carousel slots. The local player stays blue/left and the rival red/right, regardless of network seat. Waiting rivals retain a translucent placeholder slot rather than hiding the second carousel.
-
-Arrow buttons, focused Left/Right keys and horizontal swipes wrap through the current roster. Each visible unlocked hero uses its standing/idle sheet, or recovered still art while absent. Confirm plays the existing victory sheet once and holds its last frame; Change selection unlocks browsing and returns to idle. Each hero's four spell titles stay alongside its preview. Desktop/landscape uses two columns; portrait stacks two compact preview/reference rows in a scrollable region. Source proportions are preserved and nested SVG viewports clip to one sprite frame. No images or sprite animations are generated.
-
-In solo, the computer has a second editable carousel and starts ready; changing its choice requires reconfirmation. Same-computer players confirm independently. Offline Enter the garden enables when both are ready. Online, the rival carousel mirrors live changes and is read-only. Both confirmed picks trigger a 1200 ms host hold for the existing celebration clips, then create the authoritative match. Losing the pre-match connection clears readiness and reconnects; both must confirm again. Closing/cancelling cleans up pending launch timers and the peer room.
-
-Result dismissal uses a completed click/tap rather than pointer-down so its release cannot activate a newly mounted mode choice underneath.
-
-
-## Menu language and action keys (D52)
-
-Modes are Night Watch (computer opponent), Garden Grudge (shared keyboard), and Beyond the Hedge (online invite). Garden Shed contains settings; Field Notes contains help. Internal mode IDs and rules are unchanged. The main menu keeps short Solo/Local/Online descriptions so the themed names remain clear.
-
-Character selection uses only the current mode as its heading. Visible You/Rival/Player labels, Choosing instructions and repeated rival-ready messages are removed; blue/red names and placement retain identity, with contextual labels preserved for assistive technology. A confirmed character shows Ready once. Routine connected-lobby instructions stay hidden; waiting/reconnect/error messages and Starting remain visible when meaningful.
-
-Existing CraftPix key sprites accompany actions: R confirms/changes the first slot, numpad + the second editable slot, Enter starts when both offline slots are ready, and Esc returns to the menu. Carousel arrows use the pack's Left/Right keycaps and work whenever their carousel has focus. Enter also appears with main-menu and form actions, using ordinary focused-button activation. Esc returns the main menu to the title; Escape does not reopen the title's menu. Keyboard-only hints hide on touch-primary devices while tappable arrow buttons remain. The unmodified keyboard atlas is reused without generation.
-
-### Mode and round clock
-
-Menus, selection, gameplay and pause reuse pixel-style mode icons. Spell costs in selection and pause use original filled star sprites rather than numeric tiers. Keyboard action hints are enlarged, including their embedded glyphs. The return action reads Back to title.
-
-Gameplay shows the mode name/icon, Round N and elapsed active round time (mm:ss; hours if needed). It derives from simulation time minus round start, resets each round, and follows gameplay freezes. All layouts center the mode/icon, round numeral and elapsed clock above the score bar. Gameplay text is enlarged roughly 2×, with responsive sizes on narrow/short screens; the visible round label is only its number. Pause repeats mode/round/time in its header. No timed victory condition is introduced.
-
-### Gameplay character icons
-
-Both gameplay name/trophy groups include the character icon beside the name. Missing configured icon files display a semi-transparent character-colored square, and supplied icons fit the same box without distortion. The rival icon stays visible on single-board phones. Compact name/icon pairs fit within the existing HUD height to preserve board/touch-target sizes. Pause/round-result recovered-art fallbacks are unchanged. No new images are generated.
-
-### Shared casting animation per character
-
-Each hero has one `/assets/characters/CHARACTER/cast.png` animation reused for all four spells. The existing tier-indexed playback entries map to that same sheet; tier/star cost and spell effects remain specific to the actual cast. The asset checker counts unique files. The character checklist in public/assets/ASSET-CONTRACT.md lists nine active missing assets plus one optional portrait per hero; victory sheets are already present. No new assets were generated.
-
-### Sourced homes (2026-11-17)
-
-Both heroes now load distinct CC0 background/music files: Champignon's Sporelight Keep pairs Castle in the Dark with Forest Whisper Theme; Andromoss's Moonlit Hideout pairs the Dark forest composite with Magic Town. Exact authors, URLs, hashes and format conversions are in public/assets/homes/provenance.json and CREDITS.md. Backgrounds remain static and uniformly cover-scaled. Champignon uses 72% opacity/focusY 0.15 to retain its moon in wide screens; Andromoss uses 58% opacity with central cropping. Native music loops at 16% volume and follows existing mute/pause/reconnect rules. Old shared assets remain error fallbacks. This supplies four assets, reducing missing active assets to fourteen plus two optional portraits.
+First release focuses on two characters with complete magic kits, local versus, online versus, mobile presentation, and three AI difficulties. Exact release checks and sequencing are still open. Keep the other six character concepts documented for expansion after this version is ready. Local/AI play is now implemented; see prototype.md for actual defaults. Offline AI self-play at all three difficulties is required to evaluate balance. Private online play is implemented; cross-network/mobile QA, optional relay provisioning remain pending. PWA delivery is deferred.

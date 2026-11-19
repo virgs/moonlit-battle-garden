@@ -4,7 +4,7 @@ Updated 2026-11-16. The user authorized coding and selected **Moonlit Battle Gar
 
 ## Implemented
 
-- Sir Champignon and Andromoss; four spells each.
+- Sir Champignon, Andromoss, Captain Bramble, Duskmantle and Sprig; four spells each.
 - Offline local versus and easy/medium/hard AI.
 - 3×3 gardens, both scores start at zero, winning lead X=100 (configurable), first to two round wins, three-second countdown.
 - Empty hit: −4 points. Rabbit hit: −12. Missed mole: −8. Missing stars/rabbits is safe.
@@ -49,11 +49,11 @@ The first bot iteration varied seeded spell-saving thresholds, added resource/wa
 
 ## Pending
 
-- Online authoritative rooms and network timing/disconnect policy.
+- Additional physical-network QA and an optional TURN relay; player-hosted rooms/recovery are already implemented.
 - Cached/installable PWA startup and native mobile packaging.
-- Final home/portrait/cast files and richer spell effects. The configured playback/fallback pipeline is ready; existing victory sprites are retained; further sprite generation is deferred until remaining development is complete.
+- Per-spell effect art and optional large portraits; all five hero animation/icon sets and assigned homes/music are installed. No new asset generation in this phase.
 - Final spell/bot balance, input rebinding, physical mobile testing, and release acceptance criteria.
-- Remaining six characters after the initial two-character game is ready.
+- Mallow, Miyaya and Rootbeard remain deferred.
 
 
 Score pressure now uses independent board clocks and up to 5% shorter natural/star intervals and new target lifetimes on the trailing board. Shared wave phases and all round resets remain identical. See pacing.md and reports/balance-score-pressure-comparison.md; Medium/Hard remain Champignon-favored, and three final Hard diagnostics were unfinished.
@@ -61,3 +61,23 @@ Score pressure now uses independent board clocks and up to 5% shorter natural/st
 ## Current AI and duration tuning
 
 All levels use reproducible bounded reaction/action jitter and occasional hesitation; accuracy is 70% Easy, 87% Medium, 92% Hard. Hard retains 280 ms base reactions / 220 ms intervals versus Medium 560/360 and Easy 900/600. Stronger wave peaks and a 60-second ramp, plus a gentler 5% catch-up modifier, shorten matches. A 12,000-match held-out baseline/candidate comparison found no candidate caps in 6,000 matches. Mixed-character median rounds are 53/66/89 seconds; median matches 150/171/245 seconds. Hard remains Champignon-favored at 64.2%; this does not establish human balance. See reports/balance-duration-review.md.
+
+## Five-character provisional kits (2026-11-18)
+
+All heroes use the same stars, 1500 ms casting freeze, cooldown and 650 ms hostile warning. Champignon and Andromoss retain their original numeric rules. Wards block any hostile cast before its target modifiers apply. Refreshes do not accumulate unlimited charges. New values live in `game.yaml` under `rosterSpells`.
+
+| Hero | 1 star | 2 stars | 3 stars | 4 stars |
+|---|---|---|---|---|
+| Captain Bramble | Bramble Brace: one mistake block for 8 s | Tin Caps: enemy current/new moles take one extra strike for 6 s | Iron Resolve: three mistake blocks for 8 s | Heavy Harvest: enemy current/new moles take two extra strikes for 6 s |
+| Duskmantle | Ominous Bud: mark one current/upcoming enemy mole within 8 s, +4 miss penalty | Violet Veil: target sprite opacity 72% for 6.5 s, shapes remain readable | Twilight Siphon: +2 points per manual mole hit for 7 s | Withering Pact: mark four current/upcoming moles within 8 s, +6 miss penalty each |
+| Sprig | Gentle Tending: +700 ms to current targets, at most once per target | Helping Tines: automate one column for 6.5 s | Weed Out: clear hostile pending/active effects and block one hostile spell for 6 s | Garden Clockwork: automate all columns for 8 s |
+
+Armor never changes stars/rabbits. A strike removes one armor pip without points or clearing the mole; the final hit earns the ordinary mole score. Armor expires even on surviving targets, and a weaker armor cast cannot replace stronger active armor. Marked mole misses use the normal mistake shield. Marks and unused marking charges expire with the 8 s window; cleanse removes both marks and armor. No automatic spell damage is added.
+
+Sprig chooses the column with most currently visible moles (stable left-first ties, no future knowledge). Automation has one action every 750 ms, checks at least 200 ms of visibility and remaining lifetime, and gives 6 points per mole cleared. Armor consumes automation actions too. Automation never hits rabbits, collects stars, or receives Duskmantle’s manual-hit bonus. It replaces/refreshes an existing automation window rather than stacking.
+
+All modifier windows, automation actions, warnings and target lifetimes use simulation time and stop during casting/pause/recovery. New-round players reset every modifier. Bots may retry surviving armored targets on later actions, prioritize marked moles after stars and use cleanse when afflicted; camouflage adds 200 ms reaction delay while leaving target kinds visible. This is one policy family, not proof of fair human play.
+
+A 1,500-match paired/mirror diagnostic (20 seeds; all matchups; three levels) had zero caps. Bramble distinct-pair win rates were 66.3% Easy, 87.5% Medium, 85.0% Hard. The new three kits received coverage at all tiers after correcting Bramble’s early-guard policy; Champignon Easy tier 4 remains unused and Medium tier 4 rare in this small run. Inspect `reports/balance-roster.md`/JSON before tuning. Higher-level armor pressure remains an explicit imbalance under these bots. Do not tune solely to 50%; human playtesting and policy comparisons remain necessary.
+
+The initial roster policy/report is preserved separately. Bramble’s inherited busy-board emergency was narrowed to actual guard tiers when unguarded and behind, restoring all-tier coverage without changing spell values. See `reports/balance-roster-review.md` for the before/after and remaining Champignon tier-coverage limits. Original-pair control matches are identical across this correction.

@@ -1,6 +1,6 @@
 import { parse } from 'yaml';
 import source from '../assets/config/presentation.yaml?raw';
-import type { CharacterId } from '../game/types';
+import { characterIds, type CharacterId } from '../game/types';
 
 export type MusicAsset = { src: string; fallback: string; volume: number; loopStartMs: number; loopEndMs: number | null };
 export type BackgroundAsset = { src: string; fallback: string; opacity: number; fallbackOpacity: number; fallbackTint: number; focusX: number; focusY: number };
@@ -23,7 +23,7 @@ export const presentation = Object.fromEntries(Object.entries(raw.characters).ma
   ...value, effects: Object.fromEntries(Object.entries(value.effects).map(([tier, clip]) => [tier, { ...raw.castDefaults, ...clip }])), casts: Object.fromEntries(Object.entries(value.casts).map(([tier, clip]) => [tier, { ...raw.castDefaults, ...clip }])),
 }])) as Record<CharacterId, CharacterPresentation>;
 
-for (const id of ['champignon', 'andromoss'] as const) {
+for (const id of characterIds) {
   const value = presentation[id];
   if (!value || ![value.portrait, value.icon].every(path => path.startsWith('/assets/'))) throw new Error(`Missing presentation: ${id}`);
   for (const [key, clip] of Object.entries({ ...Object.fromEntries(Object.entries(value.effects).map(([tier, clip]) => [`effect-${tier}`, clip])), ...value.casts, victory: value.victory, standing: value.standing })) {
@@ -40,4 +40,11 @@ export function clipFrame(clip: CastClip, elapsed: number, reducedMotion = false
 }
 export function validSheet(clip: CastClip, width: number, height: number): boolean {
   return width === clip.columns * clip.frameWidth && height === Math.ceil(clip.frameCount / clip.columns) * clip.frameHeight;
+}
+
+/** Reused final base art keeps new heroes' error fallbacks valid too. */
+export function heroStill(character: CharacterId): string {
+  if (character === 'sprig') return '/assets/characters/sprig/base-v6.png';
+  if (character === 'captain-bramble' || character === 'duskmantle') return `/assets/characters/${character}/base.png`;
+  return `/assets/legacy/${character}-hero.png`;
 }
