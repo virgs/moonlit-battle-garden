@@ -6,7 +6,7 @@ import { simulateBattle } from '../../src/game/simulate';
 import { characterIds,type SpellTier,type Difficulty } from '../../src/game/types';
 
 function game(tier?:SpellTier) {
-  const match=new Match({characters:['andromoss','sprig'],difficulty:'medium',mode:'local',seed:41,isolatedSpellTier:tier});
+  const match=new Match({characters:['andromoss','sprig'],difficulty:'medium',mode:'local',seed:41,isolatedSpellTier:tier,isolatedCastingPolicy:tier?'immediate':undefined});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);
   return match;
 }
@@ -42,7 +42,7 @@ it('disables every lower-tier cast, but permits the selected tier',()=>{
 
 it('casts immediately for every hero and difficulty, even when the spell is wasteful',()=>{
   for(const difficulty of ['easy','medium','hard'] as Difficulty[])for(const character of characterIds)for(const tier of [1,2,3,4] as SpellTier[]) {
-    const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:4,isolatedSpellTier:tier});
+    const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:4,isolatedSpellTier:tier,isolatedCastingPolicy:'immediate'});
     match.advance(config.countdownMs);match.state.players[0].stars=tier;
     new Bot(difficulty,8,0).update(match);
     expect(match.state.casting?.tier).toBe(tier);expect(match.state.players[0].stars).toBe(0);

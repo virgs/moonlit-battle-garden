@@ -107,3 +107,6 @@ D106 correction: one-star Sweep now uses one fixed column (busiest at cast time,
 
 
 D107: offline tier-isolated harness implemented, with one-slot/one-star trials and uniform immediate casting. First tier-1 run: 7,500 matches, no caps; no power changes. Three matrices, measured impact and interpretation limits are in reports/balance-tier-1.md and balance-tier-1-review.md. Borrowed Spark is wasted against an empty meter about 98% of casts under this restrictive policy; Champignon changes from Easy-favored to Hard-unfavored; mirror samples have 61–62% Champignon side-win signals requiring follow-up before fine tuning. Higher tiers are supported but not yet run. Normal browser mode remains unchanged.
+
+
+D108/I07: one-star diagnostics now use useful-opportunity conditions and shared 300–700 ms decision delays, with cancellation/reconsideration. No power changes. Paired-seed 7,500-match run has zero caps; matrices/metrics and comparison are in balance-tier-1.md / balance-tier-1-review.md. Immediate-policy history preserved separately. Normal mode and higher-tier strategy unchanged.

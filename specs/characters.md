@@ -232,3 +232,5 @@ Clean Sweep (one star) hits one fixed column for three seconds; Royal Cleanup (f
 
 
 D107: initial isolated-tier diagnostics make no changes to these powers or costs. Borrowed Spark/Sticky Fingers assignment changes remain deferred. One-slot tests alter the resource economy and omit cross-tier options; preserve that limitation when interpreting each hero’s spell strength.
+
+D108: one-star diagnostics now use spell-specific useful-opportunity conditions and the same 300–700 ms decision-delay distribution for all heroes/difficulties. Spell powers and the deferred Borrowed Spark/Sticky Fingers assignment remain unchanged. See prototype.md for thresholds and historical immediate-cast comparison.

@@ -1,4 +1,5 @@
 import { config } from './config';
+import { IsolatedCasting } from './IsolatedCasting';
 import { busiestColumns } from './targetColumns';
 import type { Match } from './Match';
 import { Random } from './random';
@@ -6,6 +7,7 @@ import type { Difficulty, PlayerId } from './types';
 
 export class Bot {
   private random: Random;
+  private isolatedCasting: IsolatedCasting;
   private timing: Random;
   private reactionAt = new Map<number,number>();
   private nextAction = 0;
@@ -14,6 +16,7 @@ export class Bot {
 
   constructor(private difficulty: Difficulty, seed: number, private id: PlayerId = 1) {
     this.random = new Random(seed);
+    this.isolatedCasting = new IsolatedCasting(seed);
     this.timing = new Random(seed ^ 0x71a5b39d);
   }
 
@@ -30,8 +33,10 @@ export class Bot {
     const state = match.state;
     if (state.phase !== 'playing' || state.paused || state.casting) return;
     const player = state.players[this.id];
-    // Isolated diagnostics have one identical cast rule, independent of hit timing/strategy.
-    if (match.options.isolatedSpellTier && player.stars === match.options.isolatedSpellTier && state.time >= player.nextCast) {
+    // Casting has its own clock/RNG and does not wait on hit-action scheduling.
+    if (match.isolatedCastingPolicy === 'opportunity') {
+      if (this.isolatedCasting.tryCast(match,this.id)) return;
+    } else if (match.options.isolatedSpellTier && player.stars === match.options.isolatedSpellTier && state.time >= player.nextCast) {
       match.action({ type: 'cast', player: this.id });
       return;
     }

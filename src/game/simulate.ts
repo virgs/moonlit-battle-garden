@@ -2,7 +2,7 @@ import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
 import type { MatchStatistics } from './statistics';
-import type { CharacterId, Difficulty, PlayerId, SpellTier } from './types';
+import type { CharacterId, Difficulty, PlayerId, SpellTier, IsolatedCastingPolicy } from './types';
 
 export type BattleResult = {
   winner: CharacterId | null;
@@ -18,8 +18,8 @@ export type BattleResult = {
 };
 
 /** Same match and bot code as the browser; no rendering, timers, or network. */
-export function simulateBattle(characters: [CharacterId, CharacterId], difficulty: Difficulty, seed: number, isolatedSpellTier?: SpellTier): BattleResult {
-  const match = new Match({ characters, difficulty, mode: 'local', seed, isolatedSpellTier });
+export function simulateBattle(characters: [CharacterId, CharacterId], difficulty: Difficulty, seed: number, isolatedSpellTier?: SpellTier, isolatedCastingPolicy?: IsolatedCastingPolicy): BattleResult {
+  const match = new Match({ characters, difficulty, mode: 'local', seed, isolatedSpellTier, isolatedCastingPolicy });
   const bots = [new Bot(difficulty, seed ^ 0x123456, 0), new Bot(difficulty, seed ^ 0x654321, 1)];
   const casts: [number[], number[]] = [[0, 0, 0, 0], [0, 0, 0, 0]];
   const scores: [number, number] = [0, 0];

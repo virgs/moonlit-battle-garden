@@ -58,7 +58,9 @@ export type MatchState = {
   casting: { player: PlayerId; tier: number; remainingMs: number } | null;
 };
 export type SpellTier = 1 | 2 | 3 | 4;
+export type IsolatedCastingPolicy = 'immediate' | 'opportunity';
 export type MatchOptions = {
+  isolatedCastingPolicy?: IsolatedCastingPolicy;
   /** Offline diagnostic only: capacity/casting cost equals this tier. */
   isolatedSpellTier?: SpellTier;
   characters: [CharacterId, CharacterId];

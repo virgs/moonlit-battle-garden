@@ -8,6 +8,9 @@ export class Match {
   readonly state: MatchState;
   events: GameEvent[] = [];
   readonly statistics: MatchStatistics = [playerStatistics(), playerStatistics()];
+  get isolatedCastingPolicy(): 'normal' | 'immediate' | 'opportunity' {
+    return this.options.isolatedSpellTier ? this.options.isolatedCastingPolicy ?? (this.options.isolatedSpellTier === 1 ? 'opportunity' : 'immediate') : 'normal';
+  }
   get starCapacity(): number { return this.options.isolatedSpellTier ?? 4; }
   private spawns: SpawnDirector;
   private eventId = 0;
@@ -15,6 +18,8 @@ export class Match {
 
   constructor(readonly options: MatchOptions) {
     if (options.isolatedSpellTier !== undefined && ![1,2,3,4].includes(options.isolatedSpellTier)) throw Error('Isolated tier must be 1..4');
+    if (options.isolatedCastingPolicy && !options.isolatedSpellTier) throw Error('Casting policy requires an isolated tier');
+    if (options.isolatedCastingPolicy === 'opportunity' && options.isolatedSpellTier !== 1) throw Error('Opportunity conditions currently cover tier 1 only');
     this.spawns = new SpawnDirector(options.seed);
     this.spawns.reset(config.countdownMs);
     this.state = {
