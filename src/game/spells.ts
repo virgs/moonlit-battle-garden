@@ -1,4 +1,5 @@
 import { config, characters } from './config';
+import { busiestColumns } from './targetColumns';
 import type { MatchState, Player, PlayerId } from './types';
 import { cleanse, expireTargetModifiers, modifyTarget } from './targetModifiers';
 
@@ -22,7 +23,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   message(player, characters[player.character].spells[tier - 1].name, state.time);
   if (player.character === 'champignon') {
     if (tier === 2 || tier === 4) guard(player, state.time, tier === 4 ? 3 : 1, tier);
-    if (tier === 1 || tier === 4) { player.nextSweep = state.time + config.rosterSpells.sweepIntervalMs; player.sweepUntil = state.time + config.rosterSpells.cleanSweepMs; player.sweepTier = tier; }
+    if (tier === 1 || tier === 4) { player.nextSweep = state.time + config.rosterSpells.sweepIntervalMs; player.sweepUntil = state.time + config.rosterSpells.cleanSweepMs; player.sweepTier = tier; player.sweepColumns = tier === 1 ? busiestColumns(player, 1) : [0, 1, 2]; }
     if (tier === 3) player.magicShieldUntil = state.time + config.spells.shieldMs;
   } else if (player.character === 'captain-bramble' && (tier === 2 || tier === 3)) {
     guard(player, state.time, tier === 3 ? 3 : 1, tier, config.rosterSpells.brambleGuardMs);
@@ -33,8 +34,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
       target.expires += config.rosterSpells.extensionMs; target.extended = true;
     }
     if (tier === 2 || tier === 4) {
-      const counts = [0, 1, 2].map(column => ({ column, count: player.holes.filter((target, hole) => target && hole % 3 === column).length }));
-      player.automationColumns = counts.sort((a,b) => b.count-a.count || a.column-b.column).slice(0,tier === 4 ? 2 : 1).map(value => value.column);
+      player.automationColumns = busiestColumns(player, tier === 4 ? 2 : 1);
       player.automationTier = tier;
       player.automationUntil = state.time + (tier === 4 ? config.rosterSpells.fullAutomationMs : config.rosterSpells.columnAutomationMs);
       player.nextAutomation = state.time + config.rosterSpells.automationIntervalMs;
@@ -81,8 +81,8 @@ export function resolveSpells(state: MatchState): void {
         continue;
       }
       if (spell.tier === 1 || spell.tier === 3) {
-        const stars = Math.min(player.stars, spell.tier === 1 ? 1 : 2);
-        if (spell.tier === 3) player.stars -= stars;
+        const stars = spell.tier === 1 ? player.stars : Math.min(player.stars, 2);
+        player.stars -= stars;
         caster.stars = Math.min(4, caster.stars + stars);
         // Empty theft has no fallback effect; the cast still spends its charge.
       }

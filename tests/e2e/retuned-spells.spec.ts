@@ -1,7 +1,7 @@
 import { expect,test } from '@playwright/test';
 import { openSelection,enterMatch,chooseCharacter } from './frontMenu';
 
-test('one-star Clean Sweep stays active for three gameplay seconds',async({page},info)=>{
+test('one-star Clean Sweep marks exactly one column for three gameplay seconds',async({page},info)=>{
   await page.clock.install();await openSelection(page,'local');await enterMatch(page);
   await expect(page.locator('.player-0 .cast-button')).toBeVisible();
   await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
@@ -11,9 +11,12 @@ test('one-star Clean Sweep stays active for three gameplay seconds',async({page}
   await expect(page.locator('.cast-stars')).toHaveAttribute('data-cost','1');
   await page.clock.runFor(1600);
   await expect(page.locator('.effect-sweep')).toBeVisible();
+  await expect(garden).toHaveAttribute('data-sweep-columns',/^[0-2]$/);
   await page.clock.runFor(2000);
   await expect(page.locator('.effect-sweep')).toBeVisible();
 
+  const boardBounds=await garden.boundingBox(),effectBounds=await page.locator('.effect-sweep').boundingBox();
+  expect(effectBounds!.width).toBeLessThan(boardBounds!.width/2);
   await page.screenshot({path:info.outputPath('lasting-clean-sweep.png')});
   await page.clock.runFor(1000);await expect(page.locator('.effect-sweep')).toHaveCount(0);
 });

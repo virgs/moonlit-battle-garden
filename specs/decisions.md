@@ -181,6 +181,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I04 | Restore Clean Sweep/Royal Cleanup and Bramble armor windows to 3 seconds. Sweep hits current targets immediately then every 250 ms, including arrivals; star charge caps at four and the casting display retains the spent tier. Provisional Bramble limits: Tin Caps affects at most two moles, Heavy Harvest four, across current targets/new arrivals. Extra-hit strength remains one/two. Bots recognize safe multi-mole harvest opportunities as well as emergencies. Full normal-hit sweep is powerful in diagnostics; do not silently reduce its rewards to force 50%. See reports/balance-normal-hits-review.md. These supersede I02/I03 where conflicting. |
 
+| D106 | User corrects intended spell scope: Champignon’s one-star Clean Sweep affects **one column**, not the full board. Andromoss’s Borrowed Spark **steals every enemy star**, rather than copying one; an empty enemy meter wastes the cast. Normal hit rewards/penalties, four-star capacity, ward protection and existing timing remain. This supersedes the conflicting scope/resource assumptions in I04 and earlier notes. |
+
+| I05 | Clean Sweep provisionally chooses the busiest column at cast time, with leftmost ties, and holds that column for the full three-second window. Uses 250 ms pulses and normal hit rules; Royal Cleanup keeps all three columns plus guards. Column selection is shared with Sprig and is visible in the effect placeholder and host snapshot. Borrowed Spark steals the enemy meter at hostile resolution after the existing 650 ms warning; transferred charge caps at four, no point reward and no empty-meter fallback. Other spells/costs/durations unchanged. New balance findings are in balance-column-theft-review.md; the full-board sweep diagnosis was based on the wrong scope. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -1,4 +1,5 @@
 import { config } from './config';
+import { busiestColumns } from './targetColumns';
 import type { Match } from './Match';
 import { Random } from './random';
 import type { Difficulty, PlayerId } from './types';
@@ -44,10 +45,13 @@ export class Bot {
       }
       const opponent = state.players[this.id === 0 ? 1 : 0];
       const defender = player.character === 'champignon' || player.character === 'captain-bramble';
+      const sweepColumn = busiestColumns(player, 1)[0];
+      const sweepTargets = player.holes.flatMap((target, hole) => target && hole % 3 === sweepColumn ? [target] : []);
+      const sweepAtRisk = sweepTargets.filter(target => target.kind === 'mole' && target.expires - state.time <= tuning.reactionMs + tuning.intervalMs * (1 + (target.armor ?? 0)));
       const atRisk = visible.filter(target => target.kind === 'mole' && target.expires - state.time <= tuning.reactionMs + tuning.intervalMs * (1 + (target.armor ?? 0)));
-      const sweepNeeded = atRisk.length >= 2 || (player.armorUntil > state.time && visible.filter(target => target.kind === 'mole').length >= 2)
-        || atRisk.some(target => !!target.missBonus);
-      const harvestReady = visible.filter(target => target.kind === 'mole').length >= 2 && !visible.some(target => target.kind === 'rabbit');
+      const sweepNeeded = sweepAtRisk.length >= 2 || (player.armorUntil > state.time && sweepTargets.filter(target => target.kind === 'mole').length >= 2)
+        || sweepAtRisk.some(target => !!target.missBonus);
+      const harvestReady = sweepTargets.filter(target => target.kind === 'mole').length >= 2 && !sweepTargets.some(target => target.kind === 'rabbit');
       const sweepUseful = sweepNeeded || harvestReady;
       const emergency = (player.character === 'champignon' && (
         (player.stars === 1 && sweepUseful) ||

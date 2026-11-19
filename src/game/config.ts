@@ -45,7 +45,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   champignon: {
     name: 'Sir Champignon', role: 'The garden guardian', color: '#c9e586', emblem: '♜',
     spells: [
-      { name: 'Clean Sweep', description: 'Hit all targets for 3 seconds: normal mole points, rabbit penalties and star collection.' },
+      { name: 'Clean Sweep', description: 'Hit one column for 3 seconds: normal mole points, rabbit penalties and star collection.' },
       { name: 'Mushroom Guard', description: 'Block the next mistake for 12 seconds.' },
       { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
       { name: 'Royal Cleanup', description: 'Hit all targets for 3 seconds and block three mistakes for 12 seconds.' },
@@ -54,7 +54,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   andromoss: {
     name: 'Andromoss', role: 'The star-stealing troublemaker', color: '#ffb27c', emblem: '✦',
     spells: [
-      { name: 'Borrowed Spark', description: 'Copy one enemy star, if available.' },
+      { name: 'Borrowed Spark', description: 'Steal all enemy stars, up to your four-star capacity. Wasted if their meter is empty.' },
       { name: 'Rabbit Riot', description: 'Fill upcoming enemy waves with extra rabbits for 7.5 seconds.' },
       { name: 'Sticky Fingers', description: 'Steal up to two enemy stars, if available.' },
       { name: 'Double Trouble', description: 'Send faster, rabbit-heavy waves for 8.5 seconds.' },

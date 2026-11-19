@@ -121,7 +121,8 @@ export class GardenScene extends Phaser.Scene {
       }
       this.updateTargets(garden.id, state.time);
       const player = state.players[garden.id];
-      if (player.automationUntil > state.time) for (const column of player.automationColumns) {
+      const activeColumns = new Set([...(player.automationUntil > state.time ? player.automationColumns : []), ...(player.sweepUntil > state.time ? player.sweepColumns : [])]);
+      for (const column of activeColumns) {
         const areas = garden.holes.filter((_, index) => index % 3 === column).map(hole => hole.hit);
         const x = Math.min(...areas.map(area => area.x)), y = Math.min(...areas.map(area => area.y));
         const right = Math.max(...areas.map(area => area.x + area.width)), bottom = Math.max(...areas.map(area => area.y + area.height));

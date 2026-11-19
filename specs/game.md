@@ -70,3 +70,5 @@ First release focuses on two characters with complete magic kits, local versus, 
 
 
 Current hit semantics (D105): Sweep and Sprig automation use the same base target rules as manual hits—moles award normal points, rabbits incur the normal penalty unless guarded, stars award normal points and charge. Armor takes extra strikes. Lasting spell windows have a three-second minimum (D104); instant actions and presentation/action timing are separate. Current exact values are in prototype.md.
+
+D106 limits one-star Clean Sweep to one column; only Royal Cleanup covers all columns. Borrowed Spark transfers all enemy stars, capped at four on the caster, and wastes its charge against an empty meter. The existing hostile warning and ward protection apply. Column selection is fixed at cast time using the provisional busiest-column rule.

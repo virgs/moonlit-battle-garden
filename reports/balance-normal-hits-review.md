@@ -1,5 +1,7 @@
 # Normal-hit correction and three-second spell windows
 
+Historical: these diagnostics incorrectly gave one-star Sweep full-board coverage. D106 corrects it to one column and makes Borrowed Spark steal all stars. Current results: [column/theft review](balance-column-theft-review.md).
+
 Sweep previously erased moles/rabbits without rewards and preserved stars. That was an implementation assumption, corrected by D105. Sweep and Sprig automation now share normal hit rules: mole +10, rabbit −12 unless guarded, star +25/+1 charge capped at four. Armor needs repeated strikes. Sweep hits immediately then every 250 ms for three active seconds.
 
 Bramble armor lasts three seconds, with one/two extra hits at tiers 1/4. The provisional nerf limits it to two/four affected moles per cast, including new arrivals. Other lasting spell windows stay unchanged and all exceed the three-second minimum. No new art.

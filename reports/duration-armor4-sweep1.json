@@ -1398,5 +1398,5 @@
     }
   ],
   "summaryOnly": true,
-  "rawOutcomeNote": "Per-pair/per-level/tier aggregates and reproduction parameters retained. Selected raw outcomes are in balance-roster.json; the final adopted run was checked identical before discarding duplicate raw logs."
+  "rawOutcomeNote": "Per-pair/per-level/tier aggregates and reproduction parameters retained. Selected raw outcomes are in balance-roster.json at Git commit 100af6f; that historical adopted run was checked identical before discarding duplicate raw logs."
 }

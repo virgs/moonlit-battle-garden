@@ -101,3 +101,6 @@ D101/D102 swaps Champignon/Bramble tiers1/2, adds a 3-second active sweep, remov
 ## Current duration-only iteration
 
 The primary balance view is now the user-requested versus matrix, pooled equally across AI levels with per-cell difficulty-spread flags and underlying per-level rows. Weighted pooling, reversed pair orientation, mirror side results and cap handling have unit checks. Five 100-seed duration variants each completed 7,500 matches without caps;1-second sweep/2-second armor was adopted and its new default-config run exactly matches the selected trial. 121 simulation/reporting tests, 12 desktop/phone checks and the build passed. No assets were generated or modified. Duration changes help but do not resolve Bramble dominance or low-level Champignon weaknesses.
+
+
+D106 correction: one-star Sweep now uses one fixed column (busiest at cast time, leftmost ties); Royal Cleanup remains full-board. Borrowed Spark steals all enemy stars subject to the four-charge caster cap; empty meter wastes it, wards still block. See reports/balance-column-theft-review.md for the new 7,500-match run; previous full-board results are historical. No additional durations/points or other spells changed.

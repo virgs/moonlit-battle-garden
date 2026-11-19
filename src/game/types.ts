@@ -36,6 +36,7 @@ export type Player = {
   automationUntil: number;
   automationColumns: number[];
   sweepUntil: number;
+  sweepColumns: number[];
   sweepTier: number;
   nextSweep: number;
   automationTier: number;

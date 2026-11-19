@@ -224,3 +224,8 @@ Current duration update I03: Clean Sweep and Royal Cleanup now have a 1-second a
 ### Current normal-hit correction (D104/D105/I04)
 
 Supersedes I03: Sweep/Royal Cleanup and Bramble armor last 3 seconds. Sweep hits current/all arriving target types every 250 ms using normal mole points, rabbit penalties/guards and star collection. Sprig automation uses normal mole points too. Tin Caps/Heavy Harvest armor at most two/four moles within their window, with one/two extra strikes each. All other active durations remain unchanged. Report Easy/Medium/Hard separately. Quotas remain provisional; review reports/balance-normal-hits-review.md before more tuning.
+
+
+### Current column/theft correction (D106/I05)
+
+Clean Sweep (one star) hits one fixed column for three seconds; Royal Cleanup (four) keeps full-board coverage and its guards. The provisional selector chooses the busiest column at cast time, leftmost on ties. Borrowed Spark steals **all** enemy charge at resolution, up to the caster’s four-star capacity, and is wasted against an empty meter. Other spells remain unchanged, including Sticky Fingers stealing at most two stars. The resulting tier-1/tier-3 resource overlap needs future design review, rather than silently changing tier 3. Previous copy-one/full-board-one-star descriptions are historical.

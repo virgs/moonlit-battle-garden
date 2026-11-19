@@ -27,10 +27,21 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   const recent = [...snapshot.events].reverse().find(event => event.kind === 'cast' && event.player === garden.id && event.round === state.round && state.time - event.time < 700);
   if (recent?.tier) effects.push({ kind: 'impact', character: player.character, tier: recent.tier });
   return <div className="spell-effects" style={{ left:garden.x, top:garden.y, width:garden.width, height:garden.height } as CSSProperties} aria-hidden="true">
-    {effects.map(effect => <Effect key={effect.kind} {...effect} time={state.time} />)}
+    {effects.map(effect => {
+      const areas = effect.kind === 'sweep' && player.sweepTier === 1
+        ? garden.holes.filter((_,index) => player.sweepColumns.includes(index % 3)).map(hole => hole.hit) : [];
+      const bounds: CSSProperties | undefined = areas.length ? {
+        left: Math.min(...areas.map(area=>area.x))-garden.x,
+        top: Math.min(...areas.map(area=>area.y))-garden.y,
+        width: Math.max(...areas.map(area=>area.x+area.width))-Math.min(...areas.map(area=>area.x)),
+        height: Math.max(...areas.map(area=>area.y+area.height))-Math.min(...areas.map(area=>area.y)),
+        right: 'auto', bottom: 'auto',
+      } : undefined;
+      return <Effect key={effect.kind} {...effect} time={state.time} bounds={bounds} />;
+    })}
   </div>;
 }
-function Effect({ kind, character, tier, time }: { kind: string; character: CharacterId; tier: number; time: number }) {
+function Effect({ kind, character, tier, time, bounds }: { kind: string; character: CharacterId; tier: number; time: number; bounds?: CSSProperties }) {
   const clip = presentation[character].effects[tier];
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -42,7 +53,7 @@ function Effect({ kind, character, tier, time }: { kind: string; character: Char
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const frame = reduced ? 0 : Math.floor(time * clip.fps / 1000) % clip.frameCount;
   // A time-driven marker keeps placeholder motion frozen by pause/casting too.
-  return <div className={`spell-effect effect-${kind}`} data-effect={kind} data-character={character} data-tier={tier} data-asset={ready ? 'ready' : 'fallback'} data-frame={frame}>
+  return <div className={`spell-effect effect-${kind}`} style={bounds} data-effect={kind} data-character={character} data-tier={tier} data-asset={ready ? 'ready' : 'fallback'} data-frame={frame}>
     {ready ? <svg viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow="hidden"><image href={assetUrl(clip.src)} width={clip.columns*clip.frameWidth} height={Math.ceil(clip.frameCount/clip.columns)*clip.frameHeight} x={-(frame%clip.columns)*clip.frameWidth} y={-Math.floor(frame/clip.columns)*clip.frameHeight} /></svg>
       : <svg viewBox="0 0 100 100" preserveAspectRatio="none"><rect x="3" y="3" width="94" height="94" rx="12" /><path d={kind === 'incoming' ? 'M43 6 L50 15 L57 6 M43 94 L50 85 L57 94' : `M${10+frame*8} 3 l5 4 l-5 4 l-5 -4 Z M${90-frame*8} 89 l5 4 l-5 4 l-5 -4 Z`} /></svg>}
   </div>;
