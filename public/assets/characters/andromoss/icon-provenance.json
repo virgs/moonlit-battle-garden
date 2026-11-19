@@ -1,24 +1,43 @@
 {
-  "generator": "PixelLab edit_image_pro_flash",
+  "generator": "PixelLab create_image_pro",
   "created": "2026-11-18",
   "character": "Andromoss",
-  "internalCharacterId": "andromoss",
-  "status": "User approved on 2026-11-18. Visual review by user only.",
-  "jobId": "00104979-6dd3-4329-ad29-df4906d5affa",
-  "assetId": "42fb8595-9ad7-50fe-b572-afe5b6d48e23",
+  "jobId": "16faab6b-9d8d-4e17-be25-3ef5ad4c6a04",
+  "assetId": "5b7b0057-20b5-5907-8eaa-361bbbae3169",
   "request": {
-    "image_url": "https://api.pixellab.ai/mcp/images/f41132a2-bbfc-4482-8c9e-f6a709781642/download",
-    "method": "reference",
-    "reference_image": {
-      "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/icon.png",
-      "usage_description": "Approved icon framing/scale and clean pixel-art style only. Match the generous full-head margins within the square, not the knight's identity, helmet, plume or equipment."
-    },
-    "description": "Create NIGHTSHADE's static head-and-shoulders ICON from his approved alien design. Preserve the EXACT normal-sized alien face, sunglasses, neck gills, rear narrow braid-like appendage and leather-jacket shoulders. The forehead and short crown points are ONE continuous piece of skin/skull: same color/shading, no hairline, separate cap, hair strands or flowing top spikes. Keep the established adult proportions and original skin colors. Recompose as a clean fully visible bust within the unchanged 192x192 square. Crucial framing: center the complete head around x=104, leave at least 16 transparent pixels at both sides and above the tallest crown point, show the ENTIRE head and rear braid inside the frame, never an extreme close-up or cropped head fragment. Crop the body naturally below the shoulders, not through the head. Use the reference icon only for clean bold outlines, framing/margins and readability at 32px; do not copy helmet, cyan visor, red plume or armor. Flat shading and broad color clusters, no dead pixels or gritty details. No hook, chain, hands, tail, frame, text, scenery or magic effects. Transparent background.",
+    "description": "Static head-and-shoulders ICON of the EXACT newly approved simplified ANDROMOSS from reference1. Preserve normal ADULT head size/proportions, large wide-open expressive eyes, rigid short skin-continuous crown points (not hair), simple gill marks and plain jacket shoulders. Exact approved skin and clothing colors with only original simple broad flat shades. NO sunglasses, hook, chain or rear braid. Clean centered bust inside transparent 192x192 square: show ENTIRE head/crown with at least 16px clear margins above and on BOTH sides, no cropping or extreme close-up. Crop naturally below shoulders. Use reference2 ONLY for full-head framing and clean bold outline weight, not knight identity, helmet, plume or cyan eyes. No baby/chibi proportions or enlarged skull. Large eye whites are clean solid shapes, not scattered highlights. No tiny white/light-gray specks, texture, gradients, noise, border, text, hands, props, scenery or magic.",
+    "width": 192,
+    "height": 192,
     "no_background": true,
-    "use_color_palette_correction": false,
-    "seed": 2026111816
+    "max_colors": 20,
+    "seed": 2026111844,
+    "reference_images": [
+      {
+        "url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+        "usage": "Exact approved simplified Andromoss identity, adult proportions, exposed wide-open eyes, rigid skin crown, gills, plain jacket and fixed material colors."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/icon.png",
+        "usage": "Full-head icon framing with generous margins and clean outlines only. Do not copy character."
+      }
+    ],
+    "style_image_url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+    "style_copy": [
+      "color_palette",
+      "outline",
+      "detail",
+      "shading"
+    ]
   },
-  "costGenerations": 6,
-  "installedSha256": "da5c77e60fd88f5efd89c98dcfb888ba41be5234d2569c38562b28218245bbad",
-  "namingNote": "Generated with the provisional name Nightshade before the user chose Andromoss. Exact generation prompts retained."
+  "status": "Fresh simplified icon installed in existing presentation slot for user visual review; no model image inspection.",
+  "costGenerations": 10,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "c25fe061a83c91a86be9e5d98ed9584515f458c95e96fc431cd0f2b94d5d5931"
 }

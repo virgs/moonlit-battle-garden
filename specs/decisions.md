@@ -157,6 +157,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D97 | User reopens Andromoss for one last from-scratch attempt with a much simpler design and permits removing glasses in favor of big wide-open eyes. Generate one fresh base first: normal adult head/body proportions, rigid skin-continuous crown, simple gills/tail; proposed simplified jacket and removal of hook/chain/rear braid reduce clutter. Tight palette, broad flat shapes and minimal shading. User reviews before new animations; preserve old runtime assets until replacement approval. |
 
+| D98 | User approves simplified Andromoss base-v6 and authorizes fresh idle, expressive victory, one shared casting animation and matching icon. Generate each animation as a full clip from this same base, preserving the simple fixed material palette, adult normal-head proportions and exposed eyes. No cleanup or multi-batch polishing. New files replace existing presentation slots once generated and technically checked; user retains visual review. Preserve historical versions/provenance. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.

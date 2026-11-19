@@ -1,0 +1,104 @@
+{
+  "generator": "PixelLab animate_image_pixminimax, followed by edit_animation cleanup",
+  "created": "2026-11-18",
+  "character": "Andromoss",
+  "internalCharacterId": "andromoss",
+  "status": "Second broader AI polish followed by firmer free white/light-gray pixel cleanup; awaiting user visual review.",
+  "base": {
+    "file": "base-v5.png",
+    "provenance": "base-provenance-v5.json"
+  },
+  "frameWidth": 192,
+  "frameHeight": 192,
+  "processing": "Native transparent PNG frames packed without resizing, recoloring or trimming using scripts/pack-sprite-animation.mjs.",
+  "requestCommon": {
+    "first_frame_url": "https://api.pixellab.ai/mcp/images/f41132a2-bbfc-4482-8c9e-f6a709781642/download",
+    "last_frame_url": "https://api.pixellab.ai/mcp/images/f41132a2-bbfc-4482-8c9e-f6a709781642/download",
+    "no_background": true,
+    "enhance_prompt": false,
+    "direction": "south-west",
+    "view": "side",
+    "subject_description": "Nightshade, a lean adult alien in sunglasses and a leather jacket, with a normal-sized skin-spiked head, visible neck gills, a slender lion-like tail, a thin rear braid-like appendage and a short hook-and-chain.",
+    "initial_pose": "Standing in the approved relaxed pose with the hook-and-chain held naturally and boots grounded."
+  },
+  "animations": {
+    "standing": {
+      "jobId": "633b9422-92bf-4aa5-8161-6724b0f35fc8",
+      "assetId": "910e3568-c945-5220-b04c-21854ee746e1",
+      "prompt": "Subtle calm seamless idle loop. Hold the exact approved stance, head direction, sunglasses, hook grip and arm positions steady. Only gentle chest/neck breathing and a tiny relaxed motion at the tip of the slender tail. The forehead and crown points are ONE solid skin/skull shape: keep the crown points completely rigid with the head; no hair movement, windblown spikes, hairline or separate cap. The small rear braid-like appendage barely settles. No large weight shift, head turn, waving, hook gesture, hopping, torso lean or whole-image wobble. Preserve the approved normal adult head, neck gills, slim limbs, thin tail/tuft, clean thick outlines and flat colors. Fixed camera/scale, full body and all appendages within the unchanged transparent canvas.",
+      "seed": 2026111813,
+      "frameCount": 5,
+      "columns": 5,
+      "fps": 3,
+      "holdMs": 0,
+      "costGenerations": 1
+    },
+    "victory": {
+      "jobId": "61b50881-fda4-4497-9181-18f9a4577f12",
+      "assetId": "c21062a9-642f-59fe-9a27-21940002cf75",
+      "prompt": "Expressive cocky victory celebration LOOP with clear full-body key poses: bend both knees in anticipation, make one jaunty celebratory hop while raising the hook hand triumphantly and flashing a small confident two-finger salute with the free hand, land with flexed knees, briefly lean back with a proud chest-out attitude, then settle into the original standing pose. The slender tail follows the body with a light delayed swing and the small rear braid-like appendage follows gently. The top head spikes remain RIGID skull/skin anatomy, never loose hair or a cap; preserve the continuous forehead. Keep the normal adult head, sunglasses, visible gills, leather jacket, thin tail/tuft and clean chunky flat-shaded pixel style unchanged. Fixed camera and character scale, no sliding, entire head, limbs, hook, chain and tail inside the canvas. Transparent background; no text, confetti, trophy or extra characters.",
+      "seed": 2026111814,
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 8,
+      "holdMs": 0,
+      "costGenerations": 1,
+      "postProcessing": "polish2-provenance.json"
+    },
+    "cast": {
+      "jobId": "8e5b8a3e-b974-4f9f-8cc1-1fa1dccb0874",
+      "assetId": "e14aeda0-4b3f-5d8e-87ba-b3fa59aecbad",
+      "prompt": "Expressive magical star-thief cast: crouch and pull the hook arm back in anticipation, twist the shoulders, sweep/reach the hook outward in a clear arc, then pull it toward the chest/pocket as if stealing a spark. Follow through and return to the starting stance. A narrow VIOLET light trail follows the moving hook tip; small bright GOLD sparkles curl inward to the hand, then fade away. Keep the effect compact and visible, clear of the face/gills. Preserve the approved normal head, sunglasses, jacket, adult proportions, thin tufted tail and narrow rear braid. Crown points are RIGID skin continuous with the forehead, never loose hair or a separate cap. Strong distinct body/limb poses; no sliding or full turn. Fixed camera/scale, whole character and effect inside the transparent 192x192 frame. No scenery, text, numbers or large collectible stars; the game adds the spent-star overlay.",
+      "seed": 2026111815,
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 9,
+      "holdMs": 500,
+      "costGenerations": 1,
+      "postProcessing": "polish2-provenance.json"
+    }
+  },
+  "installedSha256": {
+    "base-v5.png": "2c126d7a0ab81316f0c6183d9263f2dbaa674e3ea8040f3d6d2315f7e4d49a41",
+    "standing.png": "c85c01d253f2ebfb5e93b0cbb913f2fd9357311feec6517182d18bf3c420a34a",
+    "victory.png": "dfb2de63ceeec1b15c9d311dfbba9226418da31a270d1f62130d55a11872f811",
+    "cast.png": "9728950cf6af536818a5766566122d1e0c8790cce652f60c082fed36a75ea8f0"
+  },
+  "technicalChecks": {
+    "standing": {
+      "frameCount": 5,
+      "nativeDimensions": [
+        192,
+        192
+      ],
+      "transparent": true,
+      "firstFrameMatchesApprovedBase": true,
+      "packedPixelsMatchSourceFrames": true
+    },
+    "victory": {
+      "frameCount": 9,
+      "nativeDimensions": [
+        192,
+        192
+      ],
+      "transparent": true,
+      "firstFrameMatchesApprovedBase": true,
+      "packedPixelsMatchSourceFrames": false,
+      "packedPixelsMatchCleanupFrames": true,
+      "cleanup": "polish2-provenance.json"
+    },
+    "cast": {
+      "frameCount": 9,
+      "nativeDimensions": [
+        192,
+        192
+      ],
+      "transparent": true,
+      "firstFrameMatchesApprovedBase": true,
+      "packedPixelsMatchSourceFrames": false,
+      "packedPixelsMatchCleanupFrames": true,
+      "cleanup": "polish2-provenance.json"
+    }
+  },
+  "postProcessing": "See polish2-provenance.json for AI batches and exact free pixel edits. Earlier animation versions and records retained in Git."
+}

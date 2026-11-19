@@ -28,7 +28,7 @@
       }
     ]
   },
-  "status": "Staged simplified from-scratch base for user visual review; existing runtime assets unchanged. No model image inspection.",
+  "status": "User approved the simplified wide-eyed base on 2026-11-18; source for fresh complete animations and icon.",
   "costGenerations": 10,
   "technicalChecks": {
     "dimensions": [
@@ -38,5 +38,6 @@
     "transparent": true,
     "visible": true
   },
-  "installedSha256": "565acc2416f1d245676b0bd01be897771c4dfdaac4bec5e7bd7a0fa3cfbe278e"
+  "installedSha256": "565acc2416f1d245676b0bd01be897771c4dfdaac4bec5e7bd7a0fa3cfbe278e",
+  "userApproved": true
 }

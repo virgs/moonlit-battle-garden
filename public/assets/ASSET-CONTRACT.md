@@ -59,7 +59,7 @@ The regular check reports missing final files and validates supplied sprite-shee
 
 - Character icon: installed transparent 192×192 review draft.
 - Standing/idle: installed five 192×192 frames at 3 fps.
-- Shared casting: installed nine 192×192 frames at 9 fps with a 500 ms hold; violet hook trail/gold sparks requested.
+- Shared casting: installed nine 192×192 frames at 9 fps with a 500 ms hold; violet hand-gesture trail/gold sparks from simplified base-v6.
 - Victory: installed nine 192×192 frames at 8 fps.
 - New outputs await user visual review; exact prompts in characters/andromoss/provenance.json and icon-provenance.json.
 - Four spell effects: Borrowed Spark, Rabbit Riot, Sticky Fingers, Double Trouble.

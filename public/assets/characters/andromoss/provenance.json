@@ -1,32 +1,34 @@
 {
-  "generator": "PixelLab animate_image_pixminimax, followed by edit_animation cleanup",
+  "generator": "PixelLab animate_image_pixminimax",
   "created": "2026-11-18",
   "character": "Andromoss",
-  "internalCharacterId": "andromoss",
-  "status": "Second broader AI polish followed by firmer free white/light-gray pixel cleanup; awaiting user visual review.",
+  "assetDirectory": "andromoss",
+  "status": "Fresh simplified animation drafts installed in existing presentation slots for user review. No model image inspection.",
   "base": {
-    "file": "base-v5.png",
-    "provenance": "base-provenance-v5.json"
+    "file": "base-v6.png",
+    "provenance": "base-provenance-v6.json",
+    "approval": "User approved on 2026-11-18."
   },
   "frameWidth": 192,
   "frameHeight": 192,
-  "processing": "Native transparent PNG frames packed without resizing, recoloring or trimming using scripts/pack-sprite-animation.mjs.",
-  "requestCommon": {
-    "first_frame_url": "https://api.pixellab.ai/mcp/images/f41132a2-bbfc-4482-8c9e-f6a709781642/download",
-    "last_frame_url": "https://api.pixellab.ai/mcp/images/f41132a2-bbfc-4482-8c9e-f6a709781642/download",
-    "no_background": true,
-    "enhance_prompt": false,
-    "direction": "south-west",
-    "view": "side",
-    "subject_description": "Nightshade, a lean adult alien in sunglasses and a leather jacket, with a normal-sized skin-spiked head, visible neck gills, a slender lion-like tail, a thin rear braid-like appendage and a short hook-and-chain.",
-    "initial_pose": "Standing in the approved relaxed pose with the hook-and-chain held naturally and boots grounded."
-  },
+  "processing": "Complete animations generated in one call each, packed at native resolution without pixel edits. Transparent hidden RGB may normalize; visible RGBA verified unchanged. No iterative polish or multi-batch edits.",
   "animations": {
     "standing": {
-      "jobId": "633b9422-92bf-4aa5-8161-6724b0f35fc8",
-      "assetId": "910e3568-c945-5220-b04c-21854ee746e1",
-      "prompt": "Subtle calm seamless idle loop. Hold the exact approved stance, head direction, sunglasses, hook grip and arm positions steady. Only gentle chest/neck breathing and a tiny relaxed motion at the tip of the slender tail. The forehead and crown points are ONE solid skin/skull shape: keep the crown points completely rigid with the head; no hair movement, windblown spikes, hairline or separate cap. The small rear braid-like appendage barely settles. No large weight shift, head turn, waving, hook gesture, hopping, torso lean or whole-image wobble. Preserve the approved normal adult head, neck gills, slim limbs, thin tail/tuft, clean thick outlines and flat colors. Fixed camera/scale, full body and all appendages within the unchanged transparent canvas.",
-      "seed": 2026111813,
+      "jobId": "859afc56-028e-45fb-9fde-bb562956fd81",
+      "assetId": "a500644e-1b0e-519c-b990-2dd99c0cc1f4",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Andromoss, the approved simpler lean adult alien with large wide-open eyes, normal-sized rigid skin-crowned head, simple neck gills, plain short jacket and slender tufted tail; no glasses, hook, chain or rear braid.",
+        "initial_pose": "The exact approved relaxed standing pose, feet grounded, hands resting naturally, facing slightly left.",
+        "frame_count": 4,
+        "seed": 2026111841,
+        "description": "Subtle calm seamless idle. Keep approved feet, head direction, hand positions and stance steady. Only gentle small chest breathing and a tiny relaxed tail-tip movement. Wide-open eyes stay readable and steady; rigid skin crown never sways as hair. No big gestures, weight shifts, bouncing or whole-image wobble. Preserve EXACT approved jacket, shirt, trousers, skin and boot colors in EVERY frame, with only the original two flat shades per material. Keep large clean eye shapes; no tiny white/gray specks, extra highlights, gradients, texture or accessories. No glasses, hook, chain or braid. Fixed camera/scale, whole adult figure and tail inside transparent canvas; return to starting pose."
+      },
       "frameCount": 5,
       "columns": 5,
       "fps": 3,
@@ -34,71 +36,81 @@
       "costGenerations": 1
     },
     "victory": {
-      "jobId": "61b50881-fda4-4497-9181-18f9a4577f12",
-      "assetId": "c21062a9-642f-59fe-9a27-21940002cf75",
-      "prompt": "Expressive cocky victory celebration LOOP with clear full-body key poses: bend both knees in anticipation, make one jaunty celebratory hop while raising the hook hand triumphantly and flashing a small confident two-finger salute with the free hand, land with flexed knees, briefly lean back with a proud chest-out attitude, then settle into the original standing pose. The slender tail follows the body with a light delayed swing and the small rear braid-like appendage follows gently. The top head spikes remain RIGID skull/skin anatomy, never loose hair or a cap; preserve the continuous forehead. Keep the normal adult head, sunglasses, visible gills, leather jacket, thin tail/tuft and clean chunky flat-shaded pixel style unchanged. Fixed camera and character scale, no sliding, entire head, limbs, hook, chain and tail inside the canvas. Transparent background; no text, confetti, trophy or extra characters.",
-      "seed": 2026111814,
+      "jobId": "45bf9b0b-292d-4220-927a-380c3c87a390",
+      "assetId": "ec1fd256-c739-58f1-89a9-6e96eb206b4c",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Andromoss, the approved simpler lean adult alien with large wide-open eyes, normal-sized rigid skin-crowned head, simple neck gills, plain short jacket and slender tufted tail; no glasses, hook, chain or rear braid.",
+        "initial_pose": "The exact approved relaxed standing pose, feet grounded, hands resting naturally, facing slightly left.",
+        "frame_count": 8,
+        "seed": 2026111842,
+        "description": "Expressive playful adult-alien victory LOOP with distinct simple strong poses. Bend knees and lower shoulders in anticipation, make one jaunty celebratory hop with a raised open-hand salute, land with flexed knees, briefly hold a confident chest-out pose then settle to the original stance. Slender tail follows lightly. Eyes stay large and alert, NORMAL adult head size fixed; skin crown rigid, never hair. Preserve EXACT approved jacket, shirt, trouser, skin and boot colors across ALL frames; only original broad flat shades, clean bold outlines. No new clothing details, white/light-gray specks, texture, gradients, glasses, hook, chain or braid. No added props, confetti or effects. Fixed camera/scale; entire body, raised hand and tail inside transparent canvas. Strong articulated movement, not a wiggling image."
+      },
       "frameCount": 9,
       "columns": 9,
       "fps": 8,
       "holdMs": 0,
-      "costGenerations": 1,
-      "postProcessing": "polish2-provenance.json"
+      "costGenerations": 1
     },
     "cast": {
-      "jobId": "8e5b8a3e-b974-4f9f-8cc1-1fa1dccb0874",
-      "assetId": "e14aeda0-4b3f-5d8e-87ba-b3fa59aecbad",
-      "prompt": "Expressive magical star-thief cast: crouch and pull the hook arm back in anticipation, twist the shoulders, sweep/reach the hook outward in a clear arc, then pull it toward the chest/pocket as if stealing a spark. Follow through and return to the starting stance. A narrow VIOLET light trail follows the moving hook tip; small bright GOLD sparkles curl inward to the hand, then fade away. Keep the effect compact and visible, clear of the face/gills. Preserve the approved normal head, sunglasses, jacket, adult proportions, thin tufted tail and narrow rear braid. Crown points are RIGID skin continuous with the forehead, never loose hair or a separate cap. Strong distinct body/limb poses; no sliding or full turn. Fixed camera/scale, whole character and effect inside the transparent 192x192 frame. No scenery, text, numbers or large collectible stars; the game adds the spent-star overlay.",
-      "seed": 2026111815,
+      "jobId": "a654859e-8a08-4308-99de-745fe006d0bf",
+      "assetId": "c77130a9-29a0-54d7-b350-550301d35a06",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/9998e08c-1d0b-4e41-8549-a0b0ccfb8b79/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Andromoss, the approved simpler lean adult alien with large wide-open eyes, normal-sized rigid skin-crowned head, simple neck gills, plain short jacket and slender tufted tail; no glasses, hook, chain or rear braid.",
+        "initial_pose": "The exact approved relaxed standing pose, feet grounded, hands resting naturally, facing slightly left.",
+        "frame_count": 8,
+        "seed": 2026111843,
+        "description": "Expressive simple star-thief magic cast. Crouch and draw one empty hand back, twist shoulders, reach the open palm outward in a broad clean arc, then curl the hand toward the chest as if drawing in a stolen spark. Follow through and return to the original stance. A compact VIOLET ribbon follows the hand gesture; a few GOLD motes curl inward to the palm and fade. No particle shower or white/gray dust. Keep face clear, large alert eyes and normal adult head; crown points remain rigid skin. Preserve EXACT approved jacket, shirt, trouser, skin and boot colors in every frame; simple broad two-shade material clusters and bold dark outlines. No added outfit detail, gradients, texture, props, glasses, hook, chain or braid. Fixed camera/scale, full adult figure, tail and magic inside transparent canvas. Game adds stars-spent overlay; no text or star icons."
+      },
       "frameCount": 9,
       "columns": 9,
       "fps": 9,
       "holdMs": 500,
-      "costGenerations": 1,
-      "postProcessing": "polish2-provenance.json"
+      "costGenerations": 1
     }
   },
-  "installedSha256": {
-    "base-v5.png": "2c126d7a0ab81316f0c6183d9263f2dbaa674e3ea8040f3d6d2315f7e4d49a41",
-    "standing.png": "c85c01d253f2ebfb5e93b0cbb913f2fd9357311feec6517182d18bf3c420a34a",
-    "victory.png": "dfb2de63ceeec1b15c9d311dfbba9226418da31a270d1f62130d55a11872f811",
-    "cast.png": "9728950cf6af536818a5766566122d1e0c8790cce652f60c082fed36a75ea8f0"
-  },
+  "costGenerations": 3,
   "technicalChecks": {
     "standing": {
       "frameCount": 5,
-      "nativeDimensions": [
-        192,
-        192
-      ],
+      "frameWidth": 192,
+      "frameHeight": 192,
       "transparent": true,
-      "firstFrameMatchesApprovedBase": true,
-      "packedPixelsMatchSourceFrames": true
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
     },
     "victory": {
       "frameCount": 9,
-      "nativeDimensions": [
-        192,
-        192
-      ],
+      "frameWidth": 192,
+      "frameHeight": 192,
       "transparent": true,
-      "firstFrameMatchesApprovedBase": true,
-      "packedPixelsMatchSourceFrames": false,
-      "packedPixelsMatchCleanupFrames": true,
-      "cleanup": "polish2-provenance.json"
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
     },
     "cast": {
       "frameCount": 9,
-      "nativeDimensions": [
-        192,
-        192
-      ],
+      "frameWidth": 192,
+      "frameHeight": 192,
       "transparent": true,
-      "firstFrameMatchesApprovedBase": true,
-      "packedPixelsMatchSourceFrames": false,
-      "packedPixelsMatchCleanupFrames": true,
-      "cleanup": "polish2-provenance.json"
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
     }
   },
-  "postProcessing": "See polish2-provenance.json for AI batches and exact free pixel edits. Earlier animation versions and records retained in Git."
+  "installedSha256": {
+    "base-v6.png": "565acc2416f1d245676b0bd01be897771c4dfdaac4bec5e7bd7a0fa3cfbe278e",
+    "standing.png": "fe6e27af57fba5543b0c399875c0176a6213b786452313e942c96492a1b1b87c",
+    "victory.png": "17e65eca492b202da25f5dfd8c5a73cc6a85e5ffc41c5815703bea0d3145d7f5",
+    "cast.png": "e8b05e186d89ca86824a82cef97bb32da9a486c8098eb9c669628abfd10ad2ab"
+  }
 }
