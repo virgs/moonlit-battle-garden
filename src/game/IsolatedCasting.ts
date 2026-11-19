@@ -2,10 +2,20 @@ import type { Match } from './Match';
 import { config } from './config';
 import { Random } from './random';
 import { busiestColumns } from './targetColumns';
-import type { PlayerId, Target } from './types';
+import type { Difficulty, PlayerId, Target } from './types';
 
-// Provisional shared diagnostic settings, identical for every hero/difficulty.
-export const isolatedCasting = { minDelayMs: 300, maxDelayMs: 700, visibleMs: 200, urgentMs: 1000 } as const;
+export type CastingSettings = { minDelayMs:number; maxDelayMs:number; visibleMs:number; urgentMs:number; delayMultipliers:Record<Difficulty,number> };
+export const castingProfiles:Record<'baseline'|'fast'|'scaled',CastingSettings> = {
+  baseline:{minDelayMs:300,maxDelayMs:700,visibleMs:200,urgentMs:1000,delayMultipliers:{easy:1,medium:1,hard:1}},
+  fast:{minDelayMs:200,maxDelayMs:400,visibleMs:100,urgentMs:1000,delayMultipliers:{easy:1,medium:1,hard:1}},
+  scaled:{minDelayMs:200,maxDelayMs:400,visibleMs:100,urgentMs:1000,delayMultipliers:{easy:3,medium:2,hard:1}},
+};
+// Trials override this process-local copy; ordinary full-kit casting is separate.
+export const isolatedCasting:CastingSettings = {...castingProfiles.baseline,delayMultipliers:{...castingProfiles.baseline.delayMultipliers}};
+export function useCastingProfile(name:keyof typeof castingProfiles):void {
+  Object.assign(isolatedCasting,castingProfiles[name],{delayMultipliers:{...castingProfiles[name].delayMultipliers}});
+}
+export type CastingStatistics = {scheduled:number;cancelled:number;executed:number;pending:number;delaySumMs:number;rampScheduled:number;steadyScheduled:number;rampExecuted:number;steadyExecuted:number};
 
 /** A visible witness keeps new targets from continually restarting a valid opportunity. */
 export function opportunityKey(match: Match, id: PlayerId): string | null {
@@ -37,26 +47,35 @@ export class IsolatedCasting {
   private round = 0;
   private key: string | null = null;
   private readyAt = 0;
-  constructor(seed: number) { this.random = new Random(seed ^ 0x52a7c913); }
+  private totals = {scheduled:0,cancelled:0,executed:0,delaySumMs:0,rampScheduled:0,steadyScheduled:0,rampExecuted:0,steadyExecuted:0};
+  get statistics():CastingStatistics { return {...this.totals,pending:this.key?1:0}; }
+  private cancel():void { if(this.key) this.totals.cancelled++;this.key=null; }
+  constructor(seed: number, private difficulty:Difficulty) { this.random = new Random(seed ^ 0x52a7c913); }
 
   tryCast(match: Match, id: PlayerId): boolean {
     if (this.match !== match || this.round !== match.state.round) {
-      this.match = match; this.round = match.state.round; this.key = null;
+      this.cancel(); this.match = match; this.round = match.state.round;
     }
     const player = match.state.players[id], time = match.state.time;
-    if (player.stars !== match.options.isolatedSpellTier || time < player.nextCast) { this.key = null; return false; }
+    if (player.stars !== match.options.isolatedSpellTier || time < player.nextCast) { this.cancel(); return false; }
     const key = opportunityKey(match,id);
-    if (!key) { this.key = null; return false; }
+    if (!key) { this.cancel(); return false; }
     if (key !== this.key) {
-      this.key = key;
+      this.cancel();this.key = key;
       // Sample once per opportunity, on the simulation tick grid; never per frame.
       const steps = (isolatedCasting.maxDelayMs-isolatedCasting.minDelayMs)/config.tickMs;
-      this.readyAt = time + isolatedCasting.minDelayMs + Math.floor(this.random.next()*(steps+1))*config.tickMs;
+      const delay = (isolatedCasting.minDelayMs + Math.floor(this.random.next()*(steps+1))*config.tickMs)*isolatedCasting.delayMultipliers[this.difficulty];
+      this.readyAt = time + delay;
+      this.totals.scheduled++;this.totals.delaySumMs+=delay;
+      this.totals[time-match.state.roundStart<config.pacing.rampMs?'rampScheduled':'steadyScheduled']++;
       return false;
     }
     if (time < this.readyAt) return false;
     match.action({type:'cast',player:id});
-    this.key = null;
-    return !!match.state.casting;
+    if (match.state.casting?.player===id) {
+      this.totals.executed++;this.totals[time-match.state.roundStart<config.pacing.rampMs?'rampExecuted':'steadyExecuted']++;
+      this.key=null;return true;
+    }
+    this.cancel();return false;
   }
 }

@@ -15,7 +15,7 @@ export function poolMatchups(rows:readonly PairResult[]) {
     const sum=(key:'total'|'decided'|'wins'|'losses'|'unfinished')=>levels.reduce((value,level)=>value+level[key],0);
     const rates=levels.flatMap(level=>level.winRate===null?[]:[level.winRate]);
     const decided=sum('decided'),leftWins=sum('wins'),rightWins=sum('losses');
-    return {left,right,total:sum('total'),decided,leftWins,rightWins,unfinished:sum('unfinished'),winRate:decided?leftWins/decided*100:null,spread:rates.length?Math.max(...rates)-Math.min(...rates):0,levels};
+    return {left,right,total:sum('total'),decided,leftWins,rightWins,unfinished:sum('unfinished'),winRate:decided?leftWins/decided*100:null,spread:rates.length?Math.max(...rates)-Math.min(...rates):0,counterFlip:rates.some(rate=>rate<50)&&rates.some(rate=>rate>50),levels};
   }));
 }
 
@@ -24,7 +24,7 @@ export function matchupMatrix(rows:readonly PairResult[],names:Record<CharacterI
   const lines=[
     scope==='pooled'?'Row hero win rate against column hero; Easy/Medium/Hard pooled by actual completed-match counts.':`Row hero win rate against column hero; ${scope[0].toUpperCase()+scope.slice(1)} AI only.`,
     '',
-    '🟩 >60% · 🟨 40–60% · 🟥 <40%.'+(scope==='pooled'?' An asterisk marks a spread above 20 percentage points across AI levels; per-level results remain below.':''),
+    '🟩 >60% · 🟨 40–60% · 🟥 <40%.'+(scope==='pooled'?' An asterisk marks a spread above 20 percentage points or an observed favored-side flip across AI levels; per-level results remain below.':''),
     '',
     '| Against → | '+characterIds.map(id=>names[id]).join(' | ')+' |',
     '|---|'+'---:|'.repeat(characterIds.length),
@@ -35,7 +35,7 @@ export function matchupMatrix(rows:readonly PairResult[],names:Record<CharacterI
       const pair=pairs.find(p=>(p.left===id&&p.right===other)||(p.left===other&&p.right===id))!;
       if(!pair.decided)return '—';
       const rate=(pair.left===id?pair.leftWins:pair.rightWins)/pair.decided*100;
-      return (rate>60?'🟩':rate<40?'🟥':'🟨')+rate.toFixed(1)+'%'+(pair.spread>20?'*':'');
+      return (rate>60?'🟩':rate<40?'🟥':'🟨')+rate.toFixed(1)+'%'+(scope==='pooled'&&(pair.spread>20||pair.counterFlip)?'*':'');
     });
     lines.push('| '+names[id]+' | '+cells.join(' | ')+' |');
   }

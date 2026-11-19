@@ -82,3 +82,6 @@ D109/I08: shared normal/diagnostic rules now use 1.5-second one-star Sweep strik
 
 
 D115/I12 applies the shared target lifetime wave with a 500 ms floor and 600 ms late-round base. AI timing is unchanged. Spell-free fixed-duration diagnostics measure target handling by birth phase, separate from competitive win matrices. Normal match victory/pause/network rules remain unchanged. See pacing.md for the actual curve and first measured results.
+
+
+D117/I13 adds experimental baseline/fast/scaled delay profiles to isolated one-star diagnostics; scaling applies only to decision delay, with shared target visibility. Pooled versus overview retains per-level flags/details per D116. Normal full-kit AI, pacing and spell powers stay unchanged during this test.

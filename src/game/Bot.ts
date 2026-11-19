@@ -16,9 +16,11 @@ export class Bot {
 
   constructor(private difficulty: Difficulty, seed: number, private id: PlayerId = 1) {
     this.random = new Random(seed);
-    this.isolatedCasting = new IsolatedCasting(seed);
+    this.isolatedCasting = new IsolatedCasting(seed,difficulty);
     this.timing = new Random(seed ^ 0x71a5b39d);
   }
+
+  get castingStatistics() { return this.isolatedCasting.statistics; }
 
   private scheduleAction(time:number):void {
     const tuning=config.ai[this.difficulty];

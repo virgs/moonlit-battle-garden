@@ -1,6 +1,7 @@
 import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
+import type { CastingStatistics } from './IsolatedCasting';
 import type { MatchStatistics } from './statistics';
 import type { CharacterId, Difficulty, PlayerId, SpellTier, IsolatedCastingPolicy } from './types';
 
@@ -15,6 +16,7 @@ export type BattleResult = {
   casts: [number[], number[]];
   timedOut: boolean;
   statistics: MatchStatistics;
+  castingStatistics?: [CastingStatistics,CastingStatistics];
 };
 
 /** Same match and bot code as the browser; no rendering, timers, or network. */
@@ -49,7 +51,13 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   for (const id of [0, 1] as const) scores[id] += match.state.players[id].score;
   const timedOut = match.state.phase !== 'match-over';
   if(!timedOut||match.state.phase==='round-over')roundDurationsMs.push(elapsedMs-roundStartedMs);
+  const castingStatistics:[CastingStatistics,CastingStatistics]=[bots[0].castingStatistics,bots[1].castingStatistics];
+  if(isolatedSpellTier) for(const [side,stats] of castingStatistics.entries()) {
+    if(stats.scheduled!==stats.cancelled+stats.executed+stats.pending)throw Error('Casting accounting mismatch');
+    if(match.isolatedCastingPolicy==='opportunity'&&stats.executed!==casts[side].reduce((a,b)=>a+b,0))throw Error('Uncounted opportunity cast');
+  }
   return {
+    ...(isolatedSpellTier?{castingStatistics}:{}),
     winner: !timedOut && match.state.winner !== null ? characters[match.state.winner] : null,
     winnerSide: timedOut ? null : match.state.winner,
     rounds: match.state.round, durationMs: elapsedMs, roundDurationsMs, unfinishedRoundMs:timedOut&&match.state.phase!=='round-over'?elapsedMs-roundStartedMs:null, scores, casts, timedOut, statistics: match.statistics,

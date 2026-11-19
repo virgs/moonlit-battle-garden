@@ -240,3 +240,6 @@ D109/I08 current one-star strength pass: Clean Sweep hits its fixed column immed
 
 
 D115/I12: targets now share the faster per-board wave lifetime regardless of kind/origin. No spell cost, duration, target quota or hero-specific AI change in this pass. Earlier kit win rates predate this new pacing; reaction tests disable powers and verify hero identities do not alter hitting behavior.
+
+
+D117/I13 casting trials use the same base decision-delay distribution for all heroes, with optional Easy3/Medium2/Hard1 multipliers. No per-character probability or power tuning. Profiles are experimental; full-kit AI and baseline defaults stay unchanged. Faster opponents can spend stars before Borrowed Spark resolves, so more completed casts need not mean better theft.

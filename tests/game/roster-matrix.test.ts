@@ -27,3 +27,13 @@ it('can report a single AI difficulty without pooling or spread flags',()=>{
   const text=matchupMatrix(rows,{champignon:'Champignon',andromoss:'Andromoss','captain-bramble':'Bramble',duskmantle:'Duskmantle',sprig:'Sprig'},'medium');
   expect(text).toContain('Medium AI only');expect(text).toContain('🟨60.0%');expect(text).not.toContain('pooled');expect(text).not.toContain('asterisk');
 });
+
+it('flags a favored-side flip even when the difficulty spread is small',()=>{
+  const rows:PairResult[]=[
+    {difficulty:'easy',left:'champignon',right:'andromoss',total:200,leftWins:110,rightWins:90,side0:100,unfinished:0},
+    {difficulty:'hard',left:'champignon',right:'andromoss',total:200,leftWins:90,rightWins:110,side0:100,unfinished:0},
+  ];
+  expect(poolMatchups(rows).find(p=>p.left==='champignon'&&p.right==='andromoss')?.counterFlip).toBe(true);
+  const text=matchupMatrix(rows,{champignon:'Champignon',andromoss:'Andromoss','captain-bramble':'Bramble',duskmantle:'Duskmantle',sprig:'Sprig'});
+  expect(text).toContain('🟨50.0%*');expect(text).toContain('favored-side flip');
+});

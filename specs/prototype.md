@@ -140,3 +140,10 @@ Target lifetime remains the entire hittable window, including rising and retreat
 ### Applied fast pacing and reaction baseline (D115/I12)
 
 Late lifetime base is now 600 ms, minimum 500 ms, shared across moles/rabbits/stars and magical targets. Existing 25-second pressure/recovery waves and 60-second ramp remain. Target windows include adaptive rise/retreat and do not gain animation grace time. AI timing/accuracy settings stay unchanged. Explicit local-only `diagnosticMode: 'reaction'` disables spell casts and score-difference victory for fixed-length sampling; ordinary modes keep their normal rules. See pacing.md and reports/reaction-pacing.md for the first 1,500-session diagnostic and its denominator/phase limitations. Current full-kit/one-star win matrices predate this pacing change.
+
+
+### Casting-delay trials (D117/I13)
+
+One-star opportunity diagnostics now accept --cast-profile=baseline|fast|scaled. Baseline remains shared200 ms visibility/300–700 ms decision delay. Fast uses100 ms visibility/200–400 ms decision delay shared across difficulties. Scaled keeps that100 ms visibility and multiplies only decision delay by Easy3/Medium2/Hard1. Thus target-based notice+decision takes700–1300 /500–900 /300–500 ms; enemy-charge theft uses decision delay directly. Full charge/cooldown must be ready; witness/resource loss cancels the wait. Base-delay sampling uses independent seeded RNG and the simulation tick grid; hit reaction/accuracy/pacing values are unchanged.
+
+Schedules, cancellations, executions, terminal pending decisions and ramp/steady counts are tracked per bot. Execution is opportunity-valid at cast start, distinct from effect success after warning. Completed decisions equal actual cast counts, and scheduled=cancelled+executed+pending is asserted. All three profiles ran100 paired seeds (7,500 matches each), no caps. Fast/scaled Hard outcomes match exactly. No profile is auto-adopted into full-kit AI or the default baseline. Results, pooled/per-level matrices and limitations: reports/casting-delay-review.md. Spell strength and the deferred theft assignment review remain later steps.
