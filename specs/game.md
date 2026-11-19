@@ -77,3 +77,5 @@ D106 limits one-star Clean Sweep to one column; only Royal Cleanup covers all co
 D107 adds offline tier-isolated diagnostics only, initially one-star spells/one charge slot. All bots cast whenever full/cooldown-ready; lower tiers are disabled when testing a higher tier. Normal browser gameplay, powers and star economy stay unchanged. See prototype.md for exact harness rules and caveats.
 
 D108 supersedes immediate casting for current one-star diagnostics: visible spell-specific opportunity conditions, followed by one shared random delay across difficulties; cancel/reconsider when the opportunity vanishes. Full-kit casting and spell powers remain unchanged. Exact provisional settings are in prototype.md.
+
+D109/I08: shared normal/diagnostic rules now use 1.5-second one-star Sweep strikes after the initial hit and one-mole Tin Caps. Both windows remain three seconds; Royal Cleanup/Heavy Harvest and all other powers stay unchanged. Consult the separate tier-1 matrices rather than treating historical full-kit diagnostics as current balance.

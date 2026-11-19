@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
-  rosterSpells: { cleanSweepMs: number; sweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; sweepIntervalMs: number; royalSweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -45,7 +45,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   champignon: {
     name: 'Sir Champignon', role: 'The garden guardian', color: '#c9e586', emblem: '♜',
     spells: [
-      { name: 'Clean Sweep', description: 'Hit one column for 3 seconds: normal mole points, rabbit penalties and star collection.' },
+      { name: 'Clean Sweep', description: 'Hit one column immediately, then every 1.5 seconds for 3 seconds; normal hit rules.' },
       { name: 'Mushroom Guard', description: 'Block the next mistake for 12 seconds.' },
       { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
       { name: 'Royal Cleanup', description: 'Hit all targets for 3 seconds and block three mistakes for 12 seconds.' },
@@ -63,7 +63,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   'captain-bramble': {
     name: 'Captain Bramble', role: 'The steadfast garden sentinel', color: '#da956b', emblem: '♜',
     spells: [
-      { name: 'Tin Caps', description: 'Armor up to two enemy moles within 3 seconds; one extra hit each.' },
+      { name: 'Tin Caps', description: 'Armor one enemy mole within 3 seconds; one extra hit.' },
       { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
       { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
       { name: 'Heavy Harvest', description: 'Armor up to four enemy moles within 3 seconds; two extra hits each.' },

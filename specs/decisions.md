@@ -193,6 +193,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I07 | Provisional one-star diagnostic delay is 300–700 active ms, sampled once per opportunity using independent seeded RNG; 200 ms visibility and 1,000 ms remaining lifetime define notice/urgency identically for every difficulty. Bots continue hitting during the wait, with independent hit-action timing. An identifiable target witness/column anchors a pending decision; loss/invalidity or round reset cancels it, and new opportunities get a fresh delay. Sweep avoids rabbit columns unless a mole is urgent and avoids renewing an active sweep; Tending requires an unextended mole. The opponent may spend stars during theft’s existing warning, so a valid cast can still resolve empty. Normal four-slot play/strategy stays unchanged. `--casting=immediate` preserves baseline reproduction; opportunity rules currently cover tier 1 only. No spell strength/cost/duration changes. |
 
+| D109 | User authorizes slowing one-star Clean Sweep strikes and weakening Bramble’s one-star Tin Caps while fine-tuning the isolated tier-1 spells. Keep normal rewards/penalties, one-column Sweep and the three-second active-window floor; keep powers of other characters unchanged. |
+
+| I08 | Test cadence 750/1500 ms and Tin Caps quota one independently, then together, using 100 seeds/pairing/difficulty and fixed opportunity policy. Adopt Clean Sweep **1500 ms** cadence (initial column hit retained), and Tin Caps **one mole** with one extra strike within the same three-second window. Royal Cleanup gets a separate unchanged 250 ms cadence; Heavy Harvest remains four moles/two extra strikes/3 s. Other powers, cast decisions, point values and timings unchanged. These are provisional nerfs, not a balanced roster: Sweep cadence alone has mixed Hard results and Champignon remains favored. See balance-tier-1-strength-review.md. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

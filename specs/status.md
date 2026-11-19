@@ -110,3 +110,6 @@ D107: offline tier-isolated harness implemented, with one-slot/one-star trials a
 
 
 D108/I07: one-star diagnostics now use useful-opportunity conditions and shared 300–700 ms decision delays, with cancellation/reconsideration. No power changes. Paired-seed 7,500-match run has zero caps; matrices/metrics and comparison are in balance-tier-1.md / balance-tier-1-review.md. Immediate-policy history preserved separately. Normal mode and higher-tier strategy unchanged.
+
+
+D109/I08: adopted one-star Sweep cadence 1.5 s (immediate hit retained) and Tin Caps quota one, both active windows still 3 s. Royal Cleanup 0.25 s and Heavy Harvest four moles unchanged. Five controlled 7,500-match trials plus exact adopted-default rerun (45,000 matches, no caps); current matrices and limitations are in balance-tier-1.md / balance-tier-1-strength-review.md. Champignon remains favored, with mixed Hard cadence-only changes; no balanced-roster claim. 145 tests/build/eight browser cases passed; full-kit/human balance still needs follow-up.

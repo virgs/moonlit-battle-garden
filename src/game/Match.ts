@@ -63,7 +63,7 @@ export class Match {
     resolveSpells(state, this.starCapacity, this.statistics);
     state.players.forEach((player, id) => {
       if (player.sweepUntil > state.time && state.time >= player.nextSweep) {
-        player.nextSweep = state.time + config.rosterSpells.sweepIntervalMs;
+        player.nextSweep = state.time + (player.sweepTier === 4 ? config.rosterSpells.royalSweepIntervalMs : config.rosterSpells.sweepIntervalMs);
         this.sweepBoard(id as PlayerId);
       }
       if (player.automationUntil > state.time && state.time >= player.nextAutomation) {
