@@ -22,6 +22,7 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   if (player.markUntil > state.time && (player.markCharges > 0 || player.holes.some(target => target?.missBonus))) effects.push({ kind: 'curse', character: 'duskmantle', tier: player.markTier });
   if (player.camouflageUntil > state.time) effects.push({ kind: 'veil', character: 'duskmantle', tier: 2 });
   if (player.drainUntil > state.time) effects.push({ kind: 'drain', character: 'duskmantle', tier: 3 });
+  if (player.tendingUntil > state.time) effects.push({ kind: 'tending', character: 'sprig', tier: 1 });
   if (player.automationUntil > state.time) effects.push({ kind: 'automation', character: 'sprig', tier: player.automationTier });
   if (player.pending.length) effects.push({ kind: 'incoming', character: state.players[player.pending[0].from].character, tier: player.pending[0].tier });
   const recent = [...snapshot.events].reverse().find(event => event.kind === 'cast' && event.player === garden.id && event.round === state.round && state.time - event.time < 700);

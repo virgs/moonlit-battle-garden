@@ -1,7 +1,7 @@
 import { expect,test } from '@playwright/test';
 import { openMainMenu,chooseCharacter } from './frontMenu';
 
-test('Bramble and Sprig choose new heroes online and synchronize armored targets',async({page,browser},info)=>{
+test('Bramble and Sprig choose new heroes online and synchronize armor and Tending aura',async({page,browser},info)=>{
   test.setTimeout(45000);
   const failures:string[]=[];
   page.on('pageerror',error=>failures.push(error.message));
@@ -28,6 +28,8 @@ test('Bramble and Sprig choose new heroes online and synchronize armored targets
       const target=page.locator('.player-0 .hole[data-kind="star"]');
       await expect(target.first()).toBeEnabled({timeout:20000});await target.first().click();
     }
+    const guestStar=guest.locator('.player-0 .hole[data-kind="star"]').first();
+    await expect(guestStar).toBeEnabled({timeout:5000});await guestStar.click();
     await page.locator('.player-0 .cast-button').click();
     await expect(page.locator('.cast-banner[data-character="captain-bramble"]')).toHaveAttribute('data-asset','ready');
     await expect(guest.locator('.cast-banner[data-character="captain-bramble"]')).toHaveAttribute('data-asset','ready');
@@ -35,6 +37,11 @@ test('Bramble and Sprig choose new heroes online and synchronize armored targets
     await expect(guest.locator('.player-0 .hole[data-armor="1"]').first()).toBeEnabled();
     if(info.project.name==='desktop')await expect(page.locator('.player-1 .hole[data-armor="1"]').first()).toBeVisible();
     await guest.screenshot({path:info.outputPath('sprig-vs-bramble-armor.png')});
+    await guest.locator('.player-0 .cast-button').click();
+    await expect(page.locator('.cast-banner[data-character="sprig"]')).toBeVisible();
+    await expect(guest.locator('.effect-tending')).toBeVisible({timeout:7000});
+    await expect(guest.locator('.player-0')).toHaveAttribute('data-tending-active','true');
+    if(info.project.name==='desktop')await expect(page.locator('.player-1')).toHaveAttribute('data-tending-active','true');
     expect(failures).toEqual([]);
   } finally {await context.close();}
 });

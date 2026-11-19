@@ -54,13 +54,15 @@ rosterSpells:
   armorTargets: 1
   heavyArmorTargets: 4
   ominousMarkMs: 12000
+  ominousMarks: 3
   markMs: 8000
   markBonus: 4
   curseBonus: 6
   camouflageMs: 6500
   drainMs: 7000
   drainBonus: 2
-  extensionMs: 1200
+  extensionMs: 500
+  tendingMs: 3000
   columnAutomationMs: 6500
   fullAutomationMs: 8000
   automationIntervalMs: 250

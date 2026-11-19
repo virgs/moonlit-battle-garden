@@ -48,7 +48,7 @@ it('Clean Sweep stops at the three-second boundary and Royal Cleanup keeps quart
   royal.advance(50);expect(hero.holes[0]).toBeNull();expect(hero.mistakeShield).toBe(3);
 });
 
-it('a longer Ominous Bud window leaves the tier-four duration and one-mark quota unchanged',()=>{
+it('Ominous Bud keeps its configured quota separate from the tier-four duration',()=>{
   const prior=config.rosterSpells.ominousMarkMs;config.rosterSpells.ominousMarkMs=12000;
   try {
     for(const tier of [1,4]) {
@@ -56,7 +56,7 @@ it('a longer Ominous Bud window leaves the tier-four duration and one-mark quota
       victim.holes[0]={...target(match),expires:match.state.time+30000};
       match.advance(config.spells.warningMs);
       expect(victim.markUntil-match.state.time).toBe(tier===1?12000:config.rosterSpells.markMs);
-      expect(victim.markCharges).toBe(tier===1?0:3);
+      expect(victim.markCharges).toBe(tier===1?config.rosterSpells.ominousMarks-1:3);
       if(tier===1) {
         match.advance(11950);expect(victim.holes[0]?.missBonus).toBe(4);
         match.advance(50);expect(victim.holes[0]?.missBonus).toBeUndefined();
@@ -65,8 +65,8 @@ it('a longer Ominous Bud window leaves the tier-four duration and one-mark quota
   } finally {config.rosterSpells.ominousMarkMs=prior;}
 });
 
-it('a larger Gentle Tending extension remains instant, all-target and non-stacking',()=>{
-  const prior=config.rosterSpells.extensionMs;config.rosterSpells.extensionMs=1200;
+it('historical instant Tending control remains reproducible and non-stacking',()=>{
+  const prior=config.rosterSpells.extensionMs,priorWindow=config.rosterSpells.tendingMs;config.rosterSpells.extensionMs=1200;config.rosterSpells.tendingMs=0;
   try {
     const match=game('sprig'),p=match.state.players[0];
     for(const [hole,kind] of ['mole','rabbit','star'].entries())p.holes[hole]=target(match,hole+1,kind as Target['kind']);
@@ -79,5 +79,5 @@ it('a larger Gentle Tending extension remains instant, all-target and non-stacki
     match.advance(config.spells.cooldownMs);p.stars=1;match.action({type:'cast',player:0});match.advance(config.spells.castFreezeMs);
     for(const t of p.holes.slice(0,3))expect(t?.expires).toBe(expiry+1200);
     expect(fresh.expires).toBe(freshExpiry+1200);
-  } finally {config.rosterSpells.extensionMs=prior;}
+  } finally {config.rosterSpells.extensionMs=prior;config.rosterSpells.tendingMs=priorWindow;}
 });

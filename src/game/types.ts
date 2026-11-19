@@ -33,6 +33,7 @@ export type Player = {
   markTier: number;
   camouflageUntil: number;
   drainUntil: number;
+  tendingUntil: number;
   automationUntil: number;
   automationColumns: number[];
   sweepUntil: number;

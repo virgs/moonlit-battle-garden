@@ -1,7 +1,14 @@
+import { config } from './config';
 import type { MatchState, Player, Target } from './types';
 
-/** Applied to existing targets and new spawns by the same rules. Never affects stars/rabbits. */
+/** A target receives its lifetime bonus at most once, including across recasts. */
+export function extendTarget(target:Target,time:number):void {
+  if(!target.extended&&target.expires>time) {target.expires+=config.rosterSpells.extensionMs;target.extended=true;}
+}
+
+/** Shared spawn modifiers: tending reaches all kinds; armor and marks only moles. */
 export function modifyTarget(player: Player, target: Target, time: number): void {
+  if(player.tendingUntil>time)extendTarget(target,time);
   if (target.kind !== 'mole') return;
   if (player.armorUntil > time && player.armorCharges > 0 && (target.armor ?? 0) < player.armorHits) {
     target.armor = player.armorHits;

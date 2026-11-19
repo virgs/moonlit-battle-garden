@@ -249,3 +249,6 @@ D118/I14 freezes the adopted one-star casting profile while keeping current spel
 
 
 D119/I15 current one-star rules supersede earlier cadence/duration notes: Clean Sweep hits the busiest fixed column immediately and continuously intercepts its arrivals for 3 s; normal rewards/rabbit penalties and repeated armor strikes. Ominous Bud one mark/+4 miss has a 12 s window (8 s before); Withering Pact remains 8 s/four marks. Gentle Tending instantly extends current targets by1.2 s once (0.7 s before), without a lasting aura. These longer values are provisional, not proven balance improvements; controls showed no Bud outcome change and mixed Tending results. Tin Caps remains one mole/one extra hit/3 s; other powers and scaled casting profile unchanged.
+
+
+D120/D121/I16 current owner/rules: **Duskmantle — Ominous Bud** marks three enemy moles within 12 s (+4 missed-mole penalty each); **Sprig — Gentle Tending** applies +0.5 s once to current and arriving own targets for 3 s, including moles/rabbits/stars. These replace one mark/12 s and instant +1.2 s respectively. No repeated lifetime stacking, no other spell changes. Preserve the owner column in all future spell tables. Current isolated results and limitations are in mark-aura-review.md.

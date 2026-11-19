@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
-  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; ominousMarkMs: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -72,7 +72,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   duskmantle: {
     name: 'Duskmantle', role: 'The keeper of garden curses', color: '#bd94e7', emblem: '☾',
     spells: [
-      { name: 'Ominous Bud', description: 'Mark one enemy mole within 12 seconds; missing it costs 4 extra points.' },
+      { name: 'Ominous Bud', description: 'Mark three enemy moles within 12 seconds; each miss costs 4 extra points.' },
       { name: 'Violet Veil', description: 'Dim enemy targets for 6.5 seconds; their shapes stay visible.' },
       { name: 'Twilight Siphon', description: 'Earn 2 extra points on manual mole hits for 7 seconds.' },
       { name: 'Withering Pact', description: 'Mark four enemy moles; each miss costs 6 extra points.' },
@@ -81,7 +81,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   sprig: {
     name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
     spells: [
-      { name: 'Gentle Tending', description: 'Extend current targets by 1.2 seconds, once per target.' },
+      { name: 'Gentle Tending', description: 'For 3 seconds, add 0.5 seconds to every current and arriving target, once per target.' },
       { name: 'Helping Tines', description: 'Work one column every 0.25 seconds for 6.5 seconds; collect stars.' },
       { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
       { name: 'Garden Clockwork', description: 'Work two columns every 0.25 seconds for 8 seconds; collect stars.' },
@@ -95,3 +95,6 @@ for (const key of ['cleanSweepMs','ominousMarkMs','armorMs','brambleGuardMs','ma
   if (config.rosterSpells[key] < 3000) throw new Error(`Active effect below 3 seconds: ${key}`);
 }
 if ([config.spells.shieldMs,config.spells.invasionMs,config.spells.decoysMs].some(ms=>ms<3000)) throw new Error('Active spell windows must be at least 3 seconds');
+
+// Zero is retained only for reproducing the historical instant-only Tending control.
+if(config.rosterSpells.tendingMs!==0&&config.rosterSpells.tendingMs<3000)throw new Error('Active Tending window must be at least 3 seconds');

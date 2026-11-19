@@ -2,7 +2,7 @@ import { config, characters } from './config';
 import { busiestColumns } from './targetColumns';
 import type { MatchStatistics } from './statistics';
 import type { MatchState, Player, PlayerId } from './types';
-import { cleanse, expireTargetModifiers, modifyTarget } from './targetModifiers';
+import { cleanse, expireTargetModifiers, modifyTarget, extendTarget } from './targetModifiers';
 
 export function message(player: Player, text: string, time: number): void {
   player.message = text;
@@ -31,8 +31,9 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   } else if (player.character === 'duskmantle' && tier === 3) {
     player.drainUntil = state.time + config.rosterSpells.drainMs;
   } else if (player.character === 'sprig') {
-    if (tier === 1) for (const target of player.holes) if (target && !target.extended) {
-      target.expires += config.rosterSpells.extensionMs; target.extended = true;
+    if (tier === 1) {
+      player.tendingUntil=state.time+config.rosterSpells.tendingMs;
+      for(const target of player.holes)if(target)extendTarget(target,state.time);
     }
     if (tier === 2 || tier === 4) {
       player.automationColumns = busiestColumns(player, tier === 4 ? 2 : 1);
@@ -76,7 +77,7 @@ export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: 
         else {
           player.markTier = spell.tier;
           player.markUntil = state.time + (spell.tier === 1 ? config.rosterSpells.ominousMarkMs : config.rosterSpells.markMs);
-          player.markCharges = spell.tier === 4 ? 4 : 1;
+          player.markCharges = spell.tier === 4 ? 4 : config.rosterSpells.ominousMarks;
           player.markBonus = spell.tier === 4 ? config.rosterSpells.curseBonus : config.rosterSpells.markBonus;
           for (const target of player.holes) if (target) modifyTarget(player, target, state.time);
         }

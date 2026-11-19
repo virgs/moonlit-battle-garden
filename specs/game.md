@@ -91,3 +91,6 @@ D118/I14 adopts the scaled casting profile for isolated one-star diagnostics onl
 
 
 D119/I15 clarifies Clean Sweep owns its selected column for 3 active seconds and hits all arrivals on the same update, using normal hit rules; there is no 1500 ms strike delay. Longer provisional one-star durations are Ominous Bud 12 s marking window and Gentle Tending instant +1.2 s target extension. No additional mark quota/aura or other spell changes. See prototype.md and continuous-sweep-duration-review.md for exact rules and controlled results.
+
+
+D121/I16 changes Duskmantle’s one-star mark quota to three and Sprig’s one-star extension to an all-target three-second aura (+500 ms once per current/arriving target). Pacing, hit reaction and scaled casting rules are held fixed. Exact coverage, expiry, freeze/reset and recast rules are in prototype.md; current pooled and per-level diagnostics are in balance-tier-1.md / mark-aura-review.md.

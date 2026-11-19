@@ -1,5 +1,7 @@
 # Continuous Sweep and longer one-star spell trials
 
+Historical before three-mark Ominous Bud and the Tending aura. Current owner/spell reminder and results: mark-aura-review.md / balance-tier-1.md.
+
 Current [pooled overview and difficulty matrices](balance-tier-1.md). This pass corrects Clean Sweep semantics, then tests duration-only changes for Ominous Bud and Gentle Tending.
 
 ## Current rules: before → after

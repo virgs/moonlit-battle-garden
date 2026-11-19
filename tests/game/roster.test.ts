@@ -91,7 +91,7 @@ it('Duskmantle marks exactly one/four moles and increases their miss penalty onl
     for(let i=0;i<5;i++) victim.holes[i]={...target(match,'mole',i+1),expires:match.state.time+1500};
     victim.holes[6]=target(match,'star');victim.holes[7]=target(match,'rabbit');
     cast(match,0,tier);resolve(match);
-    const count=tier===1?1:4,bonus=tier===1?config.rosterSpells.markBonus:config.rosterSpells.curseBonus;
+    const count=tier===1?config.rosterSpells.ominousMarks:4,bonus=tier===1?config.rosterSpells.markBonus:config.rosterSpells.curseBonus;
     expect(victim.holes.filter(t=>t?.missBonus).length).toBe(count);
     expect(victim.holes[6]?.missBonus).toBeUndefined();expect(victim.holes[7]?.missBonus).toBeUndefined();
     match.advance(1000);
