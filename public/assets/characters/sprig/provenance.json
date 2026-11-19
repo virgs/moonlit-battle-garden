@@ -1,0 +1,116 @@
+{
+  "generator": "PixelLab animate_image_pixminimax",
+  "created": "2026-11-18",
+  "character": "Sprig",
+  "assetDirectory": "sprig",
+  "status": "Staged for user visual review; not a playable roster expansion. No model image inspection.",
+  "base": {
+    "file": "base-v6.png",
+    "provenance": "base-provenance-v6.json",
+    "approval": "User approved on 2026-11-18."
+  },
+  "frameWidth": 192,
+  "frameHeight": 192,
+  "processing": "Complete animations generated in one call each, packed at native resolution without pixel edits. Transparent hidden RGB may normalize; visible RGBA verified unchanged. No iterative polish or multi-batch edits.",
+  "animations": {
+    "standing": {
+      "jobId": "86407419-a145-457c-aed5-f76aa5aebabe",
+      "assetId": "186816f5-cb08-5d3d-9840-e4cddd58d8f6",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Sprig, the approved gardening robot with matching head and torso paint, a slightly rounded robot head, an integrated shovel-blade hand and an integrated cultivator-tine hand, plus a compact watering attachment.",
+        "initial_pose": "The exact approved standing pose, tool hands at rest, feet planted and head facing slightly left.",
+        "frame_count": 4,
+        "seed": 2026111836,
+        "description": "Subtle seamless robot idle loop. Keep the exact stance, head direction, feet and integrated tool-hand positions almost still. Only a tiny slow torso settling motion and a very slight mechanical relaxation at the shoulders. No waving, turning, broad swaying, hopping or whole-image wobble. HEAD AND TORSO ALWAYS share EXACT approved paint color and shading ramp. Preserve all other approved colors and simple flat clusters; consistent dark outlines, no new highlights, white/gray specks, texture or gradients. Shovel blade and cultivator tines ARE the hands: no fingers, handles or gripped tools may appear. No new attachments. Fixed camera/scale, whole robot and tools inside transparent canvas. Return to starting pose."
+      },
+      "frameCount": 5,
+      "columns": 5,
+      "fps": 3,
+      "holdMs": 0,
+      "costGenerations": 1
+    },
+    "victory": {
+      "jobId": "cd7fad1f-baff-472d-b82b-5f9303757654",
+      "assetId": "3de16a5d-353f-5d45-838a-08c3fa92a415",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Sprig, the approved gardening robot with matching head and torso paint, a slightly rounded robot head, an integrated shovel-blade hand and an integrated cultivator-tine hand, plus a compact watering attachment.",
+        "initial_pose": "The exact approved standing pose, tool hands at rest, feet planted and head facing slightly left.",
+        "frame_count": 8,
+        "seed": 2026111837,
+        "description": "Expressive happy robot victory LOOP with clear strong key poses. Bend knees and lower the torso in anticipation, straighten proudly and raise both integrated garden-tool arms into a broad triumphant V, make one jaunty planted side-step with a brief proud chest-out hold, then lower the arms and settle into the original stance. Distinct articulated limb/body motion, not image wiggling. The shovel blade and cultivator tines ARE hands attached directly to forearms; never add fingers, handles or separately held tools. Preserve the exact approved head and body shape, adult proportions, watering attachment and colors. Head and torso paint stay IDENTICAL and constant across all frames. Clean broad flat color clusters, bold outlines, no white/gray specks, texture, gradients, confetti or new props. Fixed camera/scale, every raised tool and foot inside transparent canvas."
+      },
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 8,
+      "holdMs": 0,
+      "costGenerations": 1
+    },
+    "cast": {
+      "jobId": "35836af2-78aa-4568-8381-c3d35f72f6d4",
+      "assetId": "a9405c9f-b15d-52fd-9338-3ed8349fd7a4",
+      "request": {
+        "first_frame_url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+        "last_frame_url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+        "no_background": true,
+        "enhance_prompt": false,
+        "direction": "south-west",
+        "view": "side",
+        "subject_description": "Sprig, the approved gardening robot with matching head and torso paint, a slightly rounded robot head, an integrated shovel-blade hand and an integrated cultivator-tine hand, plus a compact watering attachment.",
+        "initial_pose": "The exact approved standing pose, tool hands at rest, feet planted and head facing slightly left.",
+        "frame_count": 8,
+        "seed": 2026111838,
+        "description": "Expressive shared garden-robot magic cast. Brace with bent knees, pull the integrated shovel hand inward, sweep it outward in a clear planting arc, then raise the cultivator hand in a deliberate tending gesture and briefly hold before returning to the original stance. A compact LEAF-GREEN magical ribbon follows the tool sweep with a few WARM AMBER seed-like motes curling toward the cultivator, then fading. Keep face clear. These are direct tool hands: no fingers, gripping hands, handles or new tools. Preserve approved robot shapes, watering attachment and exact fixed material colors; head and torso paint remain IDENTICAL throughout. Strong readable body/arm poses, simple broad flat shading, clean dark outlines. No white/light-gray noise, gradients, spark showers, text or star icons; game adds spent stars. Fixed scale/camera, full robot/tools/effect inside transparent canvas."
+      },
+      "frameCount": 9,
+      "columns": 9,
+      "fps": 9,
+      "holdMs": 500,
+      "costGenerations": 1
+    }
+  },
+  "costGenerations": 3,
+  "technicalChecks": {
+    "standing": {
+      "frameCount": 5,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    },
+    "victory": {
+      "frameCount": 9,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    },
+    "cast": {
+      "frameCount": 9,
+      "frameWidth": 192,
+      "frameHeight": 192,
+      "transparent": true,
+      "firstVisibleFrameMatchesApprovedBase": true,
+      "packedVisiblePixelsMatchGeneratedFrames": true
+    }
+  },
+  "installedSha256": {
+    "base-v6.png": "99442ced5abcbe26258408caffd32a17c467eee4c6d0a0b331d904f2f4e4edaf",
+    "standing.png": "3498ab133039f2706a6b4d4e72f7a838502ddf6b537090037d90c35a28b71d1e",
+    "victory.png": "d0575a1fef7425a32c439e40341968168915e2163c6e432ec36509f8f8662f77",
+    "cast.png": "a57cb2e5b5c15be7d8c59ad51d420c5b579dd3684ad15134537340edbd67b889"
+  }
+}

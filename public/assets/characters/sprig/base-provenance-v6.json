@@ -15,7 +15,7 @@
     "file": "base-v5.png",
     "provenance": "base-provenance-v5.json"
   },
-  "status": "Staged head/torso color-match draft for user review; no model image inspection.",
+  "status": "User approved on 2026-11-18; source for animations and icon. User-only visual review.",
   "costGenerations": 6,
   "technicalChecks": {
     "dimensions": [
@@ -25,5 +25,6 @@
     "transparent": true,
     "visible": true
   },
-  "installedSha256": "99442ced5abcbe26258408caffd32a17c467eee4c6d0a0b331d904f2f4e4edaf"
+  "installedSha256": "99442ced5abcbe26258408caffd32a17c467eee4c6d0a0b331d904f2f4e4edaf",
+  "userApproved": true
 }

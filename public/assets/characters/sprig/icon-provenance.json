@@ -1,0 +1,43 @@
+{
+  "generator": "PixelLab create_image_pro",
+  "created": "2026-11-18",
+  "character": "Sprig",
+  "jobId": "b89feb0c-0fe2-4023-8e65-61a4ee476f63",
+  "assetId": "3290929c-7619-50fb-8353-c241c5f017eb",
+  "request": {
+    "description": "Static head-and-shoulders character PORTRAIT ICON of the EXACT approved SPRIG gardening robot in reference 1. Preserve the revised robotic head (only a subtle rounded-box/mailbox hint), face/visor, small existing emblem, shoulders and upper chest. HEAD AND TORSO share EXACTLY the same approved paint hue and shading ramp, with dark visor/eyes and metal joints distinct. No literal postal flag, mail slot or new mailbox details. Do not redesign or enlarge the head. Compose a centered clean bust inside transparent 192x192 with the COMPLETE head and at least 16px clear margins above and on both sides. Crop naturally below shoulders. Reference2 is framing/outline style ONLY; never copy knight armor, plume or cyan eyes. Broad flat color clusters, restrained shades, clean bold dark outlines; no white/light-gray specks, tiny rivets, texture, gradients, new highlights, writing, border or scenery. No hands, tool blades or magic in this icon.",
+    "width": 192,
+    "height": 192,
+    "no_background": true,
+    "max_colors": 32,
+    "seed": 2026111839,
+    "reference_images": [
+      {
+        "url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+        "usage": "Exact approved Sprig identity, revised robot head, matching head/torso paint and face details."
+      },
+      {
+        "url": "https://virgs.github.io/moonlit-battle-garden/assets/characters/champignon/icon.png",
+        "usage": "Full-head bust framing, generous transparent margins and clean outlines only; do not copy character."
+      }
+    ],
+    "style_image_url": "https://api.pixellab.ai/mcp/images/dc65ffdf-3905-4a26-92bc-12d8e589e7a6/download",
+    "style_copy": [
+      "color_palette",
+      "outline",
+      "detail",
+      "shading"
+    ]
+  },
+  "status": "Staged head-and-shoulders portrait/icon for user visual review; no model image inspection.",
+  "costGenerations": 10,
+  "technicalChecks": {
+    "dimensions": [
+      192,
+      192
+    ],
+    "transparent": true,
+    "visible": true
+  },
+  "installedSha256": "c7b252b336ad728a5163e0541906c07a8db8c6515c14ad6d734e3a7d8883a33d"
+}

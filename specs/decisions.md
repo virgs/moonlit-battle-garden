@@ -153,6 +153,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D95 | User approves Sprig’s dual-tool-hand design and requests one final color correction: head housing and torso shell must share the same enamel color/material. Match head paint to existing torso palette, preserve face/visor details, shapes and all tools. Stage v6; no animation generation is part of this correction. |
 
+| D96 | User approves Sprig base-v6 and authorizes idle, victory, one shared magical casting animation and head-and-shoulders portrait/icon. Preserve matched head/torso paint and directly integrated shovel/cultivator hands without handles or fingers. Generate each animation as one complete clip; no automatic cleanup. User-only visual review; stage assets without playable roster expansion. |
+
 ## Current proposals, not yet confirmed
 
 - Initial implementation pair: **Sir Champignon and Andy**, following the recommendation and authorization to start; these are the current prototype defaults.
