@@ -1,5 +1,5 @@
-# Current four-star baseline
+# Current 4-star diagnostic
 
-[Pooled/per-level matrices](balance-tier-4.md) · [Spell durations, coverage and policy comparison](tier4-baseline-review.md).
+[Current pooled/per-level matrices](balance-tier-4.md) · [Adopted Andromoss kit, before→after and fixed-opponent comparison](andromoss-kit-review.md).
 
-Earlier-tier powers fixed. No numerical tuning adopted; full-kit and human testing remain needed.
+Earlier reports use historical Andromoss slot effects; see their source revisions. All other heroes’ powers remain unchanged.

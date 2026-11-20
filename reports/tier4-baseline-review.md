@@ -1,3 +1,5 @@
+Historical Andromoss kit; [current adopted kit and matrices](andromoss-kit-review.md) supersede its Andromoss rows. Other heroes’ powers are unchanged.
+
 # Four-star baseline with useful opportunities
 
 ## Current spells, before→after

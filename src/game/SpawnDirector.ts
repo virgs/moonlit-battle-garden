@@ -8,7 +8,6 @@ import type { MatchState, Player, PlayerId, TargetKind } from './types';
 export class SpawnDirector {
   private schedule: [Random, Random];
   private positions: [Random, Random];
-  private magic: [Random, Random];
   private clock = [0, 0];
   private nextNatural = [0, 0];
   private lastNatural = [0, 0];
@@ -20,7 +19,6 @@ export class SpawnDirector {
   constructor(private seed: number) {
     this.schedule = this.schedules();
     this.positions = [new Random(seed ^ 0x1234), new Random(seed ^ 0x5678)];
-    this.magic = [new Random(seed ^ 0x9321), new Random(seed ^ 0x9765)];
   }
   reset(roundStart: number): void {
     this.schedule = this.schedules();
@@ -70,10 +68,9 @@ export class SpawnDirector {
   private magicSpawn(state: MatchState, player: Player, id: PlayerId, lifetimeMs: number): void {
     if ((player.invasionUntil <= state.time && player.decoysUntil <= state.time) || state.time < player.nextDecoy) return;
     const strong = player.decoysUntil > state.time;
-    player.nextDecoy = state.time + (strong ? 650 : 950);
+    player.nextDecoy = state.time + (strong ? config.spells.comboRabbitIntervalMs : config.spells.rabbitIntervalMs);
     if (player.holes.filter(target => target?.origin === 'magic').length >= config.pacing.maxMagicTargets) return;
-    const kind = strong && this.magic[id].next() < 0.3 ? 'mole' : 'rabbit';
-    this.place(state, id, kind, lifetimeMs, 'magic');
+    this.place(state, id, 'rabbit', lifetimeMs, 'magic');
   }
   private place(state: MatchState, id: PlayerId, kind: TargetKind, lifetime: number, origin: 'natural' | 'star' | 'magic'): void {
     const player = state.players[id];

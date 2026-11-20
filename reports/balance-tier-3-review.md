@@ -1,5 +1,5 @@
-# Current three-star baseline
+# Current 3-star diagnostic
 
-[Pooled/per-level matrices](balance-tier-3.md) · [Current spell durations, coverage limitations and policy comparison](tier3-baseline-review.md).
+[Current pooled/per-level matrices](balance-tier-3.md) · [Adopted Andromoss kit, before→after and fixed-opponent comparison](andromoss-kit-review.md).
 
-Counter spells need mixed-tier/full-kit testing before strength changes. Earlier tiers accepted/fixed; no new power tuning.
+Earlier reports use historical Andromoss slot effects; see their source revisions. All other heroes’ powers remain unchanged.

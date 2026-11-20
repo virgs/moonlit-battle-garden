@@ -58,7 +58,7 @@ function transitionPoses(life: number, kind: 'mole' | 'star' | 'rabbit' = 'mole'
 
 it('keeps complete start/end poses in shortened rise and retreat sequences for every target kind',()=>{
   for (const [kind,offset] of [['mole',0],['star',8],['rabbit',16]] as const) {
-    for (const [life,poses] of [[300,[0,4,7]],[500,[0,2,4,5,7]],[800,[0,1,2,3,4,5,6,7]]] as const) {
+    for (const [life,poses] of [[300,[0,4,7]],[425,[0,2,5,7]],[500,[0,2,4,5,7]],[800,[0,1,2,3,4,5,6,7]]] as const) {
       const actual=transitionPoses(life,kind,offset);
       expect(actual.rise).toEqual(poses);expect(actual.retreat).toEqual(poses);
     }

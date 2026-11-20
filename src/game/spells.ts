@@ -43,7 +43,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
       player.automationUntil = state.time + (tier === 4 ? config.rosterSpells.fullAutomationMs : config.rosterSpells.columnAutomationMs);
       player.nextAutomation = tier===2 && config.rosterSpells.helpingTinesMode==='continuous'?0:state.time + config.rosterSpells.automationIntervalMs;
     }
-    if (tier === 3) { cleanse(player); player.magicShieldUntil = state.time + config.rosterSpells.cleanseWardMs; }
+    if (tier === 3) { cleanse(player,state.time); player.magicShieldUntil = state.time + config.rosterSpells.cleanseWardMs; }
   } else {
     const opponent = state.players[id === 0 ? 1 : 0];
     opponent.pending.push({ tier, from: id, at: state.time + config.spells.warningMs });
@@ -52,7 +52,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   return true;
 }
 
-export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: MatchStatistics): void {
+export function resolveSpells(state: MatchState, starCapacity:number|[number,number] = 4, statistics?: MatchStatistics): void {
   expireTargetModifiers(state);
   for (const [id, player] of state.players.entries()) {
     const due = player.pending.filter(spell => spell.at <= state.time);
@@ -89,11 +89,12 @@ export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: 
         }
         continue;
       }
-      if (spell.tier === 1 || spell.tier === 3) {
-        const stars = spell.tier === 1 ? Math.min(player.stars, config.spells.borrowedSparkCap) : Math.min(player.stars, 2);
+      if (spell.tier === 3) {
+        const stars = Math.min(player.stars, config.spells.starTheftCap);
         player.stars -= stars;
-        const received = Math.min(starCapacity - caster.stars, stars);
-        caster.stars = Math.min(starCapacity, caster.stars + stars);
+        const capacity=typeof starCapacity==='number'?starCapacity:starCapacity[spell.from];
+        const received = Math.min(capacity - caster.stars, stars);
+        caster.stars = Math.min(capacity, caster.stars + stars);
         if (statistics) {
           statistics[spell.from].starsStolen += stars;
           statistics[spell.from].stolenStarsReceived += received;
@@ -102,9 +103,13 @@ export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: 
         // Empty theft has no fallback effect; the cast still spends its charge.
       }
       // A stronger pressure spell replaces the weaker one, rather than stacking.
-      if (spell.tier === 2 && player.decoysUntil <= state.time) {
+      if (spell.tier === 1 && player.decoysUntil <= state.time) {
         player.invasionUntil = state.time + config.spells.invasionMs;
         player.nextDecoy = state.time;
+      }
+      if(spell.tier===2 || spell.tier===4) {
+        player.moleRushUntil=state.time+(spell.tier===4?config.spells.decoysMs:config.spells.moleRushMs);
+        player.moleRushTier=spell.tier;
       }
       if (spell.tier === 4) {
         player.invasionUntil = 0;

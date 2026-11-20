@@ -17,7 +17,8 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   if (player.sweepUntil > state.time) effects.push({ kind: 'sweep', character: 'champignon', tier: player.sweepTier });
   if (hasGuard(player,state.time)) effects.push({ kind: 'guard', character: player.character, tier: player.shieldTier });
   if (player.magicShieldUntil > state.time) effects.push({ kind: 'ward', character: player.character, tier: 3 });
-  if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andromoss', tier: 2 });
+  if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andromoss', tier: 1 });
+  if (player.moleRushUntil > state.time || player.holes.some(t=>!!t?.rushReductionMs)) effects.push({ kind:'rush',character:'andromoss',tier:player.moleRushTier });
   if (player.decoysUntil > state.time) effects.push({ kind: 'decoys', character: 'andromoss', tier: 4 });
   if (player.armorUntil > state.time || hasTinCaps(player)) effects.push({ kind: 'armor', character: 'captain-bramble', tier: player.armorUntil > state.time ? player.armorTier : 2 });
   if (player.markUntil > state.time && (player.markCharges > 0 || player.holes.some(target => target?.missBonus))) effects.push({ kind: 'curse', character: 'duskmantle', tier: player.markTier });

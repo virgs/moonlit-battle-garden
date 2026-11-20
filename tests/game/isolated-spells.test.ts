@@ -61,12 +61,12 @@ it('uses cooldown/paused/casting gates but no hit-action delay for isolated cast
   match.state.paused=false;bot.update(match);expect(match.state.casting?.tier).toBe(1);
 });
 
-it('enforces the one-slot cap on theft and records empty theft without a fallback',()=>{
-  const match=game(1),[caster,victim]=match.state.players;
-  caster.stars=1;victim.stars=1;new Bot('medium',8,0).update(match);match.advance(config.spells.castFreezeMs);
+it('enforces the three-slot theft cap and records empty theft without a fallback',()=>{
+  const match=game(3),[caster,victim]=match.state.players;
+  caster.stars=3;victim.stars=3;new Bot('medium',8,0).update(match);match.advance(config.spells.castFreezeMs);
   star(match);match.advance(config.spells.warningMs);
-  expect(caster.stars).toBe(1);expect(victim.stars).toBe(0);
-  expect(match.statistics[0].starsStolen).toBe(1);expect(match.statistics[0].stolenStarsReceived).toBe(0);
+  expect(caster.stars).toBe(3);expect(victim.stars).toBe(0);
+  expect(match.statistics[0].starsStolen).toBe(3);expect(match.statistics[0].stolenStarsReceived).toBe(2);
   match.advance(config.spells.cooldownMs);new Bot('medium',8,0).update(match);
   match.advance(config.spells.castFreezeMs+config.spells.warningMs);
   expect(caster.stars).toBe(0);expect(match.statistics[0].emptyThefts).toBe(1);

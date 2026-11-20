@@ -16,9 +16,9 @@ it('prepares wards against public theft readiness, avoids active renewal and doe
     const safe=game(hero,'duskmantle');safe.state.players[1].stars=3;expect(opportunityKey(safe,0)).toBeNull();
   }
 });
-it('Sticky Fingers waits for a pair of enemy stars and avoids casting into an active ward',()=>{
+it('3-star theft waits for a worthwhile enemy charge of enemy stars and avoids casting into an active ward',()=>{
   const m=game('andromoss','champignon'),p=m.state.players[1];p.stars=1;expect(opportunityKey(m,0)).toBeNull();
-  p.stars=2;expect(opportunityKey(m,0)).toBe('steal-pair');p.magicShieldUntil=m.state.time+12000;expect(opportunityKey(m,0)).toBeNull();
+  p.stars=2;expect(opportunityKey(m,0)).toBe('steal-charge');p.magicShieldUntil=m.state.time+12000;expect(opportunityKey(m,0)).toBeNull();
 });
 it('Iron Resolve needs an unguarded urgent own mole and Siphon needs a visible own mole without renewing the buff',()=>{
   const m=game('captain-bramble'),p=m.state.players[0];p.holes[0]=mole(m,1,2000);expect(opportunityKey(m,0)).toBeNull();

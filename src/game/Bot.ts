@@ -39,7 +39,7 @@ export class Bot {
     // Casting has its own clock/RNG and does not wait on hit-action scheduling.
     if (!match.options.diagnosticMode && match.isolatedCastingPolicy === 'opportunity') {
       if (this.isolatedCasting.tryCast(match,this.id)) return;
-    } else if (!match.options.diagnosticMode && match.options.isolatedSpellTier && player.stars === match.options.isolatedSpellTier && state.time >= player.nextCast) {
+    } else if (!match.options.diagnosticMode && match.isolatedTier(this.id) && player.stars === match.isolatedTier(this.id) && state.time >= player.nextCast) {
       match.action({ type: 'cast', player: this.id });
       return;
     }
@@ -52,7 +52,7 @@ export class Bot {
     if(tuning.reactionJitter)for(const target of visible)if(!this.reactionAt.has(target.id)) {
       this.reactionAt.set(target.id,target.born+Math.round(tuning.reactionMs*(1+(this.timing.next()*2-1)*tuning.reactionJitter)));
     }
-    if (!match.options.diagnosticMode && !match.options.isolatedSpellTier && player.stars && state.time >= player.nextCast) {
+    if (!match.options.diagnosticMode && !match.isolatedTier(this.id) && player.stars && state.time >= player.nextCast) {
       if (!this.desiredTier) {
         const tiers = this.difficulty === 'easy' ? [1, 1, 2, 3, 4] : [1, 2, 3, 4, 4];
         this.desiredTier = tiers[Math.floor(this.random.next() * tiers.length)];
@@ -78,9 +78,13 @@ export class Bot {
       const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 2 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
       const waitForWard = hostile && opponent.magicShieldUntil > state.time;
       const alreadyGuarded = defender && player.stars === 1 && hasGuard(player,state.time);
-      const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || (player.armorUntil > state.time || hasTinCaps(player)) || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
-      const emptyTheft = player.character === 'andromoss' && (player.stars === 1 || player.stars === 3) && opponent.stars === 0;
-      if (!pointlessSweep && !emptyTheft && !waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {
+      const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || player.moleRushUntil>state.time || player.holes.some(t=>!!t?.rushReductionMs) || (player.armorUntil > state.time || hasTinCaps(player)) || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
+      const emptyTheft = player.character === 'andromoss' && player.stars === 3 && opponent.stars === 0;
+      const pointlessAndromoss=player.character==='andromoss' && (
+        (player.stars===1&&(opponent.invasionUntil>state.time||opponent.decoysUntil>state.time)) ||
+        (player.stars===2&&opponent.moleRushUntil>state.time) ||
+        (player.stars===4&&opponent.decoysUntil>state.time&&opponent.moleRushUntil>state.time));
+      if (!pointlessAndromoss && !pointlessSweep && !emptyTheft && !waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {
         match.action({ type: 'cast', player: this.id });
         this.desiredTier = 0;
         this.scheduleAction(state.time);

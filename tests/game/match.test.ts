@@ -111,16 +111,16 @@ describe('magic', () => {
     match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBe(0); expect(guardian.magicShieldUntil).toBe(0);
   });
-  it('steals at most two stars and obeys cooldown', () => {
+  it('3-star theft takes all stars and obeys cooldown', () => {
     const match = create(); const [guardian, andromoss] = match.state.players;
     guardian.stars = 4; andromoss.stars = 3;
     match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
-    expect(guardian.stars).toBe(2); expect(andromoss.stars).toBe(2);
-    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); expect(andromoss.stars).toBe(2);
+    expect(guardian.stars).toBe(0); expect(andromoss.stars).toBe(4);
+    match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); expect(andromoss.stars).toBe(4);
   });
-  it('Borrowed Spark wastes its charge against an empty meter', () => {
+  it('3-star theft wastes its charge against an empty meter', () => {
     const match = create(); const andromoss = match.state.players[1];
-    andromoss.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
+    andromoss.stars = 3; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(andromoss.stars).toBe(0); expect(andromoss.mistakeShield).toBe(0);
   });
   it('four-star cleanup grants three mistake blocks', () => {
@@ -131,15 +131,15 @@ describe('magic', () => {
     expect(player.mistakeShield).toBe(0);
     expect(player.shieldTier).toBe(4);
   });
-  it('Borrowed Spark transfers every enemy star', () => {
+  it('3-star theft transfers every enemy star', () => {
     const match = create(); const [guardian, andromoss] = match.state.players;
-    guardian.stars = 2; andromoss.stars = 1;
+    guardian.stars = 2; andromoss.stars = 3;
     match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.stars).toBe(0); expect(andromoss.stars).toBe(2);
   });
   it('stronger pressure replaces invasion and ends at its deadline', () => {
     const match = create(); const [guardian, andromoss] = match.state.players;
-    andromoss.stars = 2; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
+    andromoss.stars = 1; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(guardian.invasionUntil).toBeGreaterThan(match.state.time);
     match.advance(config.spells.cooldownMs);
     andromoss.stars = 4; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);

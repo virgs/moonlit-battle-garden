@@ -1,5 +1,5 @@
-# Current two-star diagnostic
+# Current 2-star diagnostic
 
-[Current pooled/per-level matrices](balance-tier-2.md) · [Current spells, durations and continuous10-second Tines comparisons](tines10-review.md).
+[Current pooled/per-level matrices](balance-tier-2.md) · [Adopted Andromoss kit, before→after and fixed-opponent comparison](andromoss-kit-review.md).
 
-P01 is resolved. Historical swap-only6.5 s pulse results remain in tier-swap-review.md.
+Earlier reports use historical Andromoss slot effects; see their source revisions. All other heroes’ powers remain unchanged.

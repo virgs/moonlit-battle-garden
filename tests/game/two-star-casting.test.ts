@@ -26,12 +26,12 @@ it('waits for useful Tines targets and rejects renewing automation or a rabbit-o
   p.holes[3]=target(m,2);expect(opportunityKey(m,0)).toBe('tines:0:2');
   p.automationUntil=m.state.time+6500;expect(opportunityKey(m,0)).toBeNull();
 });
-it('Riot and Veil wait for visible enemy targets and avoid wards or refreshing active effects',()=>{
+it('Shortening and Veil wait for visible enemy targets and avoid wards or refreshing active effects',()=>{
   for(const hero of ['andromoss','duskmantle'] as const){
     const m=game(hero),p=m.state.players[1];expect(opportunityKey(m,0)).toBeNull();
     p.holes[0]=target(m);expect(opportunityKey(m,0)).not.toBeNull();
     p.magicShieldUntil=m.state.time+1000;expect(opportunityKey(m,0)).toBeNull();p.magicShieldUntil=0;
-    if(hero==='andromoss')p.invasionUntil=m.state.time+1000;else p.camouflageUntil=m.state.time+1000;
+    if(hero==='andromoss')p.moleRushUntil=m.state.time+1000;else p.camouflageUntil=m.state.time+1000;
     expect(opportunityKey(m,0)).toBeNull();
   }
 });

@@ -20,8 +20,8 @@ export type BattleResult = {
 };
 
 /** Same match and bot code as the browser; no rendering, timers, or network. */
-export function simulateBattle(characters: [CharacterId, CharacterId], difficulty: Difficulty, seed: number, isolatedSpellTier?: SpellTier, isolatedCastingPolicy?: IsolatedCastingPolicy): BattleResult {
-  const match = new Match({ characters, difficulty, mode: 'local', seed, isolatedSpellTier, isolatedCastingPolicy });
+export function simulateBattle(characters: [CharacterId, CharacterId], difficulty: Difficulty, seed: number, isolatedSpellTier?: SpellTier, isolatedCastingPolicy?: IsolatedCastingPolicy, isolatedSpellTiers?:[SpellTier,SpellTier]): BattleResult {
+  const match = new Match({ characters, difficulty, mode: 'local', seed, isolatedSpellTier, isolatedCastingPolicy, isolatedSpellTiers });
   const bots = [new Bot(difficulty, seed ^ 0x123456, 0), new Bot(difficulty, seed ^ 0x654321, 1)];
   const casts: [number[], number[]] = [[0, 0, 0, 0], [0, 0, 0, 0]];
   const scores: [number, number] = [0, 0];
@@ -52,12 +52,12 @@ export function simulateBattle(characters: [CharacterId, CharacterId], difficult
   const timedOut = match.state.phase !== 'match-over';
   if(!timedOut||match.state.phase==='round-over')roundDurationsMs.push(elapsedMs-roundStartedMs);
   const castingStatistics:[CastingStatistics,CastingStatistics]=[bots[0].castingStatistics,bots[1].castingStatistics];
-  if(isolatedSpellTier) for(const [side,stats] of castingStatistics.entries()) {
+  if(isolatedSpellTier||isolatedSpellTiers) for(const [side,stats] of castingStatistics.entries()) {
     if(stats.scheduled!==stats.cancelled+stats.executed+stats.pending)throw Error('Casting accounting mismatch');
     if(match.isolatedCastingPolicy==='opportunity'&&stats.executed!==casts[side].reduce((a,b)=>a+b,0))throw Error('Uncounted opportunity cast');
   }
   return {
-    ...(isolatedSpellTier?{castingStatistics}:{}),
+    ...(isolatedSpellTier||isolatedSpellTiers?{castingStatistics}:{}),
     winner: !timedOut && match.state.winner !== null ? characters[match.state.winner] : null,
     winnerSide: timedOut ? null : match.state.winner,
     rounds: match.state.round, durationMs: elapsedMs, roundDurationsMs, unfinishedRoundMs:timedOut&&match.state.phase!=='round-over'?elapsedMs-roundStartedMs:null, scores, casts, timedOut, statistics: match.statistics,

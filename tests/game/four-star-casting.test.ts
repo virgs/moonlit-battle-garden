@@ -16,7 +16,7 @@ it('Royal Cleanup needs a useful visible target and avoids replacing an active s
 it('Double Trouble avoids wards and active renewal, and needs a visible enemy opportunity',()=>{
   const m=game('andromoss'),p=m.state.players[1];p.holes[0]=target(m);expect(opportunityKey(m,0)).toBe('trouble:1');
   p.magicShieldUntil=m.state.time+1000;expect(opportunityKey(m,0)).toBeNull();p.magicShieldUntil=0;
-  p.decoysUntil=m.state.time+8500;expect(opportunityKey(m,0)).toBeNull();
+  p.decoysUntil=m.state.time+8000;p.moleRushUntil=m.state.time+8000;expect(opportunityKey(m,0)).toBeNull();
 });
 it('Heavy Harvest can upgrade light armor but avoids renewing active heavy armor; Pact avoids marked targets',()=>{
   const m=game('captain-bramble'),p=m.state.players[1];p.holes[0]={...target(m),armor:1};p.armorHits=1;p.armorUntil=m.state.time+3000;

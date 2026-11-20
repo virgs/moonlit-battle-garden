@@ -16,7 +16,7 @@ it('retains charges through pause, refreshes rather than stacks, and clears char
   p.holes[0]=mole(m);modifyTarget(p,p.holes[0],m.state.time,true);expect(p.tinCharges).toBe(2);
   m.state.paused=true;m.advance(30000);expect(p.tinCharges).toBe(2);expect(p.holes[0]?.armor).toBe(1);m.state.paused=false;
   m.advance(config.spells.cooldownMs);cast(m);expect(p.tinCharges).toBe(3);
-  cleanse(p);expect(hasTinCaps(p)).toBe(false);expect(p.holes[0]?.armor).toBeUndefined();expect(p.holes[0]?.persistentArmor).toBeUndefined();
+  cleanse(p,m.state.time);expect(hasTinCaps(p)).toBe(false);expect(p.holes[0]?.armor).toBeUndefined();expect(p.holes[0]?.persistentArmor).toBeUndefined();
   m.advance(config.spells.cooldownMs);cast(m);m.state.phase='round-over';m.nextRound();
   expect(m.state.players[1].tinCharges).toBe(0);expect(hasTinCaps(m.state.players[1])).toBe(false);
 });

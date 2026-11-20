@@ -10,17 +10,23 @@ export class Match {
   events: GameEvent[] = [];
   readonly statistics: MatchStatistics = [playerStatistics(), playerStatistics()];
   get isolatedCastingPolicy(): 'normal' | 'immediate' | 'opportunity' {
-    return this.options.isolatedSpellTier ? this.options.isolatedCastingPolicy ?? 'opportunity' : 'normal';
+    return this.options.isolatedSpellTier || this.options.isolatedSpellTiers ? this.options.isolatedCastingPolicy ?? 'opportunity' : 'normal';
   }
-  get starCapacity(): number { return this.options.isolatedSpellTier ?? 4; }
+  isolatedTier(id:PlayerId) {return this.options.isolatedSpellTiers?.[id]??this.options.isolatedSpellTier;}
+  starCapacityFor(id:PlayerId):number {return this.isolatedTier(id)??4;}
+  get starCapacity(): number {
+    if(this.options.isolatedSpellTiers)throw Error('Per-player diagnostics require starCapacityFor(player)');
+    return this.options.isolatedSpellTier ?? 4;
+  }
   private spawns: SpawnDirector;
   private eventId = 0;
   private accumulator = 0;
 
   constructor(readonly options: MatchOptions) {
     if (options.isolatedSpellTier !== undefined && ![1,2,3,4].includes(options.isolatedSpellTier)) throw Error('Isolated tier must be 1..4');
-    if (options.isolatedCastingPolicy && !options.isolatedSpellTier) throw Error('Casting policy requires an isolated tier');
-    if (options.diagnosticMode && (options.mode !== 'local' || options.isolatedSpellTier || options.isolatedCastingPolicy)) throw Error('Reaction diagnostics require local mode and no isolated spell policy');
+    if(options.isolatedSpellTiers && (options.mode!=='local'||options.isolatedSpellTier||options.isolatedSpellTiers.length!==2||options.isolatedSpellTiers.some(t=>![1,2,3,4].includes(t))))throw Error('Per-player tiers require a valid local pair without a shared tier');
+    if (options.isolatedCastingPolicy && !options.isolatedSpellTier && !options.isolatedSpellTiers) throw Error('Casting policy requires an isolated tier');
+    if (options.diagnosticMode && (options.mode !== 'local' || options.isolatedSpellTier || options.isolatedSpellTiers || options.isolatedCastingPolicy)) throw Error('Reaction diagnostics require local mode and no isolated spell policy');
     this.spawns = new SpawnDirector(options.seed);
     this.spawns.reset(config.countdownMs);
     this.state = {
@@ -35,7 +41,7 @@ export class Match {
       character: this.options.characters[id], score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + config.pacing.firstSpawnMs,
       nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldTier: 1, shieldUntil: 0, shieldPermanent: false, magicShieldUntil: 0,
-      invasionUntil: 0, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorCharges: 0, tinCharges: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, tendingUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepColumns: [], sweepTier: 2, nextSweep: 0, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
+      invasionUntil: 0, moleRushUntil: 0, moleRushTier: 2, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorCharges: 0, tinCharges: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, tendingUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepColumns: [], sweepTier: 2, nextSweep: 0, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
     };
   }
 
@@ -61,7 +67,7 @@ export class Match {
       if (state.time >= state.countdownUntil) state.phase = 'playing';
       return;
     }
-    resolveSpells(state, this.starCapacity, this.statistics);
+    resolveSpells(state, [this.starCapacityFor(0),this.starCapacityFor(1)], this.statistics);
     state.players.forEach((player, id) => {
       if (player.sweepTier === 4 && player.sweepUntil > state.time && state.time >= player.nextSweep) {
         player.nextSweep = state.time + config.rosterSpells.royalSweepIntervalMs;
@@ -75,6 +81,7 @@ export class Match {
       player.holes.forEach((target, hole) => {
         if (target && target.expires <= state.time) {
           if(target.extended)this.statistics[id as PlayerId][target.kind==='mole'?'tendingMoleExpiries':target.kind==='star'?'tendingStarExpiries':'tendingRabbitExpiries']++;
+          if (target.kind === 'mole' && target.rushReductionMs)this.statistics[id as PlayerId].rushedMoleMisses++;
           if (target.kind === 'mole') this.penalize(id as PlayerId, config.penalties.miss + (target.missBonus ?? 0), undefined, undefined, 'miss');
           player.holes[hole] = null;
         }
@@ -96,9 +103,9 @@ export class Match {
     if (action.type === 'cast') {
       if (this.options.diagnosticMode === 'reaction') return;
       const tier = this.state.players[action.player].stars;
-      if (this.options.isolatedSpellTier && tier !== this.options.isolatedSpellTier) return;
+      if (this.isolatedTier(action.player) && tier !== this.isolatedTier(action.player)) return;
       if (castSpell(this.state, action.player)) {
-        if(config.spells.warningMs===0)resolveSpells(this.state,this.starCapacity,this.statistics);
+        if(config.spells.warningMs===0)resolveSpells(this.state,[this.starCapacityFor(0),this.starCapacityFor(1)],this.statistics);
         this.emit(action.player, 'cast', undefined, tier);
         this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
         const caster=this.state.players[action.player];
@@ -137,6 +144,7 @@ export class Match {
       if(this.state.time>=target.expires-config.rosterSpells.extensionMs)
         stats[target.kind==='mole'?'tendingLateMoleHits':target.kind==='star'?'tendingLateStarHits':'tendingLateRabbitHits']++;
     }
+    if(target.kind==='mole'&&target.rushReductionMs)this.statistics[id].rushedMoleHits++;
     player.holes[hole] = null;
     if (target.kind === 'rabbit') {
       this.penalize(id, config.penalties.rabbit, hole, 'rabbit', 'rabbit');
@@ -148,8 +156,8 @@ export class Match {
     player.score += points;
     this.statistics[id].pointsEarned += points;
     if (target.kind === 'star') {
-      this.statistics[id].starsCollected += Math.min(1, this.starCapacity - player.stars);
-      player.stars = Math.min(this.starCapacity, player.stars + 1);
+      this.statistics[id].starsCollected += Math.min(1, this.starCapacityFor(id) - player.stars);
+      player.stars = Math.min(this.starCapacityFor(id), player.stars + 1);
     }
     this.emit(id, target.kind === 'star' ? 'star' : 'hit', hole, undefined, target.kind);
   }

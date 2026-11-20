@@ -1,3 +1,5 @@
+Historical Andromoss kit; [current adopted kit and matrices](andromoss-kit-review.md) supersede its Andromoss rows. Other heroes’ powers are unchanged.
+
 # Three-star baseline with useful opportunities
 
 ## Accepted earlier tiers and next step

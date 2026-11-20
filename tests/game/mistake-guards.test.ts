@@ -24,7 +24,7 @@ it('gives both heroes exactly two permanent mistake blocks for empty hits, rabbi
 it('freezes, survives cleansing, refreshes to two instead of stacking, and resets next round',()=>{
   const m=game('champignon'),p=m.state.players[0];cast(m);m.action({type:'hit',player:0,hole:0});
   m.state.paused=true;m.advance(30000);expect(p.mistakeShield).toBe(1);m.state.paused=false;
-  cleanse(p);expect(p.mistakeShield).toBe(1);m.advance(config.spells.cooldownMs);cast(m);expect(p.mistakeShield).toBe(2);
+  cleanse(p,m.state.time);expect(p.mistakeShield).toBe(1);m.advance(config.spells.cooldownMs);cast(m);expect(p.mistakeShield).toBe(2);
   m.state.phase='round-over';m.nextRound();expect(m.state.players[0].shieldPermanent).toBe(false);expect(m.state.players[0].mistakeShield).toBe(0);
 });
 it('retains historical timed one-charge guards only for reproducible controls',()=>{

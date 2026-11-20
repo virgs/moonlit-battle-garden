@@ -5,7 +5,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 export type PlayerId = 0 | 1;
 export type TargetKind = 'mole' | 'rabbit' | 'star';
 export type Phase = 'countdown' | 'playing' | 'round-over' | 'match-over';
-export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic'; armor?: number; persistentArmor?: boolean; missBonus?: number; extended?: boolean };
+export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic'; armor?: number; persistentArmor?: boolean; missBonus?: number; rushed?: boolean; rushReductionMs?: number; extended?: boolean };
 export type PendingSpell = { tier: number; at: number; from: PlayerId };
 export type Player = {
   character: CharacterId;
@@ -23,6 +23,8 @@ export type Player = {
   shieldPermanent: boolean;
   magicShieldUntil: number;
   invasionUntil: number;
+  moleRushUntil: number;
+  moleRushTier: number;
   decoysUntil: number;
   armorUntil: number;
   armorHits: number;
@@ -68,6 +70,8 @@ export type MatchOptions = {
   isolatedCastingPolicy?: IsolatedCastingPolicy;
   /** Offline diagnostic only: capacity/casting cost equals this tier. */
   isolatedSpellTier?: SpellTier;
+  /** Offline fixed-opponent comparison: each player retains their own selected meter/cost. */
+  isolatedSpellTiers?: [SpellTier,SpellTier];
   characters: [CharacterId, CharacterId];
   mode: 'ai' | 'local' | 'online';
   difficulty: Difficulty;

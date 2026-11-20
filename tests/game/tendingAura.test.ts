@@ -53,7 +53,7 @@ it('freezes with casting/pause, survives hostile cleansing, resets per round and
   match.state.players[1].stars=1;match.action({type:'cast',player:1});match.advance(config.spells.castFreezeMs);
   expect(match.state.time).toBe(time);expect(p.tendingUntil).toBe(until);
   match.state.paused=true;match.advance(5000);expect(p.tendingUntil-match.state.time).toBe(3000);match.state.paused=false;
-  cleanse(p);expect(p.tendingUntil).toBe(until);expect(p.holes[0]!.expires).toBe(expires+500);
+  cleanse(p,match.state.time);expect(p.tendingUntil).toBe(until);expect(p.holes[0]!.expires).toBe(expires+500);
   match.advance(config.spells.cooldownMs);cast(match);expect(p.holes[0]!.expires).toBe(expires+500);
   match.state.phase='round-over';match.nextRound();expect(match.state.players[0].tendingUntil).toBe(0);
 });

@@ -17,10 +17,10 @@ it('applies every hostile spell at cast start with no warning or opponent respon
     m.action({type:'cast',player:0});expect(victim.pending).toHaveLength(0);expect(victim.message).not.toContain('Incoming');
     expect(m.state.casting?.tier).toBe(tier);
     if(hero==='andromoss'){
-      if(tier===1)expect([caster.stars,victim.stars]).toEqual([4,0]);
-      if(tier===3)expect([caster.stars,victim.stars]).toEqual([2,2]);
-      if(tier===2)expect(victim.invasionUntil-m.state.time).toBe(7500);
-      if(tier===4)expect(victim.decoysUntil-m.state.time).toBe(8500);
+      if(tier===1)expect(victim.invasionUntil-m.state.time).toBe(8000);
+      if(tier===3)expect([caster.stars,victim.stars]).toEqual([4,0]);
+      if(tier===2)expect(victim.moleRushUntil-m.state.time).toBe(8000);
+      if(tier===4){expect(victim.decoysUntil-m.state.time).toBe(8000);expect(victim.moleRushUntil-m.state.time).toBe(8000);}
     }else if(hero==='captain-bramble'){
       if(tier===2)expect(victim.tinCharges).toBe(3);
       else expect(victim.holes.filter(t=>t?.armor===2)).toHaveLength(4);
@@ -36,6 +36,6 @@ it('lets an already-active ward block any hostile spell, without retroactive cas
     m.state.players[0].stars=tier;m.action({type:'cast',player:0});
     expect(m.statistics[1].wardBlocks).toBe(1);expect(victim.magicShieldUntil).toBe(0);expect(victim.pending).toHaveLength(0);
     expect(victim.stars).toBe(4);expect(victim.tinCharges).toBe(0);
-    expect(victim.invasionUntil+victim.decoysUntil+victim.camouflageUntil).toBe(0);
+    expect(victim.invasionUntil+victim.moleRushUntil+victim.decoysUntil+victim.camouflageUntil).toBe(0);
   }
 });

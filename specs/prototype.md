@@ -263,3 +263,21 @@ Extend isolated tier3 diagnostics to the same useful-opportunity/scaled-delay po
 All isolated tiers now default to shared useful-opportunity/random-delay casting; explicit immediate controls remain. Tier4 conditions follow each spell’s visible opportunity and avoid wards/active refresh. Full-kit bot policy unchanged. A flat markBonusPointsLost counter observes extra marked penalties actually lost after guard prevention without changing scoring/RNG.
 
 15,000 games, zero unfinished,100 paired seeds/pair/level. Easy casts less than once per hero/match; Hard casts several times. Bramble wins every Hard matchup; Champignon wins Easy/Medium matchups with some near50% edges. No universal winner across all levels; do not infer equal/full-kit/human balance from that fact. [Current matrices, durations and coverage](../reports/tier4-baseline-review.md).
+
+
+### Current Andromoss kit adopted (D138/I28/I29)
+
+| Stars | Effect | Duration |
+|---|---|---|
+| 1★ | Extra enemy rabbits every0.85 s, normal wave lifetimes and existing magic-target caps | 8 s |
+| 2★ | Newly appearing enemy moles receive85% normal wave lifetime, once per target | 8 s |
+| 3★ | Steal all enemy stars; received stars capped by own meter capacity; empty meter wasted | Instant |
+| 4★ | Extra enemy rabbits every0.65 s plus the same85% new-mole lifetime effect; no extra moles or theft | 8 s |
+
+All effects apply at cast start with no warning; spawning proceeds on the next simulation tick. Existing ward blocks the entire4★ combo atomically. Four-star pressure replaces weaker rabbit pressure; weaker1★ casts do not replace active4★ pressure. Recasts refresh windows rather than stack shortening. Two-star shortening affects future mole births only, not existing moles/rabbits/stars. Compute rounded normal lifetime×0.85 before adding Tending’s fixed750 ms; permit425 ms for a500 ms base, with complete adaptive rise/retreat endpoints. Shortened targets keep earned expiry after aura end. Cleanse clears all pressure clocks and restores removed time to live shortened targets (retaining positive Tending), without resurrection or double restoration. Round reset clears clocks/targets; pause/cast freezes game time.
+
+New fields: moleRushUntil, moleRushTier; per-target rushed/rushReductionMs; protocol16. HUD uses a procedural rush placeholder, approved art unchanged. Internal cap setting is starTheftCap; normal capacity4. Discussion uses star counts; UI rabbit pressure occupies1★ and the new lifetime effect2★. Normal bot slot checks/active-effect avoidance and cleanse awareness follow new roles; no hero-specific casting weights or hit-timing changes.
+
+Four current same-tier roster matrices, local per-player fixed-opponent diagnostics and full-kit snapshot: [review](../reports/andromoss-kit-review.md).49,500 actual-simulation games, no caps.208 simulation tests/build and28 desktop/mobile/online browser cases pass. All19,200 unaffected non-Andromoss records match prior outcomes/old metrics after excluding newly added counters. Per-player selected tiers are local-only; each keeps its selected cap, so3★ theft can remove4 but receive3 in that experiment, while normal play receives4. Do not claim these are optimal full-kit choices or equal resource efficiency.
+
+4★ now combines the1★/2★ effects per cast and improves same-tier pooled matchups, but frequent1★ casts win more often in fixed-build tests. Cost, cast availability, automatic rabbit hits and normal AI’s refusal to bait wards are strategy limitations. Human/full-kit balance remains provisional; no extra tuning beyond the adopted kit.

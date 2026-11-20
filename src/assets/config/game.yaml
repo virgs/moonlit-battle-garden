@@ -43,9 +43,13 @@ spells:
   castFreezeMs: 1500
   cooldownMs: 1800
   warningMs: 0
-  borrowedSparkCap: 4
-  invasionMs: 7500
-  decoysMs: 8500
+  starTheftCap: 4
+  invasionMs: 8000
+  rabbitIntervalMs: 850
+  moleRushMs: 8000
+  moleLifetimeScale: 0.85
+  decoysMs: 8000
+  comboRabbitIntervalMs: 650
   shieldMs: 12000
 rosterSpells:
   cleanSweepMs: 3000

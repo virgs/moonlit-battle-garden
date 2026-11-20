@@ -1,7 +1,7 @@
 import { expect,test } from '@playwright/test';
 import { openMainMenu,chooseCharacter } from './frontMenu';
 
-test('Bramble and Sprig choose new heroes online and synchronize armor and Tending aura',async({page,browser},info)=>{
+for(const hostHero of ['captain-bramble','andromoss'] as const)test(`${hostHero} and Sprig synchronize hostile effects and Tending online`,async({page,browser},info)=>{
   test.setTimeout(45000);
   const failures:string[]=[];
   page.on('pageerror',error=>failures.push(error.message));
@@ -16,13 +16,13 @@ test('Bramble and Sprig choose new heroes online and synchronize armor and Tendi
     await guest.goto(await invite.inputValue());
     await guest.getByRole('button',{name:'Join garden',exact:true}).click();
     await expect(guest.getByRole('button',{name:'Confirm You',exact:true})).toBeEnabled();
-    await chooseCharacter(page,'You','captain-bramble');
+    await chooseCharacter(page,'You',hostHero);
     await chooseCharacter(guest,'You','sprig');
     await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','sprig');
-    await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','captain-bramble');
+    await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character',hostHero);
     await guest.getByRole('button',{name:'Confirm You',exact:true}).click();
     await page.getByRole('button',{name:'Confirm You',exact:true}).click();
-    await expect(page.locator('.player-0')).toHaveAttribute('data-character','captain-bramble');
+    await expect(page.locator('.player-0')).toHaveAttribute('data-character',hostHero);
     await expect(guest.locator('.player-0')).toHaveAttribute('data-character','sprig');
     for(let star=0;star<2;star++) {
       const target=page.locator('.player-0 .hole[data-kind="star"]');
@@ -31,11 +31,18 @@ test('Bramble and Sprig choose new heroes online and synchronize armor and Tendi
     const guestStar=guest.locator('.player-0 .hole[data-kind="star"]').first();
     await expect(guestStar).toBeEnabled({timeout:5000});await guestStar.click();
     await page.locator('.player-0 .cast-button').click();
-    await expect(page.locator('.cast-banner[data-character="captain-bramble"]')).toHaveAttribute('data-asset','ready');
-    await expect(guest.locator('.cast-banner[data-character="captain-bramble"]')).toHaveAttribute('data-asset','ready');
-    await expect(guest.locator('.effect-armor[data-character="captain-bramble"]')).toBeVisible({timeout:7000});
-    await expect(guest.locator('.player-0 .hole[data-armor="1"]').first()).toBeEnabled();
-    if(info.project.name==='desktop')await expect(page.locator('.player-1 .hole[data-armor="1"]').first()).toBeVisible();
+    await expect(page.locator(`.cast-banner[data-character="${hostHero}"]`)).toHaveAttribute('data-asset','ready');
+    await expect(guest.locator(`.cast-banner[data-character="${hostHero}"]`)).toHaveAttribute('data-asset','ready');
+    if(hostHero==='captain-bramble') {
+      await expect(guest.locator('.effect-armor[data-character="captain-bramble"]')).toBeVisible({timeout:7000});
+      await expect(guest.locator('.player-0 .hole[data-armor="1"]').first()).toBeEnabled();
+      if(info.project.name==='desktop')await expect(page.locator('.player-1 .hole[data-armor="1"]').first()).toBeVisible();
+    } else {
+      await expect(guest.locator('.effect-rush')).toBeVisible({timeout:7000});
+      await expect(guest.locator('.player-0')).toHaveAttribute('data-mole-rush-active','true');
+      await expect(guest.locator('.player-0 .hole[data-rushed="true"]').first()).toBeEnabled({timeout:5000});
+      if(info.project.name==='desktop')await expect(page.locator('.player-1')).toHaveAttribute('data-mole-rush-active','true');
+    }
     await guest.screenshot({path:info.outputPath('sprig-vs-bramble-armor.png')});
     await guest.locator('.player-0 .cast-button').click();
     await expect(page.locator('.cast-banner[data-character="sprig"]')).toBeVisible();

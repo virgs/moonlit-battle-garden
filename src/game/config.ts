@@ -17,7 +17,7 @@ type Config = {
   };
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
-  spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; borrowedSparkCap: number; invasionMs: number; decoysMs: number; shieldMs: number };
+  spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; starTheftCap: number; invasionMs: number; rabbitIntervalMs: number; moleRushMs: number; moleLifetimeScale: number; decoysMs: number; comboRabbitIntervalMs: number; shieldMs: number };
   rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; tinCapsMode: 'next' | 'timed'; heavyArmorTargets: number; brambleGuardMs: number; mistakeGuardMode: 'timed' | 'charges'; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; helpingTinesMode: 'continuous' | 'pulse'; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
@@ -54,10 +54,10 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   andromoss: {
     name: 'Andromoss', role: 'The star-stealing troublemaker', color: '#ffb27c', emblem: '✦',
     spells: [
-      { name: 'Borrowed Spark', description: 'Steal all enemy stars, up to your four-star capacity. Wasted if their meter is empty.' },
-      { name: 'Rabbit Riot', description: 'Fill upcoming enemy waves with extra rabbits for 7.5 seconds.' },
-      { name: 'Sticky Fingers', description: 'Steal up to two enemy stars, if available.' },
-      { name: 'Double Trouble', description: 'Send faster, rabbit-heavy waves for 8.5 seconds.' },
+      { name: 'Rabbit Riot', description: 'Add enemy rabbits every 0.85 seconds for 8 seconds.' },
+      { name: 'Burrow Rush', description: 'For 8 seconds, new enemy moles receive 85% of their normal lifetime.' },
+      { name: 'Sticky Fingers', description: 'Steal all enemy stars up to capacity. Wasted if their meter is empty.' },
+      { name: 'Double Trouble', description: 'For 8 seconds, add enemy rabbits every 0.65 seconds and give new enemy moles 85% lifetime.' },
     ],
   },
   'captain-bramble': {
@@ -94,15 +94,18 @@ export const characters: Record<CharacterId, { name: string; role: string; color
 for (const key of ['cleanSweepMs','ominousMarkMs','armorMs','brambleGuardMs','markMs','camouflageMs','drainMs','columnAutomationMs','fullAutomationMs','cleanseWardMs'] as const) {
   if (config.rosterSpells[key] < 3000) throw new Error(`Active effect below 3 seconds: ${key}`);
 }
-if ([config.spells.shieldMs,config.spells.invasionMs,config.spells.decoysMs].some(ms=>ms<3000)) throw new Error('Active spell windows must be at least 3 seconds');
+if ([config.spells.shieldMs,config.spells.invasionMs,config.spells.decoysMs,config.spells.moleRushMs].some(ms=>ms<3000)) throw new Error('Active spell windows must be at least 3 seconds');
 
 // Zero is retained only for reproducing the historical instant-only Tending control.
 if(config.rosterSpells.tendingMs!==0&&config.rosterSpells.tendingMs<3000)throw new Error('Active Tending window must be at least 3 seconds');
 
-if(!Number.isInteger(config.spells.borrowedSparkCap)||config.spells.borrowedSparkCap<1||config.spells.borrowedSparkCap>4)throw new Error('Borrowed Spark cap must be 1..4');
+if(!Number.isInteger(config.spells.starTheftCap)||config.spells.starTheftCap<1||config.spells.starTheftCap>4)throw new Error('Star theft cap must be 1..4');
 
 if(!['next','timed'].includes(config.rosterSpells.tinCapsMode))throw new Error('Tin Caps mode must be next or timed');
 
 if(!['timed','charges'].includes(config.rosterSpells.mistakeGuardMode))throw new Error('Mistake guard mode must be timed or charges');
 
 if(!['continuous','pulse'].includes(config.rosterSpells.helpingTinesMode))throw new Error('Helping Tines mode must be continuous or pulse');
+
+if(config.spells.moleLifetimeScale<=0||config.spells.moleLifetimeScale>1)throw new Error('Mole lifetime scale must be in (0,1]');
+for(const ms of [config.spells.rabbitIntervalMs,config.spells.comboRabbitIntervalMs])if(ms<=0||ms%config.tickMs!==0)throw new Error('Rabbit intervals must be positive tick multiples');

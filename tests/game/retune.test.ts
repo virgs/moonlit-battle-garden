@@ -76,8 +76,8 @@ it('sweep freezes with gameplay and Royal Cleanup keeps three guards plus the sw
   expect(match.state.players[0].sweepUntil).toBe(0);expect(match.state.players[0].sweepColumns).toEqual([]);expect(match.state.players[0].automationColumns).toEqual([]);
 });
 
-it('empty Borrowed Spark and Sticky Fingers have no fallback shield or other benefit',()=>{
-  for(const tier of [1,3]) {
+it('empty 3-star theft has no fallback shield or other benefit',()=>{
+  for(const tier of [3]) {
     const match=game('andromoss','sprig'),caster=match.state.players[0];
     cast(match,0,tier);match.advance(config.spells.warningMs);
     expect(caster.stars).toBe(0);expect(caster.score).toBe(0);expect(caster.mistakeShield).toBe(0);
@@ -85,7 +85,7 @@ it('empty Borrowed Spark and Sticky Fingers have no fallback shield or other ben
   }
 });
 
-it('Double Trouble affects the enemy only, retaining its 8.5-second pressure window',()=>{
+it('Double Trouble affects the enemy only, retaining its 8-second pressure window',()=>{
   const match=game('andromoss','sprig');cast(match,0,4);match.advance(config.spells.warningMs);
   expect(match.state.players[0].decoysUntil).toBe(0);
   expect(match.state.players[1].decoysUntil-match.state.time).toBe(config.spells.decoysMs);
@@ -162,23 +162,23 @@ it('Clean Sweep selects the busiest column with stable leftmost ties, even when 
   const empty=game('champignon');cast(empty,0,2);expect(empty.state.players[0].sweepColumns).toEqual([0]);
 });
 
-it('Borrowed Spark steals every available star and remains capped at four',()=>{
+it('3-star theft steals every available star and remains capped at four',()=>{
   for(let stars=1;stars<=4;stars++) {
     const match=game('andromoss','sprig'),[caster,victim]=match.state.players;
-    victim.stars=stars;cast(match,0,1);
+    victim.stars=stars;cast(match,0,3);
     expect(victim.stars).toBe(stars); // hostile warning still applies
     match.advance(config.spells.warningMs);
     expect(victim.stars).toBe(0);expect(caster.stars).toBe(stars);
   }
   const match=game('andromoss','sprig'),[caster,victim]=match.state.players;
-  victim.stars=4;cast(match,0,1);caster.stars=2;match.advance(config.spells.warningMs);
+  victim.stars=4;cast(match,0,3);caster.stars=2;match.advance(config.spells.warningMs);
   expect(victim.stars).toBe(0);expect(caster.stars).toBe(4);
 });
 
 it('a ward blocks all-star theft, while spending the caster charge',()=>{
   const match=game('andromoss','sprig'),[caster,victim]=match.state.players;
   victim.stars=4;victim.magicShieldUntil=match.state.time+6000;
-  cast(match,0,1);match.advance(config.spells.warningMs);
+  cast(match,0,3);match.advance(config.spells.warningMs);
   expect(victim.stars).toBe(4);expect(victim.magicShieldUntil).toBe(0);expect(caster.stars).toBe(0);
 });
 

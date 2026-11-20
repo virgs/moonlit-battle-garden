@@ -159,3 +159,6 @@ D134: tier2 tuning accepted under the no-universal-loser criterion; tier3 baseli
 
 
 Four-star baseline (D135): powers unchanged; all isolated tiers now use opportunity/scaled-delay casting with immediate controls available. [Matrices, spell durations and exposure findings](reports/tier4-baseline-review.md) preserve15,000 games. Easy’s low four-star casting coverage and earlier-tier counter limitations must be considered before full-kit/human balance conclusions.
+
+
+Current D138 Andromoss:1★ rabbits every850 ms/8 s;2★85% lifetime for newly appearing enemy moles/8 s;3★all enemy stars up to capacity/instant;4★pure rabbits every650 ms plus the same mole shortening/8 s. No warnings; no extra reward-bearing4★ moles. Live shortened targets can be cleansed without resurrection; adaptive animation phases remain complete below the natural lifetime floor. [Current kit, versus matrices and fixed-opponent comparison](reports/andromoss-kit-review.md) preserve49,500 games, plus a full-kit snapshot. Per-player selected-tier diagnostics are local-only; real play retains four-star capacity. Protocol16 synchronizes new rush fields. All other heroes’ powers remain unchanged.

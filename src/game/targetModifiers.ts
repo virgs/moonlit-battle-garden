@@ -8,6 +8,12 @@ export function extendTarget(target:Target,time:number):void {
 
 /** Shared spawn modifiers: tending reaches all kinds; armor and marks only moles. */
 export function modifyTarget(player: Player, target: Target, time: number, arrival = false): void {
+  // Scale the normal spawn lifetime once; fixed positive Tending time is added after.
+  if(arrival && target.kind==='mole' && player.moleRushUntil>time && !target.rushed) {
+    const lifetime=target.expires-target.born;
+    target.rushReductionMs=lifetime-Math.round(lifetime*config.spells.moleLifetimeScale);
+    target.expires-=target.rushReductionMs;target.rushed=true;
+  }
   if(player.tendingUntil>time)extendTarget(target,time);
   if (target.kind !== 'mole') return;
   if (player.armorUntil > time && player.armorCharges > 0 && (target.armor ?? 0) < player.armorHits) {
@@ -37,13 +43,16 @@ export function expireTargetModifiers(state: MatchState): void {
   }
 }
 
-export function cleanse(player: Player): void {
+export function cleanse(player: Player, time:number): void {
   player.pending = [];
-  player.invasionUntil = player.decoysUntil = player.armorUntil = player.markUntil = player.camouflageUntil = 0;
+  player.invasionUntil = player.moleRushUntil = player.decoysUntil = player.armorUntil = player.markUntil = player.camouflageUntil = 0;
   player.markCharges = 0;
   player.armorCharges = 0;
   player.tinCharges = 0;
-  for (const target of player.holes) if (target) { delete target.armor; delete target.persistentArmor; delete target.missBonus; }
+  for (const target of player.holes) if (target) {
+    if(target.rushReductionMs && target.expires>time)target.expires+=target.rushReductionMs;
+    delete target.rushReductionMs;delete target.armor;delete target.persistentArmor;delete target.missBonus;
+  }
 }
 
 /** Pending Tin Caps and persistent target armor have no timer. */

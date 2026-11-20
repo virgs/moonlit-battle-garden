@@ -27,7 +27,7 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     const first = targets.sort((a,b)=>a.expires-b.expires || a.id-b.id)[0];
     return first ? `${prefix}:${first.id}` : null;
   };
-  if(match.options.isolatedSpellTier===4) {
+  if(match.isolatedTier(id)===4) {
     if(player.character==='champignon') {
       if(player.sweepUntil>time)return null;
       return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'royal');
@@ -42,7 +42,7 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     }
     if(enemy.magicShieldUntil>time)return null;
     if(player.character==='andromoss') {
-      if(enemy.decoysUntil>time)return null;
+      if(enemy.decoysUntil>time&&enemy.moleRushUntil>time)return null;
       return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'trouble');
     }
     if(player.character==='captain-bramble') {
@@ -52,8 +52,8 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     if(enemy.markUntil>time)return null;
     return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.missBonus),'pact');
   }
-  if(match.options.isolatedSpellTier===3) {
-    if(player.character==='andromoss')return enemy.stars>=2 && enemy.magicShieldUntil<=time?'steal-pair':null;
+  if(match.isolatedTier(id)===3) {
+    if(player.character==='andromoss')return enemy.stars>=2 && enemy.magicShieldUntil<=time?'steal-charge':null;
     if(player.character==='captain-bramble') {
       if(hasGuard(player,time))return null;
       return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'resolve');
@@ -63,19 +63,21 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
       return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'),'siphon');
     }
     if(player.character==='sprig') {
-      const afflicted=player.pending.length>0 || hasTinCaps(player) || player.armorUntil>time || player.markUntil>time || player.camouflageUntil>time || player.invasionUntil>time || player.decoysUntil>time;
+      const afflicted=player.pending.length>0 || player.moleRushUntil>time || player.holes.some(t=>!!t?.rushReductionMs) || hasTinCaps(player) || player.armorUntil>time || player.markUntil>time || player.camouflageUntil>time || player.invasionUntil>time || player.decoysUntil>time;
       if(afflicted)return 'cleanse';
     }
-    // The tier-three opponent's public loadout has only one hostile spell: theft.
-    // Prepare before full charge; zero-warning theft cannot be blocked retroactively.
+    // Infer threat from the opponent's public selected spell, including mixed-tier probes.
+    // Prepare before full charge; zero-warning attacks cannot be blocked retroactively.
     if(player.magicShieldUntil>time)return null;
-    return enemy.character==='andromoss'&&enemy.stars>=2?'ward-threat':null;
+    const enemyTier=match.isolatedTier(id===0?1:0)??4;
+    const hostile=enemy.character==='andromoss'||(enemy.character==='captain-bramble'&&(enemyTier===2||enemyTier===4))||(enemy.character==='duskmantle'&&enemyTier!==3);
+    return hostile&&enemy.stars>=Math.max(1,enemyTier-1)?'ward-threat':null;
   }
-  if(match.options.isolatedSpellTier===1 && (player.character==='champignon'||player.character==='captain-bramble')) {
+  if(match.isolatedTier(id)===1 && (player.character==='champignon'||player.character==='captain-bramble')) {
     if(hasGuard(player,time))return null;
     return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'guard');
   }
-  if(match.options.isolatedSpellTier===2) {
+  if(match.isolatedTier(id)===2) {
     if(player.character==='champignon') {
       if(player.sweepUntil>time)return null;
       const column=busiestColumns(player,1)[0];
@@ -94,13 +96,15 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
       return witness(urgent.length?urgent:useful,`tines:${column}`);
     }
     if(enemy.magicShieldUntil>time)return null;
-    if(player.character==='andromoss'&&(enemy.invasionUntil>time||enemy.decoysUntil>time))return null;
+    if(player.character==='andromoss'&&enemy.moleRushUntil>time)return null;
     if(player.character==='duskmantle'&&enemy.camouflageUntil>time)return null;
-    return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),player.character==='andromoss'?'riot':'veil');
+    return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),player.character==='andromoss'?'rush':'veil');
   }
   switch (player.character) {
     case 'champignon': return null;
-    case 'andromoss': return enemy.stars > 0 ? 'enemy-charge' : null;
+    case 'andromoss':
+      if(enemy.magicShieldUntil>time||enemy.invasionUntil>time||enemy.decoysUntil>time)return null;
+      return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'rabbits');
     case 'captain-bramble': return null;
     case 'duskmantle': return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.missBonus),'mark');
     case 'sprig': return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.extended&&t.expires-time<=isolatedCasting.urgentMs),'extend');
@@ -123,7 +127,7 @@ export class IsolatedCasting {
       this.cancel(); this.match = match; this.round = match.state.round;
     }
     const player = match.state.players[id], time = match.state.time;
-    if (player.stars !== match.options.isolatedSpellTier || time < player.nextCast) { this.cancel(); return false; }
+    if (player.stars !== match.isolatedTier(id) || time < player.nextCast) { this.cancel(); return false; }
     const key = opportunityKey(match,id);
     if (!key) { this.cancel(); return false; }
     if (key !== this.key) {

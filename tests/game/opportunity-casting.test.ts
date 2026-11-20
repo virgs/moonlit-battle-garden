@@ -11,7 +11,7 @@ beforeEach(()=>{useCastingProfile('baseline');config.spells.warningMs=650;});
 afterEach(()=>{useCastingProfile(defaultCastingProfile);config.spells.warningMs=historicalWarning;});
 
 function game(character:CharacterId='andromoss',difficulty:Difficulty='medium') {
-  const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:41,isolatedSpellTier:character==='champignon'||character==='captain-bramble'?2:1});
+  const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:41,isolatedSpellTier:character==='andromoss'?3:character==='champignon'||character==='captain-bramble'?2:1});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);
   match.state.players[0].stars=match.options.isolatedSpellTier!;
   return match;
@@ -29,7 +29,7 @@ it('applies visible spell-specific opportunity conditions, not character probabi
   p.sweepUntil=sweep.state.time+3000;expect(opportunityKey(sweep,0)).toBeNull();
 
   const theft=game();expect(opportunityKey(theft,0)).toBeNull();
-  theft.state.players[1].stars=1;expect(opportunityKey(theft,0)).toBe('enemy-charge');
+  theft.state.players[1].stars=2;expect(opportunityKey(theft,0)).toBe('steal-charge');
 
   const armor=game('captain-bramble'),victim=armor.state.players[1];
   victim.holes[0]=mole(armor);expect(opportunityKey(armor,0)).toBe('armor:1');
@@ -59,9 +59,9 @@ it('uses the same seeded delay on every AI level and never casts on empty charge
   for(const difficulty of ['easy','medium','hard'] as Difficulty[]) {
     const match=game('andromoss',difficulty),bot=new Bot(difficulty,9,0),start=match.state.time;
     bot.update(match);expect(match.state.casting).toBeNull();
-    match.state.players[1].stars=1;bot.update(match);expect(match.state.casting).toBeNull();
+    match.state.players[1].stars=2;bot.update(match);expect(match.state.casting).toBeNull();
     for(let n=0;n<20&&!match.state.casting;n++){match.advance(50);bot.update(match);}
-    expect(match.state.casting?.tier).toBe(1);times.push(match.state.time-start);
+    expect(match.state.casting?.tier).toBe(3);times.push(match.state.time-start);
   }
   expect(new Set(times).size).toBe(1);
   expect(times[0]).toBeGreaterThanOrEqual(isolatedCasting.minDelayMs);expect(times[0]).toBeLessThanOrEqual(isolatedCasting.maxDelayMs);
@@ -69,10 +69,10 @@ it('uses the same seeded delay on every AI level and never casts on empty charge
 
 it('cancels a vanished opportunity and gives its return a fresh delay',()=>{
   const match=game(),bot=new Bot('medium',9,0),enemy=match.state.players[1];
-  enemy.stars=1;bot.update(match);match.advance(200);enemy.stars=0;bot.update(match);
+  enemy.stars=2;bot.update(match);match.advance(200);enemy.stars=0;bot.update(match);
   match.advance(1000);bot.update(match);expect(match.state.casting).toBeNull();
-  enemy.stars=1;bot.update(match);match.advance(250);bot.update(match);expect(match.state.casting).toBeNull();
-  match.advance(450);bot.update(match);expect(match.state.casting?.tier).toBe(1);
+  enemy.stars=2;bot.update(match);match.advance(250);bot.update(match);expect(match.state.casting).toBeNull();
+  match.advance(450);bot.update(match);expect(match.state.casting?.tier).toBe(3);
 });
 
 it('does not restart a valid target opportunity when another later target appears',()=>{
@@ -83,20 +83,20 @@ it('does not restart a valid target opportunity when another later target appear
 });
 
 it('freezes the pending decision with pause and discards it on the next round',()=>{
-  const match=game(),bot=new Bot('medium',9,0);match.state.players[1].stars=1;bot.update(match);
+  const match=game(),bot=new Bot('medium',9,0);match.state.players[1].stars=2;bot.update(match);
   const before=match.state.time;match.state.paused=true;match.advance(5000);bot.update(match);
   expect(match.state.time).toBe(before);expect(match.state.casting).toBeNull();
   match.state.paused=false;match.advance(250);bot.update(match);expect(match.state.casting).toBeNull();
   match.state.phase='round-over';match.nextRound();match.state.players.forEach(p=>p.nextSpawn=Infinity);
-  match.advance(config.countdownMs);match.state.players[0].stars=match.options.isolatedSpellTier!;match.state.players[1].stars=1;
-  bot.update(match);expect(match.state.casting).toBeNull();match.advance(700);bot.update(match);expect(match.state.casting?.tier).toBe(1);
+  match.advance(config.countdownMs);match.state.players[0].stars=match.options.isolatedSpellTier!;match.state.players[1].stars=2;
+  bot.update(match);expect(match.state.casting).toBeNull();match.advance(700);bot.update(match);expect(match.state.casting?.tier).toBe(3);
 });
 
 it('waits for cooldown before starting a decision, and still allows warning-time counterplay',()=>{
   const match=game(),bot=new Bot('medium',9,0),[caster,enemy]=match.state.players;
-  caster.nextCast=match.state.time+1000;enemy.stars=1;bot.update(match);
+  caster.nextCast=match.state.time+1000;enemy.stars=2;bot.update(match);
   match.advance(1000);bot.update(match);expect(match.state.casting).toBeNull();
-  match.advance(700);bot.update(match);expect(match.state.casting?.tier).toBe(1);
+  match.advance(700);bot.update(match);expect(match.state.casting?.tier).toBe(3);
   match.advance(config.spells.castFreezeMs);enemy.stars=0;match.advance(config.spells.warningMs);
   expect(match.statistics[0].emptyThefts).toBe(1);expect(caster.stars).toBe(0);
 });

@@ -1,3 +1,5 @@
+Historical Andromoss kit; [current adopted kit and matrices](andromoss-kit-review.md) supersede its Andromoss rows. Other heroes’ powers are unchanged.
+
 # Helping Tines: immediate continuous column for10 seconds
 
 ## Current two-star spells and before→after
