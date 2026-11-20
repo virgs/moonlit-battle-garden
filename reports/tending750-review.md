@@ -1,3 +1,5 @@
+Historical Tin Caps tuning, superseded by [next-three-moles update](tin-next-review.md).
+
 # Gentle Tending +750 ms and separate theft-cap experiment
 
 ## Current spells

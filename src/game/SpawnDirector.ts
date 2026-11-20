@@ -81,7 +81,7 @@ export class SpawnDirector {
     if (!empty.length) return;
     const hole = empty[Math.floor(this.positions[id].next() * empty.length)];
     player.holes[hole] = { id: ++this.targetId, kind, origin, born: state.time, expires: state.time + Math.round(lifetime) };
-    modifyTarget(player, player.holes[hole]!, state.time);
+    modifyTarget(player, player.holes[hole]!, state.time, true);
     player.spawned++;
   }
 }

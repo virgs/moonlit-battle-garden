@@ -64,6 +64,10 @@ export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: 
       }
       const caster = state.players[spell.from];
       if (caster.character === 'captain-bramble') {
+        if(spell.tier===1 && config.rosterSpells.tinCapsMode==='next') {
+          player.tinCharges=config.rosterSpells.armorTargets;
+          continue;
+        }
         const hits = spell.tier === 4 ? 2 : 1;
         if (player.armorUntil > state.time && player.armorHits > hits) continue;
         player.armorHits = hits; player.armorTier = spell.tier;

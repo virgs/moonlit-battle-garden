@@ -1,3 +1,4 @@
+import { hasTinCaps } from './targetModifiers';
 import { config } from './config';
 import { IsolatedCasting } from './IsolatedCasting';
 import { busiestColumns } from './targetColumns';
@@ -62,7 +63,7 @@ export class Bot {
       const sweepTargets = player.holes.flatMap((target, hole) => target && hole % 3 === sweepColumn ? [target] : []);
       const sweepAtRisk = sweepTargets.filter(target => target.kind === 'mole' && target.expires - state.time <= tuning.reactionMs + tuning.intervalMs * (1 + (target.armor ?? 0)));
       const atRisk = visible.filter(target => target.kind === 'mole' && target.expires - state.time <= tuning.reactionMs + tuning.intervalMs * (1 + (target.armor ?? 0)));
-      const sweepNeeded = sweepAtRisk.length >= 2 || (player.armorUntil > state.time && sweepTargets.filter(target => target.kind === 'mole').length >= 2)
+      const sweepNeeded = sweepAtRisk.length >= 2 || ((player.armorUntil > state.time || hasTinCaps(player)) && sweepTargets.filter(target => target.kind === 'mole').length >= 2)
         || sweepAtRisk.some(target => !!target.missBonus);
       const harvestReady = sweepTargets.filter(target => target.kind === 'mole').length >= 2 && !sweepTargets.some(target => target.kind === 'rabbit');
       const sweepUseful = sweepNeeded || harvestReady;
@@ -77,7 +78,7 @@ export class Bot {
       const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
       const waitForWard = hostile && opponent.magicShieldUntil > state.time;
       const alreadyGuarded = defender && player.stars === 2 && player.mistakeShield > 0 && player.shieldUntil > state.time;
-      const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || player.armorUntil > state.time || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
+      const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || (player.armorUntil > state.time || hasTinCaps(player)) || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
       const emptyTheft = player.character === 'andromoss' && (player.stars === 1 || player.stars === 3) && opponent.stars === 0;
       if (!pointlessSweep && !emptyTheft && !waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {
         match.action({ type: 'cast', player: this.id });

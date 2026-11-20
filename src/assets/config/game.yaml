@@ -53,6 +53,7 @@ rosterSpells:
   brambleGuardMs: 8000
   armorMs: 3000
   armorTargets: 3
+  tinCapsMode: next
   heavyArmorTargets: 4
   ominousMarkMs: 8000
   ominousMarks: 3

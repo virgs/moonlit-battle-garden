@@ -25,7 +25,7 @@ it('swaps the actual spell rules and titles for Champignon and Bramble',()=>{
   const guardian=game('champignon');cast(guardian,0,2);
   expect(guardian.state.players[0].mistakeShield).toBe(1);expect(guardian.state.players[0].sweepUntil).toBe(0);
   const bramble=game('captain-bramble');cast(bramble,0,1);bramble.advance(config.spells.warningMs);
-  expect(bramble.state.players[1].armorHits).toBe(1);expect(bramble.state.players[0].mistakeShield).toBe(0);
+  expect(bramble.state.players[1].tinCharges).toBe(3);expect(bramble.state.players[0].mistakeShield).toBe(0);
 });
 
 it('Clean Sweep hits only its fixed column for three seconds, with normal rewards and new arrivals',()=>{
@@ -140,8 +140,8 @@ it('the bot saves one-star Clean Sweep on sparse boards and uses it for imminent
   }
 });
 
-it('Bramble armor limits affected moles instead of shortening its three-second window',()=>{
-  for(const tier of [1,4]) {
+it('Heavy Harvest retains its timed armor quota and three-second window',()=>{
+  for(const tier of [4]) {
     const match=game('captain-bramble'),victim=match.state.players[1];
     for(let i=0;i<6;i++)victim.holes[i]=target(match);
     victim.holes[6]=target(match,'star');victim.holes[7]=target(match,'rabbit');

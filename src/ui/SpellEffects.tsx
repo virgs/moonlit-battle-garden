@@ -7,6 +7,7 @@ import type { CharacterId } from '../game/types';
 import type { Snapshot } from '../game/Session';
 import type { GardenLayout } from '../render/layout';
 import './spell-effects.css';
+import { hasTinCaps } from '../game/targetModifiers';
 
 /** The simulation owns effect lifetime; these layers never capture hole input. */
 export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden: GardenLayout }) {
@@ -18,7 +19,7 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   if (player.magicShieldUntil > state.time) effects.push({ kind: 'ward', character: player.character, tier: 3 });
   if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andromoss', tier: 2 });
   if (player.decoysUntil > state.time) effects.push({ kind: 'decoys', character: 'andromoss', tier: 4 });
-  if (player.armorUntil > state.time) effects.push({ kind: 'armor', character: 'captain-bramble', tier: player.armorTier });
+  if (player.armorUntil > state.time || hasTinCaps(player)) effects.push({ kind: 'armor', character: 'captain-bramble', tier: player.armorUntil > state.time ? player.armorTier : 1 });
   if (player.markUntil > state.time && (player.markCharges > 0 || player.holes.some(target => target?.missBonus))) effects.push({ kind: 'curse', character: 'duskmantle', tier: player.markTier });
   if (player.camouflageUntil > state.time) effects.push({ kind: 'veil', character: 'duskmantle', tier: 2 });
   if (player.drainUntil > state.time) effects.push({ kind: 'drain', character: 'duskmantle', tier: 3 });

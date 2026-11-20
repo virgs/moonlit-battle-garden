@@ -251,6 +251,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I19 | Record observed extended-target removals/expiries by kind and hits during earned extra time without changing rules/RNG. Three isolated 7,500-match runs (old control, +750 trial, adopted verification) plus two 7,500-match full-kit theft-cap4/cap3 experiments: 37,500, zero unfinished. Prior control outcomes reproduce excluding added statistics; adopted trial records including statistics reproduce exactly. Sprig improvements mixed by matchup; extension hit coverage improves at each level. Theft cap changes one winner in 7,500 under current normal bot policy; do not infer human balance. Review tending750-review.md. |
 
+| D126 | User requests Captain Bramble’s Tin Caps affect the three next moles, no duration, one extra hit each. Interpret next as future arrivals after hostile warning, not already visible moles. Each mole keeps armor until its extra hit is used, it hides/expires, or cleanse/round reset removes it. Heavy Harvest and other powers unchanged. |
+
+| I20 | Implement independent tinCharges and per-target persistentArmor; consume only future mole arrivals, no time expiry, refresh remaining quota to three on recast rather than queueing. Stronger Heavy Harvest takes precedence without additive armor; a future mole under stronger armor still consumes a Tin Caps charge. Cleanse removes charges/armor, round reset clears state; guard/ward warning behavior unchanged. HUD/normal bot cleanse awareness recognizes pending/persistent armor; isolated caster opportunity policy and timing remain unchanged. Protocol12 synchronizes fields. Compare 7,500 historical-timed control games with 7,500 adopted next-mole games at 100 paired seeds/pair/difficulty; old control reproduces every previous record. Keep the historical --tin-caps=timed mode for reproduction. Findings in tin-next-review.md. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -62,6 +62,7 @@ it('Bramble armor takes extra strikes without granting early points, and expires
     const match=game('captain-bramble','andromoss'), victim=match.state.players[1];
     victim.holes[0]=target(match);
     cast(match,0,tier);resolve(match);
+    if(tier===1) {victim.holes[0]=target(match);modifyTarget(victim,victim.holes[0]!,match.state.time,true);}
     const hits=tier===4?2:1;
     expect(victim.holes[0]?.armor).toBe(hits);
     for(let n=0;n<hits;n++) {
@@ -183,15 +184,21 @@ it('bots can strike armored targets repeatedly instead of abandoning them after 
 });
 
 
-it('Tin Caps spends exactly three armor charges across current and future moles within three seconds',()=>{
+it('Tin Caps ignores current targets and armors exactly the next three moles without a timer',()=>{
   const match=game('captain-bramble','sprig'),victim=match.state.players[1];
   victim.holes[0]=target(match);victim.holes[1]=target(match,'star');
   cast(match,0,1);match.advance(config.spells.warningMs);
-  expect(victim.armorUntil-match.state.time).toBe(3000);
-  expect(victim.holes[0]?.armor).toBe(1);expect(victim.holes[1]?.armor).toBeUndefined();
-  expect(victim.armorCharges).toBe(2);
-  const arrivals=[target(match,'mole',2),target(match,'mole',3),target(match,'mole',4)];
-  for(const t of arrivals)modifyTarget(victim,t,match.state.time);
-  expect(arrivals.map(t=>t.armor)).toEqual([1,1,undefined]);expect(victim.armorCharges).toBe(0);
-  match.advance(3000);expect(victim.holes[0]?.armor).toBeUndefined();
+  expect(victim.armorUntil).toBe(0);expect(victim.tinCharges).toBe(3);
+  expect(victim.holes[0]?.armor).toBeUndefined();expect(victim.holes[1]?.armor).toBeUndefined();
+  match.advance(20000);expect(victim.tinCharges).toBe(3);
+  for(const kind of ['star','rabbit'] as const) {
+    const t=target(match,kind);modifyTarget(victim,t,match.state.time,true);
+    expect(t.armor).toBeUndefined();expect(victim.tinCharges).toBe(3);
+  }
+  const arrivals=[target(match,'mole',2),target(match,'mole',3),target(match,'mole',4),target(match,'mole',5)];
+  for(const t of arrivals)modifyTarget(victim,t,match.state.time,true);
+  expect(arrivals.map(t=>t.armor)).toEqual([1,1,1,undefined]);expect(victim.tinCharges).toBe(0);
+  victim.holes[0]=arrivals[0];match.advance(4000);expect(victim.holes[0]?.armor).toBe(1);
+  const score=victim.score;match.action({type:'hit',player:1,hole:0});expect(victim.score).toBe(score);
+  match.action({type:'hit',player:1,hole:0});expect(victim.score).toBe(score+config.points.mole);
 });
