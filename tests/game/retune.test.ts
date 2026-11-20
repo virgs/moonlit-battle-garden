@@ -21,11 +21,11 @@ function cast(match:Match,player:PlayerId,tier:number) {
 }
 
 it('swaps the actual spell rules and titles for Champignon and Bramble',()=>{
-  expect(characters.champignon.spells.slice(0,2).map(s=>s.name)).toEqual(['Clean Sweep','Mushroom Guard']);
-  expect(characters['captain-bramble'].spells.slice(0,2).map(s=>s.name)).toEqual(['Tin Caps','Bramble Brace']);
-  const guardian=game('champignon');cast(guardian,0,2);
+  expect(characters.champignon.spells.slice(0,2).map(s=>s.name)).toEqual(['Mushroom Guard','Clean Sweep']);
+  expect(characters['captain-bramble'].spells.slice(0,2).map(s=>s.name)).toEqual(['Bramble Brace','Tin Caps']);
+  const guardian=game('champignon');cast(guardian,0,1);
   expect(guardian.state.players[0].mistakeShield).toBe(2);expect(guardian.state.players[0].sweepUntil).toBe(0);
-  const bramble=game('captain-bramble');cast(bramble,0,1);bramble.advance(config.spells.warningMs);
+  const bramble=game('captain-bramble');cast(bramble,0,2);bramble.advance(config.spells.warningMs);
   expect(bramble.state.players[1].tinCharges).toBe(3);expect(bramble.state.players[0].mistakeShield).toBe(0);
 });
 
@@ -33,7 +33,7 @@ it('Clean Sweep hits only its fixed column for three seconds, with normal reward
   const match=game('champignon'),p=match.state.players[0];
   p.holes[0]=target(match);p.holes[3]=target(match,'rabbit');p.holes[6]=target(match,'star');
   p.holes[1]=target(match,'star');p.holes[2]=target(match);
-  cast(match,0,1);
+  cast(match,0,2);
   const reward=config.points.mole+config.points.star-config.penalties.rabbit;
   expect([p.holes[0],p.holes[3],p.holes[6]]).toEqual([null,null,null]);expect(p.sweepColumns).toEqual([0]);
   expect(p.holes[1]?.kind).toBe('star');expect(p.holes[2]?.kind).toBe('mole');expect(p.sweepUntil-match.state.time).toBe(3000);
@@ -45,7 +45,7 @@ it('Clean Sweep hits only its fixed column for three seconds, with normal reward
 
 it('sweep spends separate strikes on armor and cannot score a target twice',()=>{
   const match=game('champignon'),p=match.state.players[0];p.armorUntil=match.state.time+3000;
-  p.holes[0]=target(match,'mole',1);cast(match,0,1);
+  p.holes[0]=target(match,'mole',1);cast(match,0,2);
   expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
   match.advance(config.tickMs-1);expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
   match.advance(1);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.points.mole);
@@ -62,8 +62,8 @@ it('Royal Cleanup guards rabbit hits and caps newly collected charge at four',()
 
 it('a winning sweep finishes its casting freeze before awarding the round',()=>{
   const match=game('champignon'),p=match.state.players[0];p.score=config.winScoreDifference-config.points.mole;
-  p.holes[0]=target(match);p.stars=1;match.action({type:'cast',player:0});
-  expect(match.state.phase).toBe('playing');expect(match.state.casting?.tier).toBe(1);
+  p.holes[0]=target(match);p.stars=2;match.action({type:'cast',player:0});
+  expect(match.state.phase).toBe('playing');expect(match.state.casting?.tier).toBe(2);
   match.advance(config.spells.castFreezeMs);expect(match.state.phase).toBe('round-over');
 });
 
@@ -128,16 +128,16 @@ it('Garden Clockwork works exactly two busiest columns and leaves the third unto
   expect(p.holes[2]?.kind).toBe('star');expect(p.stars).toBe(1);
 });
 
-it('the bot saves one-star Clean Sweep on sparse boards and uses it for imminent misses',()=>{
+it('the bot saves two-star Clean Sweep on sparse boards and uses it for imminent misses',()=>{
   for(let seed=0;seed<10;seed++) {
-    const calm=game('champignon');calm.state.players[0].stars=1;
+    const calm=game('champignon');calm.state.players[0].stars=2;
     calm.state.players[0].holes[0]=target(calm);
     new Bot('medium',seed,0).update(calm);
-    expect(calm.state.casting).toBeNull();expect(calm.state.players[0].stars).toBe(1);
-    const danger=game('champignon');danger.state.players[0].stars=1;
+    expect(calm.state.casting).toBeNull();expect(calm.state.players[0].stars).toBe(2);
+    const danger=game('champignon');danger.state.players[0].stars=2;
     for(const hole of [0,3])danger.state.players[0].holes[hole]={...target(danger),expires:danger.state.time+100};
     new Bot('medium',seed,0).update(danger);
-    expect(danger.state.casting?.tier).toBe(1);expect([danger.state.players[0].holes[0],danger.state.players[0].holes[3]]).toEqual([null,null]);
+    expect(danger.state.casting?.tier).toBe(2);expect([danger.state.players[0].holes[0],danger.state.players[0].holes[3]]).toEqual([null,null]);
   }
 });
 
@@ -159,8 +159,8 @@ it('Heavy Harvest retains its timed armor quota and three-second window',()=>{
 it('Clean Sweep selects the busiest column with stable leftmost ties, even when empty',()=>{
   const match=game('champignon'),p=match.state.players[0];
   p.holes[2]=target(match);p.holes[5]=target(match);p.holes[1]=target(match,'star');
-  cast(match,0,1);expect(p.sweepColumns).toEqual([2]);expect(p.holes[1]?.kind).toBe('star');
-  const empty=game('champignon');cast(empty,0,1);expect(empty.state.players[0].sweepColumns).toEqual([0]);
+  cast(match,0,2);expect(p.sweepColumns).toEqual([2]);expect(p.holes[1]?.kind).toBe('star');
+  const empty=game('champignon');cast(empty,0,2);expect(empty.state.players[0].sweepColumns).toEqual([0]);
 });
 
 it('Borrowed Spark steals every available star and remains capped at four',()=>{

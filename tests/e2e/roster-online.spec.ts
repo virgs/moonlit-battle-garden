@@ -24,7 +24,7 @@ test('Bramble and Sprig choose new heroes online and synchronize armor and Tendi
     await page.getByRole('button',{name:'Confirm You',exact:true}).click();
     await expect(page.locator('.player-0')).toHaveAttribute('data-character','captain-bramble');
     await expect(guest.locator('.player-0')).toHaveAttribute('data-character','sprig');
-    for(let star=0;star<1;star++) {
+    for(let star=0;star<2;star++) {
       const target=page.locator('.player-0 .hole[data-kind="star"]');
       await expect(target.first()).toBeEnabled({timeout:20000});await target.first().click();
     }

@@ -88,14 +88,14 @@ describe('magic', () => {
   it('sweep uses normal mole rewards, rabbit penalties and star collection', () => {
     const match = create(); const player = match.state.players[0];
     target(match, 'mole', 0, 0); target(match, 'rabbit', 0, 3); target(match, 'star', 0, 6);
-    player.stars = 1;
+    player.stars = 2;
     match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     expect([player.holes[0],player.holes[3],player.holes[6]]).toEqual([null,null,null]);
     expect(player.stars).toBe(1); expect(player.score).toBe(config.points.mole + config.points.star - config.penalties.rabbit);
   });
   it('a mistake guard absorbs two mistakes then runs out', () => {
     const match = create(); const player = match.state.players[0];
-    player.stars = 2; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
+    player.stars = 1; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
     match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.score).toBe(0);
     match.action({ type: 'hit', player: 0, hole: 0 });

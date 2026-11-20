@@ -1,9 +1,7 @@
-# Current one-star diagnostic
+# Current tier1 diagnostic
 
-[Current pooled/per-level matrices](balance-tier-1.md) · [Current spells with owners and controlled mark/aura comparisons](tier1-no-warning-review.md).
+[Current pooled/per-level matrices](balance-tier-1.md) · [Current spell costs, durations and swap findings](tier-swap-review.md).
 
-Historical: [continuous Sweep and duration-only trials](continuous-sweep-duration-review.md), [casting profile adoption](balance-tier-1-adopted-review.md), [earlier strength trials](balance-tier-1-strength-review.md).
+Helping Tines duration/cadence change is pending clarification; these results cover the swap only.
 
-Accepted for progression by the user (D127): no universal dominant hero across all matchups and difficulties. Freeze these one-star values and move to tier2; retain existing imbalance and human/full-kit testing caveats.
-
-D130 supersedes old warning timing; numerical one-star powers stay accepted. Current zero-warning audit is linked above.
+Historical pre-swap: [zero-warning guards/policy](tier2-guard-policy-review.md), [one-star warning audit](tier1-no-warning-review.md).

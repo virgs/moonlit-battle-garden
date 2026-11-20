@@ -4,7 +4,7 @@ import { Match } from '../../src/game/Match';
 import { config } from '../../src/game/config';
 import type { CharacterId,Target } from '../../src/game/types';
 
-function game(character:CharacterId='champignon',tier=1) {
+function game(character:CharacterId='champignon',tier=character==='champignon'?2:1) {
   const match=new Match({characters:[character,'sprig'],difficulty:'medium',mode:'local',seed:41});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);
   match.state.players[0].stars=tier;match.action({type:'cast',player:0});match.advance(config.spells.castFreezeMs);

@@ -59,11 +59,11 @@ it('uses the same charge/cooldown/freeze contract for every tier of all five kit
 });
 
 it('Bramble armor takes extra strikes without granting early points, and expires', () => {
-  for (const tier of [1,4]) {
+  for (const tier of [2,4]) {
     const match=game('captain-bramble','andromoss'), victim=match.state.players[1];
     victim.holes[0]=target(match);
     cast(match,0,tier);resolve(match);
-    if(tier===1) {victim.holes[0]=target(match);modifyTarget(victim,victim.holes[0]!,match.state.time,true);}
+    if(tier===2) {victim.holes[0]=target(match);modifyTarget(victim,victim.holes[0]!,match.state.time,true);}
     const hits=tier===4?2:1;
     expect(victim.holes[0]?.armor).toBe(hits);
     for(let n=0;n<hits;n++) {
@@ -79,10 +79,10 @@ it('Bramble armor takes extra strikes without granting early points, and expires
 });
 
 it('Bramble guards consume two or three charges, independently of hostile armor', () => {
-  for(const tier of [2,3]) {
+  for(const tier of [1,3]) {
     const match=game('captain-bramble','sprig'),player=match.state.players[0];
     cast(match,0,tier);
-    for(let n=0;n<(tier===2?2:3);n++) match.action({type:'hit',player:0,hole:8});
+    for(let n=0;n<(tier===1?2:3);n++) match.action({type:'hit',player:0,hole:8});
     expect(player.score).toBe(0);
     match.action({type:'hit',player:0,hole:8});expect(player.score).toBe(-config.penalties.empty);
   }
@@ -132,7 +132,7 @@ it('wards block new hostile spells; Sprig cleanse removes pending and active mod
   cast(match,1,3);
   expect(victim.holes[0]?.armor).toBeUndefined();expect(victim.holes[0]?.missBonus).toBeUndefined();
   expect(victim.camouflageUntil).toBe(0);expect(victim.pending).toHaveLength(0);
-  match.advance(config.spells.cooldownMs);cast(match,0,1);resolve(match);
+  match.advance(config.spells.cooldownMs);cast(match,0,2);resolve(match);
   expect(victim.holes[0]?.armor).toBeUndefined();expect(victim.magicShieldUntil).toBe(0);
 });
 
@@ -148,7 +148,7 @@ it('new modifier clocks freeze during casts and reset for the next round', () =>
 
 it('armor/marks apply to future actual spawns, stop at expiry and do not affect stars', () => {
   const match=game('captain-bramble','duskmantle');
-  cast(match,0,1);resolve(match);
+  cast(match,0,2);resolve(match);
   const victim=match.state.players[1];victim.nextSpawn=match.state.time;
   for(let time=0;time<4000&&!victim.holes.some(t=>t?.kind==='mole'&&t.armor===1);time+=config.tickMs)match.advance(config.tickMs);
   expect(victim.holes.some(t=>t?.kind==='mole'&&t.armor===1)).toBe(true);
@@ -188,7 +188,7 @@ it('bots can strike armored targets repeatedly instead of abandoning them after 
 it('Tin Caps ignores current targets and armors exactly the next three moles without a timer',()=>{
   const match=game('captain-bramble','sprig'),victim=match.state.players[1];
   victim.holes[0]=target(match);victim.holes[1]=target(match,'star');
-  cast(match,0,1);match.advance(config.spells.warningMs);
+  cast(match,0,2);match.advance(config.spells.warningMs);
   expect(victim.armorUntil).toBe(0);expect(victim.tinCharges).toBe(3);
   expect(victim.holes[0]?.armor).toBeUndefined();expect(victim.holes[1]?.armor).toBeUndefined();
   match.advance(20000);expect(victim.tinCharges).toBe(3);

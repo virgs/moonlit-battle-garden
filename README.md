@@ -147,3 +147,6 @@ Two-star baseline is now recorded without changing accepted one-star tuning or s
 
 
 Current D129/D130 rules: **no hostile warning on any spell**; effects apply at cast start and the shared animation freezes gameplay. Existing wards still block. **Mushroom Guard and Bramble Brace** both block **two mistakes with no expiry**, remaining at tier2. Tier2 isolated bots now use useful-opportunity/random-delay casting; no full-kit policy/tier swap adopted. Protocol13 carries permanent guard state. [Current two-star matrices, spells and comparisons](reports/tier2-guard-policy-review.md); [one-star timing audit](reports/tier1-no-warning-review.md). Historical 650 ms references above are superseded.
+
+
+Current D131 loadout: **Champignon:1★ Mushroom Guard /2★ Clean Sweep; Bramble:1★ Bramble Brace /2★ Tin Caps.** Both guards block two mistakes without expiry; Sweep remains3 s and Tin Caps remains next three future moles/no duration. Effects and AI conditions follow actual new costs; zero warnings persist. [Current swap results](reports/tier-swap-review.md). Helping Tines’ duration/cadence change is pending clarification of “10**8s**”; current6.5 s/250 ms behavior is unchanged for now.

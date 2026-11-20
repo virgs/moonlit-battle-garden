@@ -269,6 +269,14 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I23 | Five tier2 controls (old, warning-only, policy-only, guards-only, combined) plus adopted tier2 verification and a tier1 no-warning audit: 52,500 matches, zero unfinished.100 paired seeds/pair/difficulty (200 distinct games/level,100 mirrors/hero/level). Old control matches every prior outcome/metric excluding new counters; combined trial matches all adopted records/hash. Identical guards produce identical matchup rates and50% head-to-head. Retain spreads/flips, cast coverage, exact automation rabbit counters and separate factor comparisons in tier2-guard-policy-review.md. Do not infer a need to swap tiers from same-tier matrices alone. |
 
+| D131 | User explicitly orders swapping Champignon’s and Bramble’s first two spells. Adopt Mushroom Guard/Bramble Brace at1 star (two mistakes/no expiry) and Clean Sweep/Tin Caps at2 stars (unchanged powers:3 s continuous column / next three future moles with one extra hit and no duration). Move bot opportunities and HUD/actual effect tiers with the powers, keep zero warnings and tier3/4 powers unchanged. Earlier D129 deferral is superseded. |
+
+| I24 | Rename internal twoStarGuardMode→mistakeGuardMode and CLI --two-star-guards→--guard-mode to match the new cost; reject obsolete CLI flag with an original-revision hint. Guard opportunity moves to tier1; Sweep/armor opportunities move to tier2 with unchanged seeded delay/visibility policy. Normal bot emergency/ward/active-guard checks follow new costs. Protocol14 distinguishes the new layout. Adapt meaningful tests to actual new costs rather than changing power expectations. Run7,500 games per tier (15,000 total, no unfinished),100 paired seeds/pair/difficulty,200 distinct games/level and100 mirrors/hero/level. Review tier-swap-review.md. |
+
+| D132 | User asks Violet Veil’s human effect: current rendering uses72% target opacity for6.5 s, with unchanged target kind/position/hitbox/lifetime/controls. Only bots receive the existing+200 ms reaction model; this does not establish human balance. No Veil power change requested. |
+
+| P01 | Helping Tines change is pending required clarification: duration arrived as “10**8s**”, ambiguous8 vs10 seconds; immediate first hit is clear, but subsequent continuous interception vs existing250 ms cadence was also asked. Two concise clarification questions are outstanding. Do not silently select a duration or cadence; current6.5 s/250 ms delayed-first-hit behavior remains until answered. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

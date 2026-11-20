@@ -51,7 +51,7 @@ rosterSpells:
   cleanSweepMs: 3000
   royalSweepIntervalMs: 250
   brambleGuardMs: 8000
-  twoStarGuardMode: charges
+  mistakeGuardMode: charges
   armorMs: 3000
   armorTargets: 3
   tinCapsMode: next

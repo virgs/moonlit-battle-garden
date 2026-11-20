@@ -3,10 +3,10 @@ import { Match } from '../../src/game/Match';
 import { config } from '../../src/game/config';
 import { cleanse,hasGuard } from '../../src/game/targetModifiers';
 import type { CharacterId } from '../../src/game/types';
-const oldMode=config.rosterSpells.twoStarGuardMode;
-afterEach(()=>{config.rosterSpells.twoStarGuardMode=oldMode;});
+const oldMode=config.rosterSpells.mistakeGuardMode;
+afterEach(()=>{config.rosterSpells.mistakeGuardMode=oldMode;});
 function game(hero:CharacterId){const m=new Match({characters:[hero,'andromoss'],mode:'local',difficulty:'medium',seed:41});m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);return m;}
-function cast(m:Match){m.state.players[0].stars=2;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs);}
+function cast(m:Match){m.state.players[0].stars=1;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs);}
 it('gives both heroes exactly two permanent mistake blocks for empty hits, rabbits and missed moles',()=>{
   for(const hero of ['champignon','captain-bramble'] as const)for(const kind of ['empty','rabbit','miss'] as const){
     const m=game(hero),p=m.state.players[0];cast(m);expect(p.shieldPermanent).toBe(true);expect(p.shieldUntil).toBe(0);
@@ -28,7 +28,7 @@ it('freezes, survives cleansing, refreshes to two instead of stacking, and reset
   m.state.phase='round-over';m.nextRound();expect(m.state.players[0].shieldPermanent).toBe(false);expect(m.state.players[0].mistakeShield).toBe(0);
 });
 it('retains historical timed one-charge guards only for reproducible controls',()=>{
-  config.rosterSpells.twoStarGuardMode='timed';
+  config.rosterSpells.mistakeGuardMode='timed';
   for(const [hero,ms] of [['champignon',12000],['captain-bramble',8000]] as const){
     const m=game(hero),p=m.state.players[0];cast(m);expect(p.shieldPermanent).toBe(false);expect(p.mistakeShield).toBe(1);
     m.advance(ms);expect(p.mistakeShield).toBe(0);

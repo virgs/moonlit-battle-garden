@@ -11,9 +11,9 @@ beforeEach(()=>{useCastingProfile('baseline');config.spells.warningMs=650;});
 afterEach(()=>{useCastingProfile(defaultCastingProfile);config.spells.warningMs=historicalWarning;});
 
 function game(character:CharacterId='andromoss',difficulty:Difficulty='medium') {
-  const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:41,isolatedSpellTier:1});
+  const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:41,isolatedSpellTier:character==='champignon'||character==='captain-bramble'?2:1});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);
-  match.state.players[0].stars=1;
+  match.state.players[0].stars=match.options.isolatedSpellTier!;
   return match;
 }
 function mole(match:Match,id=1,remaining=10000):Target {
@@ -79,7 +79,7 @@ it('does not restart a valid target opportunity when another later target appear
   const match=game('captain-bramble'),bot=new Bot('medium',4,0),enemy=match.state.players[1];
   enemy.holes[0]=mole(match);bot.update(match);
   match.advance(250);enemy.holes[1]=mole(match,2,20000);bot.update(match);
-  match.advance(450);bot.update(match);expect(match.state.casting?.tier).toBe(1);
+  match.advance(450);bot.update(match);expect(match.state.casting?.tier).toBe(2);
 });
 
 it('freezes the pending decision with pause and discards it on the next round',()=>{
@@ -88,7 +88,7 @@ it('freezes the pending decision with pause and discards it on the next round',(
   expect(match.state.time).toBe(before);expect(match.state.casting).toBeNull();
   match.state.paused=false;match.advance(250);bot.update(match);expect(match.state.casting).toBeNull();
   match.state.phase='round-over';match.nextRound();match.state.players.forEach(p=>p.nextSpawn=Infinity);
-  match.advance(config.countdownMs);match.state.players[0].stars=1;match.state.players[1].stars=1;
+  match.advance(config.countdownMs);match.state.players[0].stars=match.options.isolatedSpellTier!;match.state.players[1].stars=1;
   bot.update(match);expect(match.state.casting).toBeNull();match.advance(700);bot.update(match);expect(match.state.casting?.tier).toBe(1);
 });
 

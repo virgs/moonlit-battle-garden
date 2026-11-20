@@ -1,3 +1,5 @@
+Historical pre-swap loadout, superseded by [current swap review](tier-swap-review.md).
+
 # Two-star guards, opportunity casting and no hostile warnings
 
 ## Adopted rules and spell reminders

@@ -4,9 +4,9 @@ import { config } from '../../src/game/config';
 import { IsolatedCasting,opportunityKey,useCastingProfile,defaultCastingProfile } from '../../src/game/IsolatedCasting';
 import type { CharacterId,Difficulty,Target } from '../../src/game/types';
 afterEach(()=>useCastingProfile(defaultCastingProfile));
-function game(hero:CharacterId,difficulty:Difficulty='hard'){
-  const m=new Match({characters:[hero,'andromoss'],mode:'local',difficulty,seed:41,isolatedSpellTier:2});
-  m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);m.state.players[0].stars=2;return m;
+function game(hero:CharacterId,difficulty:Difficulty='hard',tier:1|2=2){
+  const m=new Match({characters:[hero,'andromoss'],mode:'local',difficulty,seed:41,isolatedSpellTier:tier});
+  m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);m.state.players[0].stars=tier;return m;
 }
 function target(m:Match,id=1,kind:Target['kind']='mole',life=900):Target{return {id,kind,born:m.state.time-200,expires:m.state.time+life};}
 it('defaults tiers1/2 to opportunity casting and preserves immediate higher-tier diagnostics',()=>{
@@ -15,7 +15,7 @@ it('defaults tiers1/2 to opportunity casting and preserves immediate higher-tier
 });
 it('uses the same near-miss guard opportunity for both heroes and avoids replacing active charges',()=>{
   for(const hero of ['champignon','captain-bramble'] as const){
-    const m=game(hero),p=m.state.players[0];expect(opportunityKey(m,0)).toBeNull();
+    const m=game(hero,'hard',1),p=m.state.players[0];expect(opportunityKey(m,0)).toBeNull();
     p.holes[0]=target(m,1,'mole',2000);expect(opportunityKey(m,0)).toBeNull();
     p.holes[0]!.expires=m.state.time+900;expect(opportunityKey(m,0)).toBe('guard:1');
     p.shieldPermanent=true;p.mistakeShield=1;expect(opportunityKey(m,0)).toBeNull();

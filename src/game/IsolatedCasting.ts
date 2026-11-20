@@ -27,11 +27,20 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     const first = targets.sort((a,b)=>a.expires-b.expires || a.id-b.id)[0];
     return first ? `${prefix}:${first.id}` : null;
   };
+  if(match.options.isolatedSpellTier===1 && (player.character==='champignon'||player.character==='captain-bramble')) {
+    if(hasGuard(player,time))return null;
+    return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'guard');
+  }
   if(match.options.isolatedSpellTier===2) {
-    if(player.character==='champignon'||player.character==='captain-bramble') {
-      if(hasGuard(player,time))return null;
-      return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'guard');
+    if(player.character==='champignon') {
+      if(player.sweepUntil>time)return null;
+      const column=busiestColumns(player,1)[0];
+      const targets=player.holes.filter((_,hole)=>hole%3===column).filter(visible);
+      const urgent=targets.filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs);
+      const useful=targets.some(t=>t.kind==='rabbit')?[]:targets.filter(t=>t.kind==='mole'||t.kind==='star');
+      return witness(urgent.length?urgent:useful,`sweep:${column}`);
     }
+    if(player.character==='captain-bramble')return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.armor),'armor');
     if(player.character==='sprig') {
       if(player.automationUntil>time)return null;
       const column=busiestColumns(player,1)[0];
@@ -46,16 +55,9 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),player.character==='andromoss'?'riot':'veil');
   }
   switch (player.character) {
-    case 'champignon': {
-      if (player.sweepUntil > time) return null;
-      const column = busiestColumns(player,1)[0];
-      const targets = player.holes.filter((_,hole)=>hole%3===column).filter(visible);
-      const urgent = targets.filter(t=>t.kind==='mole' && t.expires-time <= isolatedCasting.urgentMs);
-      const useful = targets.some(t=>t.kind==='rabbit') ? [] : targets.filter(t=>t.kind==='mole'||t.kind==='star');
-      return witness(urgent.length ? urgent : useful, `sweep:${column}`);
-    }
+    case 'champignon': return null;
     case 'andromoss': return enemy.stars > 0 ? 'enemy-charge' : null;
-    case 'captain-bramble': return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.armor),'armor');
+    case 'captain-bramble': return null;
     case 'duskmantle': return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.missBonus),'mark');
     case 'sprig': return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.extended&&t.expires-time<=isolatedCasting.urgentMs),'extend');
   }

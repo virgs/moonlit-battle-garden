@@ -1,14 +1,17 @@
 import { expect,test } from '@playwright/test';
 import { openSelection,enterMatch,chooseCharacter } from './frontMenu';
 
-test('one-star Clean Sweep marks exactly one column for three gameplay seconds',async({page},info)=>{
+test('two-star Clean Sweep marks exactly one column for three gameplay seconds',async({page},info)=>{
   await page.clock.install();await openSelection(page,'local');await enterMatch(page);
   await expect(page.locator('.player-0 .cast-button')).toBeVisible();
   await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
   const garden=page.locator('.player-0');
-  for(let n=0;n<150&&!await garden.locator('.hole[data-kind="star"]:enabled').count();n++)await page.clock.runFor(100);
-  await garden.locator('.hole[data-kind="star"]').first().click();await garden.locator('.cast-button').click();
-  await expect(page.locator('.cast-stars')).toHaveAttribute('data-cost','1');
+  for(let stars=0;stars<2;stars++) {
+    for(let n=0;n<250&&!await garden.locator('.hole[data-kind="star"]:enabled').count();n++)await page.clock.runFor(100);
+    await garden.locator('.hole[data-kind="star"]').first().click();
+  }
+  await garden.locator('.cast-button').click();
+  await expect(page.locator('.cast-stars')).toHaveAttribute('data-cost','2');
   await page.clock.runFor(1600);
   await expect(page.locator('.effect-sweep')).toBeVisible();
   await expect(garden).toHaveAttribute('data-sweep-columns',/^[0-2]$/);
@@ -68,8 +71,11 @@ test('Tin Caps arms three future moles and synchronizes their permanent extra hi
   await expect(page.locator('.player-0 .cast-button')).toBeVisible();
   await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
   const caster=page.locator('.player-0'),enemy=page.locator('.player-1');
-  for(let n=0;n<200&&!await caster.locator('.hole[data-kind="star"]:enabled').count();n++)await page.clock.runFor(100);
-  await caster.locator('.hole[data-kind="star"]').first().click();await caster.locator('.cast-button').click();
+  for(let stars=0;stars<2;stars++) {
+    for(let n=0;n<250&&!await caster.locator('.hole[data-kind="star"]:enabled').count();n++)await page.clock.runFor(100);
+    await caster.locator('.hole[data-kind="star"]').first().click();
+  }
+  await caster.locator('.cast-button').click();
   await expect(enemy).toHaveAttribute('data-tin-charges','3');await page.clock.runFor(1600);
   const seen=new Set<string>();let activated=true;
   for(let n=0;n<120;n++) {
@@ -85,12 +91,12 @@ test('Tin Caps arms three future moles and synchronizes their permanent extra hi
   expect(activated).toBe(true);expect(seen.size).toBe(3);await expect(enemy).toHaveAttribute('data-tin-charges','0');
 });
 
-for(const hero of ['champignon','captain-bramble'] as const)test(`${hero} two-star guard shows two permanent charges and disappears after two mistakes`,async({page})=>{
+for(const hero of ['champignon','captain-bramble'] as const)test(`${hero} one-star guard shows two permanent charges and disappears after two mistakes`,async({page})=>{
   await page.clock.install();await openSelection(page,'local');await chooseCharacter(page,'Player 1',hero);await enterMatch(page);
   await expect(page.locator('.player-0 .cast-button')).toBeVisible();
   await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
   const garden=page.locator('.player-0');
-  for(let stars=0;stars<2;stars++){
+  for(let stars=0;stars<1;stars++){
     const star=garden.locator('.hole[data-kind="star"]:enabled');
     for(let n=0;n<250&&!await star.count();n++)await page.clock.runFor(100);
     await star.first().click();

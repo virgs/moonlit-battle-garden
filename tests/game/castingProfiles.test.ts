@@ -14,9 +14,9 @@ it('adopts the scaled profile as the single shared default for isolated diagnost
   expect(isolatedCasting.delayMultipliers).toEqual({easy:3,medium:2,hard:1});
 });
 function garden(difficulty:Difficulty='hard') {
-  const match=new Match({characters:['captain-bramble','sprig'],mode:'local',difficulty,seed:41,isolatedSpellTier:1});
+  const match=new Match({characters:['captain-bramble','sprig'],mode:'local',difficulty,seed:41,isolatedSpellTier:2});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);
-  match.state.players[0].stars=1;
+  match.state.players[0].stars=2;
   match.state.players[1].holes[0]={id:1,kind:'mole',born:match.state.time,expires:match.state.time+10000};
   return match;
 }
@@ -27,7 +27,7 @@ it('multiplies only the seeded decision delay, leaving target visibility shared'
     const match=garden(difficulty),bot=new Bot(difficulty,9,0),start=match.state.time;
     bot.update(match);expect(bot.castingStatistics.scheduled).toBe(0);
     for(let i=0;i<30&&!match.state.casting;i++){match.advance(50);bot.update(match);}
-    expect(match.state.casting?.tier).toBe(1);elapsed[difficulty]=match.state.time-start;
+    expect(match.state.casting?.tier).toBe(2);elapsed[difficulty]=match.state.time-start;
     expect(bot.castingStatistics.executed).toBe(1);
   }
   expect(elapsed.hard).toBeGreaterThanOrEqual(300);expect(elapsed.hard).toBeLessThanOrEqual(500);

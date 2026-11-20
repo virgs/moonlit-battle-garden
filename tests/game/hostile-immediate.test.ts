@@ -2,7 +2,7 @@ import { expect,it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { config } from '../../src/game/config';
 import type { CharacterId } from '../../src/game/types';
-const hostile:[CharacterId,number][]=[...[1,2,3,4].map(t=>['andromoss',t] as [CharacterId,number]),['captain-bramble',1],['captain-bramble',4],['duskmantle',1],['duskmantle',2],['duskmantle',4]];
+const hostile:[CharacterId,number][]=[...[1,2,3,4].map(t=>['andromoss',t] as [CharacterId,number]),['captain-bramble',2],['captain-bramble',4],['duskmantle',1],['duskmantle',2],['duskmantle',4]];
 function game(hero:CharacterId){
   const m=new Match({characters:[hero,'champignon'],mode:'local',difficulty:'medium',seed:41});
   m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);
@@ -22,7 +22,7 @@ it('applies every hostile spell at cast start with no warning or opponent respon
       if(tier===2)expect(victim.invasionUntil-m.state.time).toBe(7500);
       if(tier===4)expect(victim.decoysUntil-m.state.time).toBe(8500);
     }else if(hero==='captain-bramble'){
-      if(tier===1)expect(victim.tinCharges).toBe(3);
+      if(tier===2)expect(victim.tinCharges).toBe(3);
       else expect(victim.holes.filter(t=>t?.armor===2)).toHaveLength(4);
     }else if(tier===2)expect(victim.camouflageUntil-m.state.time).toBe(6500);
     else expect(victim.holes.filter(t=>t?.missBonus)).toHaveLength(tier===1?3:4);

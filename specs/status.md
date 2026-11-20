@@ -187,3 +187,17 @@ Isolated tier2 now adopts tier1’s100 ms visibility and a seeded200–400 ms de
 Other tier2 rules unchanged: **Andromoss — Rabbit Riot7.5 s** / extra rabbits every0.95 s subject to spawn limits; **Duskmantle — Violet Veil6.5 s**, dimming plus existing+0.2 s bot reaction; **Sprig — Helping Tines6.5 s**, one fixed-column hit every0.25 s, normal star/mole rewards and rabbit penalties. Flat observed automation counters do not alter rules.
 
 Protocol13 adds shieldPermanent; UI guards remain until charges are consumed. One-star numerical spell powers stay accepted, but the explicitly requested global warning removal changes their application timing too, so tier1 was rerun. [Current two-star matrices, before→after and factor/coverage comparison](../reports/tier2-guard-policy-review.md); [current one-star no-warning audit](../reports/tier1-no-warning-review.md). No final human/full-kit balance claim.
+
+
+### Current first/two-star swap (D131/I24/D132)
+
+| Hero | One star | Two stars |
+|---|---|---|
+| Sir Champignon | **Mushroom Guard**, next two mistakes blocked/no expiry (was2 stars) | **Clean Sweep**, immediate busiest-column hit and continuous arrivals for3 s, normal rewards/rabbit penalties (was1 star) |
+| Captain Bramble | **Bramble Brace**, identical two-mistake guard/no expiry (was2 stars) | **Tin Caps**, next three future enemy moles/one extra hit each/no duration (was1 star) |
+
+Bot opportunity conditions, full-kit emergency/ward checks, effect tiers, spell-name/star HUD and tests follow the new costs. Higher tiers, numerical spell powers and zero-warning rule remain unchanged. Protocol14 captures the loadout change. Internal setting is now mistakeGuardMode and CLI --guard-mode (old reports require their original revision). Current pooled/per-level matrices and findings: [swap review](../reports/tier-swap-review.md).
+
+**Violet Veil against humans:** target sprites have72% opacity for6.5 s. Hitboxes, input timing, target types/positions/lifetimes remain unchanged. Bots’+200 ms reaction is a separate perception approximation, not an imposed human input delay or measured human penalty. No Veil change adopted.
+
+**Helping Tines pending:** requested duration “10**8s**” needs clarification (8 or10 s); follow-up question asks continuous arrivals vs immediate hit plus250 ms cadence. Until answered, keep6.5 s and existing250 ms delayed-first-hit behavior; do not claim the requested Tines change is complete.

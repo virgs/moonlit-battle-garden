@@ -9,7 +9,7 @@ function game(){
   const m=new Match({characters:['captain-bramble','sprig'],mode:'local',difficulty:'medium',seed:41});
   m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);return m;
 }
-function cast(m:Match){m.state.players[0].stars=1;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs+config.spells.warningMs);}
+function cast(m:Match){m.state.players[0].stars=2;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs+config.spells.warningMs);}
 function mole(m:Match,id=99):Target{return {id,kind:'mole',born:m.state.time,expires:m.state.time+20000};}
 it('retains charges through pause, refreshes rather than stacks, and clears charges and armor on cleanse/round reset',()=>{
   const m=game(),p=m.state.players[1];cast(m);expect(hasTinCaps(p)).toBe(true);

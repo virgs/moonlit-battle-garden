@@ -68,16 +68,16 @@ export class Bot {
       const harvestReady = sweepTargets.filter(target => target.kind === 'mole').length >= 2 && !sweepTargets.some(target => target.kind === 'rabbit');
       const sweepUseful = sweepNeeded || harvestReady;
       const emergency = (player.character === 'champignon' && (
-        (player.stars === 1 && sweepUseful) ||
-        (player.stars === 2 && player.mistakeShield === 0 && atRisk.length > 0) ||
+        (player.stars === 2 && sweepUseful) ||
+        (player.stars === 1 && player.mistakeShield === 0 && atRisk.length > 0) ||
         (player.stars === 3 && player.pending.length > 0)
-      )) || (player.character === 'captain-bramble' && (player.stars === 2 || player.stars === 3) && player.mistakeShield === 0 && opponent.score - player.score >= config.winScoreDifference * 0.65);
+      )) || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 3) && player.mistakeShield === 0 && opponent.score - player.score >= config.winScoreDifference * 0.65);
       // Sweep now scores normal hits: use visible harvest opportunities as well as defensive danger.
-      const pointlessSweep = player.character === 'champignon' && player.stars === 1 && (!sweepUseful || player.sweepUntil > state.time);
+      const pointlessSweep = player.character === 'champignon' && player.stars === 2 && (!sweepUseful || player.sweepUntil > state.time);
       const canSteal = player.character === 'andromoss' && player.stars === 3 && opponent.stars >= 2;
-      const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
+      const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 2 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
       const waitForWard = hostile && opponent.magicShieldUntil > state.time;
-      const alreadyGuarded = defender && player.stars === 2 && hasGuard(player,state.time);
+      const alreadyGuarded = defender && player.stars === 1 && hasGuard(player,state.time);
       const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || (player.armorUntil > state.time || hasTinCaps(player)) || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
       const emptyTheft = player.character === 'andromoss' && (player.stars === 1 || player.stars === 3) && opponent.stars === 0;
       if (!pointlessSweep && !emptyTheft && !waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {

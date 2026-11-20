@@ -1,3 +1,5 @@
+Historical pre-swap loadout, superseded by [current swap review](tier-swap-review.md).
+
 # One-star audit after removing all hostile warnings
 
 The user accepted one-star numerical powers in D127, then explicitly removed all spell warnings in D130. This audit changes only application timing: hostile spells now apply synchronously at cast start before shared freeze. Champignon continuous column/3 s, Andromoss all-charge theft (cap4), Bramble next three mole arrivals/no duration/one extra hit, Duskmantle three marks/8 s/+8 miss penalty, Sprig+750 ms once/6 s aura remain unchanged. Two-star guards cannot cast in this audit.

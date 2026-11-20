@@ -36,7 +36,7 @@ export class Match {
       character: this.options.characters[id], score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + config.pacing.firstSpawnMs,
       nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldTier: 1, shieldUntil: 0, shieldPermanent: false, magicShieldUntil: 0,
-      invasionUntil: 0, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorCharges: 0, tinCharges: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, tendingUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepColumns: [], sweepTier: 1, nextSweep: 0, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
+      invasionUntil: 0, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorCharges: 0, tinCharges: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, tendingUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepColumns: [], sweepTier: 2, nextSweep: 0, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
     };
   }
 
@@ -85,7 +85,7 @@ export class Match {
     this.spawns.update(state);
     // Tier 1 owns its column for the full window: include targets born this tick.
     state.players.forEach((player,id)=>{
-      if(player.sweepTier===1 && player.sweepUntil>state.time)this.sweepBoard(id as PlayerId);
+      if(player.sweepTier===2 && player.sweepUntil>state.time)this.sweepBoard(id as PlayerId);
     });
     this.checkOutcome();
   }
@@ -101,7 +101,7 @@ export class Match {
         if(config.spells.warningMs===0)resolveSpells(this.state,this.starCapacity,this.statistics);
         this.emit(action.player, 'cast', undefined, tier);
         this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
-        if (this.state.players[action.player].character === 'champignon' && (tier === 1 || tier === 4)) this.sweepBoard(action.player);
+        if (this.state.players[action.player].character === 'champignon' && (tier === 2 || tier === 4)) this.sweepBoard(action.player);
       }
       return;
     }
