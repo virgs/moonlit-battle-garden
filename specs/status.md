@@ -162,3 +162,8 @@ Current pooled and per-level matrices, before→after spell reminders, coverage 
 New state: player.tinCharges, target.persistentArmor; no Infinity values/timer sent online. Protocol12 rejects older rulesets. HUD effect remains while quota or active persistent armor exists; normal bot cleanse/sweep awareness recognizes new armor state. Isolated cast visibility/delay/opportunity policy otherwise unchanged (still witnesses visible unarmored moles, a potential strategy limitation for future-only armor).
 
 Other current one-star spells unchanged: Champignon continuous busiest-column hits/3 s; Andromoss all stars/650 ms warning (cap3 experimental only); Duskmantle three marks/8 s/+8 miss penalty; Sprig +0.75 s once per target/6 s aura. [Current matrices, before→after and limitations](../reports/tin-next-review.md).
+
+
+### One-star tuning accepted (D127)
+
+The user accepts D125/D126 as the baseline and closes tier1 tuning: no hero wins every matchup at every AI level. Preserve the existing imbalance/counter flips and bot-policy caveats; acceptance is not proof of human/full-kit balance. Next balance pass: tier2. Current rules and matrices remain in reports/tin-next-review.md and reports/balance-tier-1.md.

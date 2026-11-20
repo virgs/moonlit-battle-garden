@@ -255,6 +255,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I20 | Implement independent tinCharges and per-target persistentArmor; consume only future mole arrivals, no time expiry, refresh remaining quota to three on recast rather than queueing. Stronger Heavy Harvest takes precedence without additive armor; a future mole under stronger armor still consumes a Tin Caps charge. Cleanse removes charges/armor, round reset clears state; guard/ward warning behavior unchanged. HUD/normal bot cleanse awareness recognizes pending/persistent armor; isolated caster opportunity policy and timing remain unchanged. Protocol12 synchronizes fields. Compare 7,500 historical-timed control games with 7,500 adopted next-mole games at 100 paired seeds/pair/difficulty; old control reproduces every previous record. Keep the historical --tin-caps=timed mode for reproduction. Findings in tin-next-review.md. |
 
+| D127 | User accepts the current one-star tuning and closes this pass provided no hero dominates every matchup at all AI levels. Current matrices satisfy that criterion: Champignon loses to Bramble on Medium/Hard; Bramble loses to Champignon on Easy; other heroes also have losing matchups. Freeze current D125/D126 values; next balance pass is tier2. This is acceptance for progression, not a claim of equal/full-kit/human balance; preserve all matrix spreads, flips and strategy limitations. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
