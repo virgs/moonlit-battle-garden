@@ -41,7 +41,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
       player.automationColumns = busiestColumns(player, tier === 4 ? 2 : 1);
       player.automationTier = tier;
       player.automationUntil = state.time + (tier === 4 ? config.rosterSpells.fullAutomationMs : config.rosterSpells.columnAutomationMs);
-      player.nextAutomation = state.time + config.rosterSpells.automationIntervalMs;
+      player.nextAutomation = tier===2 && config.rosterSpells.helpingTinesMode==='continuous'?0:state.time + config.rosterSpells.automationIntervalMs;
     }
     if (tier === 3) { cleanse(player); player.magicShieldUntil = state.time + config.rosterSpells.cleanseWardMs; }
   } else {

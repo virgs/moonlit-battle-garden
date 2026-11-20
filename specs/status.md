@@ -201,3 +201,12 @@ Bot opportunity conditions, full-kit emergency/ward checks, effect tiers, spell-
 **Violet Veil against humans:** target sprites have72% opacity for6.5 s. Hitboxes, input timing, target types/positions/lifetimes remain unchanged. Bots’+200 ms reaction is a separate perception approximation, not an imposed human input delay or measured human penalty. No Veil change adopted.
 
 **Helping Tines pending:** requested duration “10**8s**” needs clarification (8 or10 s); follow-up question asks continuous arrivals vs immediate hit plus250 ms cadence. Until answered, keep6.5 s and existing250 ms delayed-first-hit behavior; do not claim the requested Tines change is complete.
+
+
+### Current Helping Tines: immediate/continuous10 seconds (D133/I25)
+
+P01 is resolved: user chose **10 s** and **continuous hits like Clean Sweep**. **Sprig — Helping Tines costs2 stars**, chooses the busiest column at cast time (stable leftmost ties), hits all targets there immediately, then intercepts current/new targets once per simulation tick after spawns throughout10 active seconds. The column stays fixed even if another becomes busier. **Normal rewards and rabbit penalties**; collect stars normally; armor requires its extra strikes, one per hit/tick. Natural/star/magical arrivals are eligible from their birth tick without a visibility minimum. The exact end boundary is excluded. Casting/pause freezes the window; reset clears it. No warning.
+
+Previously it lasted6.5 s, waited250 ms for its first pulse and hit one target per250 ms. The simulation’s shared hitColumns method now serves continuous Sweep/Tines. **Garden Clockwork is unchanged**:4 stars, two columns,8 s, one single-target action per250 ms with existing visibility condition. Royal Cleanup unchanged. Current loadouts retain1-star guards/2-star Sweep and Tin Caps. No new art. Protocol15 captures new rules; historical pulse mode/timing flags are controls, not an alternative game menu.
+
+[Current two-star matrices, before→after spells and independent duration/cadence comparisons](../reports/tines10-review.md). Last one-star swap diagnostic remains applicable to unchanged one-star powers; do not claim a new one-star run in this pass.

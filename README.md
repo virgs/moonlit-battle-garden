@@ -150,3 +150,6 @@ Current D129/D130 rules: **no hostile warning on any spell**; effects apply at c
 
 
 Current D131 loadout: **Champignon:1★ Mushroom Guard /2★ Clean Sweep; Bramble:1★ Bramble Brace /2★ Tin Caps.** Both guards block two mistakes without expiry; Sweep remains3 s and Tin Caps remains next three future moles/no duration. Effects and AI conditions follow actual new costs; zero warnings persist. [Current swap results](reports/tier-swap-review.md). Helping Tines’ duration/cadence change is pending clarification of “10**8s**”; current6.5 s/250 ms behavior is unchanged for now.
+
+
+Current D133 **Helping Tines**:2 stars, **immediate busiest-column hit plus continuous arrivals for10 active seconds**, normal rewards/rabbit penalties, one armor strike per tick. It replaces delayed250 ms pulses over6.5 s; the prior clarification is resolved. Column fixed at cast; pause/cast freezes; no warning. Garden Clockwork/Royal Cleanup keep their old timing. [Current two-star matrices and comparison](reports/tines10-review.md).

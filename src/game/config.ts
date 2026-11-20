@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; borrowedSparkCap: number; invasionMs: number; decoysMs: number; shieldMs: number };
-  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; tinCapsMode: 'next' | 'timed'; heavyArmorTargets: number; brambleGuardMs: number; mistakeGuardMode: 'timed' | 'charges'; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; tinCapsMode: 'next' | 'timed'; heavyArmorTargets: number; brambleGuardMs: number; mistakeGuardMode: 'timed' | 'charges'; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; helpingTinesMode: 'continuous' | 'pulse'; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -82,7 +82,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
     name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
     spells: [
       { name: 'Gentle Tending', description: 'For 6 seconds, add 0.75 seconds to every current and arriving target, once per target.' },
-      { name: 'Helping Tines', description: 'Work one column every 0.25 seconds for 6.5 seconds; collect stars.' },
+      { name: 'Helping Tines', description: 'Hit the busiest column immediately and keep hitting arrivals for 10 seconds; normal rewards and rabbit penalties.' },
       { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
       { name: 'Garden Clockwork', description: 'Work two columns every 0.25 seconds for 8 seconds; collect stars.' },
     ],
@@ -104,3 +104,5 @@ if(!Number.isInteger(config.spells.borrowedSparkCap)||config.spells.borrowedSpar
 if(!['next','timed'].includes(config.rosterSpells.tinCapsMode))throw new Error('Tin Caps mode must be next or timed');
 
 if(!['timed','charges'].includes(config.rosterSpells.mistakeGuardMode))throw new Error('Mistake guard mode must be timed or charges');
+
+if(!['continuous','pulse'].includes(config.rosterSpells.helpingTinesMode))throw new Error('Helping Tines mode must be continuous or pulse');

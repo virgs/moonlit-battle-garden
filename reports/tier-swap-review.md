@@ -1,3 +1,5 @@
+Historical swap-only results. P01 has been resolved; [current Helping Tines10-second continuous results](tines10-review.md) supersede the tier2 table and pending text here. One-star rules remain unchanged.
+
 # First/two-star spell swap — Helping Tines clarification pending
 
 ## Adopted loadouts and reminders

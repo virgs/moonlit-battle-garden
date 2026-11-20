@@ -66,9 +66,9 @@ export class Match {
     state.players.forEach((player, id) => {
       if (player.sweepTier === 4 && player.sweepUntil > state.time && state.time >= player.nextSweep) {
         player.nextSweep = state.time + config.rosterSpells.royalSweepIntervalMs;
-        this.sweepBoard(id as PlayerId);
+        this.hitColumns(id as PlayerId,player.sweepColumns);
       }
-      if (player.automationUntil > state.time && state.time >= player.nextAutomation) {
+      if ((player.automationTier===4 || config.rosterSpells.helpingTinesMode==='pulse') && player.automationUntil > state.time && state.time >= player.nextAutomation) {
         player.nextAutomation = state.time + config.rosterSpells.automationIntervalMs;
         const hole = player.holes.findIndex((target, index) => target && target.expires > state.time && state.time - target.born >= 200 && player.automationColumns.includes(index % 3));
         if (hole >= 0) this.hitTarget(id as PlayerId, hole, true);
@@ -83,9 +83,10 @@ export class Match {
       if (!player.shieldPermanent && player.shieldUntil <= state.time) player.mistakeShield = 0;
     });
     this.spawns.update(state);
-    // Tier 1 owns its column for the full window: include targets born this tick.
+    // Continuous column spells include targets born on this simulation tick.
     state.players.forEach((player,id)=>{
-      if(player.sweepTier===2 && player.sweepUntil>state.time)this.sweepBoard(id as PlayerId);
+      if(player.sweepTier===2 && player.sweepUntil>state.time)this.hitColumns(id as PlayerId,player.sweepColumns);
+      if(player.automationTier===2 && config.rosterSpells.helpingTinesMode==='continuous' && player.automationUntil>state.time)this.hitColumns(id as PlayerId,player.automationColumns);
     });
     this.checkOutcome();
   }
@@ -101,7 +102,9 @@ export class Match {
         if(config.spells.warningMs===0)resolveSpells(this.state,this.starCapacity,this.statistics);
         this.emit(action.player, 'cast', undefined, tier);
         this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
-        if (this.state.players[action.player].character === 'champignon' && (tier === 2 || tier === 4)) this.sweepBoard(action.player);
+        const caster=this.state.players[action.player];
+        if(caster.character==='champignon'&&(tier===2||tier===4))this.hitColumns(action.player,caster.sweepColumns);
+        if(caster.character==='sprig'&&tier===2&&config.rosterSpells.helpingTinesMode==='continuous')this.hitColumns(action.player,caster.automationColumns);
       }
       return;
     }
@@ -110,11 +113,11 @@ export class Match {
     this.checkOutcome();
   }
 
-  private sweepBoard(id: PlayerId): void {
+  private hitColumns(id: PlayerId, columns:number[]): void {
     const player = this.state.players[id];
     for (let hole = 0; hole < player.holes.length; hole++) {
       const target = player.holes[hole];
-      if (target && target.expires > this.state.time && player.sweepColumns.includes(hole % 3)) this.hitTarget(id, hole, true);
+      if (target && target.expires > this.state.time && columns.includes(hole % 3)) this.hitTarget(id, hole, true);
     }
   }
 

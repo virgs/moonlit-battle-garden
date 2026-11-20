@@ -275,7 +275,11 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D132 | User asks Violet Veil’s human effect: current rendering uses72% target opacity for6.5 s, with unchanged target kind/position/hitbox/lifetime/controls. Only bots receive the existing+200 ms reaction model; this does not establish human balance. No Veil power change requested. |
 
-| P01 | Helping Tines change is pending required clarification: duration arrived as “10**8s**”, ambiguous8 vs10 seconds; immediate first hit is clear, but subsequent continuous interception vs existing250 ms cadence was also asked. Two concise clarification questions are outstanding. Do not silently select a duration or cadence; current6.5 s/250 ms delayed-first-hit behavior remains until answered. |
+| P01 (resolved by D133) | Helping Tines change was pending required clarification: duration arrived as “10**8s**”, ambiguous8 vs10 seconds; immediate first hit is clear, but subsequent continuous interception vs existing250 ms cadence was also asked. Two concise clarification questions are outstanding. Do not silently select a duration or cadence; current6.5 s/250 ms delayed-first-hit behavior remains until answered. |
+
+| D133 | User resolves P01: Helping Tines lasts10 seconds and, after an immediate busiest-column hit, continuously hits new arrivals like Clean Sweep. Normal rewards/rabbit penalties. Keep two-star cost, fixed column for the window, no hostile warning. |
+
+| I25 | Tines now hits every selected target at cast start, once per simulation tick after spawns for10 active seconds, including birth-tick arrivals without visibility delay. Armor takes one strike per hit, not instant multi-strike elimination. Keep exact end boundary exclusive; pause/cast freezes and round reset unchanged. Shared hitColumns helper also serves Sweep; Royal Cleanup quarter-second cadence and Garden Clockwork’s two columns/8 s/quarter-second single-target pulse remain unchanged. helpingTinesMode=pulse and --tines-ms flags exist only for historical controls. Protocol15 distinguishes semantics. Compare old pulse6.5 s, continuous6.5 s, pulse10 s and continuous10 s (7,500 each) plus adopted-default verification:37,500 games,100 paired seeds/pair/difficulty. Preserve current matrices/owner/duration reminders in tines10-review.md; no other tuning. |
 
 ## Current proposals, not yet confirmed
 

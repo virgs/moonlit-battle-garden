@@ -101,21 +101,20 @@ it('Helping Tines applies rabbit penalties, collects stars and leaves other colu
   expect(p.stars).toBe(1);expect(p.score).toBe(config.points.star+config.points.mole-config.penalties.rabbit);
 });
 
-it('automation spends separate quarter-second strikes on triple-hit armor',()=>{
+it('Helping Tines spends one initial armor strike and one further strike per simulation tick',()=>{
   const match=game('sprig'),p=match.state.players[0];p.armorUntil=match.state.time+10000;
   p.holes[0]=target(match,'mole',2);cast(match,0,2);
-  match.advance(200);expect(p.holes[0]?.armor).toBe(2);
-  match.advance(50);expect(p.holes[0]?.armor).toBe(1);expect(p.score).toBe(0);
-  match.advance(250);expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
-  match.advance(250);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.points.mole);
+  expect(p.holes[0]?.armor).toBe(1);expect(p.score).toBe(0);
+  match.advance(50);expect(p.holes[0]?.armor).toBe(0);expect(p.score).toBe(0);
+  match.advance(50);expect(p.holes[0]).toBeNull();expect(p.score).toBe(config.points.mole);
 });
 
 it('an automated rabbit hit consumes a normal guard and otherwise subtracts the normal penalty',()=>{
   const match=game('sprig'),p=match.state.players[0];
   p.holes[0]=target(match,'rabbit');p.holes[3]=target(match,'rabbit');
   p.mistakeShield=1;p.shieldUntil=match.state.time+10000;
-  cast(match,0,2);match.advance(250);
-  expect(p.mistakeShield).toBe(0);expect(p.score).toBe(0);
+  cast(match,0,2);
+  expect(p.mistakeShield).toBe(0);expect(p.score).toBe(-config.penalties.rabbit);
   match.advance(250);expect(p.score).toBe(-config.penalties.rabbit);
 });
 
