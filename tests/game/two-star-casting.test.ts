@@ -9,9 +9,9 @@ function game(hero:CharacterId,difficulty:Difficulty='hard',tier:1|2=2){
   m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);m.state.players[0].stars=tier;return m;
 }
 function target(m:Match,id=1,kind:Target['kind']='mole',life=900):Target{return {id,kind,born:m.state.time-200,expires:m.state.time+life};}
-it('defaults tiers1/2 to opportunity casting and preserves immediate higher-tier diagnostics',()=>{
+it('defaults tiers1/2/3 to opportunity casting and preserves immediate tier4 diagnostics',()=>{
   expect(game('champignon').isolatedCastingPolicy).toBe('opportunity');
-  expect(new Match({characters:['sprig','andromoss'],mode:'local',difficulty:'hard',seed:1,isolatedSpellTier:3}).isolatedCastingPolicy).toBe('immediate');
+  expect(new Match({characters:['sprig','andromoss'],mode:'local',difficulty:'hard',seed:1,isolatedSpellTier:4}).isolatedCastingPolicy).toBe('immediate');
 });
 it('uses the same near-miss guard opportunity for both heroes and avoids replacing active charges',()=>{
   for(const hero of ['champignon','captain-bramble'] as const){

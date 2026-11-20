@@ -1,5 +1,5 @@
 import type { Match } from './Match';
-import { hasGuard } from './targetModifiers';
+import { hasGuard,hasTinCaps } from './targetModifiers';
 import { config } from './config';
 import { Random } from './random';
 import { busiestColumns } from './targetColumns';
@@ -27,6 +27,25 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     const first = targets.sort((a,b)=>a.expires-b.expires || a.id-b.id)[0];
     return first ? `${prefix}:${first.id}` : null;
   };
+  if(match.options.isolatedSpellTier===3) {
+    if(player.character==='andromoss')return enemy.stars>=2 && enemy.magicShieldUntil<=time?'steal-pair':null;
+    if(player.character==='captain-bramble') {
+      if(hasGuard(player,time))return null;
+      return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'resolve');
+    }
+    if(player.character==='duskmantle') {
+      if(player.drainUntil>time)return null;
+      return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'),'siphon');
+    }
+    if(player.character==='sprig') {
+      const afflicted=player.pending.length>0 || hasTinCaps(player) || player.armorUntil>time || player.markUntil>time || player.camouflageUntil>time || player.invasionUntil>time || player.decoysUntil>time;
+      if(afflicted)return 'cleanse';
+    }
+    // The tier-three opponent's public loadout has only one hostile spell: theft.
+    // Prepare before full charge; zero-warning theft cannot be blocked retroactively.
+    if(player.magicShieldUntil>time)return null;
+    return enemy.character==='andromoss'&&enemy.stars>=2?'ward-threat':null;
+  }
   if(match.options.isolatedSpellTier===1 && (player.character==='champignon'||player.character==='captain-bramble')) {
     if(hasGuard(player,time))return null;
     return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'guard');

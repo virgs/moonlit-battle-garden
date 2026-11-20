@@ -153,3 +153,6 @@ Current D131 loadout: **Champignon:1★ Mushroom Guard /2★ Clean Sweep; Brambl
 
 
 Current D133 **Helping Tines**:2 stars, **immediate busiest-column hit plus continuous arrivals for10 active seconds**, normal rewards/rabbit penalties, one armor strike per tick. It replaces delayed250 ms pulses over6.5 s; the prior clarification is resolved. Column fixed at cast; pause/cast freezes; no warning. Garden Clockwork/Royal Cleanup keep their old timing. [Current two-star matrices and comparison](reports/tines10-review.md).
+
+
+D134: tier2 tuning accepted under the no-universal-loser criterion; tier3 baseline now uses the established opportunity/scaled-delay diagnostics, with immediate controls. Powers unchanged. [Three-star matrices, durations and counter-spell coverage limits](reports/tier3-baseline-review.md) preserve15,000 games; wards/cleanse require mixed-tier/full-kit testing because only theft is hostile at tier3. Normal AI strategy remains unchanged.

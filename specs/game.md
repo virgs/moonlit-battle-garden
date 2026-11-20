@@ -164,3 +164,12 @@ P01 is resolved: user chose **10 s** and **continuous hits like Clean Sweep**. *
 Previously it lasted6.5 s, waited250 ms for its first pulse and hit one target per250 ms. The simulation’s shared hitColumns method now serves continuous Sweep/Tines. **Garden Clockwork is unchanged**:4 stars, two columns,8 s, one single-target action per250 ms with existing visibility condition. Royal Cleanup unchanged. Current loadouts retain1-star guards/2-star Sweep and Tin Caps. No new art. Protocol15 captures new rules; historical pulse mode/timing flags are controls, not an alternative game menu.
 
 [Current two-star matrices, before→after spells and independent duration/cadence comparisons](../reports/tines10-review.md). Last one-star swap diagnostic remains applicable to unchanged one-star powers; do not claim a new one-star run in this pass.
+
+
+### Tier2 accepted; tier3 baseline with role caveats (D134/I26)
+
+No universal tier2 loser across all levels; user accepts the current powers/costs and moves on. Tier3 powers unchanged: **Champignon — Spore Ward**, next hostile spell blocked/**12 s**; **Andromoss — Sticky Fingers**, instant steal up to2 stars; **Bramble — Iron Resolve**, next3 mistakes/**8 s**; **Duskmantle — Twilight Siphon**, +2 per final manual mole hit/**7 s**; **Sprig — Weed Out**, instant harmful-effect cleanse then one-spell ward/**6 s**. No warnings, no new art.
+
+Extend isolated tier3 diagnostics to the same useful-opportunity/scaled-delay policy, with immediate controls preserved. Wards react to public theft threat at enemy2+ charge; theft needs enemy2+ charge/no ward; Resolve needs unguarded urgent mole, Siphon visible mole, cleanse actual harm or theft threat. Normal full-kit decisions unchanged; tier4 still immediate. Flat siphonBonusPoints counter observes scoring without changing it.
+
+15,000 matches, no unfinished. **Spore Ward/Weed Out cannot be fully evaluated in tier3-only games**: only Sticky Fingers is hostile and no active harmful modifier exists for cleanse. Zero ward blocks can reflect avoidance, not worthlessness. Keep paired matrices and casting/benefit coverage; mixed-tier/human checks needed before tuning. [Current matrices and spell reminders](../reports/tier3-baseline-review.md).

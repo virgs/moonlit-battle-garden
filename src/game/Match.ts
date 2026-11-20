@@ -10,7 +10,7 @@ export class Match {
   events: GameEvent[] = [];
   readonly statistics: MatchStatistics = [playerStatistics(), playerStatistics()];
   get isolatedCastingPolicy(): 'normal' | 'immediate' | 'opportunity' {
-    return this.options.isolatedSpellTier ? this.options.isolatedCastingPolicy ?? (this.options.isolatedSpellTier <= 2 ? 'opportunity' : 'immediate') : 'normal';
+    return this.options.isolatedSpellTier ? this.options.isolatedCastingPolicy ?? (this.options.isolatedSpellTier <= 3 ? 'opportunity' : 'immediate') : 'normal';
   }
   get starCapacity(): number { return this.options.isolatedSpellTier ?? 4; }
   private spawns: SpawnDirector;
@@ -20,7 +20,7 @@ export class Match {
   constructor(readonly options: MatchOptions) {
     if (options.isolatedSpellTier !== undefined && ![1,2,3,4].includes(options.isolatedSpellTier)) throw Error('Isolated tier must be 1..4');
     if (options.isolatedCastingPolicy && !options.isolatedSpellTier) throw Error('Casting policy requires an isolated tier');
-    if (options.isolatedCastingPolicy === 'opportunity' && ![1,2].includes(options.isolatedSpellTier ?? 0)) throw Error('Opportunity conditions currently cover tiers 1 and 2 only');
+    if (options.isolatedCastingPolicy === 'opportunity' && ![1,2,3].includes(options.isolatedSpellTier ?? 0)) throw Error('Opportunity conditions currently cover tiers 1, 2 and 3 only');
     if (options.diagnosticMode && (options.mode !== 'local' || options.isolatedSpellTier || options.isolatedCastingPolicy)) throw Error('Reaction diagnostics require local mode and no isolated spell policy');
     this.spawns = new SpawnDirector(options.seed);
     this.spawns.reset(config.countdownMs);
@@ -143,8 +143,9 @@ export class Match {
       this.penalize(id, config.penalties.rabbit, hole, 'rabbit', 'rabbit');
       return;
     }
-    const points = config.points[target.kind]
-      + (!automated && target.kind === 'mole' && player.drainUntil > this.state.time ? config.rosterSpells.drainBonus : 0);
+    const bonus=!automated && target.kind==='mole' && player.drainUntil>this.state.time?config.rosterSpells.drainBonus:0;
+    const points=config.points[target.kind]+bonus;
+    this.statistics[id].siphonBonusPoints+=bonus;
     player.score += points;
     this.statistics[id].pointsEarned += points;
     if (target.kind === 'star') {

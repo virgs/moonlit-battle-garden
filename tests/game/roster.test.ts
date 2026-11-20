@@ -107,6 +107,7 @@ it('Duskmantle siphon rewards manual mole hits, not star collection', () => {
   player.holes[0]=target(match);player.holes[1]=target(match,'star');cast(match,0,3);
   match.action({type:'hit',player:0,hole:0});match.action({type:'hit',player:0,hole:1});
   expect(player.score).toBe(config.points.mole+config.rosterSpells.drainBonus+config.points.star);
+  expect(match.statistics[0].siphonBonusPoints).toBe(config.rosterSpells.drainBonus);
 });
 
 it('Sprig extends a target only once and automation collects stars in its selected column', () => {
