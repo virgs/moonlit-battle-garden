@@ -1,3 +1,5 @@
+Historical tuning, superseded by [Gentle Tending +750 ms update](tending750-review.md).
+
 # Three-mole armor, stronger marks and six-second Tending
 
 | Hero | Spell | Before | Current |

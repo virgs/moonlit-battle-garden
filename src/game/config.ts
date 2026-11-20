@@ -17,7 +17,7 @@ type Config = {
   };
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
-  spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; invasionMs: number; decoysMs: number; shieldMs: number };
+  spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; borrowedSparkCap: number; invasionMs: number; decoysMs: number; shieldMs: number };
   rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
@@ -81,7 +81,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   sprig: {
     name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
     spells: [
-      { name: 'Gentle Tending', description: 'For 6 seconds, add 0.5 seconds to every current and arriving target, once per target.' },
+      { name: 'Gentle Tending', description: 'For 6 seconds, add 0.75 seconds to every current and arriving target, once per target.' },
       { name: 'Helping Tines', description: 'Work one column every 0.25 seconds for 6.5 seconds; collect stars.' },
       { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
       { name: 'Garden Clockwork', description: 'Work two columns every 0.25 seconds for 8 seconds; collect stars.' },
@@ -98,3 +98,5 @@ if ([config.spells.shieldMs,config.spells.invasionMs,config.spells.decoysMs].som
 
 // Zero is retained only for reproducing the historical instant-only Tending control.
 if(config.rosterSpells.tendingMs!==0&&config.rosterSpells.tendingMs<3000)throw new Error('Active Tending window must be at least 3 seconds');
+
+if(!Number.isInteger(config.spells.borrowedSparkCap)||config.spells.borrowedSparkCap<1||config.spells.borrowedSparkCap>4)throw new Error('Borrowed Spark cap must be 1..4');

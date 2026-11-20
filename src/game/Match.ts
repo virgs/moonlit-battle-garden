@@ -74,6 +74,7 @@ export class Match {
       }
       player.holes.forEach((target, hole) => {
         if (target && target.expires <= state.time) {
+          if(target.extended)this.statistics[id as PlayerId][target.kind==='mole'?'tendingMoleExpiries':target.kind==='star'?'tendingStarExpiries':'tendingRabbitExpiries']++;
           if (target.kind === 'mole') this.penalize(id as PlayerId, config.penalties.miss + (target.missBonus ?? 0), undefined, undefined, 'miss');
           player.holes[hole] = null;
         }
@@ -123,6 +124,13 @@ export class Match {
       target.armor--;
       this.emit(id, 'shield', undefined, undefined, 'mole');
       return;
+    }
+    if(target.extended) {
+      const stats=this.statistics[id];
+      stats[target.kind==='mole'?'tendingMoleHits':target.kind==='star'?'tendingStarHits':'tendingRabbitHits']++;
+      // Observed hits during earned extra time, not a counterfactual benefit estimate.
+      if(this.state.time>=target.expires-config.rosterSpells.extensionMs)
+        stats[target.kind==='mole'?'tendingLateMoleHits':target.kind==='star'?'tendingLateStarHits':'tendingLateRabbitHits']++;
     }
     player.holes[hole] = null;
     if (target.kind === 'rabbit') {

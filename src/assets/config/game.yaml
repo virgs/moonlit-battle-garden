@@ -43,6 +43,7 @@ spells:
   castFreezeMs: 1500
   cooldownMs: 1800
   warningMs: 650
+  borrowedSparkCap: 4
   invasionMs: 7500
   decoysMs: 8500
   shieldMs: 12000
@@ -61,7 +62,7 @@ rosterSpells:
   camouflageMs: 6500
   drainMs: 7000
   drainBonus: 2
-  extensionMs: 500
+  extensionMs: 750
   tendingMs: 6000
   columnAutomationMs: 6500
   fullAutomationMs: 8000

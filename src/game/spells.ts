@@ -84,7 +84,7 @@ export function resolveSpells(state: MatchState, starCapacity = 4, statistics?: 
         continue;
       }
       if (spell.tier === 1 || spell.tier === 3) {
-        const stars = spell.tier === 1 ? player.stars : Math.min(player.stars, 2);
+        const stars = spell.tier === 1 ? Math.min(player.stars, config.spells.borrowedSparkCap) : Math.min(player.stars, 2);
         player.stars -= stars;
         const received = Math.min(starCapacity - caster.stars, stars);
         caster.stars = Math.min(starCapacity, caster.stars + stars);

@@ -76,3 +76,21 @@ it('adds eight penalty points on top of the ordinary miss penalty for each of th
   expect(enemy.holes.slice(0,3).map(t=>t?.missBonus)).toEqual([8,8,8]);
   match.advance(300);expect(enemy.score).toBe(-48); // three times (8 normal + 8 extra)
 });
+
+it('records extended target hits, extra-time hits and expiries separately for every kind',()=>{
+  config.rosterSpells.extensionMs=750;config.rosterSpells.tendingMs=6000;
+  const match=game(),p=match.state.players[0];
+  for(const [hole,kind] of (['mole','star','rabbit'] as const).entries())
+    p.holes[hole]={...target(match,hole+1,kind),expires:match.state.time+1000};
+  cast(match);expect(p.tendingUntil-match.state.time).toBe(6000);
+  for(const t of p.holes.slice(0,3))expect(t!.expires-match.state.time).toBe(1750);
+  match.advance(1000);
+  for(const hole of [0,1,2])match.action({type:'hit',player:0,hole});
+  for(const [hole,kind] of (['mole','star','rabbit'] as const).entries())
+    p.holes[hole]={...target(match,hole+20,kind),extended:true,expires:match.state.time+50};
+  match.advance(50);
+  const stats=match.statistics[0];
+  expect([stats.tendingMoleHits,stats.tendingStarHits,stats.tendingRabbitHits]).toEqual([1,1,1]);
+  expect([stats.tendingLateMoleHits,stats.tendingLateStarHits,stats.tendingLateRabbitHits]).toEqual([1,1,1]);
+  expect([stats.tendingMoleExpiries,stats.tendingStarExpiries,stats.tendingRabbitExpiries]).toEqual([1,1,1]);
+});

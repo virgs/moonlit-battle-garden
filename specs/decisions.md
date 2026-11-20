@@ -247,6 +247,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I18 | Test each of the three requested changes independently and combined at 100 paired seeds per pairing/difficulty, then verify adopted defaults reproduce all combined outcomes. Preserve previous baseline and current per-level flags/strategy findings in three-mole-penalty-tending-review.md. |
 
+| D125 | User adopts the recommendation to buff Sprig’s Gentle Tending lifetime bonus from +500 to +750 ms, retaining its 6 s aura, and keep a three-star Borrowed Spark cap as a separate normal-meter experiment. Live theft cap remains four pending review of that experiment; no warning, bot, pacing or other spell changes. Include observed extension coverage and current matrices/spell reminders. |
+
+| I19 | Record observed extended-target removals/expiries by kind and hits during earned extra time without changing rules/RNG. Three isolated 7,500-match runs (old control, +750 trial, adopted verification) plus two 7,500-match full-kit theft-cap4/cap3 experiments: 37,500, zero unfinished. Prior control outcomes reproduce excluding added statistics; adopted trial records including statistics reproduce exactly. Sprig improvements mixed by matchup; extension hit coverage improves at each level. Theft cap changes one winner in 7,500 under current normal bot policy; do not infer human balance. Review tending750-review.md. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
