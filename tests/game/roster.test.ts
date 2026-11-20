@@ -99,6 +99,7 @@ it('Duskmantle marks exactly three/four moles and increases their miss penalty o
     expect(victim.holes[6]?.missBonus).toBeUndefined();expect(victim.holes[7]?.missBonus).toBeUndefined();
     match.advance(1000);
     expect(victim.score).toBe(-(5*config.penalties.miss+count*bonus));
+    expect(match.statistics[1].markBonusPointsLost).toBe(count*bonus);
   }
 });
 

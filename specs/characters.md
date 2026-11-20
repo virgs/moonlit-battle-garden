@@ -338,3 +338,12 @@ No universal tier2 loser across all levels; user accepts the current powers/cost
 Extend isolated tier3 diagnostics to the same useful-opportunity/scaled-delay policy, with immediate controls preserved. Wards react to public theft threat at enemy2+ charge; theft needs enemy2+ charge/no ward; Resolve needs unguarded urgent mole, Siphon visible mole, cleanse actual harm or theft threat. Normal full-kit decisions unchanged; tier4 still immediate. Flat siphonBonusPoints counter observes scoring without changing it.
 
 15,000 matches, no unfinished. **Spore Ward/Weed Out cannot be fully evaluated in tier3-only games**: only Sticky Fingers is hostile and no active harmful modifier exists for cleanse. Zero ward blocks can reflect avoidance, not worthlessness. Keep paired matrices and casting/benefit coverage; mixed-tier/human checks needed before tuning. [Current matrices and spell reminders](../reports/tier3-baseline-review.md).
+
+
+### Four-star baseline, no power tuning (D135/I27)
+
+**Champignon — Royal Cleanup:** initial full-board hit then full-board pulses every0.25 s for**3 s**, plus3 mistake guards/**12 s**. **Andromoss — Double Trouble:** extra magical enemy targets every0.65 s (70% rabbits/30% moles),**8.5 s**, normal wave lifetimes unchanged. **Bramble — Heavy Harvest:**4 current/future enemy moles,2 extra hits each/**3 s**. **Duskmantle — Withering Pact:**4 current/future marks/**8 s**, extra miss penalty+6 (14 total). **Sprig — Garden Clockwork:**2 busiest fixed columns, one normal single-target action every0.25 s/**8 s**, with star rewards/rabbit penalties. No powers/costs/warnings/earlier tiers changed. Preserve weaker-than-cheaper-power concerns (Bud+8 vs Pact+6; continuous10 s Tines vs pulsed8 s Clockwork) for discussion, not silent changes.
+
+All isolated tiers now default to shared useful-opportunity/random-delay casting; explicit immediate controls remain. Tier4 conditions follow each spell’s visible opportunity and avoid wards/active refresh. Full-kit bot policy unchanged. A flat markBonusPointsLost counter observes extra marked penalties actually lost after guard prevention without changing scoring/RNG.
+
+15,000 games, zero unfinished,100 paired seeds/pair/level. Easy casts less than once per hero/match; Hard casts several times. Bramble wins every Hard matchup; Champignon wins Easy/Medium matchups with some near50% edges. No universal winner across all levels; do not infer equal/full-kit/human balance from that fact. [Current matrices, durations and coverage](../reports/tier4-baseline-review.md).

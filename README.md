@@ -156,3 +156,6 @@ Current D133 **Helping Tines**:2 stars, **immediate busiest-column hit plus cont
 
 
 D134: tier2 tuning accepted under the no-universal-loser criterion; tier3 baseline now uses the established opportunity/scaled-delay diagnostics, with immediate controls. Powers unchanged. [Three-star matrices, durations and counter-spell coverage limits](reports/tier3-baseline-review.md) preserve15,000 games; wards/cleanse require mixed-tier/full-kit testing because only theft is hostile at tier3. Normal AI strategy remains unchanged.
+
+
+Four-star baseline (D135): powers unchanged; all isolated tiers now use opportunity/scaled-delay casting with immediate controls available. [Matrices, spell durations and exposure findings](reports/tier4-baseline-review.md) preserve15,000 games. Easy’s low four-star casting coverage and earlier-tier counter limitations must be considered before full-kit/human balance conclusions.

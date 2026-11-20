@@ -27,6 +27,31 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     const first = targets.sort((a,b)=>a.expires-b.expires || a.id-b.id)[0];
     return first ? `${prefix}:${first.id}` : null;
   };
+  if(match.options.isolatedSpellTier===4) {
+    if(player.character==='champignon') {
+      if(player.sweepUntil>time)return null;
+      return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'royal');
+    }
+    if(player.character==='sprig') {
+      if(player.automationUntil>time)return null;
+      const columns=busiestColumns(player,2);
+      const targets=player.holes.filter((_,hole)=>columns.includes(hole%3)).filter(visible);
+      const urgent=targets.filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs);
+      const useful=targets.some(t=>t.kind==='rabbit')?[]:targets.filter(t=>t.kind==='mole'||t.kind==='star');
+      return witness(urgent.length?urgent:useful,`clockwork:${columns.join(',')}`);
+    }
+    if(enemy.magicShieldUntil>time)return null;
+    if(player.character==='andromoss') {
+      if(enemy.decoysUntil>time)return null;
+      return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'trouble');
+    }
+    if(player.character==='captain-bramble') {
+      if(enemy.armorUntil>time&&enemy.armorHits>=2)return null;
+      return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&(t.armor??0)<2),'harvest');
+    }
+    if(enemy.markUntil>time)return null;
+    return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.missBonus),'pact');
+  }
   if(match.options.isolatedSpellTier===3) {
     if(player.character==='andromoss')return enemy.stars>=2 && enemy.magicShieldUntil<=time?'steal-pair':null;
     if(player.character==='captain-bramble') {
