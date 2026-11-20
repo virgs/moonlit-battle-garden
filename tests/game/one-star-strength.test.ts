@@ -1,3 +1,4 @@
+import { beforeEach,afterEach } from 'vitest';
 import { expect,it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { config } from '../../src/game/config';
@@ -81,3 +82,8 @@ it('historical instant Tending control remains reproducible and non-stacking',()
     expect(fresh.expires).toBe(freshExpiry+1200);
   } finally {config.rosterSpells.extensionMs=prior;config.rosterSpells.tendingMs=priorWindow;}
 });
+
+// Historical queued-resolution controls; defaults are tested in hostile-immediate.test.ts.
+const historicalWarning=config.spells.warningMs;
+beforeEach(()=>{config.spells.warningMs=650;});
+afterEach(()=>{config.spells.warningMs=historicalWarning;});

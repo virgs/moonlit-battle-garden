@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; borrowedSparkCap: number; invasionMs: number; decoysMs: number; shieldMs: number };
-  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; tinCapsMode: 'next' | 'timed'; heavyArmorTargets: number; brambleGuardMs: number; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; tinCapsMode: 'next' | 'timed'; heavyArmorTargets: number; brambleGuardMs: number; twoStarGuardMode: 'timed' | 'charges'; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -46,7 +46,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
     name: 'Sir Champignon', role: 'The garden guardian', color: '#c9e586', emblem: '♜',
     spells: [
       { name: 'Clean Sweep', description: 'Hits the busiest column immediately and keeps hitting whatever appears there for 3 seconds; normal rewards and rabbit penalties.' },
-      { name: 'Mushroom Guard', description: 'Block the next mistake for 12 seconds.' },
+      { name: 'Mushroom Guard', description: 'Block the next two mistakes; no time limit.' },
       { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
       { name: 'Royal Cleanup', description: 'Hit all targets for 3 seconds and block three mistakes for 12 seconds.' },
     ],
@@ -64,7 +64,7 @@ export const characters: Record<CharacterId, { name: string; role: string; color
     name: 'Captain Bramble', role: 'The steadfast garden sentinel', color: '#da956b', emblem: '♜',
     spells: [
       { name: 'Tin Caps', description: 'Armor the next three enemy moles to appear; one extra hit each, no time limit.' },
-      { name: 'Bramble Brace', description: 'Block one mistake for 8 seconds.' },
+      { name: 'Bramble Brace', description: 'Block the next two mistakes; no time limit.' },
       { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
       { name: 'Heavy Harvest', description: 'Armor up to four enemy moles within 3 seconds; two extra hits each.' },
     ],
@@ -102,3 +102,5 @@ if(config.rosterSpells.tendingMs!==0&&config.rosterSpells.tendingMs<3000)throw n
 if(!Number.isInteger(config.spells.borrowedSparkCap)||config.spells.borrowedSparkCap<1||config.spells.borrowedSparkCap>4)throw new Error('Borrowed Spark cap must be 1..4');
 
 if(!['next','timed'].includes(config.rosterSpells.tinCapsMode))throw new Error('Tin Caps mode must be next or timed');
+
+if(!['timed','charges'].includes(config.rosterSpells.twoStarGuardMode))throw new Error('Two-star guard mode must be timed or charges');

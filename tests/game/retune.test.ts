@@ -1,3 +1,4 @@
+import { beforeEach,afterEach } from 'vitest';
 import { expect,it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { config,characters } from '../../src/game/config';
@@ -23,7 +24,7 @@ it('swaps the actual spell rules and titles for Champignon and Bramble',()=>{
   expect(characters.champignon.spells.slice(0,2).map(s=>s.name)).toEqual(['Clean Sweep','Mushroom Guard']);
   expect(characters['captain-bramble'].spells.slice(0,2).map(s=>s.name)).toEqual(['Tin Caps','Bramble Brace']);
   const guardian=game('champignon');cast(guardian,0,2);
-  expect(guardian.state.players[0].mistakeShield).toBe(1);expect(guardian.state.players[0].sweepUntil).toBe(0);
+  expect(guardian.state.players[0].mistakeShield).toBe(2);expect(guardian.state.players[0].sweepUntil).toBe(0);
   const bramble=game('captain-bramble');cast(bramble,0,1);bramble.advance(config.spells.warningMs);
   expect(bramble.state.players[1].tinCharges).toBe(3);expect(bramble.state.players[0].mistakeShield).toBe(0);
 });
@@ -181,3 +182,8 @@ it('a ward blocks all-star theft, while spending the caster charge',()=>{
   cast(match,0,1);match.advance(config.spells.warningMs);
   expect(victim.stars).toBe(4);expect(victim.magicShieldUntil).toBe(0);expect(caster.stars).toBe(0);
 });
+
+// Historical queued-resolution controls; defaults are tested in hostile-immediate.test.ts.
+const historicalWarning=config.spells.warningMs;
+beforeEach(()=>{config.spells.warningMs=650;});
+afterEach(()=>{config.spells.warningMs=historicalWarning;});

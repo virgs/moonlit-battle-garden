@@ -1,3 +1,5 @@
+Historical immediate-casting/one-charge-guard/650 ms-warning baseline. Superseded by [current guards, casting and zero-warning review](tier2-guard-policy-review.md).
+
 # Two-star baseline: no spell tuning yet
 
 The accepted D127 one-star rules remain fixed. These games enable only tier2 spells with a two-star meter, using the real simulation/bots. No durations, powers, hit reactions, pacing, art or networking changes.

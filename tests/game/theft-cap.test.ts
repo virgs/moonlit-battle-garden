@@ -1,11 +1,11 @@
 import { afterEach,expect,it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { config } from '../../src/game/config';
-const original=config.spells.borrowedSparkCap;
-afterEach(()=>{config.spells.borrowedSparkCap=original;});
+const original=config.spells.borrowedSparkCap,oldWarning=config.spells.warningMs;
+afterEach(()=>{config.spells.borrowedSparkCap=original;config.spells.warningMs=oldWarning;});
 
 it('limits the experimental one-star theft to three while preserving warning and the remaining enemy star',()=>{
-  config.spells.borrowedSparkCap=3;
+  config.spells.borrowedSparkCap=3;config.spells.warningMs=650;
   const match=new Match({characters:['andromoss','sprig'],mode:'local',difficulty:'medium',seed:41});
   match.advance(config.countdownMs);match.state.players.forEach(p=>p.nextSpawn=Infinity);
   const [caster,victim]=match.state.players;caster.stars=1;victim.stars=4;

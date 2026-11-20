@@ -6,8 +6,9 @@ import { isolatedCasting,opportunityKey,useCastingProfile,defaultCastingProfile 
 import type { CharacterId,Difficulty,Target } from '../../src/game/types';
 
 // Retain historical-policy coverage explicitly; the adopted default is tested separately.
-beforeEach(()=>useCastingProfile('baseline'));
-afterEach(()=>useCastingProfile(defaultCastingProfile));
+const historicalWarning=config.spells.warningMs;
+beforeEach(()=>{useCastingProfile('baseline');config.spells.warningMs=650;});
+afterEach(()=>{useCastingProfile(defaultCastingProfile);config.spells.warningMs=historicalWarning;});
 
 function game(character:CharacterId='andromoss',difficulty:Difficulty='medium') {
   const match=new Match({characters:[character,'sprig'],difficulty,mode:'local',seed:41,isolatedSpellTier:1});

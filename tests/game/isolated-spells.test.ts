@@ -1,3 +1,4 @@
+import { beforeEach,afterEach } from 'vitest';
 import { expect,it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { Bot } from '../../src/game/Bot';
@@ -89,3 +90,8 @@ it('runs deterministic actual-simulation matches with only the selected spell',(
   expect(a.timedOut).toBe(false);
   for(const casts of a.casts)expect(casts.slice(1)).toEqual([0,0,0]);
 });
+
+// Historical queued-resolution controls; defaults are tested in hostile-immediate.test.ts.
+const historicalWarning=config.spells.warningMs;
+beforeEach(()=>{config.spells.warningMs=650;});
+afterEach(()=>{config.spells.warningMs=historicalWarning;});

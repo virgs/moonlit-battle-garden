@@ -1,3 +1,4 @@
+import { hasGuard } from './targetModifiers';
 import { config } from './config';
 import { playerStatistics, type MatchStatistics } from './statistics';
 import { SpawnDirector } from './SpawnDirector';
@@ -9,7 +10,7 @@ export class Match {
   events: GameEvent[] = [];
   readonly statistics: MatchStatistics = [playerStatistics(), playerStatistics()];
   get isolatedCastingPolicy(): 'normal' | 'immediate' | 'opportunity' {
-    return this.options.isolatedSpellTier ? this.options.isolatedCastingPolicy ?? (this.options.isolatedSpellTier === 1 ? 'opportunity' : 'immediate') : 'normal';
+    return this.options.isolatedSpellTier ? this.options.isolatedCastingPolicy ?? (this.options.isolatedSpellTier <= 2 ? 'opportunity' : 'immediate') : 'normal';
   }
   get starCapacity(): number { return this.options.isolatedSpellTier ?? 4; }
   private spawns: SpawnDirector;
@@ -19,7 +20,7 @@ export class Match {
   constructor(readonly options: MatchOptions) {
     if (options.isolatedSpellTier !== undefined && ![1,2,3,4].includes(options.isolatedSpellTier)) throw Error('Isolated tier must be 1..4');
     if (options.isolatedCastingPolicy && !options.isolatedSpellTier) throw Error('Casting policy requires an isolated tier');
-    if (options.isolatedCastingPolicy === 'opportunity' && options.isolatedSpellTier !== 1) throw Error('Opportunity conditions currently cover tier 1 only');
+    if (options.isolatedCastingPolicy === 'opportunity' && ![1,2].includes(options.isolatedSpellTier ?? 0)) throw Error('Opportunity conditions currently cover tiers 1 and 2 only');
     if (options.diagnosticMode && (options.mode !== 'local' || options.isolatedSpellTier || options.isolatedCastingPolicy)) throw Error('Reaction diagnostics require local mode and no isolated spell policy');
     this.spawns = new SpawnDirector(options.seed);
     this.spawns.reset(config.countdownMs);
@@ -34,7 +35,7 @@ export class Match {
     return {
       character: this.options.characters[id], score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + config.pacing.firstSpawnMs,
-      nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldTier: 1, shieldUntil: 0, magicShieldUntil: 0,
+      nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldTier: 1, shieldUntil: 0, shieldPermanent: false, magicShieldUntil: 0,
       invasionUntil: 0, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorCharges: 0, tinCharges: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, tendingUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepColumns: [], sweepTier: 1, nextSweep: 0, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
     };
   }
@@ -79,7 +80,7 @@ export class Match {
           player.holes[hole] = null;
         }
       });
-      if (player.shieldUntil <= state.time) player.mistakeShield = 0;
+      if (!player.shieldPermanent && player.shieldUntil <= state.time) player.mistakeShield = 0;
     });
     this.spawns.update(state);
     // Tier 1 owns its column for the full window: include targets born this tick.
@@ -97,6 +98,7 @@ export class Match {
       const tier = this.state.players[action.player].stars;
       if (this.options.isolatedSpellTier && tier !== this.options.isolatedSpellTier) return;
       if (castSpell(this.state, action.player)) {
+        if(config.spells.warningMs===0)resolveSpells(this.state,this.starCapacity,this.statistics);
         this.emit(action.player, 'cast', undefined, tier);
         this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
         if (this.state.players[action.player].character === 'champignon' && (tier === 1 || tier === 4)) this.sweepBoard(action.player);
@@ -125,6 +127,7 @@ export class Match {
       this.emit(id, 'shield', undefined, undefined, 'mole');
       return;
     }
+    if(automated && player.character==='sprig')this.statistics[id][target.kind==='mole'?'automationMoleHits':target.kind==='star'?'automationStarHits':'automationRabbitHits']++;
     if(target.extended) {
       const stats=this.statistics[id];
       stats[target.kind==='mole'?'tendingMoleHits':target.kind==='star'?'tendingStarHits':'tendingRabbitHits']++;
@@ -150,7 +153,7 @@ export class Match {
 
   private penalize(id: PlayerId, amount: number, hole?: number, targetKind?: TargetKind, reason?: GameEvent['reason']): void {
     const player = this.state.players[id];
-    if (player.mistakeShield > 0 && player.shieldUntil > this.state.time) {
+    if (hasGuard(player,this.state.time)) {
       player.mistakeShield--;
       this.statistics[id].guardBlocks++;
       this.statistics[id].guardPointsPrevented += amount;

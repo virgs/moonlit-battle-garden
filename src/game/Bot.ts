@@ -1,4 +1,4 @@
-import { hasTinCaps } from './targetModifiers';
+import { hasGuard,hasTinCaps } from './targetModifiers';
 import { config } from './config';
 import { IsolatedCasting } from './IsolatedCasting';
 import { busiestColumns } from './targetColumns';
@@ -77,7 +77,7 @@ export class Bot {
       const canSteal = player.character === 'andromoss' && player.stars === 3 && opponent.stars >= 2;
       const hostile = player.character === 'andromoss' || (player.character === 'captain-bramble' && (player.stars === 1 || player.stars === 4)) || (player.character === 'duskmantle' && player.stars !== 3);
       const waitForWard = hostile && opponent.magicShieldUntil > state.time;
-      const alreadyGuarded = defender && player.stars === 2 && player.mistakeShield > 0 && player.shieldUntil > state.time;
+      const alreadyGuarded = defender && player.stars === 2 && hasGuard(player,state.time);
       const needsCleanse = player.character === 'sprig' && player.stars === 3 && (player.pending.length > 0 || (player.armorUntil > state.time || hasTinCaps(player)) || player.markUntil > state.time || player.camouflageUntil > state.time || player.decoysUntil > state.time || player.invasionUntil > state.time);
       const emptyTheft = player.character === 'andromoss' && (player.stars === 1 || player.stars === 3) && opponent.stars === 0;
       if (!pointlessSweep && !emptyTheft && !waitForWard && !alreadyGuarded && (player.stars >= this.desiredTier || emergency || canSteal || needsCleanse)) {

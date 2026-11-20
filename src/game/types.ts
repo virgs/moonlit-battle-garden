@@ -20,6 +20,7 @@ export type Player = {
   mistakeShield: number;
   shieldTier: number;
   shieldUntil: number;
+  shieldPermanent: boolean;
   magicShieldUntil: number;
   invasionUntil: number;
   decoysUntil: number;

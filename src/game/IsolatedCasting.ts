@@ -1,4 +1,5 @@
 import type { Match } from './Match';
+import { hasGuard } from './targetModifiers';
 import { config } from './config';
 import { Random } from './random';
 import { busiestColumns } from './targetColumns';
@@ -26,6 +27,24 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
     const first = targets.sort((a,b)=>a.expires-b.expires || a.id-b.id)[0];
     return first ? `${prefix}:${first.id}` : null;
   };
+  if(match.options.isolatedSpellTier===2) {
+    if(player.character==='champignon'||player.character==='captain-bramble') {
+      if(hasGuard(player,time))return null;
+      return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'guard');
+    }
+    if(player.character==='sprig') {
+      if(player.automationUntil>time)return null;
+      const column=busiestColumns(player,1)[0];
+      const targets=player.holes.filter((_,hole)=>hole%3===column).filter(visible);
+      const urgent=targets.filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs);
+      const useful=targets.some(t=>t.kind==='rabbit')?[]:targets.filter(t=>t.kind==='mole'||t.kind==='star');
+      return witness(urgent.length?urgent:useful,`tines:${column}`);
+    }
+    if(enemy.magicShieldUntil>time)return null;
+    if(player.character==='andromoss'&&(enemy.invasionUntil>time||enemy.decoysUntil>time))return null;
+    if(player.character==='duskmantle'&&enemy.camouflageUntil>time)return null;
+    return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),player.character==='andromoss'?'riot':'veil');
+  }
   switch (player.character) {
     case 'champignon': {
       if (player.sweepUntil > time) return null;

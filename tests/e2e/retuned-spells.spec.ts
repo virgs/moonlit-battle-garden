@@ -70,8 +70,8 @@ test('Tin Caps arms three future moles and synchronizes their permanent extra hi
   const caster=page.locator('.player-0'),enemy=page.locator('.player-1');
   for(let n=0;n<200&&!await caster.locator('.hole[data-kind="star"]:enabled').count();n++)await page.clock.runFor(100);
   await caster.locator('.hole[data-kind="star"]').first().click();await caster.locator('.cast-button').click();
-  await page.clock.runFor(1600);await expect(enemy).toHaveAttribute('data-tin-charges','0');
-  const seen=new Set<string>();let activated=false;
+  await expect(enemy).toHaveAttribute('data-tin-charges','3');await page.clock.runFor(1600);
+  const seen=new Set<string>();let activated=true;
   for(let n=0;n<120;n++) {
     await page.clock.runFor(100);
     const remaining=Number(await enemy.getAttribute('data-tin-charges'));
@@ -83,4 +83,24 @@ test('Tin Caps arms three future moles and synchronizes their permanent extra hi
     if(activated&&remaining===0)break;
   }
   expect(activated).toBe(true);expect(seen.size).toBe(3);await expect(enemy).toHaveAttribute('data-tin-charges','0');
+});
+
+for(const hero of ['champignon','captain-bramble'] as const)test(`${hero} two-star guard shows two permanent charges and disappears after two mistakes`,async({page})=>{
+  await page.clock.install();await openSelection(page,'local');await chooseCharacter(page,'Player 1',hero);await enterMatch(page);
+  await expect(page.locator('.player-0 .cast-button')).toBeVisible();
+  await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
+  const garden=page.locator('.player-0');
+  for(let stars=0;stars<2;stars++){
+    const star=garden.locator('.hole[data-kind="star"]:enabled');
+    for(let n=0;n<250&&!await star.count();n++)await page.clock.runFor(100);
+    await star.first().click();
+  }
+  await garden.locator('.cast-button').click();
+  await expect(garden).toHaveAttribute('data-guard-charges','2');await expect(garden).toHaveAttribute('data-guard-permanent','true');
+  await page.clock.runFor(1500);await expect(page.locator('.effect-guard')).toBeVisible();
+  await expect(garden).toHaveAttribute('data-guard-charges','2');
+  for(const remaining of [1,0]){
+    await garden.locator('.hole[data-kind="empty"]').first().dispatchEvent('pointerdown',{button:0});await expect(garden).toHaveAttribute('data-guard-charges',String(remaining));
+  }
+  await expect(page.locator('.effect-guard')).toHaveCount(0);
 });

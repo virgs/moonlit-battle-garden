@@ -1,3 +1,4 @@
+import { beforeEach,afterEach } from 'vitest';
 import { expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { Match } from '../../src/game/Match';
@@ -77,11 +78,11 @@ it('Bramble armor takes extra strikes without granting early points, and expires
   }
 });
 
-it('Bramble guards consume one or three charges, independently of hostile armor', () => {
+it('Bramble guards consume two or three charges, independently of hostile armor', () => {
   for(const tier of [2,3]) {
     const match=game('captain-bramble','sprig'),player=match.state.players[0];
     cast(match,0,tier);
-    for(let n=0;n<(tier===2?1:3);n++) match.action({type:'hit',player:0,hole:8});
+    for(let n=0;n<(tier===2?2:3);n++) match.action({type:'hit',player:0,hole:8});
     expect(player.score).toBe(0);
     match.action({type:'hit',player:0,hole:8});expect(player.score).toBe(-config.penalties.empty);
   }
@@ -202,3 +203,8 @@ it('Tin Caps ignores current targets and armors exactly the next three moles wit
   const score=victim.score;match.action({type:'hit',player:1,hole:0});expect(victim.score).toBe(score);
   match.action({type:'hit',player:1,hole:0});expect(victim.score).toBe(score+config.points.mole);
 });
+
+// Historical queued-resolution controls; defaults are tested in hostile-immediate.test.ts.
+const historicalWarning=config.spells.warningMs;
+beforeEach(()=>{config.spells.warningMs=650;});
+afterEach(()=>{config.spells.warningMs=historicalWarning;});

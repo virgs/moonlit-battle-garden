@@ -4,7 +4,7 @@ import type { GameAction, MatchOptions, PlayerId } from '../game/types';
 import type { Snapshot } from '../game/Session';
 
 // Bump when simulation or wire semantics change; config changes also reject mismatched builds.
-export const RULESET = `moonlit-12:${JSON.stringify({ config, characters })}`;
+export const RULESET = `moonlit-13:${JSON.stringify({ config, characters })}`;
 export type Input = { type: 'hit'; hole: number; target: number | null } | { type: 'cast' };
 export type Command = { kind: 'input'; input: Input } | { kind: 'next' };
 export type Wire = { kind:'pick'; pick:CharacterPick } | { kind:'lobby'; picks:LobbyPicks } | Command | { kind: 'state'; snapshot: Snapshot } | { kind: 'ready' }

@@ -50,3 +50,8 @@ export function cleanse(player: Player): void {
 export function hasTinCaps(player:Player):boolean {
   return player.tinCharges>0 || player.holes.some(target=>target?.persistentArmor && !!target.armor);
 }
+
+/** Charge-only guards do not need a timer or non-finite online values. */
+export function hasGuard(player:Player,time:number):boolean {
+  return player.mistakeShield>0 && (player.shieldPermanent || player.shieldUntil>time);
+}

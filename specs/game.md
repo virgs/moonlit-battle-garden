@@ -128,3 +128,16 @@ Current pooled and per-level matrices, before→after spell reminders, coverage 
 New state: player.tinCharges, target.persistentArmor; no Infinity values/timer sent online. Protocol12 rejects older rulesets. HUD effect remains while quota or active persistent armor exists; normal bot cleanse/sweep awareness recognizes new armor state. Isolated cast visibility/delay/opportunity policy otherwise unchanged (still witnesses visible unarmored moles, a potential strategy limitation for future-only armor).
 
 Other current one-star spells unchanged: Champignon continuous busiest-column hits/3 s; Andromoss all stars/650 ms warning (cap3 experimental only); Duskmantle three marks/8 s/+8 miss penalty; Sprig +0.75 s once per target/6 s aura. [Current matrices, before→after and limitations](../reports/tin-next-review.md).
+
+
+### Current two-star guards, casting policy and zero warnings (D129/D130/I22/I23)
+
+**All hostile warnings are removed** (warningMs=0) unless a future per-spell exception is explicitly requested. Hostile effects apply synchronously at cast start, before shared casting freeze; the opponent has no window to spend stars/cast a defense after the spell starts. An already-active ward still blocks the effect. No Incoming warning message appears. The shared cast animation remains: simulation clocks, targets, active effects and input freeze until it finishes. Historical warning flags exist only for controlled reproduction.
+
+**Champignon — Mushroom Guard** and **Bramble — Bramble Brace** are identical **two-star spells: next two mistakes blocked, no time limit** (was one mistake/12 s and one/8 s respectively). Covers missed moles, rabbit hits and empty hits. Recasting refreshes to two rather than adding; cleansing preserves positive protection; round reset clears charges/flag. No Infinity values online. Royal Cleanup’s three guards/12 s and Iron Resolve’s three/8 s remain unchanged. No tier swap adopted; reassess after this strengthened guard test.
+
+Isolated tier2 now adopts tier1’s100 ms visibility and a seeded200–400 ms decision delay, multiplied×3Easy/×2Medium/×1Hard. A sample persists per opportunity, invalidation cancels, pause/cast freezes it. Guards require an unprotected urgent own mole; Tines a useful/urgent fixed busiest column, no active refresh; Riot/Veil visible enemy mole/star, no active refresh or casting into active wards. Bots continue hitting while deciding. Normal full-kit casting retains its prior schedule/strategy, recognizing permanent guards.
+
+Other tier2 rules unchanged: **Andromoss — Rabbit Riot7.5 s** / extra rabbits every0.95 s subject to spawn limits; **Duskmantle — Violet Veil6.5 s**, dimming plus existing+0.2 s bot reaction; **Sprig — Helping Tines6.5 s**, one fixed-column hit every0.25 s, normal star/mole rewards and rabbit penalties. Flat observed automation counters do not alter rules.
+
+Protocol13 adds shieldPermanent; UI guards remain until charges are consumed. One-star numerical spell powers stay accepted, but the explicitly requested global warning removal changes their application timing too, so tier1 was rerun. [Current two-star matrices, before→after and factor/coverage comparison](../reports/tier2-guard-policy-review.md); [current one-star no-warning audit](../reports/tier1-no-warning-review.md). No final human/full-kit balance claim.

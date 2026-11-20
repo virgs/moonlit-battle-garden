@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach,afterEach,describe, expect, it } from 'vitest';
 import { Match } from '../../src/game/Match';
 import { Bot } from '../../src/game/Bot';
 import { config } from '../../src/game/config';
@@ -93,9 +93,11 @@ describe('magic', () => {
     expect([player.holes[0],player.holes[3],player.holes[6]]).toEqual([null,null,null]);
     expect(player.stars).toBe(1); expect(player.score).toBe(config.points.mole + config.points.star - config.penalties.rabbit);
   });
-  it('a mistake guard absorbs one hit then expires', () => {
+  it('a mistake guard absorbs two mistakes then runs out', () => {
     const match = create(); const player = match.state.players[0];
     player.stars = 2; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
+    match.action({ type: 'hit', player: 0, hole: 0 });
+    expect(player.score).toBe(0);
     match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.score).toBe(0);
     match.action({ type: 'hit', player: 0, hole: 0 });
@@ -178,3 +180,7 @@ describe('computer opponents', () => {
     expect(run('hard')).toBeGreaterThan(run('easy'));
   });
 });
+
+const historicalWarning=config.spells.warningMs;
+beforeEach(()=>{config.spells.warningMs=650;});
+afterEach(()=>{config.spells.warningMs=historicalWarning;});

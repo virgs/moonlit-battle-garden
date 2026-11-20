@@ -42,7 +42,7 @@ penalties:
 spells:
   castFreezeMs: 1500
   cooldownMs: 1800
-  warningMs: 650
+  warningMs: 0
   borrowedSparkCap: 4
   invasionMs: 7500
   decoysMs: 8500
@@ -51,6 +51,7 @@ rosterSpells:
   cleanSweepMs: 3000
   royalSweepIntervalMs: 250
   brambleGuardMs: 8000
+  twoStarGuardMode: charges
   armorMs: 3000
   armorTargets: 3
   tinCapsMode: next

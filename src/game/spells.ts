@@ -12,7 +12,9 @@ export function message(player: Player, text: string, time: number): void {
 function guard(player: Player, time: number, charges = 1, tier = 1, duration = config.spells.shieldMs): void {
   player.mistakeShield = charges;
   player.shieldTier = tier;
-  player.shieldUntil = time + duration;
+  player.shieldPermanent=tier===2 && config.rosterSpells.twoStarGuardMode==='charges';
+  player.shieldUntil=player.shieldPermanent?0:time+duration;
+  if(player.shieldPermanent)player.mistakeShield=2;
 }
 
 export function castSpell(state: MatchState, id: PlayerId): boolean {
@@ -45,7 +47,7 @@ export function castSpell(state: MatchState, id: PlayerId): boolean {
   } else {
     const opponent = state.players[id === 0 ? 1 : 0];
     opponent.pending.push({ tier, from: id, at: state.time + config.spells.warningMs });
-    message(opponent, `Incoming: ${characters[player.character].spells[tier - 1].name}`, state.time);
+    if(config.spells.warningMs>0)message(opponent, `Incoming: ${characters[player.character].spells[tier - 1].name}`, state.time);
   }
   return true;
 }
