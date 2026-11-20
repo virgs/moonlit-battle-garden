@@ -286,3 +286,10 @@ Current pooled and per-level matrices, before→after spell reminders, coverage 
 New state: player.tinCharges, target.persistentArmor; no Infinity values/timer sent online. Protocol12 rejects older rulesets. HUD effect remains while quota or active persistent armor exists; normal bot cleanse/sweep awareness recognizes new armor state. Isolated cast visibility/delay/opportunity policy otherwise unchanged (still witnesses visible unarmored moles, a potential strategy limitation for future-only armor).
 
 Other current one-star spells unchanged: Champignon continuous busiest-column hits/3 s; Andromoss all stars/650 ms warning (cap3 experimental only); Duskmantle three marks/8 s/+8 miss penalty; Sprig +0.75 s once per target/6 s aura. [Current matrices, before→after and limitations](../reports/tin-next-review.md).
+
+
+### Two-star baseline started (D128/I21)
+
+One-star D127 remains accepted/fixed; no strength/timing changes in this pass. Current tier2: **Champignon — Mushroom Guard**, one mistake blocked/**12 s**; **Andromoss — Rabbit Riot**, extra enemy rabbits every0.95 s subject to spawn limits/**7.5 s**; **Bramble — Bramble Brace**, one mistake blocked/**8 s**; **Duskmantle — Violet Veil**, readable dimming and existing **+0.2 s bot reaction**/**6.5 s**; **Sprig — Helping Tines**, busiest fixed column, one normal hit every0.25 s/**6.5 s**, including star collection, rabbit penalties and separate armor strikes.
+
+7,500 matches, no unfinished; immediate full-two-star-meter casting remains the existing tier2 diagnostic, unlike the adopted tier1 opportunity/delay policy. Sprig leads Easy, Duskmantle Medium/Hard; large spreads/flips and bot-model caveats preserved. No duration/AI changes adopted. [Current matrices, spells and interpretation](../reports/balance-tier-2-review.md).

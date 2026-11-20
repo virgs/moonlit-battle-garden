@@ -167,3 +167,10 @@ Other current one-star spells unchanged: Champignon continuous busiest-column hi
 ### One-star tuning accepted (D127)
 
 The user accepts D125/D126 as the baseline and closes tier1 tuning: no hero wins every matchup at every AI level. Preserve the existing imbalance/counter flips and bot-policy caveats; acceptance is not proof of human/full-kit balance. Next balance pass: tier2. Current rules and matrices remain in reports/tin-next-review.md and reports/balance-tier-1.md.
+
+
+### Two-star baseline started (D128/I21)
+
+One-star D127 remains accepted/fixed; no strength/timing changes in this pass. Current tier2: **Champignon — Mushroom Guard**, one mistake blocked/**12 s**; **Andromoss — Rabbit Riot**, extra enemy rabbits every0.95 s subject to spawn limits/**7.5 s**; **Bramble — Bramble Brace**, one mistake blocked/**8 s**; **Duskmantle — Violet Veil**, readable dimming and existing **+0.2 s bot reaction**/**6.5 s**; **Sprig — Helping Tines**, busiest fixed column, one normal hit every0.25 s/**6.5 s**, including star collection, rabbit penalties and separate armor strikes.
+
+7,500 matches, no unfinished; immediate full-two-star-meter casting remains the existing tier2 diagnostic, unlike the adopted tier1 opportunity/delay policy. Sprig leads Easy, Duskmantle Medium/Hard; large spreads/flips and bot-model caveats preserved. No duration/AI changes adopted. [Current matrices, spells and interpretation](../reports/balance-tier-2-review.md).

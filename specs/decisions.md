@@ -257,6 +257,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D127 | User accepts the current one-star tuning and closes this pass provided no hero dominates every matchup at all AI levels. Current matrices satisfy that criterion: Champignon loses to Bramble on Medium/Hard; Bramble loses to Champignon on Easy; other heroes also have losing matchups. Freeze current D125/D126 values; next balance pass is tier2. This is acceptance for progression, not a claim of equal/full-kit/human balance; preserve all matrix spreads, flips and strategy limitations. |
 
+| D128 | User moves on to two-star balance after accepting tier1. Establish the current tier2 baseline without altering accepted one-star values, spell powers or casting rules. Present owner/effect/duration reminders with pooled and per-level matrices. |
+
+| I21 | Run 7,500 real-simulation tier2 matches: 100 paired seeds/pair/difficulty, 200 games per distinct pairing/level, 100 mirrors per hero/level, zero unfinished. Existing isolated tier2 uses immediate full-meter casting, not tier1’s opportunity/delay policy; disclose this strategy difference. Violet Veil already adds 200 ms bot reaction, not merely cosmetic dimming. Sprig leads Easy; Duskmantle leads Medium/Hard; preserve flips and explanatory hypotheses, do not silently tune spells or fake visual recognition. Report balance-tier-2-review.md. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

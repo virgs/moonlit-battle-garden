@@ -141,3 +141,6 @@ Current D125 tuning: **Sprig — Gentle Tending** grants +**0.75 s once per curr
 
 
 Current D126 tuning: **Captain Bramble — Tin Caps** affects **the next three moles to appear, no duration, one extra hit each** (previously current/future within 3 s). Existing visible targets are unaffected. Pending charges persist within a round, recast refreshes to three, cleanse/reset clears them. Armor remains until used/target disappears/cleansed; Heavy Harvest unchanged. Protocol12 carries the new fields. [Current matrices and spell reminders](reports/tin-next-review.md).
+
+
+Two-star baseline is now recorded without changing accepted one-star tuning or spell powers: [pooled/per-level matrices, spell durations and strategy limitations](reports/balance-tier-2-review.md). 7,500 real-simulation games; tier2 still uses immediate full-meter casting. Violet Veil already adds 200 ms bot reaction while dimming sprites; Helping Tines uses normal rabbit penalties. These results are a baseline for the next discussion, not adopted strength changes.
