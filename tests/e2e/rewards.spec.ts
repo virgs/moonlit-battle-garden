@@ -55,6 +55,10 @@ test('star artwork charges and clears when casting; pause freezes its animation'
   await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await board.getByRole('button', { name: /Cast magic/ }).click();
   await expect(stars).toHaveAttribute('data-charge', '0');
+  await expect(stars).toHaveAttribute('data-displayed-charge','1');
+  await expect(stars).toHaveAttribute('data-frame','2');
+  await expect(page.locator('.cast-banner')).toHaveCount(0);
+  await expect(stars).toHaveAttribute('data-displayed-charge','0');
   await expect(stars.locator('image').first()).toHaveAttribute('y', '0');
   await expect(page.locator('.stars .charged, .round-wins')).toHaveCount(0);
 });

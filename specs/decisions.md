@@ -331,6 +331,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I35 | Add a full-window rgba-black50% layer in a casting scene above HUD and below bright hero/stars (menu stays above). Replace canvas armor/curse arcs and separate1★ curse placement with unified, non-interactive target badges: shield total remaining hits; violet extra miss penalty; gold manual bonus; amber earned shortening; green earned extension. Snapshot-derived statuses/accessibility, actual lifetime persistence and cleansing, uniformly anchored to shared holes; no simulation/AI/asset changes.225 tests/build and28 desktop/mobile browser cases pass, including full-window layer geometry, charge/hit updates, curse/bonus/lifetime statuses, input and marker alignment. Refresh two full casting GIFs plus marker screenshots without image inspection. |
 
+| D147 | User reports the star-container transition freezing midway during casting; it should finish before the hero animation or start after it. Use the allowed after-cast option: completed charge pose during the cut-scene, pending charge transition afterward. Do not change spell/casting gameplay timing. |
+
+| I36 | Add shared read-only star-meter presentation state for board vertical/horizontal and hidden opponent meters. Capture caster cost as held charge, defer spending/theft/reward visuals until cast end; handle skipped pickup/inter-cast snapshots, unchanged opponents, pause, reduced motion and terminal scenes. Logical charges and all simulation/AI/network/SFX behavior unchanged.231 tests/build and12 desktop/mobile reward/meter browser cases pass, explicitly checking the complete pose throughout the1.5 s hold and frame0→1→2 only afterward. Refresh in-game GIFs without image inspection. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

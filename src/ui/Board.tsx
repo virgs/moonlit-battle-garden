@@ -20,7 +20,7 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
       onKeyDown={event => { if ((event.key === 'Enter' || event.key === ' ') && !event.repeat) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
     />)}</div>
     <button className="cast-button star-control" style={position(garden.stars)} aria-label={`Cast magic (${player.stars} stars)`} disabled={!playing || opponent || !player.stars || snapshot.state.time < player.nextCast} onClick={() => session.act({ type: 'cast', player: id })}>
-      <StarMeter count={player.stars} time={snapshot.state.time} horizontal={garden.horizontalStars} />
+      <StarMeter count={player.stars} time={snapshot.state.time} horizontal={garden.horizontalStars} casting={!!snapshot.state.casting} spent={snapshot.state.casting?.player===id?snapshot.state.casting.tier:undefined} settled={snapshot.state.phase!=='playing'} />
     </button>
   </section>;
 }
