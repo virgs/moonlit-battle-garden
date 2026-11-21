@@ -4,7 +4,6 @@ import { resolve } from 'node:path';
 import { presentation, validSheet } from '../src/presentation/config';
 
 let missing = 0, invalid = 0, present = 0;
-const procedural=Object.values(presentation).flatMap(hero=>Object.values(hero.effects)).filter(clip=>clip.renderer==='procedural').length;
 for (const [id, character] of Object.entries(presentation)) {
   const expected = [
     { path: character.portrait, clip: null },
@@ -13,7 +12,7 @@ for (const [id, character] of Object.entries(presentation)) {
     { path: character.standing.src, clip: character.standing },
     { path: character.home.background.src, clip: null },
     { path: character.home.music.src, clip: null },
-    ...Object.values(character.effects).filter(clip=>clip.renderer!=='procedural').map(clip => ({ path: clip.src, clip })),
+    ...Object.values(character.effects).map(clip => ({ path: clip.src, clip })),
     ...Object.values(character.casts).map(clip => ({ path: clip.src, clip })),
     ...Object.values(character.casts).flatMap(clip => clip.sound ? [{ path: clip.sound, clip: null }] : []),
   ];
@@ -51,5 +50,5 @@ for (const home of catalog.homes) {
     }
   }
 }
-console.log(`${present} ready + ${procedural} game-drawn effects, ${missing} awaiting final assets, ${invalid} invalid. Missing files use prototype fallbacks.`);
+console.log(`${present} ready, ${missing} awaiting final assets, ${invalid} invalid. Missing files use prototype fallbacks.`);
 if (invalid || (process.argv.includes('--strict') && missing)) process.exitCode = 1;

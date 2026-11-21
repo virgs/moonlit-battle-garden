@@ -10,16 +10,16 @@ import type { CharacterId } from '../../src/game/types';
 const heroes=Object.keys(spellMotifs) as CharacterId[];
 function game(hero:CharacterId){const m=new Match({characters:[hero,'sprig'],mode:'local',difficulty:'hard',seed:41});m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);return m;}
 function effects(m:Match,side:0|1){return higherSpellEffects({state:m.state,events:m.events},side);}
-it('has fifteen unique silhouettes with multiple simulation-driven poses',()=>{
+it('has twenty unique raster motifs with multiple simulation-driven poses',()=>{
  const motifs:string[]=[];
- for(const hero of heroes)for(const tier of [2,3,4]){
+ for(const hero of heroes)for(const tier of [1,2,3,4]){
   motifs.push(spellMotifs[hero][tier]);
   const poses=Array.from({length:8},(_,frame)=>renderToStaticMarkup(createElement(SpellGlyph,{character:hero,tier,time:frame*125})));
   // Strip diagnostic frame attributes: the artwork itself must move.
   expect(new Set(poses.map(p=>p.replace(/data-frame="\d"/,''))).size).toBeGreaterThan(1);
   expect(poses[0]).toContain(`data-motif="${spellMotifs[hero][tier]}"`);
  }
- expect(new Set(motifs).size).toBe(15);
+ expect(new Set(motifs).size).toBe(20);
 });
 for(const hero of heroes)for(const tier of [2,3,4])it(`${hero} ${tier}: actual casts select the right visual without mutating rules`,()=>{
  const m=game(hero);m.state.players[0].stars=tier;m.state.players[1].stars=4;

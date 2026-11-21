@@ -18,7 +18,8 @@
     "balance:roster": "vite-node scripts/balance-roster.ts",
     "balance:andromoss": "vite-node scripts/balance-andromoss.ts",
     "balance:duration-review": "vite-node scripts/balance-duration-review.ts",
-    "diagnostic:reaction": "vite-node scripts/reaction-diagnostic.ts"
+    "diagnostic:reaction": "vite-node scripts/reaction-diagnostic.ts",
+    "assets:spells": "vite-node scripts/build-spell-art.ts"
   },
   "dependencies": {
     "peerjs": "^1.5.5",

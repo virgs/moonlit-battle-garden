@@ -12,7 +12,7 @@ it('uses valid eight-frame transparent PNG exports for all five one-star effects
   for(const hero of ['champignon','captain-bramble','andromoss','duskmantle','sprig'] as const){
     const clip=presentation[hero].effects[1],png=readFileSync('public'+clip.src);
     expect(validSheet(clip,png.readUInt32BE(16),png.readUInt32BE(20))).toBe(true);expect(png[25]).toBe(6);
-    expect(clip.frameCount).toBe(8);expect(clip.fps).toBe(6);
+    expect(clip.frameCount).toBe(8);expect(clip.fps).toBe(8);
   }
 });
 it('shows remaining one-star guard charges, without treating five-charge guards as one-star effects',()=>{

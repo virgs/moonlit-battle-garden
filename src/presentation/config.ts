@@ -4,7 +4,7 @@ import { characterIds, type CharacterId } from '../game/types';
 
 export type MusicAsset = { src: string; fallback: string; volume: number; loopStartMs: number; loopEndMs: number | null };
 export type BackgroundAsset = { src: string; fallback: string; opacity: number; fallbackOpacity: number; fallbackTint: number; focusX: number; focusY: number };
-export type CastClip = { renderer?: 'procedural'; src: string; frameWidth: number; frameHeight: number; frameCount: number; columns: number; fps: number; holdMs: number; sound: string | null };
+export type CastClip = { src: string; frameWidth: number; frameHeight: number; frameCount: number; columns: number; fps: number; holdMs: number; sound: string | null };
 export type CharacterPresentation = {
   portrait: string;
   icon: string;

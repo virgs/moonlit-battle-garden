@@ -138,3 +138,21 @@ Use15 code-drawn pixel motifs, without generating new sprites or additional hero
 Pending armor/curse quota appears on the board rim until allocated; assigned badges remain on live affected moles. Hidden opponent gardens retain compact effect/count indicators, including already assigned targets. Uniformly scale motifs with board geometry, keep them transparent to input, and retain existing readable target numbers. The manifest marks2–4 effects as procedural; their optional future PNG paths are no longer reported as missing assets.
 
 `pnpm exec vite-node scripts/capture-higher-spells.ts` records the15-effect animated comparison and real Game cast/pause examples at desktop, phone portrait and landscape sizes. Captures stay in ignored output/guard-flows/higher-spells; the user reviews the images.
+
+### Unified raster spell artwork (D153 / I41, supersedes D152 visuals)
+
+All20 spells, including1★, now use transparent48×48 source frames in eight-frame horizontal PNG sheets at8fps. The previous vector paths are removed; SVG remains only as the clipped raster-sheet viewport. Integer source pixels, hard0/255 alpha, palette bands, bevels and upper-left highlights establish stepped edges and volume. Use nearest-neighbor/pixelated sampling at every board, marker, hidden-HUD and gallery size, with sharp offset shadows. Game time still owns frames; pause/casting freeze, and reduced motion selects frame0. No gameplay changes.
+
+| Hero | Signature colour |1★ |2★ |3★ |4★ |
+|---|---|---|---|---|---|
+|Sir Champignon|Rose pink `#ed83ac`|Mushroom buckler|Banded broom|Mushroom fortress|Crowned spore cyclone|
+|Andromoss|Moon cyan `#65d9ea`|Rabbit portal|Alien hourglass|Star magnet|Rabbit UFO|
+|Captain Bramble|Ember red `#ed715c`|Metal-rimmed ember buckler|Tin helmet with ember visor|Red-eyed helmet sentinel|Iron cage with ember briars|
+|Duskmantle|Twilight violet `#b292ef`|Amethyst rune|Ink veil with gold clasp|Violet soul lantern|Thorn eye with gold bezel|
+|Sprig|Seedling green `#a7d76b`|Dewdrop leaf|Green-banded rake|Garden shears|Twin geared cultivators|
+
+Each spell has a visible hero-colour element in every frame, while steel, wood, brass, cream and water ramps provide secondary material colours. Signature colours belong to heroes; the red/blue score bar and player-side board colours keep their separate meaning.
+
+Source artwork lives in scripts/art/spell-pixels.ts. `pnpm assets:spells` deterministically writes20 PNG sheets and their provenance/palette manifest in public/assets/effects/pixel-spells. This pass uses no PixelLab/AI generation or image inspection. Original one-star exports remain archived; the configured active sheets now all use the new raster directory. The asset audit reports56 ready files and5 optional portraits missing,0 invalid.
+
+The capture script now produces a five-hero × four-tier animated matrix with colour swatches, plus real desktop and single-board phone cast/pause examples in ignored output/guard-flows/pixel-spells. The user decides whether the visual result is approved; technical checks do not claim aesthetic approval.

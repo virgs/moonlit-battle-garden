@@ -1,9 +1,6 @@
-import { useEffect,useState,type CSSProperties } from 'react';
-import { assetUrl } from '../assets/url';
+import type { CSSProperties } from 'react';
 import type { Snapshot } from '../game/Session';
 import type { CharacterId,MatchState } from '../game/types';
-import { presentation,validSheet } from '../presentation/config';
-import { inspectImage } from '../presentation/images';
 import { oneStarEffects,type OneStarEffect } from '../presentation/oneStarEffects';
 import type { GardenLayout } from '../render/layout';
 import './spell-effects.css';
@@ -11,16 +8,9 @@ import { config } from '../game/config';
 import { higherSpellEffects } from '../presentation/spellEffects';
 import { SpellGlyph } from './SpellGlyph';
 
-/** The same eight-frame artwork is reused at board and HUD sizes, with uniform scaling. */
+/** Same shaded raster sheet at board, target-marker and hidden-opponent HUD sizes. */
 export function OneStarSprite({character,time,style}:{character:CharacterId;time:number;style?:CSSProperties}) {
-  const clip=presentation[character].effects[1];
-  const [ready,setReady]=useState(false);
-  useEffect(()=>{let alive=true;void inspectImage(clip.src).then(image=>{if(alive)setReady(!!image&&validSheet(clip,image.width,image.height));});return()=>{alive=false;};},[clip]);
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const frame=reduced?0:Math.floor(time*clip.fps/1000)%clip.frameCount;
-  return <svg className="one-star-sprite" style={style} viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow="hidden" aria-hidden="true" data-character={character} data-frame={frame} data-asset={ready?'ready':'loading'}>
-    <image href={assetUrl(clip.src)} width={clip.columns*clip.frameWidth} height={Math.ceil(clip.frameCount/clip.columns)*clip.frameHeight} x={-(frame%clip.columns)*clip.frameWidth} y={-Math.floor(frame/clip.columns)*clip.frameHeight}/>
-  </svg>;
+  return <SpellGlyph character={character} tier={1} time={time} style={style} className="one-star-sprite"/>;
 }
 
 export function OneStarBoardEffects({snapshot,garden}:{snapshot:Snapshot;garden:GardenLayout}) {
