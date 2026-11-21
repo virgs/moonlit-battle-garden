@@ -377,6 +377,12 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I46 | Remove target badge rectangles, render current-frame alpha silhouettes with5-source-pixel dark dilation plus2-pixel hero-colour edge, and preserve original raster art above it. Clip the sheet to the current frame before outlining, allow halo overflow, keep hit counts outlined in text and remove curse/bonus numbers. Reuse Sprig's approved leaf/dew raster for extended targets. Board/HUD circles and duration shading remain unchanged; no point values, rules, AI or network changes. Refresh comparison/phone captures and verify target clicking/alignment. |
 
+| D159 | User requests targeted-spell markers at least2× larger, then screenshots. Double marker sprites18→36 logical pixels and armor text12→24; keep effects icon-only apart from armor hits. |
+
+| I47 | Use44px marker rows and4px gaps; move enlarged armor counts to the icon's bottom corner so two36px icons fit side by side in the78px lane. Keep hole anchors, transparent wrappers, silhouettes and board-effect sizes unchanged. Capture enlarged targets/phone scene and current title at desktop/portrait/landscape, main menu and character selection. |
+
+| D160 | User wants to revisit screen flow after these pictures and make the first screen feel alive: mole tunnels, flying bats, shooting stars, turning owl heads, flashing jack-o'-lantern faces, camera movement and parallax. Current title/menu are captured for discussion; detailed composition, transitions and new animation work are not implemented in I47. New asset generation remains deferred. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -210,3 +210,15 @@ Target markers now have transparent wrappers and a dark background/outline follo
 Curse/bonus markers display only their icons, without −8/−6/+2 text. Armor alone retains its total hits-remaining number with a dark text outline. Exact point values remain in the simulation and accessibility descriptions; ordinary targets do not acquire score labels. Lifetime markers remain a cyan hourglass and the approved green leaf/dew raster. No new sprite generation or reward/penalty changes.
 
 D157's fixed circular backings still apply to board/HUD spell icons; D156's time shading still applies only there. Target markers use neither circles nor duration shading. The refreshed capture-target-effects script writes target-outlines-matrix.png and phone-outlined-markers.png in ignored output/guard-flows/target-effects, with icon-only curse/reward labels and armor counts visible. User retains visual review.
+
+### Doubled target markers and first-screen review (D159 / I47)
+
+Double target spell raster viewports18→36 logical pixels (uniformly scaled by garden scale), with silhouette outlines scaling along with them. Double actionable armor text12→24 logical pixels and anchor it at the icon's lower corner. A44px row with4px gaps fits two36px icons into the78px target lane without pushing armor counts into a separate line. Keep transparent containers, above-hole anchors and icon-only curse/reward/lifetime markers. Board/HUD effect sizing is unchanged.
+
+The target capture script verifies36×36 logical image dimensions and now writes a larger target-markers-double-matrix.png plus phone-double-markers.png. `pnpm exec vite-node scripts/capture-front-flow.ts` captures the unchanged title at1280×800,390×844 and844×390, plus actual desktop menu→two-character-selection navigation. Outputs are ignored under output/guard-flows/front-flow.
+
+### First-screen scene direction — discussion pending (D160)
+
+Current implementation: a single static castle backdrop, title text and key/tap prompt; title→mode menu→character selection→match, with online rooms/invites following their existing path. No title camera/parallax/ambient actor changes in this pass.
+
+User-requested direction: living moonlit garden with tunneling moles, bats, shooting stars, owl head turns and blinking pumpkin faces, plus camera movement/parallax. Proposed composition, not yet adopted: keep one scene behind title/menu/selection; use a slow sky/distant-woods layer, middle garden layer and closer soil/foliage; short camera glides between screens while UI remains steady. Stagger ambient events and preserve reduced-motion behavior. Reuse approved mole/dust/star assets and defer missing actor assets, using placeholders if needed; no new art generation in this pass.
