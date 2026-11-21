@@ -365,3 +365,9 @@ Add dark circular backing and hero-colour rim behind board/hidden-opponent spell
 D157 browser verification:32 desktop/mobile cases pass for spell sprites, offscreen indicators, target markers, click-through, countdown, pause and casting. Existing geometry is retained. Refreshed screenshots remain in ignored output/guard-flows/spell-duration for user review.
 
 Target-effect review: added reproducible12-case real-renderer screenshot matrix and a phone scene showing armor+bonus badges. Includes a normal mole control, two armor strengths, two curse strengths, reward/lifetime badges, all three extended target kinds and native72% dimming. Controlled arrivals receive actual spell modifiers; no game/UI/art changes.267 tests, capture assertions and production build pass. Visual review remains with the user.
+
+### Silhouette target markers and actionable numbers (D158)
+
+Replace rigid target badge rectangles with dark contours and subtle hero-colour edges following each current sprite frame. Remove visible penalty/reward point labels; keep armor hits remaining. Reuse approved leaf/dew art for extended targets. No score/rule/bot/network changes; board circles and timed fills remain as approved.269 tests and production build pass;12-case/phone screenshots refreshed. New assertions cover clipped-frame outline composition and icon-only point effects with accessible descriptions and retained armor count.
+
+D158 browser verification:28 desktop/mobile cases pass, including transparent target wrappers, visible silhouette glyphs, hidden reward/penalty text, armor count decrement/removal, target anchoring, click-through and unchanged board/HUD effects. Updated normal/modified target matrix and phone overlapping-marker screenshots pass their capture assertions. No balance run needed for this presentation-only change.

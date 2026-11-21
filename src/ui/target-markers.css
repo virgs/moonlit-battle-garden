@@ -1,5 +1,7 @@
 .target-markers-layer{position:absolute;z-index:3;pointer-events:none}
 .target-status-row{position:absolute;transform:translate(-50%,-100%);display:flex;flex-wrap:wrap;gap:calc(2*var(--marker-unit));justify-content:center;align-items:center;width:max-content;max-width:var(--marker-width);pointer-events:none}
-.target-status{display:inline-flex;align-items:center;gap:calc(1*var(--marker-unit));height:calc(17*var(--marker-unit));padding:0 calc(2*var(--marker-unit));background:#142127e8;box-shadow:0 0 0 calc(1*var(--marker-unit)) #10171dcc;color:#e1ebef;font:700 calc(12*var(--marker-unit))/1 'Literata',serif;white-space:nowrap;pointer-events:none}
-.target-status-icon,.target-status .one-star-sprite{display:block;width:calc(15*var(--marker-unit));height:calc(15*var(--marker-unit));image-rendering:pixelated;flex-shrink:0}
+.target-status{display:inline-flex;align-items:center;gap:calc(1*var(--marker-unit));height:calc(22*var(--marker-unit));padding:0;background:transparent;box-shadow:none;color:#e1ebef;font:700 calc(12*var(--marker-unit))/1 'Literata',serif;white-space:nowrap;pointer-events:none}
+.target-status .spell-glyph{display:block;width:calc(18*var(--marker-unit));height:calc(18*var(--marker-unit));image-rendering:pixelated;flex-shrink:0}
 .status-curse{color:#e6b9f3}.status-bonus{color:#f4d97d}.status-rush{color:#f2b17e}.status-tending{color:#b0e7a0}
+
+.target-hit-count{text-shadow:calc(1*var(--marker-unit)) 0 #071018,calc(-1*var(--marker-unit)) 0 #071018,0 calc(1*var(--marker-unit)) #071018,0 calc(-1*var(--marker-unit)) #071018}

@@ -373,6 +373,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I45 | Add an optional code-drawn48px pixel-disc backing to the shared raster viewport, enabled explicitly for board/hidden-opponent instances and off by default for target badges. Three static integer-scanline silhouettes provide dark outer edge, hero rim and dark face beneath the raster/shading layers. Keep geometry, input transparency, source sheets and duration logic unchanged. Refresh stage/game screenshots; no new assets or rule changes. |
 
+| D158 | User rejects rigid rectangular target badges and approves backgrounds/outlines following each animated icon silhouette. Remove visible reward/penalty point numbers rather than adding scores to ordinary targets; retain actionable armor hit counts. Keep leaf/hourglass lifetime cues and a subtle owning-hero-colour edge. |
+
+| I46 | Remove target badge rectangles, render current-frame alpha silhouettes with5-source-pixel dark dilation plus2-pixel hero-colour edge, and preserve original raster art above it. Clip the sheet to the current frame before outlining, allow halo overflow, keep hit counts outlined in text and remove curse/bonus numbers. Reuse Sprig's approved leaf/dew raster for extended targets. Board/HUD circles and duration shading remain unchanged; no point values, rules, AI or network changes. Refresh comparison/phone captures and verify target clicking/alignment. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

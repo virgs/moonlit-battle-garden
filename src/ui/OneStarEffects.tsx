@@ -9,8 +9,8 @@ import { higherSpellEffects } from '../presentation/spellEffects';
 import { SpellGlyph } from './SpellGlyph';
 
 /** Same shaded raster sheet at board, target-marker and hidden-opponent HUD sizes. */
-export function OneStarSprite({character,time,style,remaining,backed=false}:{character:CharacterId;time:number;style?:CSSProperties;remaining?:number;backed?:boolean}) {
-  return <SpellGlyph character={character} tier={1} time={time} style={style} remaining={remaining} backed={backed} className="one-star-sprite"/>;
+export function OneStarSprite({character,time,style,remaining,backed=false,outlined=false}:{character:CharacterId;time:number;style?:CSSProperties;remaining?:number;backed?:boolean;outlined?:boolean}) {
+  return <SpellGlyph character={character} tier={1} time={time} style={style} remaining={remaining} backed={backed} outlined={outlined} className="one-star-sprite"/>;
 }
 
 export function OneStarBoardEffects({snapshot,garden}:{snapshot:Snapshot;garden:GardenLayout}) {

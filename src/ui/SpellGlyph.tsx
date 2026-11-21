@@ -15,7 +15,7 @@ function pixelDisc(radius:number):string {
 }
 const backingPaths=[pixelDisc(24),pixelDisc(23),pixelDisc(22)];
 /** Uniform raster-sheet viewport; optional backing stays outside the duration layer. */
-export function SpellGlyph({character,tier,time,style,className='',remaining,backed=false}:{character:CharacterId;tier:number;time:number;style?:CSSProperties;className?:string;remaining?:number;backed?:boolean}){
+export function SpellGlyph({character,tier,time,style,className='',remaining,backed=false,outlined=false}:{character:CharacterId;tier:number;time:number;style?:CSSProperties;className?:string;remaining?:number;backed?:boolean;outlined?:boolean}){
  const id=useId().replace(/:/g,''),timed=remaining!==undefined;
  const clip=presentation[character].effects[tier],[ready,setReady]=useState(false);
  useEffect(()=>{let alive=true;setReady(false);void inspectImage(clip.src).then(image=>{if(alive)setReady(!!image&&validSheet(clip,image.width,image.height));});return()=>{alive=false;};},[clip]);
@@ -25,17 +25,27 @@ export function SpellGlyph({character,tier,time,style,className='',remaining,bac
  const darkRows=fraction===undefined?0:Math.round(clip.frameHeight*(1-fraction));
  const tint=[1,3,5].map(start=>parseInt(signatureColours[character].slice(start,start+2),16)/255*.13);
  const sheet={href:assetUrl(clip.src),width:clip.columns*clip.frameWidth,height:Math.ceil(clip.frameCount/clip.columns)*clip.frameHeight,x:-(frame%clip.columns)*clip.frameWidth,y:-Math.floor(frame/clip.columns)*clip.frameHeight};
- return <svg className={`spell-glyph ${className}`.trim()} style={style} viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow="hidden" aria-hidden="true" data-character={character} data-tier={tier} data-motif={spellMotifs[character][tier]} data-signature-colour={signatureColours[character]} data-frame={frame} data-asset={ready?'ready':'loading'} data-remaining={fraction} data-dark-rows={timed?darkRows:undefined} data-backed={backed||undefined}>
+ return <svg className={`spell-glyph ${className}`.trim()} style={style} viewBox={`0 0 ${clip.frameWidth} ${clip.frameHeight}`} overflow={outlined?'visible':'hidden'} aria-hidden="true" data-character={character} data-tier={tier} data-motif={spellMotifs[character][tier]} data-signature-colour={signatureColours[character]} data-frame={frame} data-asset={ready?'ready':'loading'} data-remaining={fraction} data-dark-rows={timed?darkRows:undefined} data-backed={backed||undefined} data-outlined={outlined||undefined}>
   {backed&&<g className="spell-backing" shapeRendering="crispEdges" transform={`scale(${clip.frameWidth/48} ${clip.frameHeight/48})`}>
    <path d={backingPaths[0]} fill="#030910"/>
    <path d={backingPaths[1]} fill={signatureColours[character]}/>
    <path d={backingPaths[2]} fill="#08111c" fillOpacity=".97"/>
   </g>}
+  {outlined&&<defs>
+   <clipPath id={`${id}-frame`}><rect width={clip.frameWidth} height={clip.frameHeight}/></clipPath>
+   <filter className="spell-outline" id={`${id}-outline`} filterUnits="userSpaceOnUse" x="-6" y="-6" width={clip.frameWidth+12} height={clip.frameHeight+12} colorInterpolationFilters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="outer"/>
+    <feFlood floodColor="#071018" result="dark"/><feComposite in="dark" in2="outer" operator="in" result="darkEdge"/>
+    <feMorphology in="SourceAlpha" operator="dilate" radius="2" result="inner"/>
+    <feFlood floodColor={signatureColours[character]} floodOpacity=".85" result="hero"/><feComposite in="hero" in2="inner" operator="in" result="heroEdge"/>
+    <feMerge><feMergeNode in="darkEdge"/><feMergeNode in="heroEdge"/><feMergeNode in="SourceGraphic"/></feMerge>
+   </filter>
+  </defs>}
   {timed&&<defs>
    <filter id={`${id}-shade`} colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values={`.2 0 0 0 ${tint[0]} 0 .2 0 0 ${tint[1]} 0 0 .2 0 ${tint[2]} 0 0 0 1 0`}/></filter>
    <clipPath id={`${id}-elapsed`}><rect width={clip.frameWidth} height={darkRows}/></clipPath>
   </defs>}
-  <image {...sheet}/>
+  {outlined?<g filter={`url(#${id}-outline)`}><g clipPath={`url(#${id}-frame)`}><image {...sheet}/></g></g>:<image {...sheet}/>}
   {timed&&<g className="spell-elapsed" clipPath={`url(#${id}-elapsed)`}><image {...sheet} filter={`url(#${id}-shade)`}/></g>}
  </svg>;
 }

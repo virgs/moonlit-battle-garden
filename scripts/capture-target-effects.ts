@@ -6,7 +6,7 @@ import { resolve,join } from 'node:path';
 const out=resolve('output/guard-flows/target-effects');mkdirSync(out,{recursive:true});
 const cases=[
  ['normal','Normal mole',[]],['armor2','Bramble 2★ · 2 hits',['armor']],['armor4','Bramble 4★ · 3 hits',['armor']],
- ['curse1','Duskmantle 1★ · +8 miss',['curse']],['curse4','Duskmantle 4★ · +6 miss',['curse']],['bonus','Duskmantle 3★ · +2 kill',['bonus']],
+ ['curse1','Duskmantle 1★ · marked mole',['curse']],['curse4','Duskmantle 4★ · marked mole',['curse']],['bonus','Duskmantle 3★ · bonus reward',['bonus']],
  ['rush','Andromoss 2★ · shorter life',['rush']],['long-mole','Sprig 1★ · longer life',['tending']],['long-rabbit','Sprig 1★ · longer rabbit',['tending']],
  ['long-star','Sprig 1★ · longer star',['tending']],['dim','Duskmantle 2★ · dimmed',[]],['combo','Bramble 4★ + Duskmantle 3★',['armor','bonus']],
 ] as const;
@@ -35,7 +35,7 @@ try{
   if(statuses.length){await expect(row).toBeVisible();for(const status of statuses)await expect(row.locator(`[data-status="${status}"]`)).toBeVisible();}
   else await expect(row).toHaveCount(0);
   await expect(page.locator('.target-status .spell-backing,.target-status .spell-glyph[data-remaining]')).toHaveCount(0);
-  const badge=row.locator('.spell-glyph');if(await badge.count())await expect(badge.locator('image').first()).toBeVisible();
+  const badge=row.locator('.spell-glyph');if(await badge.count()){await expect(badge.first()).toHaveAttribute('data-outlined','true');await expect(badge.locator('image').first()).toBeVisible();}await expect(row.locator('.status-curse,.status-bonus')).toHaveText(statuses.filter(s=>s==='curse'||s==='bonus').map(()=>''));
   if(sample.startsWith('armor'))await expect(row.locator('.status-armor')).toHaveAttribute('data-value',sample==='armor2'?'2':'3');
   if(sample.startsWith('curse'))await expect(row.locator('.status-curse')).toHaveAttribute('data-value',sample==='curse1'?'8':'6');
   const hole=await page.locator('.player-0 .hole').nth(4).boundingBox();if(!hole)throw Error('Missing hole geometry');
@@ -44,7 +44,7 @@ try{
   if(sample==='combo')await page.screenshot({path:join(out,'desktop-combined.png')});
  }
  writeFileSync(join(out,'gallery.html'),`<!doctype html><html><style>body{margin:0;background:#12212b;color:#efdfc4;font:15px Georgia}main{padding:16px}h1{font-size:23px;margin:0 0 12px}section{display:grid;grid-template-columns:repeat(4,208px)}figure{margin:0;padding:4px 8px 10px}img{width:192px;height:184px;image-rendering:pixelated;display:block}figcaption{height:35px;padding-top:5px;line-height:17px}</style><main><h1>Spell effects on targets</h1><section>${cases.map(([id,label])=>`<figure><img src="${id}.png"><figcaption>${label}</figcaption></figure>`).join('')}</section></main></html>`);
- await page.setViewportSize({width:864,height:750});await page.goto('/output/guard-flows/target-effects/gallery.html');await page.waitForLoadState('networkidle');await expect(page.locator('img')).toHaveCount(12);expect(await page.locator('img').evaluateAll(es=>es.every(e=>e instanceof HTMLImageElement&&e.complete&&e.naturalWidth===192))).toBe(true);await page.screenshot({path:join(out,'target-effects-matrix.png'),fullPage:true});await context.close();
- const mobile=await browser.newContext({viewport:{width:390,height:844},baseURL:'http://127.0.0.1:4190'}),phone=await mobile.newPage();await phone.clock.install();await phone.clock.pauseAt(new Date());await phone.goto('/output/guard-flows/target-effects/game.html?sample=combo&all&mode=ai');await phone.waitForLoadState('networkidle');await phone.clock.runFor(100);await phone.evaluate(()=>document.fonts.ready);await expect(phone.locator('.match-screen')).toHaveClass(/single-board/);await expect(phone.locator('.status-armor')).toHaveCount(3);await expect(phone.locator('.target-status-row[data-hole="0"] .status-bonus')).toBeVisible();await expect(phone.locator('.target-status .spell-backing,.target-status .spell-glyph[data-remaining]')).toHaveCount(0);await phone.screenshot({path:join(out,'phone-combined.png')});await mobile.close();
- console.log('12 real-renderer target-effect samples and phone overlapping badges captured; game code unchanged.');
+ await page.setViewportSize({width:864,height:750});await page.goto('/output/guard-flows/target-effects/gallery.html');await page.waitForLoadState('networkidle');await expect(page.locator('img')).toHaveCount(12);expect(await page.locator('img').evaluateAll(es=>es.every(e=>e instanceof HTMLImageElement&&e.complete&&e.naturalWidth===192))).toBe(true);await page.screenshot({path:join(out,'target-outlines-matrix.png'),fullPage:true});await context.close();
+ const mobile=await browser.newContext({viewport:{width:390,height:844},baseURL:'http://127.0.0.1:4190'}),phone=await mobile.newPage();await phone.clock.install();await phone.clock.pauseAt(new Date());await phone.goto('/output/guard-flows/target-effects/game.html?sample=combo&all&mode=ai');await phone.waitForLoadState('networkidle');await phone.clock.runFor(100);await phone.evaluate(()=>document.fonts.ready);await expect(phone.locator('.match-screen')).toHaveClass(/single-board/);await expect(phone.locator('.status-armor')).toHaveCount(3);await expect(phone.locator('.target-status-row[data-hole="0"] .status-bonus')).toBeVisible();await expect(phone.locator('.target-status .spell-backing,.target-status .spell-glyph[data-remaining]')).toHaveCount(0);await phone.screenshot({path:join(out,'phone-outlined-markers.png')});await mobile.close();
+ console.log('12 real-renderer target-effect samples and phone overlapping silhouette markers captured.');
 }finally{await browser.close();await server.close();}
