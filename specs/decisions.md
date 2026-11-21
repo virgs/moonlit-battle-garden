@@ -323,6 +323,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I33 | Replace only Champignon/Bramble1★ PNG/GIF/frame metadata and preserve previous sources in provenance history. Shared ring removed, custom mushroom and thorn-leaf pixel motifs rendered by PixelLab’s free VFX tool; other three exports and simulation unchanged.221 tests/build and4 desktop/mobile guard browser checks pass. Enlarged gallery updated; visual judgment remains with user. |
 
+| D145 | User approves the distinct guard retry and requests full in-game casting-to-effect screenshots/GIFs. Both guard assets are already integrated; capture actual full-arena gameplay with character cast,1★ cost and active protection. Preserve user-only visual review. |
+
+| I34 | Add reproducible capture-guard-flow.ts using real menu/star/cast input and deterministic presentation stepping, without changing simulation. Record Champignon and Bramble at1280×800,46 frames/10 FPS/4.6 s each, plus before/casting/effect PNGs. DOM assertions verify cast/star cost and loaded guard effect; ffprobe verifies GIF dimensions/frame count/duration. Build passes. Local recordings are ignored under output/guard-flows; no deployment wait or image inspection. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -5,7 +5,7 @@
   "fps": 6,
   "width": 48,
   "height": 48,
-  "review": "User visual review pending. No images inspected by assistant.",
+  "review": "Guard revision2 approved by user; other effects retain their existing review status. No images inspected by assistant.",
   "assets": {
     "champignon": {
       "root": "https://api.pixellab.ai/mcp/pixel-tools/aea7c37e-fac0-46f2-beed-fc4a928ffcdc/",
@@ -185,7 +185,8 @@
           }
         }
       ],
-      "revision": 2
+      "revision": 2,
+      "review": "Revision2 approved by user before in-game flow capture."
     },
     "captain-bramble": {
       "root": "https://api.pixellab.ai/mcp/pixel-tools/2329cdba-6167-43f7-bdf2-00833826b990/",
@@ -356,7 +357,8 @@
           }
         }
       ],
-      "revision": 2
+      "revision": 2,
+      "review": "Revision2 approved by user before in-game flow capture."
     },
     "andromoss": {
       "root": "https://api.pixellab.ai/mcp/pixel-tools/628033e9-2f28-427e-aa66-dc8b313121d0/",

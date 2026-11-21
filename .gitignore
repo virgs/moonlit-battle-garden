@@ -6,3 +6,6 @@ test-results/
 .DS_Store
 .env*
 !.env.example
+
+# Local full-flow game recordings.
+output/guard-flows/
