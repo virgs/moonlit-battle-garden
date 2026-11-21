@@ -45,11 +45,11 @@ spells:
   warningMs: 0
   starTheftCap: 4
   invasionMs: 8000
-  rabbitIntervalMs: 850
+  rabbitIntervalMs: 1000
   moleRushMs: 8000
   moleLifetimeScale: 0.85
   decoysMs: 8000
-  comboRabbitIntervalMs: 650
+  comboRabbitIntervalMs: 750
   shieldMs: 12000
 rosterSpells:
   cleanSweepMs: 3000

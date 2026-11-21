@@ -303,6 +303,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I29 | Add local-only per-player selected tier/capacity diagnostics with actual simulation/bots; ordinary/shared-tier paths preserved. A fixed-opponent script compares Andromoss1–4 against every hero fixed at4,100 paired seeds/side swaps per cell/difficulty (12,000 games);4vs4 mirrors exactly50% check. Actor3 removes all four enemy stars but receives at most3 in this diagnostic; normal capacity4 receives4. Ward threats use actual public opposing selected tier. Four new roster-tier runs30,000 plus fixed12,000 plus full-kit7,500 =49,500, no unfinished. All19,200 non-Andromoss records reproduce previous outcomes/old metrics exactly after ignoring newly added counter columns.208 tests/build and28 browser cases pass. Preserve cost/timing/AI strategy bias:4 improved in its tier but1 has better fixed-build win rates; normal full-kit is still provisional. Review andromoss-kit-review.md. |
 
+| D139 | User explicitly confirms Andromoss1★ rabbits every1000 ms (was850),4★ every750 ms (was650) with85% new-mole lifetime unchanged. Both8 s. This reduces both absolute rabbit rates; do not describe4★ as buffed. Keep all other kit/AI/cast rules. Compare fixed opponents, same-tier1/4 and full-kit at100 paired seeds per matchup/level; preserve per-level spreads and prior baseline in Git551e756. |
+
+| I30 | Validate D139 with208 simulation tests/build,8 desktop/mobile cases and34,500 completed balance games:12,000 fixed-opponent plus7,500 tier1/tier4/full-kit each. Fixed comparison shares prior seed20261119; roster snapshots use runner default20261118, so no causal roster before/after claim.3,200 unaffected fixed2/3 records reproduce exactly. Four-star win changes under1 point versus unchanged opponents;1★ declines2.5–7.3 points but still wins more in pooled selected-cost comparisons. Preserve cost/strategy biases and level flips in andromoss-interval-review.md. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -1,6 +1,8 @@
 # Adopted Andromoss kit: four tiers, fixed opponents and full-kit snapshot
 
-## Current rules (D138)
+> Historical D138 baseline. Rabbit intervals are superseded by [D139 current tuning and results](andromoss-interval-review.md).
+
+## Baseline rules (D138)
 
 | Stars | Previous | Adopted | Duration |
 |---|---|---|---|

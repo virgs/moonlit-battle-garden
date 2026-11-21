@@ -54,10 +54,10 @@ export const characters: Record<CharacterId, { name: string; role: string; color
   andromoss: {
     name: 'Andromoss', role: 'The star-stealing troublemaker', color: '#ffb27c', emblem: '✦',
     spells: [
-      { name: 'Rabbit Riot', description: 'Add enemy rabbits every 0.85 seconds for 8 seconds.' },
+      { name: 'Rabbit Riot', description: 'Add enemy rabbits every 1 second for 8 seconds.' },
       { name: 'Burrow Rush', description: 'For 8 seconds, new enemy moles receive 85% of their normal lifetime.' },
       { name: 'Sticky Fingers', description: 'Steal all enemy stars up to capacity. Wasted if their meter is empty.' },
-      { name: 'Double Trouble', description: 'For 8 seconds, add enemy rabbits every 0.65 seconds and give new enemy moles 85% lifetime.' },
+      { name: 'Double Trouble', description: 'For 8 seconds, add enemy rabbits every 0.75 seconds and give new enemy moles 85% lifetime.' },
     ],
   },
   'captain-bramble': {

@@ -7,7 +7,7 @@ import type { Target,TargetKind } from '../../src/game/types';
 function game(){const m=new Match({characters:['andromoss','sprig'],mode:'local',difficulty:'medium',seed:41});m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);return m;}
 function cast(m:Match,tier:number){m.state.players[0].stars=tier;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs);}
 function target(m:Match,kind:TargetKind='mole',life=500):Target{return {id:99,kind,born:m.state.time,expires:m.state.time+life};}
-it('1 and4 add only rabbits at850/650ms over8 seconds, with4 also shortening moles',()=>{
+it('1 and4 add only rabbits at1000/750ms over8 seconds, with4 also shortening moles',()=>{
   for(const tier of [1,4]){
     const m=game(),p=m.state.players[1],start=m.state.time;cast(m,tier);
     expect((tier===1?p.invasionUntil:p.decoysUntil)-start).toBe(8000);
@@ -16,8 +16,8 @@ it('1 and4 add only rabbits at850/650ms over8 seconds, with4 also shortening mol
     for(let t=0;t<8200;t+=50){m.advance(50);for(const x of p.holes)if(x&&!seen.has(x.id)){
       seen.add(x.id);expect(x.origin).toBe('magic');expect(x.kind).toBe('rabbit');births.push(x.born-start);
     }p.holes.fill(null);}
-    expect(births.length).toBe(tier===1?10:13);expect(births[0]).toBe(50);
-    for(let n=1;n<births.length;n++)expect(births[n]-births[n-1]).toBe(tier===1?850:650);
+    expect(births.length).toBe(tier===1?8:11);expect(births[0]).toBe(50);
+    for(let n=1;n<births.length;n++)expect(births[n]-births[n-1]).toBe(tier===1?1000:750);
   }
 });
 it('2 affects only new moles once, allows425ms below the natural floor, and excludes the8s boundary',()=>{

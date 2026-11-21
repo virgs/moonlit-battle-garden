@@ -349,7 +349,7 @@ All isolated tiers now default to shared useful-opportunity/random-delay casting
 15,000 games, zero unfinished,100 paired seeds/pair/level. Easy casts less than once per hero/match; Hard casts several times. Bramble wins every Hard matchup; Champignon wins Easy/Medium matchups with some near50% edges. No universal winner across all levels; do not infer equal/full-kit/human balance from that fact. [Current matrices, durations and coverage](../reports/tier4-baseline-review.md).
 
 
-### Current Andromoss kit adopted (D138/I28/I29)
+### Andromoss kit adoption baseline (D138/I28/I29; intervals superseded by D139)
 
 | Stars | Effect | Duration |
 |---|---|---|
@@ -365,3 +365,8 @@ New fields: moleRushUntil, moleRushTier; per-target rushed/rushReductionMs; prot
 Four current same-tier roster matrices, local per-player fixed-opponent diagnostics and full-kit snapshot: [review](../reports/andromoss-kit-review.md).49,500 actual-simulation games, no caps.208 simulation tests/build and28 desktop/mobile/online browser cases pass. All19,200 unaffected non-Andromoss records match prior outcomes/old metrics after excluding newly added counters. Per-player selected tiers are local-only; each keeps its selected cap, so3★ theft can remove4 but receive3 in that experiment, while normal play receives4. Do not claim these are optimal full-kit choices or equal resource efficiency.
 
 4★ now combines the1★/2★ effects per cast and improves same-tier pooled matchups, but frequent1★ casts win more often in fixed-build tests. Cost, cast availability, automatic rabbit hits and normal AI’s refusal to bait wards are strategy limitations. Human/full-kit balance remains provisional; no extra tuning beyond the adopted kit.
+
+
+### Current Andromoss intervals (D139)
+
+User explicitly confirms **1★ rabbits every1 s** (was0.85 s) and **4★ rabbits every0.75 s** (was0.65 s), with **85% new-enemy-mole lifetime** unchanged. Both last **8 active seconds**. This lowers both rabbit rates; it is not an absolute4★ buff, despite the earlier stated goal. Four-star remains faster than1★ and includes2★ shortening. Two-star remains85% new-mole lifetime/8 s; three-star remains instant theft of all enemy stars up to receiving capacity. No other powers, AI decisions, lifetimes, casting or spawn caps change. See [interval comparison](../reports/andromoss-interval-review.md) for current matrices and limitations; the D138 review remains historical.
