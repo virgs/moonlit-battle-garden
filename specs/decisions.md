@@ -383,6 +383,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D160 | User wants to revisit screen flow after these pictures and make the first screen feel alive: mole tunnels, flying bats, shooting stars, turning owl heads, flashing jack-o'-lantern faces, camera movement and parallax. Current title/menu are captured for discussion; detailed composition, transitions and new animation work are not implemented in I47. New asset generation remains deferred. |
 
+| D161 | User removes the title's “A garden rivalry” text and requests garden/graveyard background options with leafless trees/graves and parallax, including checking CraftPix. Remove the text now; background selection remains for review. |
+
+| I48 | Remove the title eyebrow, keep the live backdrop unchanged, and capture review-only options from existing CC0 home/cemetery art. Cached GothicVania Cemetery source includes separate background/mountains/graveyard PNGs and tree/gravestone props; compose them in an ignored title fixture. Research CraftPix free1-bit Graveyard, Forest and Trees, and Vampires Locations/Dead Forest. Only the first two explicitly advertise parallax layers. No CraftPix pack installed; forest download leads to sign-in and graveyard download cannot be fetched by web tools. No image inspection or asset generation. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

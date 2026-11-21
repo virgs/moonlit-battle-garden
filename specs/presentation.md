@@ -222,3 +222,18 @@ The target capture script verifies36×36 logical image dimensions and now writes
 Current implementation: a single static castle backdrop, title text and key/tap prompt; title→mode menu→character selection→match, with online rooms/invites following their existing path. No title camera/parallax/ambient actor changes in this pass.
 
 User-requested direction: living moonlit garden with tunneling moles, bats, shooting stars, owl head turns and blinking pumpkin faces, plus camera movement/parallax. Proposed composition, not yet adopted: keep one scene behind title/menu/selection; use a slow sky/distant-woods layer, middle garden layer and closer soil/foliage; short camera glides between screens while UI remains steady. Stagger ambient events and preserve reduced-motion behavior. Reuse approved mole/dust/star assets and defer missing actor assets, using placeholders if needed; no new art generation in this pass.
+
+### Title tagline cleanup and garden/graveyard shortlist (D161 / I48)
+
+Remove “A garden rivalry” from TitleScreen. Keep Moonlit / Battle Garden and the enter prompt. The live castle backdrop remains selected until the user reviews replacements.
+
+Existing candidate: Violet Veil's CC0 source, GothicVania Cemetery by ansimuz (https://opengameart.org/content/gothicvania-cemetery-pack). The cached original archive contains background.png384×224, mountains.png192×179, graveyard.png384×123 and separate tree/gravestone props. The already-installed Violet Veil image uses only background.png. A review-only composition can layer the original PNGs and position props at the edges without editing their pixels or generating art. Lanternbloom Garden and Moonlit Hideout are also captured as existing-art alternatives.
+
+CraftPix shortlist researched2026-11-21 from publisher descriptions:
+- https://craftpix.net/freebies/free-1-bit-graveyard-pixel-art-backgrounds/ — four1-bit576×324 scenes, graves/dead trees, explicitly multilayered/seamless/parallax-ready. Monochrome style needs user review against the current palette.
+- https://craftpix.net/freebies/forest-and-trees-free-pixel-backgrounds/ — eight576×324 seamless, layered forest scenes, explicitly parallax-ready.
+- https://craftpix.net/freebies/free-vampires-locations-battle-background-pack/ — four3840×2160 PNG/PSD scenes; Dead Forest description explicitly includes tombstones, thorny plants and withered trees. Do not claim verified parallax layers; page does not specify them.
+
+No CraftPix art is downloaded or installed. Forest download redirects to a sign-in page; graveyard download fetch failed. Actual license terms are at https://craftpix.net/file-licenses/. Revisit download/account access only if selecting a CraftPix option.
+
+`pnpm exec vite-node scripts/capture-title-backgrounds.ts` takes an optional --archive=/path/to/cemetery.zip (default is the existing temporary home-art cache). It extracts only required CC0 PNGs into ignored output/guard-flows/title-backgrounds/assets, renders existing layers through an isolated TitleScreen fixture, verifies3 background layers/4 props load and the removed text stays absent, and records three option previews plus the actual live title. React effect mounting ensures layers attach after title creation. User reviews all images; model does not inspect them. No active background or home assignment changes.

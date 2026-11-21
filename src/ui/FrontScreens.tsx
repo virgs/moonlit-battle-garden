@@ -24,7 +24,7 @@ export function TitleScreen({ enter }: { enter: () => void }) {
     window.addEventListener('keydown',key); return () => window.removeEventListener('keydown',key);
   }, [enter]);
   return <main className="front-screen title-screen" aria-label="Title screen"><Backdrop />
-    <div className="title-wordmark"><p className="eyebrow">A garden rivalry</p><h1>Moonlit<span>Battle Garden</span></h1></div>
+    <div className="title-wordmark"><h1>Moonlit<span>Battle Garden</span></h1></div>
     <button className="title-enter" aria-label="Open main menu" onClick={enter}>Press any key or tap</button>
   </main>;
 }
