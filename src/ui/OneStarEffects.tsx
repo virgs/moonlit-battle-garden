@@ -7,6 +7,9 @@ import { inspectImage } from '../presentation/images';
 import { oneStarEffects,type OneStarEffect } from '../presentation/oneStarEffects';
 import type { GardenLayout } from '../render/layout';
 import './spell-effects.css';
+import { config } from '../game/config';
+import { higherSpellEffects } from '../presentation/spellEffects';
+import { SpellGlyph } from './SpellGlyph';
 
 /** The same eight-frame artwork is reused at board and HUD sizes, with uniform scaling. */
 export function OneStarSprite({character,time,style}:{character:CharacterId;time:number;style?:CSSProperties}) {
@@ -42,9 +45,20 @@ function BoardEffect({effect,time,garden}:{effect:OneStarEffect;time:number;gard
 export function HiddenBoardEffects({state,side}:{state:MatchState;side:0|1}) {
   if(state.phase!=='playing'||state.casting)return null;
   const effects=oneStarEffects(state.players[side],state.time);
-  if(!effects.length)return null;
+  const higher=higherSpellEffects({state,events:[]},side);
+  const player=state.players[side];
+  for(const [kind,character,tier,live] of [
+    ['armor','captain-bramble',player.holes.some(t=>(t?.armor??0)>=2)?4:2,player.holes.filter(t=>!!t?.armor&&t.expires>state.time).length],
+    ['curse','duskmantle',4,player.holes.filter(t=>t?.missBonus===config.rosterSpells.curseBonus&&t.expires>state.time).length],
+    ['rush','andromoss',2,player.holes.filter(t=>!!t?.rushReductionMs&&t.expires>state.time).length],
+  ] as const){
+    const existing=higher.find(e=>e.kind===kind);
+    if(existing&&(kind==='armor'||kind==='curse'))existing.count+=live;
+    else if(!existing&&live>0&&!(kind==='rush'&&higher.some(e=>e.kind==='decoys')))higher.push({kind,character,tier,count:live,columns:[]});
+  }
+  if(!effects.length&&!higher.length)return null;
   return <span className="hidden-board-effects" data-affected-player={side} role="group" aria-label="Hidden garden spell effects">{effects.map(effect=><span key={effect.kind} className="hidden-board-effect" role="img" aria-label={effect.label} data-effect={effect.kind} data-count={effect.count}>
     {Array.from({length:effect.kind==='guard'?effect.count:1},(_,index)=><OneStarSprite key={index} character={effect.character} time={state.time}/>)}
     {effect.kind==='curse'&&<span className="effect-quota" aria-hidden="true">{effect.count}</span>}
-  </span>)}</span>;
+  </span>)}{higher.map(effect=><span key={`higher-${effect.kind}`} className="hidden-board-effect" role="img" aria-label={`${effect.tier}-star ${effect.kind}: ${effect.count}`} data-effect={effect.kind} data-count={effect.count}><SpellGlyph character={effect.character} tier={effect.tier} time={state.time}/>{effect.count>1&&<span className="effect-quota">{effect.count}</span>}</span>)}</span>;
 }

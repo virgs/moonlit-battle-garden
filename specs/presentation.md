@@ -122,3 +122,19 @@ Remove the persistent round-number label and the numbered countdown heading; ret
 Supersedes the previous star-column/bar-end trophy alignment. HUD trophy width and height are80% of their previous values:134.4×67.2px in the larger HUD,89.6×44.8px in the compact HUD; preserve the source2:1 aspect ratio. Each trophy belongs to its hero group and is centered on the portrait. With a beside-portrait name, the trophy sits6px below the portrait. With a below-portrait name, it sits6px below the name, still centered on the portrait rather than on the text.
 
 Use CSS anchors inside the portrait/name groups, with no browser measurement timers. Preserve trophy win-count animation/reset. Shared HUD geometry reserves the true portrait/name/trophy extent, including short landscape overflow; minimum edge inset increases only where needed to keep the centered trophy fully onscreen. The ordinary small opponent meter stays below the portrait HUD, with its compact landscape placement unchanged. Full names remain unwrapped. Round-result celebration trophies, character/spell assets, rules and balance are unchanged. Capture previews retain one actual round win per side and assert portrait centering/below-name placement at all five captured sizes.
+
+### Higher-tier spell identities (D152 / I40)
+
+Use15 code-drawn pixel motifs, without generating new sprites or additional hero clips. All have8 discrete poses at8fps, driven by simulation time; pause/casting freezes poses and reduced motion selects pose0. The existing50% casting blackout/shared hero animation comes first; gameplay effects are revealed after casting. No activation/ending cut-scenes or mechanical changes.
+
+| Hero |2★|3★|4★|
+|---|---|---|---|
+|Sir Champignon|Rocking broom on the actual column|Mushroom fortress with remaining guard pips|Crowned spore cyclone on the actual column|
+|Andromoss|Turning alien hourglass; actual shortened moles carry hourglass badges|Magnet drawing stars, brief1s successful-transfer cue|Rabbit-dispatching UFOs; shortened moles also carry hourglasses|
+|Captain Bramble|Tin helmet quota and assigned-mole badges|Red-eyed helmet sentinel with remaining guard pips|Thorned iron cage quota and assigned-mole badges; damaged armor steps down to the remaining helmet layer|
+|Duskmantle|Flowing side ribbons of ink|Swaying soul lantern; actual bonus moles carry lantern/+2 badges|Blinking thorn eye, pending quota and assigned-mole/−6 badges|
+|Sprig|Working rake on the actual column|Opening garden shears for the active cleanse ward|Two geared cultivators on the actual columns|
+
+Pending armor/curse quota appears on the board rim until allocated; assigned badges remain on live affected moles. Hidden opponent gardens retain compact effect/count indicators, including already assigned targets. Uniformly scale motifs with board geometry, keep them transparent to input, and retain existing readable target numbers. The manifest marks2–4 effects as procedural; their optional future PNG paths are no longer reported as missing assets.
+
+`pnpm exec vite-node scripts/capture-higher-spells.ts` records the15-effect animated comparison and real Game cast/pause examples at desktop, phone portrait and landscape sizes. Captures stay in ignored output/guard-flows/higher-spells; the user reviews the images.

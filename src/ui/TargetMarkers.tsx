@@ -5,6 +5,7 @@ import { targetStatuses,type TargetStatus } from '../presentation/targetStatus';
 import type { GardenLayout } from '../render/layout';
 import { OneStarSprite } from './OneStarEffects';
 import './target-markers.css';
+import { SpellGlyph } from './SpellGlyph';
 
 /** Readable, non-interactive badges anchored to the same hole geometry as the sprites. */
 export function TargetMarkers({snapshot,garden}:{snapshot:Snapshot;garden:GardenLayout}) {
@@ -16,7 +17,7 @@ export function TargetMarkers({snapshot,garden}:{snapshot:Snapshot;garden:Garden
       const position=garden.holes[hole];
       return <div className="target-status-row" key={target.id} data-target-id={target.id} data-hole={hole} style={{left:position.feet.x-garden.x,top:position.hit.y-garden.y-2*garden.scale,'--marker-unit':`${garden.scale}px`,'--marker-width':`${78*garden.scale}px`} as CSSProperties}>
         {statuses.map(status=><span className={`target-status status-${status.kind}`} key={status.kind} data-status={status.kind} data-value={status.value} data-effect={status.kind==='curse'?'curse':undefined} data-character={status.kind==='curse'?'duskmantle':undefined} data-tier={status.kind==='curse'?(status.value===config.rosterSpells.markBonus?1:4):undefined} data-affected-player={garden.id} role="img" aria-label={status.label}>
-          {status.kind==='curse'?<OneStarSprite character="duskmantle" time={state.time}/>:<StatusGlyph kind={status.kind}/>}
+          {status.kind==='curse'&&status.value===config.rosterSpells.markBonus?<OneStarSprite character="duskmantle" time={state.time}/>:status.kind==='curse'?<SpellGlyph character="duskmantle" tier={4} time={state.time}/>:status.kind==='armor'?<SpellGlyph character="captain-bramble" tier={status.value>=3?4:2} time={state.time}/>:status.kind==='bonus'?<SpellGlyph character="duskmantle" tier={3} time={state.time}/>:status.kind==='rush'?<SpellGlyph character="andromoss" tier={2} time={state.time}/>:<StatusGlyph kind={status.kind}/>}
           {(status.kind==='armor'||status.kind==='curse'||status.kind==='bonus')&&<span aria-hidden="true">{status.kind==='armor'?'':status.kind==='curse'?'−':'+'}{status.value}</span>}
         </span>)}
       </div>;

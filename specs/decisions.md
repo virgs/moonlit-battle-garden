@@ -349,6 +349,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I39 | Resize HUD trophies by0.8 and place each within its portrait anchor (horizontal names) or below its name anchor (stacked names), always sharing portrait center. Remove trophyCenters/star-column placement; reserve true edge-group extent and inset enough to avoid clipping on narrow phones. Preserve win-count animation keys and source aspect ratio.231 tests/build and30 desktop/mobile layout/reward/effect browser cases pass, checking80% dimensions, exact portrait centering, below-name ordering, viewport/board separation and landscape targets. Five1–1 capture previews additionally assert actual trophy alignment; no image inspection or mechanics changes. |
 
+| D152 | User requests distinct, instantly recognizable gameplay animations for all2★/3★/4★ spells. Preserve one shared hero casting animation per hero and one gameplay visual per spell. Reuse existing art; no new sprite/PixelLab generation. |
+
+| I40 | Implement15 code-drawn pixel motifs with discrete8-pose simulation-time loops and reduced-motion pose0. Use actual column anchors, charge pips, assigned-target markers and hidden-opponent status icons. Successful3★ theft gets a1s resource cue after casting; timed effects follow their real duration and quota effects transfer from rim cues to mole markers. Shapes and motion differ across tiers/heroes. Hero casting and1★ effects remain unchanged; no rules/network/balance changes. Visual approval remains with the user. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

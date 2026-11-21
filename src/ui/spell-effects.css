@@ -16,3 +16,14 @@
 .hidden-board-effect .one-star-sprite{display:block;width:25px;height:25px;image-rendering:pixelated;filter:drop-shadow(0 1px 1px #15222a)}
 .effect-quota{position:absolute;right:-1px;bottom:0;font:700 11px/1 'Literata',serif;color:#f1dcff;text-shadow:1px 1px 0 #24122e,-1px -1px 0 #24122e,1px -1px 0 #24122e,-1px 1px 0 #24122e}
 @media(max-height:520px){.hidden-board-effect .one-star-sprite{width:20px;height:20px}.effect-quota{font-size:9px}}
+
+/* Distinct silhouettes, uniform scaling, and no independent CSS animation clock. */
+.higher-spell-effect{filter:none}
+.higher-spell-effect .spell-glyph{display:block;image-rendering:pixelated;filter:drop-shadow(0 2px 1px #17212cb0)}
+.spell-charge-pips{position:absolute;display:flex;gap:4px;transform:translateX(-50%)}
+.spell-charge-pips i{width:5px;height:5px;background:#f3dfac;box-shadow:0 0 0 1px #17212c}
+.hidden-board-effect .spell-glyph{width:25px;height:25px;flex-shrink:0}
+.target-status .spell-glyph{width:calc(18 * var(--marker-unit));height:calc(18 * var(--marker-unit));flex-shrink:0}
+@media(max-height:520px){.hidden-board-effect .spell-glyph{width:20px;height:20px}}
+.higher-spell-effect.effect-ward{inset:0}
+.hidden-board-effects{max-width:min(160px,38vw);flex-wrap:wrap}

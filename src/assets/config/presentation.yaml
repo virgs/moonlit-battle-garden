@@ -15,9 +15,9 @@ characters:
     portrait: /assets/characters/champignon/portrait.png
     effects:
       1: { src: /assets/effects/one-star/champignon.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 3, fps: 6, holdMs: 0 }
-      2: { src: /assets/characters/champignon/effect-2.png }
-      3: { src: /assets/characters/champignon/effect-3.png }
-      4: { src: /assets/characters/champignon/effect-4.png }
+      2: { src: /assets/characters/champignon/effect-2.png, renderer: procedural }
+      3: { src: /assets/characters/champignon/effect-3.png, renderer: procedural }
+      4: { src: /assets/characters/champignon/effect-4.png, renderer: procedural }
     home:
       name: Sporelight Keep
       background:
@@ -46,9 +46,9 @@ characters:
     portrait: /assets/characters/andromoss/portrait.png
     effects:
       1: { src: /assets/effects/one-star/andromoss.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 3, fps: 6, holdMs: 0 }
-      2: { src: /assets/characters/andromoss/effect-2.png }
-      3: { src: /assets/characters/andromoss/effect-3.png }
-      4: { src: /assets/characters/andromoss/effect-4.png }
+      2: { src: /assets/characters/andromoss/effect-2.png, renderer: procedural }
+      3: { src: /assets/characters/andromoss/effect-3.png, renderer: procedural }
+      4: { src: /assets/characters/andromoss/effect-4.png, renderer: procedural }
     home:
       name: Moonlit Hideout
       background:
@@ -78,9 +78,9 @@ characters:
     portrait: /assets/characters/captain-bramble/portrait.png
     effects:
       1: { src: /assets/effects/one-star/captain-bramble.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 3, fps: 6, holdMs: 0 }
-      2: { src: /assets/characters/captain-bramble/effect-2.png }
-      3: { src: /assets/characters/captain-bramble/effect-3.png }
-      4: { src: /assets/characters/captain-bramble/effect-4.png }
+      2: { src: /assets/characters/captain-bramble/effect-2.png, renderer: procedural }
+      3: { src: /assets/characters/captain-bramble/effect-3.png, renderer: procedural }
+      4: { src: /assets/characters/captain-bramble/effect-4.png, renderer: procedural }
     home:
       name: Mossroot Path
       background:
@@ -110,9 +110,9 @@ characters:
     portrait: /assets/characters/duskmantle/portrait.png
     effects:
       1: { src: /assets/effects/one-star/duskmantle.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 3, fps: 6, holdMs: 0 }
-      2: { src: /assets/characters/duskmantle/effect-2.png }
-      3: { src: /assets/characters/duskmantle/effect-3.png }
-      4: { src: /assets/characters/duskmantle/effect-4.png }
+      2: { src: /assets/characters/duskmantle/effect-2.png, renderer: procedural }
+      3: { src: /assets/characters/duskmantle/effect-3.png, renderer: procedural }
+      4: { src: /assets/characters/duskmantle/effect-4.png, renderer: procedural }
     home:
       name: Violet Veil
       background:
@@ -142,9 +142,9 @@ characters:
     portrait: /assets/characters/sprig/portrait.png
     effects:
       1: { src: /assets/effects/one-star/sprig.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 3, fps: 6, holdMs: 0 }
-      2: { src: /assets/characters/sprig/effect-2.png }
-      3: { src: /assets/characters/sprig/effect-3.png }
-      4: { src: /assets/characters/sprig/effect-4.png }
+      2: { src: /assets/characters/sprig/effect-2.png, renderer: procedural }
+      3: { src: /assets/characters/sprig/effect-3.png, renderer: procedural }
+      4: { src: /assets/characters/sprig/effect-4.png, renderer: procedural }
     home:
       name: Lanternbloom Garden
       background:
