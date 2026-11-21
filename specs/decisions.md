@@ -365,6 +365,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I43 | Activate pixel-spells-bold for all20 configured effects, mark its provenance approved, and make build/capture defaults follow the adopted set; --baseline explicitly selects the archived set. Update asset tests to verify the adopted paths against the preserved baseline. Existing placement/timing remains unchanged: board-rim/column cues, actual target badges, pending quotas, hidden-opponent HUD, no countdown rings or new spell timing. Document the full20-cell placement matrix. |
 
+| D156 | User approves top-to-bottom elapsed-time shading inside every timed spell icon and requests example screenshots. Keep animation and full silhouette visible with a dark hero-colour tint; freeze during pause/casting, refresh on recast. Exclude per-target badges, charge/quota effects and instantaneous theft. Apply everywhere, including hidden-opponent icons and both column icons. |
+
+| I44 | Add read-only remaining fractions from actual simulation deadlines/configured duration for all11 timed spells. Shared raster viewport clips a darkened copy over whole elapsed source-pixel rows; alpha is preserved and material shading remains visible. No wall-clock/CSS animation, new sprite files or mechanics changes. Existing target badges retain their normal colours; effects disappear on real expiry. Add actual-cast tests and stage/desktop/phone screenshots. This supersedes I43's absence of duration indicators. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -1,8 +1,9 @@
 import { config } from '../game/config';
 import { hasGuard } from '../game/targetModifiers';
 import type { CharacterId,Player } from '../game/types';
+import { durationRemaining } from './spellDuration';
 
-export type OneStarEffect = { kind:'guard'|'invasion'|'curse'|'tending'; character:CharacterId; count:number; holes:number[]; label:string };
+export type OneStarEffect = { kind:'guard'|'invasion'|'curse'|'tending'; character:CharacterId; count:number; holes:number[]; label:string;remaining?:number };
 /** Read-only presentation of the affected player. No timers, randomness or rule changes. */
 export function oneStarEffects(player:Player,time:number):OneStarEffect[] {
   const effects:OneStarEffect[]=[];
@@ -15,5 +16,9 @@ export function oneStarEffects(player:Player,time:number):OneStarEffect[] {
   const pending=player.markTier===1?player.markCharges:0;
   if(pending+holes.length>0)effects.push({kind:'curse',character:'duskmantle',count:pending+holes.length,holes,label:`1-star curse: ${pending} future moles and ${holes.length} marked moles`});
   if(player.tendingUntil>time)effects.push({kind:'tending',character:'sprig',count:1,holes:[],label:'1-star longer target lifetime'});
+  for(const effect of effects){
+    if(effect.kind==='invasion')effect.remaining=durationRemaining(player.invasionUntil,time,config.spells.invasionMs);
+    if(effect.kind==='tending')effect.remaining=durationRemaining(player.tendingUntil,time,config.rosterSpells.tendingMs);
+  }
   return effects;
 }

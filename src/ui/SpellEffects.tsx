@@ -23,7 +23,7 @@ function BoardEffect({effect,time,garden}:{effect:SpellEffect;time:number;garden
   const bounds:CSSProperties=columns.length?{left:Math.min(...positions.map(p=>p.x))-size/2,width:Math.max(...positions.map(p=>p.x))-Math.min(...positions.map(p=>p.x))+size}:{};
   const offset=columns.length?Number(bounds.left):0;
   return <div className={`spell-effect higher-spell-effect effect-${kind}`} style={bounds} data-effect={kind} data-character={character} data-tier={tier} data-charges={count} data-asset="ready" data-affected-player={garden.id}>
-    {positions.map(({x,y},index)=><SpellGlyph key={index} character={character} tier={tier} time={time} style={{position:'absolute',left:x-size/2-offset,top:y-size/2,width:size,height:size}}/>)}
+    {positions.map(({x,y},index)=><SpellGlyph key={index} character={character} tier={tier} time={time} remaining={effect.remaining} style={{position:'absolute',left:x-size/2-offset,top:y-size/2,width:size,height:size}}/>)}
     {count>1&&!columns.length&&<span className="spell-charge-pips" style={{left:garden.width*.5-offset,top:garden.height*.9+size*.37}}>{Array.from({length:count},(_,i)=><i key={i}/>)}</span>}
   </div>;
 }

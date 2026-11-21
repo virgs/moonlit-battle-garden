@@ -1,7 +1,9 @@
 import type { Snapshot } from '../game/Session';
 import type { CharacterId,PlayerId } from '../game/types';
 import { hasGuard } from '../game/targetModifiers';
-export type SpellEffect={kind:string;character:CharacterId;tier:number;count:number;columns:number[]};
+import { config } from '../game/config';
+import { durationRemaining } from './spellDuration';
+export type SpellEffect={kind:string;character:CharacterId;tier:number;count:number;columns:number[];remaining?:number};
 /** Read-only cues: pending quotas stay on the rim; assigned effects live on targets. */
 export function higherSpellEffects(snapshot:Snapshot,side:PlayerId):SpellEffect[]{
   const {state}=snapshot,p=state.players[side],time=state.time,effects:SpellEffect[]=[];
@@ -21,5 +23,15 @@ export function higherSpellEffects(snapshot:Snapshot,side:PlayerId):SpellEffect[
   const earnedAfterCast=cast?snapshot.events.filter(e=>e.player===side&&e.id>cast.id&&e.kind==='star').length:0;
   const stolen=Math.max(0,p.stars-earnedAfterCast);
   if(p.character==='andromoss'&&cast?.tier===3&&time-cast.time<1000&&stolen>0)add('steal','andromoss',3,stolen);
+  for(const effect of effects){
+    const timer=effect.kind==='sweep'?[p.sweepUntil,p.sweepTier===4?config.rosterSpells.royalSweepMs:config.rosterSpells.cleanSweepMs]
+      :effect.kind==='ward'?[p.magicShieldUntil,config.rosterSpells.cleanseWardMs]
+      :effect.kind==='decoys'?[p.decoysUntil,config.spells.decoysMs]
+      :effect.kind==='rush'?[p.moleRushUntil,p.moleRushTier===4?config.spells.decoysMs:config.spells.moleRushMs]
+      :effect.kind==='veil'?[p.camouflageUntil,config.rosterSpells.camouflageMs]
+      :effect.kind==='drain'?[p.drainUntil,config.rosterSpells.drainMs]
+      :effect.kind==='automation'?[p.automationUntil,p.automationTier===4?config.rosterSpells.fullAutomationMs:config.rosterSpells.columnAutomationMs]:null;
+    if(timer)effect.remaining=durationRemaining(timer[0],time,timer[1]);
+  }
   return effects;
 }

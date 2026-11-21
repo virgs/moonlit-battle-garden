@@ -9,8 +9,8 @@ import { higherSpellEffects } from '../presentation/spellEffects';
 import { SpellGlyph } from './SpellGlyph';
 
 /** Same shaded raster sheet at board, target-marker and hidden-opponent HUD sizes. */
-export function OneStarSprite({character,time,style}:{character:CharacterId;time:number;style?:CSSProperties}) {
-  return <SpellGlyph character={character} tier={1} time={time} style={style} className="one-star-sprite"/>;
+export function OneStarSprite({character,time,style,remaining}:{character:CharacterId;time:number;style?:CSSProperties;remaining?:number}) {
+  return <SpellGlyph character={character} tier={1} time={time} style={style} remaining={remaining} className="one-star-sprite"/>;
 }
 
 export function OneStarBoardEffects({snapshot,garden}:{snapshot:Snapshot;garden:GardenLayout}) {
@@ -27,7 +27,7 @@ function BoardEffect({effect,time,garden}:{effect:OneStarEffect;time:number;gard
       ? Array.from({length:effect.count},(_,index)=>point(garden.width*(index===0?.35:.65),garden.height*.9))
       : [[0,.3],[1,.3],[0,.7],[1,.7]].map(([x,y])=>point(garden.width*x,garden.height*y));
   return <div className={`spell-effect effect-${effect.kind} one-star-effect`} data-effect={effect.kind} data-character={effect.character} data-tier="1" data-charges={effect.count} data-affected-player={garden.id}>
-    {positions.map((style,index)=><OneStarSprite key={effect.kind==='curse'?effect.holes[index]:index} character={effect.character} time={time} style={style}/>)}
+    {positions.map((style,index)=><OneStarSprite key={effect.kind==='curse'?effect.holes[index]:index} character={effect.character} time={time} style={style} remaining={effect.remaining}/>)}
   </div>;
 }
 
@@ -48,7 +48,7 @@ export function HiddenBoardEffects({state,side}:{state:MatchState;side:0|1}) {
   }
   if(!effects.length&&!higher.length)return null;
   return <span className="hidden-board-effects" data-affected-player={side} role="group" aria-label="Hidden garden spell effects">{effects.map(effect=><span key={effect.kind} className="hidden-board-effect" role="img" aria-label={effect.label} data-effect={effect.kind} data-count={effect.count}>
-    {Array.from({length:effect.kind==='guard'?effect.count:1},(_,index)=><OneStarSprite key={index} character={effect.character} time={state.time}/>)}
+    {Array.from({length:effect.kind==='guard'?effect.count:1},(_,index)=><OneStarSprite key={index} character={effect.character} time={state.time} remaining={effect.remaining}/>)}
     {effect.kind==='curse'&&<span className="effect-quota" aria-hidden="true">{effect.count}</span>}
-  </span>)}{higher.map(effect=><span key={`higher-${effect.kind}`} className="hidden-board-effect" role="img" aria-label={`${effect.tier}-star ${effect.kind}: ${effect.count}`} data-effect={effect.kind} data-count={effect.count}><SpellGlyph character={effect.character} tier={effect.tier} time={state.time}/>{effect.count>1&&<span className="effect-quota">{effect.count}</span>}</span>)}</span>;
+  </span>)}{higher.map(effect=><span key={`higher-${effect.kind}`} className="hidden-board-effect" role="img" aria-label={`${effect.tier}-star ${effect.kind}: ${effect.count}`} data-effect={effect.kind} data-count={effect.count}><SpellGlyph character={effect.character} tier={effect.tier} time={state.time} remaining={effect.remaining}/>{effect.count>1&&<span className="effect-quota">{effect.count}</span>}</span>)}</span>;
 }
