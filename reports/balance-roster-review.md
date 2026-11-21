@@ -1,5 +1,5 @@
-# Current full-kit roster snapshot
+# Current balance-roster diagnostic
 
-[Pooled/per-level matrices](balance-roster.md) · [Current Andromoss kit and interpretation](andromoss-interval-review.md).
+[Pooled/per-level matrices](balance-roster.md) · [Current spells, changes and interpretation](simplified-kits-review.md).
 
-Uses ordinary meters and normal AI priorities; selected-tier comparisons use a different explicit diagnostic policy. Human/strategy validation remains necessary.
+Earlier reviews are historical. Human and full-kit strategy testing remain necessary.

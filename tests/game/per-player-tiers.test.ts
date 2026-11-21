@@ -18,7 +18,7 @@ it('steals every enemy star but applies the receiving actor capacity on either s
   }
 });
 it('infers ward threats from the actual opposing selected spell in mixed-tier probes',()=>{
-  const m=new Match({characters:['champignon','captain-bramble'],mode:'local',difficulty:'hard',seed:41,isolatedSpellTiers:[3,4]});m.advance(config.countdownMs);m.state.players[0].stars=3;m.state.players[1].stars=3;
+  const m=new Match({characters:['sprig','captain-bramble'],mode:'local',difficulty:'hard',seed:41,isolatedSpellTiers:[3,4]});m.advance(config.countdownMs);m.state.players[0].stars=3;m.state.players[1].stars=3;
   expect(opportunityKey(m,0)).toBe('ward-threat');
 });
 it('rejects mixed tiers online, invalid pairs and ambiguous shared/paired diagnostics',()=>{

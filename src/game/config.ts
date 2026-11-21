@@ -18,7 +18,7 @@ type Config = {
   points: { mole: number; star: number };
   penalties: { miss: number; empty: number; rabbit: number };
   spells: { castFreezeMs: number; cooldownMs: number; warningMs: number; starTheftCap: number; invasionMs: number; rabbitIntervalMs: number; moleRushMs: number; moleLifetimeScale: number; decoysMs: number; comboRabbitIntervalMs: number; shieldMs: number };
-  rosterSpells: { cleanSweepMs: number; royalSweepIntervalMs: number; armorTargets: number; tinCapsMode: 'next' | 'timed'; heavyArmorTargets: number; brambleGuardMs: number; mistakeGuardMode: 'timed' | 'charges'; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; helpingTinesMode: 'continuous' | 'pulse'; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
+  rosterSpells: { cleanSweepMs: number; royalSweepMs: number; armorTargets: number; tinCapsMode: 'next' | 'timed'; heavyArmorTargets: number; brambleGuardMs: number; mistakeGuardMode: 'timed' | 'charges'; armorMs: number; ominousMarkMs: number; ominousMarks: number; markMs: number; markBonus: number; curseBonus: number; camouflageMs: number; drainMs: number; drainBonus: number; extensionMs: number; tendingMs: number; columnAutomationMs: number; helpingTinesMode: 'continuous' | 'pulse'; fullAutomationMs: number; automationIntervalMs: number; cleanseWardMs: number };
   ai: Record<Difficulty, BotConfig>;
 };
 
@@ -47,8 +47,8 @@ export const characters: Record<CharacterId, { name: string; role: string; color
     spells: [
       { name: 'Mushroom Guard', description: 'Block the next two mistakes; no time limit.' },
       { name: 'Clean Sweep', description: 'Hits the busiest column immediately and keeps hitting whatever appears there for 3 seconds; normal rewards and rabbit penalties.' },
-      { name: 'Spore Ward', description: 'Block the next hostile spell for 12 seconds.' },
-      { name: 'Royal Cleanup', description: 'Hit all targets for 3 seconds and block three mistakes for 12 seconds.' },
+      { name: 'Spore Ward', description: 'Block the next five mistakes; no time limit.' },
+      { name: 'Royal Cleanup', description: 'Hit the busiest column immediately and continuously for 6 seconds; normal rewards and rabbit penalties.' },
     ],
   },
   andromoss: {
@@ -65,33 +65,33 @@ export const characters: Record<CharacterId, { name: string; role: string; color
     spells: [
       { name: 'Bramble Brace', description: 'Block the next two mistakes; no time limit.' },
       { name: 'Tin Caps', description: 'Armor the next three enemy moles to appear; one extra hit each, no time limit.' },
-      { name: 'Iron Resolve', description: 'Block three mistakes for 8 seconds.' },
-      { name: 'Heavy Harvest', description: 'Armor up to four enemy moles within 3 seconds; two extra hits each.' },
+      { name: 'Iron Resolve', description: 'Block the next five mistakes; no time limit.' },
+      { name: 'Heavy Harvest', description: 'Armor the next three enemy moles; two extra hits each, no time limit.' },
     ],
   },
   duskmantle: {
     name: 'Duskmantle', role: 'The keeper of garden curses', color: '#bd94e7', emblem: '☾',
     spells: [
-      { name: 'Ominous Bud', description: 'Mark three enemy moles within 8 seconds; each miss costs 8 extra points.' },
-      { name: 'Violet Veil', description: 'Dim enemy targets for 6.5 seconds; their shapes stay visible.' },
+      { name: 'Ominous Bud', description: 'Mark the next three enemy moles; no time limit, each miss costs 8 extra points.' },
+      { name: 'Violet Veil', description: 'Dim enemy targets for 6 seconds; their shapes stay visible.' },
       { name: 'Twilight Siphon', description: 'Earn 2 extra points on manual mole hits for 7 seconds.' },
-      { name: 'Withering Pact', description: 'Mark four enemy moles; each miss costs 6 extra points.' },
+      { name: 'Withering Pact', description: 'Mark the next six enemy moles; no time limit, each miss costs 6 extra points.' },
     ],
   },
   sprig: {
     name: 'Sprig', role: 'The tireless garden helper', color: '#9dccab', emblem: '⚙',
     spells: [
       { name: 'Gentle Tending', description: 'For 6 seconds, add 0.75 seconds to every current and arriving target, once per target.' },
-      { name: 'Helping Tines', description: 'Hit the busiest column immediately and keep hitting arrivals for 10 seconds; normal rewards and rabbit penalties.' },
+      { name: 'Helping Tines', description: 'Hit the busiest column immediately and keep hitting arrivals for 4 seconds; normal rewards and rabbit penalties.' },
       { name: 'Weed Out', description: 'Remove hostile magic, then block one spell for 6 seconds.' },
-      { name: 'Garden Clockwork', description: 'Work two columns every 0.25 seconds for 8 seconds; collect stars.' },
+      { name: 'Garden Clockwork', description: 'Hit the two busiest columns immediately and continuously for 4 seconds; normal rewards and rabbit penalties.' },
     ],
   },
 };
 
 // Active-effect windows have a user-requested three-second floor. Instant actions,
 // casting/warning/cooldown clocks and one-time lifetime extensions are separate.
-for (const key of ['cleanSweepMs','ominousMarkMs','armorMs','brambleGuardMs','markMs','camouflageMs','drainMs','columnAutomationMs','fullAutomationMs','cleanseWardMs'] as const) {
+for (const key of ['cleanSweepMs','royalSweepMs','ominousMarkMs','armorMs','brambleGuardMs','markMs','camouflageMs','drainMs','columnAutomationMs','fullAutomationMs','cleanseWardMs'] as const) {
   if (config.rosterSpells[key] < 3000) throw new Error(`Active effect below 3 seconds: ${key}`);
 }
 if ([config.spells.shieldMs,config.spells.invasionMs,config.spells.decoysMs,config.spells.moleRushMs].some(ms=>ms<3000)) throw new Error('Active spell windows must be at least 3 seconds');

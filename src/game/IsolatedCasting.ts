@@ -1,5 +1,5 @@
 import type { Match } from './Match';
-import { hasGuard,hasTinCaps } from './targetModifiers';
+import { hasGuard,hasTinCaps,hasMarks } from './targetModifiers';
 import { config } from './config';
 import { Random } from './random';
 import { busiestColumns } from './targetColumns';
@@ -30,7 +30,11 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
   if(match.isolatedTier(id)===4) {
     if(player.character==='champignon') {
       if(player.sweepUntil>time)return null;
-      return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'royal');
+      const column=busiestColumns(player,1)[0];
+      const targets=player.holes.filter((_,hole)=>hole%3===column).filter(visible);
+      const urgent=targets.filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs);
+      const useful=targets.some(t=>t.kind==='rabbit')?[]:targets.filter(t=>t.kind==='mole'||t.kind==='star');
+      return witness(urgent.length?urgent:useful,'royal');
     }
     if(player.character==='sprig') {
       if(player.automationUntil>time)return null;
@@ -46,15 +50,15 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
       return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'trouble');
     }
     if(player.character==='captain-bramble') {
-      if(enemy.armorUntil>time&&enemy.armorHits>=2)return null;
+      if(enemy.tinCharges>0 && enemy.tinHits>=2)return null;
       return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&(t.armor??0)<2),'harvest');
     }
-    if(enemy.markUntil>time)return null;
+    if(hasMarks(enemy,time))return null;
     return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.missBonus),'pact');
   }
   if(match.isolatedTier(id)===3) {
     if(player.character==='andromoss')return enemy.stars>=2 && enemy.magicShieldUntil<=time?'steal-charge':null;
-    if(player.character==='captain-bramble') {
+    if(player.character==='captain-bramble'||player.character==='champignon') {
       if(hasGuard(player,time))return null;
       return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&t.expires-time<=isolatedCasting.urgentMs),'resolve');
     }
@@ -63,7 +67,7 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
       return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'),'siphon');
     }
     if(player.character==='sprig') {
-      const afflicted=player.pending.length>0 || player.moleRushUntil>time || player.holes.some(t=>!!t?.rushReductionMs) || hasTinCaps(player) || player.armorUntil>time || player.markUntil>time || player.camouflageUntil>time || player.invasionUntil>time || player.decoysUntil>time;
+      const afflicted=player.pending.length>0 || player.moleRushUntil>time || player.holes.some(t=>!!t?.rushReductionMs) || hasTinCaps(player) || player.armorUntil>time || hasMarks(player,time) || player.camouflageUntil>time || player.invasionUntil>time || player.decoysUntil>time;
       if(afflicted)return 'cleanse';
     }
     // Infer threat from the opponent's public selected spell, including mixed-tier probes.
@@ -106,7 +110,9 @@ export function opportunityKey(match: Match, id: PlayerId): string | null {
       if(enemy.magicShieldUntil>time||enemy.invasionUntil>time||enemy.decoysUntil>time)return null;
       return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'||t.kind==='star'),'rabbits');
     case 'captain-bramble': return null;
-    case 'duskmantle': return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.missBonus),'mark');
+    case 'duskmantle':
+      if(enemy.magicShieldUntil>time || hasMarks(enemy,time))return null;
+      return witness(enemy.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.missBonus),'mark');
     case 'sprig': return witness(player.holes.filter(visible).filter(t=>t.kind==='mole'&&!t.extended&&t.expires-time<=isolatedCasting.urgentMs),'extend');
   }
 }

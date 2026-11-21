@@ -1,7 +1,7 @@
 import { expect,test } from '@playwright/test';
 import { openSelection,enterMatch,chooseCharacter } from './frontMenu';
 
-test('two-star Clean Sweep marks exactly one column for three gameplay seconds',async({page},info)=>{
+test('two-star Clean Sweep marks one column for three seconds or until round end',async({page},info)=>{
   await page.clock.install();await openSelection(page,'local');await enterMatch(page);
   await expect(page.locator('.player-0 .cast-button')).toBeVisible();
   await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
@@ -13,9 +13,12 @@ test('two-star Clean Sweep marks exactly one column for three gameplay seconds',
   await garden.locator('.cast-button').click();
   await expect(page.locator('.cast-stars')).toHaveAttribute('data-cost','2');
   await page.clock.runFor(1600);
+  const arena=page.getByRole('main',{name:'Battle arena'});
+  if((await arena.getAttribute('data-phase'))!=='playing'){await expect(page.getByRole('region',{name:'Round result'})).toBeVisible();return;}
   await expect(page.locator('.effect-sweep')).toBeVisible();
   await expect(garden).toHaveAttribute('data-sweep-columns',/^[0-2]$/);
   await page.clock.runFor(2000);
+  if((await arena.getAttribute('data-phase'))!=='playing'){await expect(page.getByRole('region',{name:'Round result'})).toBeVisible();return;}
   await expect(page.locator('.effect-sweep')).toBeVisible();
 
   const boardBounds=await garden.boundingBox(),effectBounds=await page.locator('.effect-sweep').boundingBox();
@@ -111,7 +114,7 @@ for(const hero of ['champignon','captain-bramble'] as const)test(`${hero} one-st
   await expect(page.locator('.effect-guard')).toHaveCount(0);
 });
 
-test('Helping Tines immediately clears one column and intercepts for ten gameplay seconds or until round end',async({page})=>{
+test('Helping Tines immediately clears one column and intercepts for four gameplay seconds or until round end',async({page})=>{
   await page.clock.install();await openSelection(page,'local');await chooseCharacter(page,'Player 1','sprig');await enterMatch(page);
   await expect(page.locator('.player-0 .cast-button')).toBeVisible();
   await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+100));
@@ -127,10 +130,10 @@ test('Helping Tines immediately clears one column and intercepts for ten gamepla
   const arena=page.getByRole('main',{name:'Battle arena'}),started=Number(await arena.getAttribute('data-time'));
   await page.clock.runFor(1500);
   let finished=false;
-  for(let n=0;n<105;n++) {
+  for(let n=0;n<45;n++) {
     const phase=await arena.getAttribute('data-phase'),elapsed=Number(await arena.getAttribute('data-time'))-started;
     if(phase==='round-over'||phase==='match-over'){finished=true;break;}
-    if(elapsed>=10000)break;
+    if(elapsed>=4000)break;
     await expect(garden).toHaveAttribute('data-automation-columns',String(column));
     await expect(page.locator('.effect-automation')).toBeVisible();
     for(const hole of [column,column+3,column+6])await expect(garden.locator('.hole').nth(hole)).toHaveAttribute('data-kind','empty');
@@ -139,7 +142,7 @@ test('Helping Tines immediately clears one column and intercepts for ten gamepla
   if(finished) {
     await expect(arena).toHaveAttribute('data-phase',/^(round-over|match-over)$/);
   } else {
-    expect(Number(await arena.getAttribute('data-time'))-started).toBeGreaterThanOrEqual(10000);
+    expect(Number(await arena.getAttribute('data-time'))-started).toBeGreaterThanOrEqual(4000);
     await expect(garden).toHaveAttribute('data-automation-columns','');
   }
   await expect(page.locator('.effect-automation')).toHaveCount(0);

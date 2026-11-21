@@ -1,5 +1,5 @@
-# Current 4-star diagnostic
+# Current balance-tier-4 diagnostic
 
-[Current pooled/per-level matrices](balance-tier-4.md) · [Adopted Andromoss kit, before→after and fixed-opponent comparison](andromoss-interval-review.md).
+[Pooled/per-level matrices](balance-tier-4.md) · [Current spells, changes and interpretation](simplified-kits-review.md).
 
-Earlier reports use historical Andromoss slot effects; see their source revisions. All other heroes’ powers remain unchanged.
+Earlier reviews are historical. Human and full-kit strategy testing remain necessary.

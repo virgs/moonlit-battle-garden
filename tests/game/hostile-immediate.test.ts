@@ -23,9 +23,9 @@ it('applies every hostile spell at cast start with no warning or opponent respon
       if(tier===4){expect(victim.decoysUntil-m.state.time).toBe(8000);expect(victim.moleRushUntil-m.state.time).toBe(8000);}
     }else if(hero==='captain-bramble'){
       if(tier===2)expect(victim.tinCharges).toBe(3);
-      else expect(victim.holes.filter(t=>t?.armor===2)).toHaveLength(4);
-    }else if(tier===2)expect(victim.camouflageUntil-m.state.time).toBe(6500);
-    else expect(victim.holes.filter(t=>t?.missBonus)).toHaveLength(tier===1?3:4);
+      else {expect(victim.tinCharges).toBe(3);expect(victim.tinHits).toBe(2);expect(victim.holes.some(t=>t?.armor)).toBe(false);}
+    }else if(tier===2)expect(victim.camouflageUntil-m.state.time).toBe(6000);
+    else {expect(victim.markCharges).toBe(tier===1?3:6);expect(victim.markPermanent).toBe(true);expect(victim.holes.some(t=>t?.missBonus)).toBe(false);}
     const time=m.state.time;m.action({type:'cast',player:1});expect(m.state.casting?.player).toBe(0);
     m.advance(config.spells.castFreezeMs);expect(m.state.time).toBe(time);
   }

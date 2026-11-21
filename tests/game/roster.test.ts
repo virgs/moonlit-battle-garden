@@ -58,12 +58,12 @@ it('uses the same charge/cooldown/freeze contract for every tier of all five kit
   }
 });
 
-it('Bramble armor takes extra strikes without granting early points, and expires', () => {
+it('Bramble armor takes extra strikes without granting early points', () => {
   for (const tier of [2,4]) {
     const match=game('captain-bramble','andromoss'), victim=match.state.players[1];
     victim.holes[0]=target(match);
     cast(match,0,tier);resolve(match);
-    if(tier===2) {victim.holes[0]=target(match);modifyTarget(victim,victim.holes[0]!,match.state.time,true);}
+    victim.holes[0]=target(match);modifyTarget(victim,victim.holes[0]!,match.state.time,true);
     const hits=tier===4?2:1;
     expect(victim.holes[0]?.armor).toBe(hits);
     for(let n=0;n<hits;n++) {
@@ -78,28 +78,24 @@ it('Bramble armor takes extra strikes without granting early points, and expires
   }
 });
 
-it('Bramble guards consume two or three charges, independently of hostile armor', () => {
+it('Bramble guards consume two or five charges, independently of hostile armor', () => {
   for(const tier of [1,3]) {
     const match=game('captain-bramble','sprig'),player=match.state.players[0];
     cast(match,0,tier);
-    for(let n=0;n<(tier===1?2:3);n++) match.action({type:'hit',player:0,hole:8});
+    for(let n=0;n<(tier===1?2:5);n++) match.action({type:'hit',player:0,hole:8});
     expect(player.score).toBe(0);
     match.action({type:'hit',player:0,hole:8});expect(player.score).toBe(-config.penalties.empty);
   }
 });
 
-it('Duskmantle marks exactly three/four moles and increases their miss penalty only', () => {
-  for(const tier of [1,4]) {
-    const match=game('duskmantle','sprig'),victim=match.state.players[1];
-    for(let i=0;i<5;i++) victim.holes[i]={...target(match,'mole',i+1),expires:match.state.time+1500};
-    victim.holes[6]=target(match,'star');victim.holes[7]=target(match,'rabbit');
-    cast(match,0,tier);resolve(match);
-    const count=tier===1?config.rosterSpells.ominousMarks:4,bonus=tier===1?config.rosterSpells.markBonus:config.rosterSpells.curseBonus;
-    expect(victim.holes.filter(t=>t?.missBonus).length).toBe(count);
-    expect(victim.holes[6]?.missBonus).toBeUndefined();expect(victim.holes[7]?.missBonus).toBeUndefined();
-    match.advance(1000);
-    expect(victim.score).toBe(-(5*config.penalties.miss+count*bonus));
-    expect(match.statistics[1].markBonusPointsLost).toBe(count*bonus);
+it('Duskmantle marks only three/six future moles and increases their miss penalty',()=>{
+  for(const tier of [1,4]){
+    const match=game('duskmantle','sprig'),victim=match.state.players[1];victim.holes[0]=target(match);
+    cast(match,0,tier);resolve(match);expect(victim.holes[0]?.missBonus).toBeUndefined();
+    const count=tier===1?3:6,bonus=tier===1?8:6;victim.holes.fill(null);
+    for(let n=0;n<count;n++) {const t={...target(match,'mole',n+1),expires:match.state.time+50};modifyTarget(victim,t,match.state.time,true);victim.holes[n]=t;}
+    expect(victim.markCharges).toBe(0);match.advance(50);
+    expect(victim.score).toBe(-count*(config.penalties.miss+bonus));expect(match.statistics[1].markBonusPointsLost).toBe(count*bonus);
   }
 });
 
@@ -129,6 +125,7 @@ it('Sprig extends a target only once and automation collects stars in its select
 it('wards block new hostile spells; Sprig cleanse removes pending and active modifiers', () => {
   const match=game('captain-bramble','sprig'),victim=match.state.players[1];
   victim.holes[0]=target(match);cast(match,0,4);resolve(match);
+  modifyTarget(victim,victim.holes[0]!,match.state.time,true);
   expect(victim.holes[0]?.armor).toBe(2);
   victim.camouflageUntil=match.state.time+5000;victim.markUntil=match.state.time+5000;victim.holes[0]!.missBonus=6;
   cast(match,1,3);
@@ -166,8 +163,7 @@ it('Sprig two-column automation works across its selected columns but spends one
   player.holes[0]={...target(match),armor:1};player.armorUntil=match.state.time+10000;
   player.holes[1]=target(match,'mole',100);player.holes[2]=target(match,'star',101);
   cast(match,0,4);
-  match.advance(config.rosterSpells.automationIntervalMs);
-  expect(player.holes[0]?.armor).toBe(0);expect(player.score).toBe(0);
+  expect(player.holes[0]?.armor).toBe(0);expect(player.score).toBe(config.points.mole);
   match.advance(config.rosterSpells.automationIntervalMs*2);
   expect(player.holes[0]).toBeNull();expect(player.holes[1]).toBeNull();
   expect(player.automationColumns).toHaveLength(2);

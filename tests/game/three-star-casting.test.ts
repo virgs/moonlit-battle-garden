@@ -9,7 +9,7 @@ function game(hero:CharacterId,enemy:CharacterId='andromoss',difficulty:Difficul
 }
 function mole(m:Match,id=1,life=900):Target{return {id,kind:'mole',born:m.state.time-200,expires:m.state.time+life};}
 it('prepares wards against public theft readiness, avoids active renewal and does not invent threats in counter-free matchups',()=>{
-  for(const hero of ['champignon','sprig'] as const){
+  for(const hero of ['sprig'] as const){
     const m=game(hero),[p,enemy]=m.state.players;expect(m.isolatedCastingPolicy).toBe('opportunity');expect(opportunityKey(m,0)).toBeNull();
     enemy.stars=1;expect(opportunityKey(m,0)).toBeNull();enemy.stars=2;expect(opportunityKey(m,0)).toBe('ward-threat');
     p.magicShieldUntil=m.state.time+6000;expect(opportunityKey(m,0)).toBeNull();
@@ -34,12 +34,12 @@ it('Weed Out cleanses persistent armor without waiting for a theft threat or inv
 it('uses the same seeded delay×3/2/1, samples once and cancels a vanished ward opportunity',()=>{
   useCastingProfile('scaled');const elapsed:number[]=[];
   for(const difficulty of ['easy','medium','hard'] as const){
-    const m=game('champignon','andromoss',difficulty),decision=new IsolatedCasting(9,difficulty),start=m.state.time;m.state.players[1].stars=2;
+    const m=game('sprig','andromoss',difficulty),decision=new IsolatedCasting(9,difficulty),start=m.state.time;m.state.players[1].stars=2;
     decision.tryCast(m,0);while(!m.state.casting&&m.state.time-start<1500){m.advance(50);decision.tryCast(m,0);}
     expect(m.state.casting?.tier).toBe(3);expect(decision.statistics.scheduled).toBe(1);elapsed.push(m.state.time-start);
   }
   expect(elapsed[0]).toBe(elapsed[2]*3);expect(elapsed[1]).toBe(elapsed[2]*2);expect(elapsed[2]).toBeGreaterThanOrEqual(200);expect(elapsed[2]).toBeLessThanOrEqual(400);
-  const m=game('champignon'),decision=new IsolatedCasting(9,'hard');m.state.players[1].stars=2;decision.tryCast(m,0);m.state.players[1].stars=0;m.advance(500);decision.tryCast(m,0);
+  const m=game('sprig'),decision=new IsolatedCasting(9,'hard');m.state.players[1].stars=2;decision.tryCast(m,0);m.state.players[1].stars=0;m.advance(500);decision.tryCast(m,0);
   expect(decision.statistics.cancelled).toBe(1);expect(m.state.casting).toBeNull();
 });
 it('tracks only Siphon bonus points from final manual mole hits, retaining normal star rewards',()=>{

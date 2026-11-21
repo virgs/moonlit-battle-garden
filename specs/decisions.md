@@ -307,6 +307,12 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I30 | Validate D139 with208 simulation tests/build,8 desktop/mobile cases and34,500 completed balance games:12,000 fixed-opponent plus7,500 tier1/tier4/full-kit each. Fixed comparison shares prior seed20261119; roster snapshots use runner default20261118, so no causal roster before/after claim.3,200 unaffected fixed2/3 records reproduce exactly. Four-star win changes under1 point versus unchanged opponents;1★ declines2.5–7.3 points but still wins more in pooled selected-cost comparisons. Preserve cost/strategy biases and level flips in andromoss-interval-review.md. |
 
+| D140 | User adopts simplified whole-roster matrix: Champignon3★ five permanent mistake blocks,4★ single-column continuous6 s without guards; Bramble3★ same5 permanent blocks,4★ next3 enemy moles/two extra hits/no expiry; Duskmantle2★6 s; Sprig2★ continuous1 column4 s,4★ continuous2 columns4 s. Remaining spells unchanged from D139. |
+
+| D141 | User explicitly clarifies Duskmantle1★ and4★ are next-mole quotas with no expiry:1★ next3/+8 miss penalty;4★ next6/+6 (supersedes previous4 and tentative8 s assumption). Existing moles unchanged; normal miss penalty still applies. |
+
+| I31 | Implement D140/D141 with finite permanent guard/mark flags, per-quota heavy-armor hit/tier state, persistent per-target marks and protocol17. Continuous columns use common immediate/post-spawn hits; no Champignon4★ guard or3★ ward. Future quotas ignore visible targets, recasts refresh not stack, weaker armor cannot downgrade stronger pending quota, cleanse/reset clear hostile state. AI opportunities reflect real guard/column roles and persistent harm; delay/hit settings unchanged.217 simulation tests/build and40 distinct desktop/mobile/online checks pass;49,500 games complete at100 paired seeds per matchup/level. Full-kit Champignon wins every matchup at all levels (Bramble Easy51.5% close), but4★-only has multiple losses. Preserve exposure/strategy/counter flips in simplified-kits-review.md; no unrequested further tuning. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -2,6 +2,8 @@
 
 A browser remake of Dig Hole Battle Garden: competitive Whac-A-Mole with character-specific magic inspired by Tetris Battle Gaiden. No stacking mechanics.
 
+Current rules are the [simplified five-hero spell matrix](specs/characters.md#current-simplified-spell-matrix-d140d141), with [pooled/per-level balance matrices](reports/simplified-kits-review.md). These D140/D141 rules supersede the historical tuning notes below.
+
 ## Play locally
 
 ```sh

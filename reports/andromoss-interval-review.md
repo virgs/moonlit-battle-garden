@@ -1,5 +1,7 @@
 # Andromoss rabbit interval tuning (D139)
 
+> Superseded by [current simplified kits and matrices](simplified-kits-review.md). This report is a historical baseline.
+
 ## Current spells and change
 
 | Hero | Stars | Before → current effect | Duration |

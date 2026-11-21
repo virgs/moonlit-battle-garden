@@ -5,7 +5,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 export type PlayerId = 0 | 1;
 export type TargetKind = 'mole' | 'rabbit' | 'star';
 export type Phase = 'countdown' | 'playing' | 'round-over' | 'match-over';
-export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic'; armor?: number; persistentArmor?: boolean; missBonus?: number; rushed?: boolean; rushReductionMs?: number; extended?: boolean };
+export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic'; armor?: number; persistentArmor?: boolean; persistentMark?: boolean; missBonus?: number; rushed?: boolean; rushReductionMs?: number; extended?: boolean };
 export type PendingSpell = { tier: number; at: number; from: PlayerId };
 export type Player = {
   character: CharacterId;
@@ -30,8 +30,11 @@ export type Player = {
   armorHits: number;
   armorCharges: number;
   tinCharges: number;
+  tinHits: number;
+  tinTier: number;
   armorTier: number;
   markUntil: number;
+  markPermanent: boolean;
   markCharges: number;
   markBonus: number;
   markTier: number;

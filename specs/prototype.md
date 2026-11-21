@@ -286,3 +286,24 @@ Four current same-tier roster matrices, local per-player fixed-opponent diagnost
 ### Current Andromoss intervals (D139)
 
 User explicitly confirms **1★ rabbits every1 s** (was0.85 s) and **4★ rabbits every0.75 s** (was0.65 s), with **85% new-enemy-mole lifetime** unchanged. Both last **8 active seconds**. This lowers both rabbit rates; it is not an absolute4★ buff, despite the earlier stated goal. Four-star remains faster than1★ and includes2★ shortening. Two-star remains85% new-mole lifetime/8 s; three-star remains instant theft of all enemy stars up to receiving capacity. No other powers, AI decisions, lifetimes, casting or spawn caps change. See [interval comparison](../reports/andromoss-interval-review.md) for current matrices and limitations; the D138 review remains historical.
+
+
+### Current simplified spell matrix (D140/D141)
+
+Supersedes prior spell tables/tuning. The user clarifies both Duskmantle quotas affect **future mole arrivals only**, not visible moles; neither expires, and4★ uses6 moles.
+
+| Hero | 1★ | 2★ | 3★ | 4★ |
+|---|---|---|---|---|
+| Champignon | Block2 mistakes; no expiry | Busiest fixed column: immediate/continuous hits,3 s | Block5 mistakes; no expiry | Busiest fixed column: immediate/continuous hits,6 s |
+| Andromoss | Extra enemy rabbit every1 s/8 s | New enemy moles85% lifetime/8 s | Instant all-star theft, capacity capped | Extra enemy rabbit every0.75 s +85% new-mole lifetime/8 s |
+| Bramble | Block2 mistakes; no expiry | Next3 enemy moles,1 extra hit each; no expiry | Block5 mistakes; no expiry | Next3 enemy moles,2 extra hits each; no expiry |
+| Duskmantle | Next3 enemy moles marked,+8 miss penalty; no expiry | Dim enemy targets,6 s; AI reaction+200 ms | Manual mole kills+2 points/7 s | Next6 enemy moles marked,+6 miss penalty; no expiry |
+| Sprig | Current/new targets+750 ms once,6 s aura | Busiest fixed column: immediate/continuous hits,4 s | Instant cleanse +one-spell ward6 s | Two busiest fixed columns: immediate/continuous hits,4 s |
+
+Continuous automation strikes every selected live target once at cast start and once per50 ms tick after spawns; includes stars/rabbits and birth-tick arrivals. Each armor hit removes one extra hit, with score only at elimination; normal rewards/rabbit penalties. Exact end boundary is exclusive. No4★ Champignon guards/full-board hits; no Champignon3★ spell ward. Only Sprig3★ grants a spell ward now. Guards block missed moles, rabbit hits, empty hits, and refresh to2/5 without stacking; positive guards survive cleansing.
+
+Future-mole armor/marks ignore stars/rabbits and existing targets. Pending quota and applied modifiers have no time limit, clear on cleanse/round reset, and use finite fields for online snapshots. Recasts replace/refresh pending quota, never add it; existing marked/armored moles retain their assigned bonus/remaining hits. Weaker Bramble2★ cannot downgrade outstanding4★ quota. Duskmantle cross-tier casts replace pending quota but do not alter existing marks. Actual mole arrivals consume quotas once; missing a marked mole adds the stated penalty to the normal8 points.
+
+AI opportunities follow the changed slots: Champignon3★ uses the same urgent-mole guard opportunity as Bramble3★,4★ uses its actual one-column opportunity, and persistent harmful effects remain visible to cleanse/caster avoidance. Seeded delay/reaction settings stay unchanged; full-kit generic priorities remain provisional. Protocol17 rejects mismatched rules. No new art. Historical timed Tin Caps/one-star guards and pulsed two-star Tines remain explicit controls only.
+
+Current pooled/per-level matrices and before→after reminders: [simplified-kit review](../reports/simplified-kits-review.md). Previous reviews are historical. Human balance remains unverified.

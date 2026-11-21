@@ -52,12 +52,12 @@ it('sweep spends separate strikes on armor and cannot score a target twice',()=>
   match.advance(1000);expect(p.score).toBe(config.points.mole);
 });
 
-it('Royal Cleanup guards rabbit hits and caps newly collected charge at four',()=>{
+it('four-star sweep keeps normal rabbit penalties and collects only its selected column',()=>{
   const match=game('champignon'),p=match.state.players[0];
-  p.holes[0]=target(match,'rabbit');for(let i=1;i<7;i++)p.holes[i]=target(match,'star');
-  cast(match,0,4);
-  expect(p.mistakeShield).toBe(2);expect(p.stars).toBe(4);expect(p.score).toBe(6*config.points.star);
-  expect(match.state.phase).toBe('round-over');expect(p.wins).toBe(1);
+  p.holes[0]=target(match,'rabbit');p.holes[3]=target(match,'star');p.holes[6]=target(match,'star');p.holes[1]=target(match,'star');
+  cast(match,0,4);expect(p.mistakeShield).toBe(0);expect(p.stars).toBe(2);
+  expect(p.score).toBe(2*config.points.star-config.penalties.rabbit);expect(p.holes[1]?.kind).toBe('star');
+  expect(p.sweepUntil-match.state.time).toBe(6000);
 });
 
 it('a winning sweep finishes its casting freeze before awarding the round',()=>{
@@ -67,9 +67,9 @@ it('a winning sweep finishes its casting freeze before awarding the round',()=>{
   match.advance(config.spells.castFreezeMs);expect(match.state.phase).toBe('round-over');
 });
 
-it('sweep freezes with gameplay and Royal Cleanup keeps three guards plus the sweep',()=>{
+it('sweep freezes with gameplay and four-star sweep adds no guards',()=>{
   const match=game('champignon'),p=match.state.players[0];cast(match,0,4);
-  expect(p.mistakeShield).toBe(3);const until=p.sweepUntil,time=match.state.time;
+  expect(p.mistakeShield).toBe(0);const until=p.sweepUntil,time=match.state.time;
   p.stars=0;cast(match,1,2);expect(match.state.time).toBe(time);expect(p.sweepUntil).toBe(until);
   match.state.paused=true;match.advance(5000);expect(match.state.time).toBe(time);
   match.state.paused=false;match.state.phase='round-over';match.nextRound();
@@ -140,19 +140,14 @@ it('the bot saves two-star Clean Sweep on sparse boards and uses it for imminent
   }
 });
 
-it('Heavy Harvest retains its timed armor quota and three-second window',()=>{
-  for(const tier of [4]) {
-    const match=game('captain-bramble'),victim=match.state.players[1];
-    for(let i=0;i<6;i++)victim.holes[i]=target(match);
-    victim.holes[6]=target(match,'star');victim.holes[7]=target(match,'rabbit');
-    cast(match,0,tier);match.advance(config.spells.warningMs);
-    const limit=tier===1?config.rosterSpells.armorTargets:config.rosterSpells.heavyArmorTargets;
-    expect(victim.holes.filter(t=>t?.armor)).toHaveLength(limit);
-    expect(victim.armorUntil-match.state.time).toBe(3000);expect(victim.armorCharges).toBe(0);
-    const later=target(match);modifyTarget(victim,later,match.state.time);expect(later.armor).toBe(0);
-    expect(victim.holes[6]?.armor).toBeFalsy();expect(victim.holes[7]?.armor).toBeFalsy();
-    match.state.phase='round-over';match.nextRound();expect(match.state.players[1].armorCharges).toBe(0);
-  }
+it('four-star armor affects only the next three moles and has no timer',()=>{
+  const match=game('captain-bramble'),victim=match.state.players[1];victim.holes[0]=target(match);
+  cast(match,0,4);match.advance(config.spells.warningMs);
+  expect(victim.holes[0]?.armor).toBeUndefined();expect(victim.tinCharges).toBe(3);expect(victim.armorUntil).toBe(0);
+  match.advance(10000);expect(victim.tinCharges).toBe(3);
+  const arrivals=Array.from({length:4},()=>target(match));for(const t of arrivals)modifyTarget(victim,t,match.state.time,true);
+  expect(arrivals.map(t=>t.armor)).toEqual([2,2,2,0]);expect(arrivals[0].persistentArmor).toBe(true);
+  match.state.phase='round-over';match.nextRound();expect(match.state.players[1].tinCharges).toBe(0);
 });
 
 it('Clean Sweep selects the busiest column with stable leftmost ties, even when empty',()=>{

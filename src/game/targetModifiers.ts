@@ -24,21 +24,22 @@ export function modifyTarget(player: Player, target: Target, time: number, arriv
   if(arrival && player.tinCharges>0) {
     player.tinCharges--;
     // Stronger timed armor wins; Tin Caps never adds a third armor strike.
-    if(!target.armor) {target.armor=1;target.persistentArmor=true;}
+    if((target.armor??0)<player.tinHits) {target.armor=player.tinHits;target.persistentArmor=true;}
   }
-  if (player.markUntil > time && player.markCharges > 0 && !target.missBonus) {
+  if ((player.markPermanent ? arrival : player.markUntil > time) && player.markCharges > 0 && !target.missBonus) {
     target.missBonus = player.markBonus;
+    if(player.markPermanent)target.persistentMark=true;
     player.markCharges--;
   }
 }
 
 export function expireTargetModifiers(state: MatchState): void {
   for (const player of state.players) {
-    if (player.markUntil <= state.time) player.markCharges = 0;
+    if (!player.markPermanent && player.markUntil <= state.time) player.markCharges = 0;
     if (player.armorUntil <= state.time) player.armorCharges = 0;
     for (const target of player.holes) if (target) {
       if (player.armorUntil <= state.time && !target.persistentArmor) delete target.armor;
-      if (player.markUntil <= state.time) delete target.missBonus;
+      if (!target.persistentMark && player.markUntil <= state.time) delete target.missBonus;
     }
   }
 }
@@ -46,12 +47,12 @@ export function expireTargetModifiers(state: MatchState): void {
 export function cleanse(player: Player, time:number): void {
   player.pending = [];
   player.invasionUntil = player.moleRushUntil = player.decoysUntil = player.armorUntil = player.markUntil = player.camouflageUntil = 0;
-  player.markCharges = 0;
+  player.markCharges = 0;player.markPermanent=false;
   player.armorCharges = 0;
   player.tinCharges = 0;
   for (const target of player.holes) if (target) {
     if(target.rushReductionMs && target.expires>time)target.expires+=target.rushReductionMs;
-    delete target.rushReductionMs;delete target.armor;delete target.persistentArmor;delete target.missBonus;
+    delete target.rushReductionMs;delete target.armor;delete target.persistentArmor;delete target.missBonus;delete target.persistentMark;
   }
 }
 
@@ -63,4 +64,9 @@ export function hasTinCaps(player:Player):boolean {
 /** Charge-only guards do not need a timer or non-finite online values. */
 export function hasGuard(player:Player,time:number):boolean {
   return player.mistakeShield>0 && (player.shieldPermanent || player.shieldUntil>time);
+}
+
+/** Pending future marks and already marked live moles remain harmful until consumed. */
+export function hasMarks(player:Player,time:number):boolean {
+  return ((player.markPermanent || player.markUntil>time) && player.markCharges>0) || player.holes.some(t=>!!t?.missBonus && t.expires>time);
 }

@@ -123,13 +123,13 @@ describe('magic', () => {
     andromoss.stars = 3; match.action({ type: 'cast', player: 1 }); match.advance(config.spells.castFreezeMs); match.advance(config.spells.warningMs);
     expect(andromoss.stars).toBe(0); expect(andromoss.mistakeShield).toBe(0);
   });
-  it('four-star cleanup grants three mistake blocks', () => {
+  it('three-star guard grants five permanent mistake blocks', () => {
     const match = create(); const player = match.state.players[0];
-    player.stars = 4; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
-    for (let i = 0; i < 3; i++) match.action({ type: 'hit', player: 0, hole: 0 });
+    player.stars = 3; match.action({ type: 'cast', player: 0 }); match.advance(config.spells.castFreezeMs);
+    for (let i = 0; i < 5; i++) match.action({ type: 'hit', player: 0, hole: 0 });
     expect(player.score).toBe(0);
     expect(player.mistakeShield).toBe(0);
-    expect(player.shieldTier).toBe(4);
+    expect(player.shieldTier).toBe(3);
   });
   it('3-star theft transfers every enemy star', () => {
     const match = create(); const [guardian, andromoss] = match.state.players;

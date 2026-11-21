@@ -40,30 +40,21 @@ it('Clean Sweep strikes armor only once per tick and awards normal points only o
   match.advance(500);expect(p.score).toBe(config.points.mole);
 });
 
-it('Clean Sweep stops at the three-second boundary and Royal Cleanup keeps quarter-second timing',()=>{
-  const sweep=game(),p=sweep.state.players[0];
-  sweep.advance(config.rosterSpells.cleanSweepMs-50);p.holes[0]=target(sweep);sweep.advance(50);
-  expect(p.holes[0]?.kind).toBe('mole');
-  const royal=game('champignon',4),hero=royal.state.players[0];hero.holes[0]=target(royal);
-  royal.advance(200);expect(hero.holes[0]?.kind).toBe('mole');
-  royal.advance(50);expect(hero.holes[0]).toBeNull();expect(hero.mistakeShield).toBe(3);
+it('both sweeps stop at their exact boundaries and four-star hits every simulation tick',()=>{
+  for(const tier of [2,4]){
+    const m=game('champignon',tier),p=m.state.players[0];
+    const duration=tier===2?3000:6000;expect(p.sweepUntil-m.state.time).toBe(duration);
+    p.holes[0]=target(m);m.advance(50);expect(p.holes[0]).toBeNull();expect(p.mistakeShield).toBe(0);
+    m.advance(duration-100);p.holes[0]=target(m,100);m.advance(50);expect(p.holes[0]?.id).toBe(100);
+  }
 });
 
-it('Ominous Bud keeps its configured quota separate from the tier-four duration',()=>{
-  const prior=config.rosterSpells.ominousMarkMs;config.rosterSpells.ominousMarkMs=12000;
-  try {
-    for(const tier of [1,4]) {
-      const match=game('duskmantle',tier),victim=match.state.players[1];
-      victim.holes[0]={...target(match),expires:match.state.time+30000};
-      match.advance(config.spells.warningMs);
-      expect(victim.markUntil-match.state.time).toBe(tier===1?12000:config.rosterSpells.markMs);
-      expect(victim.markCharges).toBe(tier===1?config.rosterSpells.ominousMarks-1:3);
-      if(tier===1) {
-        match.advance(11950);expect(victim.holes[0]?.missBonus).toBe(config.rosterSpells.markBonus);
-        match.advance(50);expect(victim.holes[0]?.missBonus).toBeUndefined();
-      }
-    }
-  } finally {config.rosterSpells.ominousMarkMs=prior;}
+it('both mark quotas survive long waits and affect future moles only',()=>{
+  for(const tier of [1,4]){
+    const m=game('duskmantle',tier),p=m.state.players[1];m.advance(config.spells.warningMs);
+    expect(p.markPermanent).toBe(true);expect(p.markUntil).toBe(0);expect(p.markCharges).toBe(tier===1?3:6);
+    m.advance(30000);expect(p.markCharges).toBe(tier===1?3:6);
+  }
 });
 
 it('historical instant Tending control remains reproducible and non-stacking',()=>{

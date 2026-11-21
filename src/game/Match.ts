@@ -41,7 +41,7 @@ export class Match {
       character: this.options.characters[id], score: 0, stars: 0, wins,
       holes: Array.from({ length: 9 }, () => null), spawned: 0, nextSpawn: config.countdownMs + config.pacing.firstSpawnMs,
       nextDecoy: 0, nextCast: 0, mistakeShield: 0, shieldTier: 1, shieldUntil: 0, shieldPermanent: false, magicShieldUntil: 0,
-      invasionUntil: 0, moleRushUntil: 0, moleRushTier: 2, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorCharges: 0, tinCharges: 0, armorTier: 2, markUntil: 0, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, tendingUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepColumns: [], sweepTier: 2, nextSweep: 0, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
+      invasionUntil: 0, moleRushUntil: 0, moleRushTier: 2, decoysUntil: 0, armorUntil: 0, armorHits: 0, armorCharges: 0, tinCharges: 0, tinHits: 1, tinTier: 2, armorTier: 2, markUntil: 0, markPermanent: false, markCharges: 0, markBonus: 0, markTier: 1, camouflageUntil: 0, drainUntil: 0, tendingUntil: 0, automationUntil: 0, automationColumns: [], sweepUntil: 0, sweepColumns: [], sweepTier: 2, nextSweep: 0, automationTier: 2, nextAutomation: 0, pending: [], message: '', messageUntil: 0,
     };
   }
 
@@ -69,14 +69,10 @@ export class Match {
     }
     resolveSpells(state, [this.starCapacityFor(0),this.starCapacityFor(1)], this.statistics);
     state.players.forEach((player, id) => {
-      if (player.sweepTier === 4 && player.sweepUntil > state.time && state.time >= player.nextSweep) {
-        player.nextSweep = state.time + config.rosterSpells.royalSweepIntervalMs;
-        this.hitColumns(id as PlayerId,player.sweepColumns);
-      }
-      if ((player.automationTier===4 || config.rosterSpells.helpingTinesMode==='pulse') && player.automationUntil > state.time && state.time >= player.nextAutomation) {
-        player.nextAutomation = state.time + config.rosterSpells.automationIntervalMs;
-        const hole = player.holes.findIndex((target, index) => target && target.expires > state.time && state.time - target.born >= 200 && player.automationColumns.includes(index % 3));
-        if (hole >= 0) this.hitTarget(id as PlayerId, hole, true);
+      if(player.automationTier===2 && config.rosterSpells.helpingTinesMode==='pulse' && player.automationUntil>state.time && state.time>=player.nextAutomation) {
+        player.nextAutomation=state.time+config.rosterSpells.automationIntervalMs;
+        const hole=player.holes.findIndex((t,n)=>t && t.expires>state.time && state.time-t.born>=200 && player.automationColumns.includes(n%3));
+        if(hole>=0)this.hitTarget(id as PlayerId,hole,true);
       }
       player.holes.forEach((target, hole) => {
         if (target && target.expires <= state.time) {
@@ -91,8 +87,8 @@ export class Match {
     this.spawns.update(state);
     // Continuous column spells include targets born on this simulation tick.
     state.players.forEach((player,id)=>{
-      if(player.sweepTier===2 && player.sweepUntil>state.time)this.hitColumns(id as PlayerId,player.sweepColumns);
-      if(player.automationTier===2 && config.rosterSpells.helpingTinesMode==='continuous' && player.automationUntil>state.time)this.hitColumns(id as PlayerId,player.automationColumns);
+      if(player.sweepUntil>state.time)this.hitColumns(id as PlayerId,player.sweepColumns);
+      if((player.automationTier===4||config.rosterSpells.helpingTinesMode==='continuous')&&player.automationUntil>state.time)this.hitColumns(id as PlayerId,player.automationColumns);
     });
     this.checkOutcome();
   }
@@ -110,7 +106,7 @@ export class Match {
         this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
         const caster=this.state.players[action.player];
         if(caster.character==='champignon'&&(tier===2||tier===4))this.hitColumns(action.player,caster.sweepColumns);
-        if(caster.character==='sprig'&&tier===2&&config.rosterSpells.helpingTinesMode==='continuous')this.hitColumns(action.player,caster.automationColumns);
+        if(caster.character==='sprig'&&(tier===4||(tier===2&&config.rosterSpells.helpingTinesMode==='continuous')))this.hitColumns(action.player,caster.automationColumns);
       }
       return;
     }

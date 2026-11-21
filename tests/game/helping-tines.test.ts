@@ -11,7 +11,7 @@ it('hits the entire busiest column immediately with normal rewards/penalties, wh
   const m=game(),p=m.state.players[0];p.holes[0]=target(m);p.holes[3]=target(m,2,'star');p.holes[6]=target(m,3,'rabbit');p.holes[1]=target(m,4);
   cast(m);expect(p.automationColumns).toEqual([0]);expect(p.holes.filter((_,n)=>n%3===0)).toEqual([null,null,null]);
   expect(p.holes[1]?.id).toBe(4);expect(p.score).toBe(config.points.mole+config.points.star-config.penalties.rabbit);
-  expect(p.stars).toBe(1);expect(p.automationUntil-m.state.time).toBe(10000);
+  expect(p.stars).toBe(1);expect(p.automationUntil-m.state.time).toBe(4000);
 });
 it('intercepts real arrivals on their birth tick and never applies a minimum visibility delay',()=>{
   const m=game(),p=m.state.players[0];cast(m);
@@ -23,10 +23,10 @@ it('intercepts real arrivals on their birth tick and never applies a minimum vis
   }
   expect(spawns).toBeGreaterThan(0);expect(m.statistics[0].automationMoleHits+m.statistics[0].automationRabbitHits).toBe(spawns);
 });
-it('continues through the tenth second, excludes the exact end boundary, freezes and resets per round',()=>{
+it('continues through the fourth second, excludes the exact end boundary, freezes and resets per round',()=>{
   const m=game(),p=m.state.players[0];cast(m);const time=m.state.time,until=p.automationUntil;
   m.state.paused=true;m.advance(30000);expect(p.automationUntil).toBe(until);expect(m.state.time).toBe(time);m.state.paused=false;
-  m.advance(9900);p.holes[0]=target(m);m.advance(50);expect(p.holes[0]).toBeNull();
+  m.advance(3900);p.holes[0]=target(m);m.advance(50);expect(p.holes[0]).toBeNull();
   p.holes[0]=target(m,2);m.advance(50);expect(p.holes[0]?.id).toBe(2);
   m.state.phase='round-over';m.nextRound();expect(m.state.players[0].automationUntil).toBe(0);expect(m.state.players[0].automationColumns).toEqual([]);
 });

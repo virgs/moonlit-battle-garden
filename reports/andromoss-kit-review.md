@@ -1,5 +1,7 @@
 # Adopted Andromoss kit: four tiers, fixed opponents and full-kit snapshot
 
+> Superseded by [current simplified kits and matrices](simplified-kits-review.md). This report is a historical baseline.
+
 > Historical D138 baseline. Rabbit intervals are superseded by [D139 current tuning and results](andromoss-interval-review.md).
 
 ## Baseline rules (D138)
