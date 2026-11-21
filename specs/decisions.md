@@ -335,6 +335,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I36 | Add shared read-only star-meter presentation state for board vertical/horizontal and hidden opponent meters. Capture caster cost as held charge, defer spending/theft/reward visuals until cast end; handle skipped pickup/inter-cast snapshots, unchanged opponents, pause, reduced motion and terminal scenes. Logical charges and all simulation/AI/network/SFX behavior unchanged.231 tests/build and12 desktop/mobile reward/meter browser cases pass, explicitly checking the complete pose throughout the1.5 s hold and frame0→1→2 only afterward. Refresh in-game GIFs without image inspection. |
 
+| D148 | User requests all HUD hero names on one line (Captain Bramble was wrapping), doubles the small hero icons, and wants icon/name pairs on the score-bar row on larger screens. Preserve full names and readable responsive layouts. |
+
+| I37 | Enlarge HUD portraits32→64px,18→36px and20→40px using the previous width/height breakpoints; single-line full names use bounded per-side width and responsive font size. New shared geometry reserves row/icon height and flanks the aspect-preserved bar on wide desktop/roomy landscape; stacked labels elsewhere. Mirror pairs, retain trophy/star-column alignment, badge hidden effects on portrait corner and lower landscape opponent charge strip to avoid the name row.231 tests/build and22 distinct browser cases pass; final8 viewport cases explicitly verify longest Captain Bramble, no wrapping/clipping, doubled icon sizes, bar-row centering and shared anchors through320px–4K. Preserve44px landscape touch targets. Capture desktop/portrait/landscape actual screens for user review without image inspection. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -9,7 +9,7 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
   await expect(page.locator('.selection-heading h1')).toHaveCSS('font-family', 'Almendra, Georgia, serif');
   await expect(page.locator('body')).toHaveCSS('font-family', 'Literata, Georgia, serif');
   expect(await page.evaluate(() => document.fonts.check('400 30px Almendra') && document.fonts.check('400 15px Literata'))).toBe(true);
-  await page.getByRole('button', { name:'Next character for Player 1' }).click();
+  await chooseCharacter(page,'Player 1','captain-bramble');
   await chooseCharacter(page,'Player 2','champignon');
   await enterMatch(page);
   await expect(page.locator('canvas')).toHaveCount(1);
@@ -34,7 +34,8 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
         meters:document.querySelectorAll('[role="meter"]').length,
         verticalStars:document.querySelectorAll('.player-panel .vertical-stars').length,
         legendFont:getComputedStyle(legend).fontFamily, shadow:getComputedStyle(legend).textShadow,
-        names:[...legend.children].map(element => ({ text:element.textContent, fits:element.scrollWidth<=element.clientWidth, ...bounds(element) })),
+        inline:document.querySelector('.score-bar')!.classList.contains('inline-heroes'),
+        names:[...legend.children].map(element => {const text=element.querySelector('.score-character-name')!;const range=document.createRange();range.selectNodeContents(text);return {text:element.textContent,fits:element.scrollWidth<=element.clientWidth,lines:range.getClientRects().length,...bounds(element)};}),
         columnAligned:!!document.querySelector('.score-trophies.column-aligned'),
         icons:[...legend.querySelectorAll('.character-icon')].map(element=>({...bounds(element),character:element.getAttribute('data-character'),state:element.getAttribute('data-state')})),
         trophies:[...document.querySelectorAll('.score-trophies .trophy-art')].map(element => { const {x,y,width,height}=element.getBoundingClientRect();return {x,y,width,height}; }),
@@ -47,18 +48,18 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
       };
     });
     const {bar,art}=geometry;
-    expect(geometry.icons.map(icon=>icon.character)).toEqual(['andromoss','champignon']);
+    expect(geometry.icons.map(icon=>icon.character)).toEqual(['captain-bramble','champignon']);
     for(const [id,icon] of geometry.icons.entries()){
-      expect(icon.state).toBe('ready');expect(icon.width).toBeGreaterThanOrEqual(18);
+      expect(icon.state).toBe('ready');expect(icon.width).toBe(width<=700||height<=520?(height<=520?40:36):64);
       expect(icon.height).toBe(icon.width);expect(icon.y+icon.height).toBeLessThanOrEqual(geometry.trophies[id].y);
       expect(icon.x).toBeGreaterThanOrEqual(0);expect(icon.x+icon.width).toBeLessThanOrEqual(width);
     }
     expect(art.width/art.height).toBeCloseTo(499/45,1); expect(geometry.meters).toBe(1);
     if(width===844&&height===390)expect(geometry.verticalStars).toBe(2);
-    expect(geometry.names.map(name=>name.text)).toEqual(['Andromoss','Sir Champignon']);
+    expect(geometry.names.map(name=>name.text)).toEqual(['Captain Bramble','Sir Champignon']);
     expect(geometry.legendFont).toBe('Almendra, Georgia, serif');
     expect((geometry.shadow.match(/rgb\(/g)??[]).length).toBeGreaterThanOrEqual(8);
-    expect(geometry.shadow).toContain(' -2px -2px 0px'); expect(geometry.names.every(name=>name.fits)).toBe(true);
+    expect(geometry.shadow).toContain(' -2px -2px 0px'); expect(geometry.names.every(name=>name.fits&&name.lines===1)).toBe(true);
     for(const id of [0,1]) {
       const trophy=geometry.trophies[id], label=geometry.names[id], panel=geometry.panels[id], stars=panel.stars;
       if(geometry.columnAligned) {
@@ -67,7 +68,11 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
         expect(trophy.x).toBeGreaterThanOrEqual(0);expect(trophy.x+trophy.width).toBeLessThanOrEqual(width);
       }
       expect(label.y+label.height).toBeLessThanOrEqual(trophy.y);
-      expect(label.x+label.width/2).toBeCloseTo(trophy.x+trophy.width/2,0);
+      if(geometry.inline){
+        expect(label.y+label.height/2).toBeCloseTo(art.y+art.height/2,0);
+        if(id===0)expect(label.x+label.width).toBeLessThan(art.x);else expect(label.x).toBeGreaterThan(art.x+art.width);
+      }
+      expect(geometry.names[0].x+geometry.names[0].width).toBeLessThan(geometry.names[1].x);
       expect(label.x).toBeGreaterThanOrEqual(0);expect(label.x+label.width).toBeLessThanOrEqual(width);
       expect(label.y+label.height).toBeLessThanOrEqual(bar.y+bar.height);
       expect(panel.y).toBeGreaterThanOrEqual(bar.y+bar.height);

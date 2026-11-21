@@ -15,10 +15,13 @@ export function scoreBarGeometry(width: number, height: number) {
   const barWidth = Math.min(width - 24, height < 580 ? 320 : 560);
   const artHeight = barWidth * legacyBar.height / legacyBar.width;
   const nameSize = (width <= 500 ? 9 : 10) * hudScale;
-  const nameHeight = compact ? 24 : 66, trophyWidth = 56 * hudScale, trophyHeight = 28 * hudScale;
-  const total = artHeight + nameHeight + 2 + trophyHeight;
-  const headerHeight = height <= 520 ? 40 : width <= 700 ? 60 : 72;
-  return { viewportWidth: width, x: (width - barWidth) / 2, y: headerHeight, width: barWidth, height: total, reserve: Math.ceil(total + 4), artHeight, nameSize, nameHeight, trophyWidth, trophyHeight };
+  const inlineHeroes=(width>=1200&&height>=580)||(width>=640&&height<=520);
+  const iconSize=height<=520?40:width<=700?36:64;
+  const rowHeight=inlineHeroes?Math.max(artHeight,iconSize):artHeight;
+  const nameHeight=inlineHeroes?0:iconSize+6, trophyWidth=56*hudScale,trophyHeight=28*hudScale;
+  const total=rowHeight+nameHeight+2+trophyHeight;
+  const headerHeight=height<=520?40:width<=700?60:72;
+  return {viewportWidth:width,x:(width-barWidth)/2,y:headerHeight,width:barWidth,height:total,reserve:Math.ceil(total+4),artHeight,nameSize,nameHeight,trophyWidth,trophyHeight,inlineHeroes,iconSize,rowHeight};
 }
 
 // Fase.cpp: board origins were (50,200)/(450,200); earth origins
