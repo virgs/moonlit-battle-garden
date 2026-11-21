@@ -319,6 +319,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I32 | Implement five8-frame/6 FPS/48px one-star loops using PixelLab’s free VFX renderer (no AI generations/credits), preserve provenance/recipes and user-only visual review. Use two charge glyphs below holes, perimeter spores/leaves, per-mole violet marks and reused hidden-board status near affected opponent portrait. Replace generic1★ box/impact layers; higher tiers/casts/SFX/rules stay unchanged. Simulation diff empty,221 tests/build pass,22 desktop/mobile/portrait/landscape browser cases pass, assets check0 invalid. Verify guard glyphs never overlap hole hit areas, pause/reduced motion, real charge consumption, mole attachment, timed expiry, correct hidden-board ownership and HUD layout. Visual approval pending; preview gallery at public/assets/effects/one-star/index.html. |
 
+| D144 | User finds Champignon/Bramble1★ effects identical and requests one more free-editor retry before considering AI-generated sprites. Remove the shared ring: a large pink mushroom cap/pale stem for Champignon versus a tall green thorned leaf shield for Bramble, each with its own small particle motion. Keep one loop,8 frames/6 FPS/48px, two-charge placement and all rules. User-only visual review; do not decide visual success on their behalf or start paid generation during this retry. |
+
+| I33 | Replace only Champignon/Bramble1★ PNG/GIF/frame metadata and preserve previous sources in provenance history. Shared ring removed, custom mushroom and thorn-leaf pixel motifs rendered by PixelLab’s free VFX tool; other three exports and simulation unchanged.221 tests/build and4 desktop/mobile guard browser checks pass. Enlarged gallery updated; visual judgment remains with user. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
