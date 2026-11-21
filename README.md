@@ -4,6 +4,8 @@ A browser remake of Dig Hole Battle Garden: competitive Whac-A-Mole with charact
 
 Current rules are the [simplified five-hero spell matrix](specs/characters.md#current-simplified-spell-matrix-d140d141), with [pooled/per-level balance matrices](reports/simplified-kits-review.md). These D140/D141 rules supersede the historical tuning notes below.
 
+[Preview the five 1★ gameplay loops](public/assets/effects/one-star/index.html). Their visual review remains with the user; gameplay rules are unchanged.
+
 ## Play locally
 
 ```sh

@@ -7,7 +7,9 @@ import type { CharacterId } from '../game/types';
 import type { Snapshot } from '../game/Session';
 import type { GardenLayout } from '../render/layout';
 import './spell-effects.css';
-import { hasGuard,hasTinCaps,hasMarks } from '../game/targetModifiers';
+import { OneStarBoardEffects } from './OneStarEffects';
+import { config } from '../game/config';
+import { hasGuard,hasTinCaps } from '../game/targetModifiers';
 
 /** The simulation owns effect lifetime; these layers never capture hole input. */
 export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden: GardenLayout }) {
@@ -15,21 +17,20 @@ export function SpellEffects({ snapshot, garden }: { snapshot: Snapshot; garden:
   if (state.phase !== 'playing' || state.casting) return null;
   const effects: { kind: string; character: CharacterId; tier: number }[] = [];
   if (player.sweepUntil > state.time) effects.push({ kind: 'sweep', character: 'champignon', tier: player.sweepTier });
-  if (hasGuard(player,state.time)) effects.push({ kind: 'guard', character: player.character, tier: player.shieldTier });
+  if (player.shieldTier!==1 && hasGuard(player,state.time)) effects.push({ kind: 'guard', character: player.character, tier: player.shieldTier });
   if (player.magicShieldUntil > state.time) effects.push({ kind: 'ward', character: player.character, tier: 3 });
-  if (player.invasionUntil > state.time) effects.push({ kind: 'invasion', character: 'andromoss', tier: 1 });
   if (player.moleRushUntil > state.time || player.holes.some(t=>!!t?.rushReductionMs)) effects.push({ kind:'rush',character:'andromoss',tier:player.moleRushTier });
   if (player.decoysUntil > state.time) effects.push({ kind: 'decoys', character: 'andromoss', tier: 4 });
   if (player.armorUntil > state.time || hasTinCaps(player)) effects.push({ kind: 'armor', character: 'captain-bramble', tier: player.armorUntil > state.time ? player.armorTier : (player.tinCharges>0?player.tinTier:player.holes.some(t=>t?.persistentArmor&&(t.armor??0)>=2)?4:2) });
-  if (hasMarks(player,state.time)) effects.push({ kind: 'curse', character: 'duskmantle', tier: player.markTier });
+  if ((player.markTier!==1 && player.markCharges>0) || player.holes.some(target=>target?.missBonus && target.missBonus!==config.rosterSpells.markBonus)) effects.push({ kind: 'curse', character: 'duskmantle', tier: player.markTier });
   if (player.camouflageUntil > state.time) effects.push({ kind: 'veil', character: 'duskmantle', tier: 2 });
   if (player.drainUntil > state.time) effects.push({ kind: 'drain', character: 'duskmantle', tier: 3 });
-  if (player.tendingUntil > state.time) effects.push({ kind: 'tending', character: 'sprig', tier: 1 });
   if (player.automationUntil > state.time) effects.push({ kind: 'automation', character: 'sprig', tier: player.automationTier });
   if (player.pending.length) effects.push({ kind: 'incoming', character: state.players[player.pending[0].from].character, tier: player.pending[0].tier });
   const recent = [...snapshot.events].reverse().find(event => event.kind === 'cast' && event.player === garden.id && event.round === state.round && state.time - event.time < 700);
-  if (recent?.tier) effects.push({ kind: 'impact', character: player.character, tier: recent.tier });
+  if (recent?.tier && recent.tier!==1) effects.push({ kind: 'impact', character: player.character, tier: recent.tier });
   return <div className="spell-effects" style={{ left:garden.x, top:garden.y, width:garden.width, height:garden.height } as CSSProperties} aria-hidden="true">
+    <OneStarBoardEffects snapshot={snapshot} garden={garden}/>
     {effects.map(effect => {
       const areas = effect.kind === 'sweep'
         ? garden.holes.filter((_,index) => player.sweepColumns.includes(index % 3)).map(hole => hole.hit) : [];

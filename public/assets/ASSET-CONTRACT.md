@@ -47,3 +47,8 @@ pnpm assets:check --strict
 ```
 
 Current result: **36 ready, 25 missing, 0 invalid** including staged homes. Missing: 20 individual spell effects and five optional large portraits. The regular check allows intentional placeholders; strict mode also fails on missing files. Browser-test fixtures are synthetic pixels and are never installed as game assets.
+
+
+## One-star effects: ready for user visual review
+
+The five one-star gameplay loops now live at `/assets/effects/one-star/{hero}.png`, with GIF previews, frame metadata and editable source/provenance alongside. Eight48×48 frames,6 FPS, looped by simulation time; each descriptor records its actual sheet columns. Both board and hidden-board HUD use the same sprite and uniform scaling. Existing character casts remain shared across all spell tiers. No activation/ending variants were created. `/assets/effects/one-star/index.html` previews all five at3×; visual review remains with the user.

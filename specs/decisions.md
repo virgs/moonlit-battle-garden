@@ -313,6 +313,12 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I31 | Implement D140/D141 with finite permanent guard/mark flags, per-quota heavy-armor hit/tier state, persistent per-target marks and protocol17. Continuous columns use common immediate/post-spawn hits; no Champignon4★ guard or3★ ward. Future quotas ignore visible targets, recasts refresh not stack, weaker armor cannot downgrade stronger pending quota, cleanse/reset clear hostile state. AI opportunities reflect real guard/column roles and persistent harm; delay/hit settings unchanged.217 simulation tests/build and40 distinct desktop/mobile/online checks pass;49,500 games complete at100 paired seeds per matchup/level. Full-kit Champignon wins every matchup at all levels (Bramble Easy51.5% close), but4★-only has multiple losses. Preserve exposure/strategy/counter flips in simplified-kits-review.md; no unrequested further tuning. |
 
+| D142 | User accepts D140/D141 spell powers and current balance. Keep the simplified matrix unchanged for the presentation pass. |
+
+| D143 | User requests only the during-gameplay animation for each1★ spell, retaining existing hero cast/star-cost/SFX; no activation/ending animations. Approves two-charge mushroom/leaf protection, enemy alien spores8 s, attached violet marks on next3 moles, own green shimmer6 s, and reused small hidden-opponent status near its name/icon. Authorizes this five-effect art pass; other assets remain deferred. User-only image review still applies. |
+
+| I32 | Implement five8-frame/6 FPS/48px one-star loops using PixelLab’s free VFX renderer (no AI generations/credits), preserve provenance/recipes and user-only visual review. Use two charge glyphs below holes, perimeter spores/leaves, per-mole violet marks and reused hidden-board status near affected opponent portrait. Replace generic1★ box/impact layers; higher tiers/casts/SFX/rules stay unchanged. Simulation diff empty,221 tests/build pass,22 desktop/mobile/portrait/landscape browser cases pass, assets check0 invalid. Verify guard glyphs never overlap hole hit areas, pause/reduced motion, real charge consumption, mole attachment, timed expiry, correct hidden-board ownership and HUD layout. Visual approval pending; preview gallery at public/assets/effects/one-star/index.html. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

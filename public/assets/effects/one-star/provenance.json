@@ -1,0 +1,362 @@
+{
+  "created": "2026-11-21",
+  "tool": "PixelLab vfx_workbench (free subscriber renderer, no AI generation)",
+  "frames": 8,
+  "fps": 6,
+  "width": 48,
+  "height": 48,
+  "review": "User visual review pending. No images inspected by assistant.",
+  "assets": {
+    "champignon": {
+      "root": "https://api.pixellab.ai/mcp/pixel-tools/afa14238-bc9a-4932-8b8e-f0168301cc2b/",
+      "filename": "moonlit-battle-garden-champignon-1-star-loop",
+      "effectId": "7a853b6b-cad8-4091-93da-bb495a0e61d5",
+      "editUrl": "https://pixellab.ai/create-vfx?effect=7a853b6b-cad8-4091-93da-bb495a0e61d5",
+      "recipe": {
+        "canvas": {
+          "w": 48,
+          "h": 48
+        },
+        "frames": 8,
+        "fps": 6,
+        "loop": true,
+        "origin": [
+          24,
+          24
+        ],
+        "outline": {
+          "mode": "dark"
+        },
+        "dither": 0,
+        "tones": 4,
+        "detail": 0,
+        "seed": 112026,
+        "name": "Moonlit 1-star mushroom guard",
+        "ramps": {
+          "main": [
+            "#293b35",
+            "#627b57",
+            "#b6d17a",
+            "#f0efb8"
+          ]
+        },
+        "layers": [
+          {
+            "id": "guard_halo",
+            "type": "ring",
+            "radius": {
+              "wave": {
+                "mid": 15,
+                "amp": 1,
+                "cycles": 1
+              }
+            },
+            "width": 1,
+            "soft": 0,
+            "squash": 0.8,
+            "opacity": 0.6
+          },
+          {
+            "id": "mushroom",
+            "type": "particles",
+            "mode": "orbit",
+            "shape": "custom",
+            "pixels": [
+              "..22222..",
+              ".2333332.",
+              "233433332",
+              "222222222",
+              "...222...",
+              "...343...",
+              "...222..."
+            ],
+            "count": 1,
+            "radius": 0,
+            "turns": 1,
+            "spacing": "even",
+            "shrink": 0,
+            "size": [
+              2,
+              2
+            ],
+            "pixel_ramp": 4,
+            "outline": true
+          }
+        ]
+      }
+    },
+    "captain-bramble": {
+      "root": "https://api.pixellab.ai/mcp/pixel-tools/078856b9-ccf1-4f48-9881-d465dc2136f0/",
+      "filename": "moonlit-battle-garden-captain-bramble-1-star-loop",
+      "effectId": "50fa6e7d-5a98-4a57-85f9-a6990cd5d3a8",
+      "editUrl": "https://pixellab.ai/create-vfx?effect=50fa6e7d-5a98-4a57-85f9-a6990cd5d3a8",
+      "recipe": {
+        "canvas": {
+          "w": 48,
+          "h": 48
+        },
+        "frames": 8,
+        "fps": 6,
+        "loop": true,
+        "origin": [
+          24,
+          24
+        ],
+        "outline": {
+          "mode": "dark"
+        },
+        "dither": 0,
+        "tones": 4,
+        "detail": 0,
+        "seed": 112026,
+        "name": "Moonlit 1-star leaf guard",
+        "ramps": {
+          "main": [
+            "#243c36",
+            "#4b7957",
+            "#9dbd72",
+            "#e4dda2"
+          ]
+        },
+        "layers": [
+          {
+            "id": "guard_halo",
+            "type": "ring",
+            "radius": {
+              "wave": {
+                "mid": 15,
+                "amp": 1,
+                "cycles": 1
+              }
+            },
+            "width": 1,
+            "soft": 0,
+            "squash": 0.8,
+            "opacity": 0.6
+          },
+          {
+            "id": "leaf",
+            "type": "particles",
+            "mode": "orbit",
+            "shape": "custom",
+            "pixels": "leaf_broad",
+            "count": 1,
+            "radius": 0,
+            "turns": 1,
+            "spacing": "even",
+            "shrink": 0,
+            "size": [
+              2,
+              2
+            ],
+            "pixel_ramp": 4,
+            "outline": true
+          }
+        ]
+      }
+    },
+    "andromoss": {
+      "root": "https://api.pixellab.ai/mcp/pixel-tools/628033e9-2f28-427e-aa66-dc8b313121d0/",
+      "filename": "moonlit-battle-garden-andromoss-1-star-loop",
+      "effectId": "cc3387ca-0062-43a6-9800-cb618ad571e6",
+      "editUrl": "https://pixellab.ai/create-vfx?effect=cc3387ca-0062-43a6-9800-cb618ad571e6",
+      "recipe": {
+        "canvas": {
+          "w": 48,
+          "h": 48
+        },
+        "frames": 8,
+        "fps": 6,
+        "loop": true,
+        "origin": [
+          24,
+          24
+        ],
+        "outline": {
+          "mode": "dark"
+        },
+        "dither": 0,
+        "tones": 4,
+        "detail": 0,
+        "seed": 112026,
+        "name": "Moonlit 1-star alien spores",
+        "ramps": {
+          "main": [
+            "#492a48",
+            "#99646b",
+            "#e7a56c",
+            "#f5df9e"
+          ]
+        },
+        "layers": [
+          {
+            "id": "spores",
+            "type": "particles",
+            "mode": "orbit",
+            "shape": "dot",
+            "count": 5,
+            "radius": 13,
+            "turns": 1,
+            "spacing": "even",
+            "size": [
+              2,
+              3
+            ],
+            "shrink": 0,
+            "squash": 0.75
+          },
+          {
+            "id": "glints",
+            "type": "particles",
+            "mode": "twinkle",
+            "shape": "sparkle",
+            "count": 2,
+            "radius": 17,
+            "size": [
+              1,
+              2
+            ],
+            "shrink": 0,
+            "blink": 1,
+            "spacing": "even"
+          }
+        ]
+      }
+    },
+    "duskmantle": {
+      "root": "https://api.pixellab.ai/mcp/pixel-tools/694fadfd-c24d-4cc8-bf0c-0d9d078d5737/",
+      "filename": "moonlit-battle-garden-duskmantle-1-star-loop",
+      "effectId": "baac0764-f202-4c1b-8cae-7ec098aa5e43",
+      "editUrl": "https://pixellab.ai/create-vfx?effect=baac0764-f202-4c1b-8cae-7ec098aa5e43",
+      "recipe": {
+        "canvas": {
+          "w": 48,
+          "h": 48
+        },
+        "frames": 8,
+        "fps": 6,
+        "loop": true,
+        "origin": [
+          24,
+          24
+        ],
+        "outline": {
+          "mode": "dark"
+        },
+        "dither": 0,
+        "tones": 4,
+        "detail": 0,
+        "seed": 112026,
+        "name": "Moonlit 1-star violet mole mark",
+        "ramps": {
+          "main": [
+            "#342347",
+            "#69477d",
+            "#b787d2",
+            "#e7c6ee"
+          ]
+        },
+        "layers": [
+          {
+            "id": "curse",
+            "type": "star",
+            "radius": 9,
+            "points": 4,
+            "step": 1,
+            "rotation": {
+              "from": 0,
+              "to": 90
+            },
+            "width": 2,
+            "soft": 0
+          },
+          {
+            "id": "motes",
+            "type": "particles",
+            "mode": "orbit",
+            "shape": "dot",
+            "count": 3,
+            "radius": 15,
+            "turns": -1,
+            "spacing": "even",
+            "size": [
+              1,
+              2
+            ],
+            "shrink": 0
+          }
+        ]
+      }
+    },
+    "sprig": {
+      "root": "https://api.pixellab.ai/mcp/pixel-tools/2f4012cd-cd24-4c47-b0e9-214f4c50480a/",
+      "filename": "moonlit-battle-garden-sprig-1-star-loop",
+      "effectId": "0ef39345-dfa5-4263-a2cd-aec50a19df11",
+      "editUrl": "https://pixellab.ai/create-vfx?effect=0ef39345-dfa5-4263-a2cd-aec50a19df11",
+      "recipe": {
+        "canvas": {
+          "w": 48,
+          "h": 48
+        },
+        "frames": 8,
+        "fps": 6,
+        "loop": true,
+        "origin": [
+          24,
+          24
+        ],
+        "outline": {
+          "mode": "dark"
+        },
+        "dither": 0,
+        "tones": 4,
+        "detail": 0,
+        "seed": 112026,
+        "name": "Moonlit 1-star gentle tending",
+        "ramps": {
+          "main": [
+            "#284c44",
+            "#54866b",
+            "#98c991",
+            "#deedb1"
+          ]
+        },
+        "layers": [
+          {
+            "id": "leaves",
+            "type": "particles",
+            "mode": "orbit",
+            "shape": "custom",
+            "pixels": "leaf_small",
+            "count": 3,
+            "radius": 13,
+            "turns": 1,
+            "spacing": "even",
+            "shrink": 0,
+            "size": [
+              2,
+              2
+            ],
+            "pixel_ramp": 4,
+            "outline": true
+          },
+          {
+            "id": "shimmer",
+            "type": "particles",
+            "mode": "twinkle",
+            "count": 2,
+            "radius": 18,
+            "shape": "sparkle",
+            "size": [
+              1,
+              2
+            ],
+            "shrink": 0,
+            "blink": 1,
+            "spacing": "even"
+          }
+        ]
+      }
+    }
+  }
+}

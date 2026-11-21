@@ -5,3 +5,14 @@
 .effect-sweep{color:#d7e895}.effect-sweep rect{stroke-dasharray:14 8}
 
 .effect-rush{color:#ffb27c}
+
+/* One gameplay loop per one-star spell. Frame selection uses frozen simulation time. */
+.one-star-effect{filter:none}
+.one-star-effect .one-star-sprite{position:absolute;display:block;image-rendering:pixelated;filter:drop-shadow(0 1px 1px #18252ac0);pointer-events:none}
+.one-star-effect.effect-guard{color:inherit}
+.score-hero-icon{position:relative;display:inline-flex;flex-shrink:0}
+.hidden-board-effects{position:absolute;right:calc(100% + 2px);top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;gap:3px;pointer-events:none}
+.hidden-board-effect{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:0}
+.hidden-board-effect .one-star-sprite{display:block;width:25px;height:25px;image-rendering:pixelated;filter:drop-shadow(0 1px 1px #15222a)}
+.effect-quota{position:absolute;right:-1px;bottom:0;font:700 11px/1 'Literata',serif;color:#f1dcff;text-shadow:1px 1px 0 #24122e,-1px -1px 0 #24122e,1px -1px 0 #24122e,-1px 1px 0 #24122e}
+@media(max-height:520px){.hidden-board-effect .one-star-sprite{width:20px;height:20px}.effect-quota{font-size:9px}}
