@@ -15,11 +15,11 @@ function decode(path:string){
  }
  return {png,width,height,poses};
 }
-it('keeps20 bolder review candidates separate, preserving colours and stronger motion',()=>{
+it('adopts20 approved bolder loops while retaining the prior artwork',()=>{
  let oldColours=0,newColours=0,oldInk=0,newInk=0,oldMotion=0,newMotion=0;
  for(const hero of characterIds)for(const tier of [1,2,3,4]){
-  const clip=presentation[hero].effects[tier];expect(clip.src).toContain('/pixel-spells/');
-  const old=decode('public'+clip.src),candidate=decode(`public/assets/effects/pixel-spells-bold/${hero}-${tier}.png`);
+  const clip=presentation[hero].effects[tier];expect(clip.src).toContain('/pixel-spells-bold/');
+  const old=decode(`public/assets/effects/pixel-spells/${hero}-${tier}.png`),candidate=decode('public'+clip.src);
   expect(candidate.width).toBe(384);expect(candidate.height).toBe(48);expect(candidate.png.equals(old.png)).toBe(false);
   expect(new Set(candidate.poses.map(p=>p.join(','))).size).toBeGreaterThan(1);
   for(let f=0;f<8;f++){

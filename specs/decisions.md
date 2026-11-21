@@ -361,6 +361,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I42 | Keep I41 sheets and active presentation config untouched. Create20 separate review-only48px/eight-frame sheets in pixel-spells-bold, with two-pixel major contours, extra material half-tones and stronger articulated actions. Extend authoring/capture scripts with --bold to build/preview the candidate without switching production. Candidate game previews override effect paths only in isolated ignored fixtures.253 tests, production build and candidate matrix/desktop/portrait/landscape cast-pause checks pass. Visual selection remains pending; no mechanics, AI, network or live artwork changes. |
 
+| D155 | User approves adoption of all20 bolder spell loops and requests an explanation of each one's board/target placement and time/charge semantics. Keep the earlier raster version archived. |
+
+| I43 | Activate pixel-spells-bold for all20 configured effects, mark its provenance approved, and make build/capture defaults follow the adopted set; --baseline explicitly selects the archived set. Update asset tests to verify the adopted paths against the preserved baseline. Existing placement/timing remains unchanged: board-rim/column cues, actual target badges, pending quotas, hidden-opponent HUD, no countdown rings or new spell timing. Document the full20-cell placement matrix. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

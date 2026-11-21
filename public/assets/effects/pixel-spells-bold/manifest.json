@@ -1,7 +1,7 @@
 {
   "method": "Hand-authored integer-pixel raster painting; no AI-generated or edited source images",
   "source": "scripts/art/spell-pixels-bold.ts",
-  "reviewStatus": "Candidate only; baseline stays active until user chooses",
+  "reviewStatus": "Approved and active (D155)",
   "baseline": "../pixel-spells/manifest.json",
   "outline": "Two-pixel contours on major shapes",
   "motion": "Articulated eight-pose action loops",

@@ -4,13 +4,13 @@ import { createServer } from 'vite';
 import { mkdirSync,writeFileSync,appendFileSync } from 'node:fs';
 import { resolve,join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-const bold=process.argv.includes('--bold'),folder=bold?'pixel-spells-bold':'pixel-spells';
+const bold=!process.argv.includes('--baseline'),folder=bold?'pixel-spells-bold':'pixel-spells';
 const out=resolve('output/guard-flows/'+folder);mkdirSync(out,{recursive:true});
 writeFileSync(join(out,'gallery.html'),`<!doctype html><html><meta name="viewport" content="width=device-width,initial-scale=1"><div id="root"></div><script type="module" src="/output/guard-flows/${folder}/gallery.tsx"></script></html>`);
 writeFileSync(join(out,'gallery.tsx'),`
 import {createRoot} from 'react-dom/client';import {useState,useEffect} from 'react';
 import {SpellGlyph,spellMotifs} from '/src/ui/SpellGlyph';import {presentation} from '/src/presentation/config';
-if(${bold})for(const hero of Object.values(presentation))for(const clip of Object.values(hero.effects))clip.src=clip.src.replace('/pixel-spells/','/pixel-spells-bold/');import {signatureColours} from '/src/presentation/spellIdentity';
+for(const hero of Object.values(presentation))for(const clip of Object.values(hero.effects))clip.src='/assets/effects/${folder}/'+clip.src.split('/').pop();import {signatureColours} from '/src/presentation/spellIdentity';
 const names={'champignon':'Sir Champignon','andromoss':'Andromoss','captain-bramble':'Captain Bramble','duskmantle':'Duskmantle','sprig':'Sprig'};
 function Gallery(){const [time,setTime]=useState(0);useEffect(()=>{const timer=setInterval(()=>setTime(t=>t+125),125);return()=>clearInterval(timer)},[]);return <main><header><b>Moonlit Battle Garden</b><span>1 star</span><span>2 stars</span><span>3 stars</span><span>4 stars</span></header>{Object.keys(spellMotifs).map(hero=><section key={hero}><b><i style={{background:signatureColours[hero]}}/>{names[hero]}</b>{[1,2,3,4].map(tier=><figure key={tier}><SpellGlyph character={hero} tier={tier} time={time}/><figcaption>{spellMotifs[hero][tier].replaceAll('-',' ')}</figcaption></figure>)}</section>)}</main>}
 createRoot(document.getElementById('root')).render(<Gallery/>);
@@ -20,7 +20,7 @@ appendFileSync(join(out,'gallery.html'),`<link rel="stylesheet" href="/output/gu
 writeFileSync(join(out,'flow.html'),`<!doctype html><html><meta name="viewport" content="width=device-width,initial-scale=1"><div id="root"></div><script type="module" src="/output/guard-flows/${folder}/flow.tsx"></script></html>`);
 writeFileSync(join(out,'flow.tsx'),`
 import {presentation} from '/src/presentation/config';
-if(${bold})for(const hero of Object.values(presentation))for(const clip of Object.values(hero.effects))clip.src=clip.src.replace('/pixel-spells/','/pixel-spells-bold/');
+for(const hero of Object.values(presentation))for(const clip of Object.values(hero.effects))clip.src='/assets/effects/${folder}/'+clip.src.split('/').pop();
 import {createRoot} from 'react-dom/client';import {Game} from '/src/ui/Game';import {Session} from '/src/game/Session';import {config} from '/src/game/config';import '/src/ui/style.css';
 const params=new URLSearchParams(location.search),hero=params.get('hero')||'sprig',tier=Number(params.get('tier')||4);
 const session=new Session({characters:[hero,'champignon'],mode:params.get('mode')||'local',difficulty:'easy',seed:41});session.match.advance(config.countdownMs);session.match.state.players[0].stars=tier;session.match.state.players[1].stars=0;session.togglePause();session.togglePause();

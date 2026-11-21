@@ -1,5 +1,5 @@
 import type { CharacterId } from '../../src/game/types';
-/** Review candidate: chunkier silhouettes, richer material ramps and articulated action poses. */
+/** Approved D155 artwork: chunkier silhouettes, richer material ramps and articulated action poses. */
 export const size=48,frames=8;
 export const identities:Record<CharacterId,{name:string;colour:string;ramp:string[]}>= {
  champignon:{name:'Rose pink',colour:'#ed83ac',ramp:['#703654','#ac486f','#ed83ac','#ffd2dc']},

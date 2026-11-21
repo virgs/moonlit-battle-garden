@@ -14,10 +14,10 @@ characters:
     icon: /assets/characters/champignon/icon.png
     portrait: /assets/characters/champignon/portrait.png
     effects:
-      1: { src: /assets/effects/pixel-spells/champignon-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      2: { src: /assets/effects/pixel-spells/champignon-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      3: { src: /assets/effects/pixel-spells/champignon-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      4: { src: /assets/effects/pixel-spells/champignon-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      1: { src: /assets/effects/pixel-spells-bold/champignon-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      2: { src: /assets/effects/pixel-spells-bold/champignon-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      3: { src: /assets/effects/pixel-spells-bold/champignon-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      4: { src: /assets/effects/pixel-spells-bold/champignon-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
     home:
       name: Sporelight Keep
       background:
@@ -45,10 +45,10 @@ characters:
     icon: /assets/characters/andromoss/icon.png
     portrait: /assets/characters/andromoss/portrait.png
     effects:
-      1: { src: /assets/effects/pixel-spells/andromoss-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      2: { src: /assets/effects/pixel-spells/andromoss-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      3: { src: /assets/effects/pixel-spells/andromoss-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      4: { src: /assets/effects/pixel-spells/andromoss-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      1: { src: /assets/effects/pixel-spells-bold/andromoss-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      2: { src: /assets/effects/pixel-spells-bold/andromoss-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      3: { src: /assets/effects/pixel-spells-bold/andromoss-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      4: { src: /assets/effects/pixel-spells-bold/andromoss-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
     home:
       name: Moonlit Hideout
       background:
@@ -77,10 +77,10 @@ characters:
     icon: /assets/characters/captain-bramble/icon.png
     portrait: /assets/characters/captain-bramble/portrait.png
     effects:
-      1: { src: /assets/effects/pixel-spells/captain-bramble-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      2: { src: /assets/effects/pixel-spells/captain-bramble-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      3: { src: /assets/effects/pixel-spells/captain-bramble-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      4: { src: /assets/effects/pixel-spells/captain-bramble-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      1: { src: /assets/effects/pixel-spells-bold/captain-bramble-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      2: { src: /assets/effects/pixel-spells-bold/captain-bramble-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      3: { src: /assets/effects/pixel-spells-bold/captain-bramble-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      4: { src: /assets/effects/pixel-spells-bold/captain-bramble-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
     home:
       name: Mossroot Path
       background:
@@ -109,10 +109,10 @@ characters:
     icon: /assets/characters/duskmantle/icon.png
     portrait: /assets/characters/duskmantle/portrait.png
     effects:
-      1: { src: /assets/effects/pixel-spells/duskmantle-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      2: { src: /assets/effects/pixel-spells/duskmantle-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      3: { src: /assets/effects/pixel-spells/duskmantle-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      4: { src: /assets/effects/pixel-spells/duskmantle-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      1: { src: /assets/effects/pixel-spells-bold/duskmantle-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      2: { src: /assets/effects/pixel-spells-bold/duskmantle-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      3: { src: /assets/effects/pixel-spells-bold/duskmantle-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      4: { src: /assets/effects/pixel-spells-bold/duskmantle-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
     home:
       name: Violet Veil
       background:
@@ -141,10 +141,10 @@ characters:
     icon: /assets/characters/sprig/icon.png
     portrait: /assets/characters/sprig/portrait.png
     effects:
-      1: { src: /assets/effects/pixel-spells/sprig-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      2: { src: /assets/effects/pixel-spells/sprig-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      3: { src: /assets/effects/pixel-spells/sprig-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
-      4: { src: /assets/effects/pixel-spells/sprig-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      1: { src: /assets/effects/pixel-spells-bold/sprig-1.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      2: { src: /assets/effects/pixel-spells-bold/sprig-2.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      3: { src: /assets/effects/pixel-spells-bold/sprig-3.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
+      4: { src: /assets/effects/pixel-spells-bold/sprig-4.png, frameWidth: 48, frameHeight: 48, frameCount: 8, columns: 8, fps: 8, holdMs: 0 }
     home:
       name: Lanternbloom Garden
       background:

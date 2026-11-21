@@ -345,3 +345,9 @@ D153 verification:252 tests and production build pass;54 desktop/mobile browser 
 ### Bolder spell candidate, awaiting selection (D154)
 
 I41 is the preserved fallback and remains the configured artwork. A separate20-sheet candidate adds heavier contours, extra material tones and more expressive articulated poses while retaining colours/ideas.253 tests and production build pass. Candidate checks verify signature colours in all frames, hard alpha, uncropped poses, differing sheets, and increases in aggregate palette variety, outline pixels and silhouette motion. Browser capture checks cover all20 loaded raster loops, reduced motion and real desktop/phone portrait/landscape casts and pause. No new balance runs: no rules, bots, network or active presentation changes. Visual selection belongs to the user.
+
+### Bolder spell set adopted (D155)
+
+All20 configured effect paths now use the user-approved bold set. Preserve the original raster set unchanged as an archive. Build/capture defaults and asset tests follow adoption; --baseline selects the archive. Documented every effect's exact board/column/target placement, durations/quotas, mobile indicators and lack of countdown rings. No placement, gameplay, AI or protocol changes.
+
+D155 verification:253 tests and production build pass;28 desktop/mobile browser cases verify adopted1★ loops, hidden-opponent sprites, cast blackout and actual per-target marks/armor/bonus/rush. The default capture command loads all20 adopted sheets and passes reduced-motion plus desktop/portrait/landscape cast/pause checks. Asset audit:56 ready,5 optional portraits missing,0 invalid; earlier raster files are unchanged.
