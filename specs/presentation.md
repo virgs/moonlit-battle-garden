@@ -190,3 +190,9 @@ Compute remaining fraction as clamp((deadline − simulation time)/configured du
 Target badges remain full-colour because already granted lifetime changes can outlive the application window. Pending armor/curse assignments, mistake protection and instantaneous theft have no time-fill. The hourglass above a target still means shortened lifetime; only its board/HUD aura icon carries the spell duration. No target-life gauges or countdowns are introduced.
 
 `pnpm exec vite-node scripts/capture-spell-duration.ts` records a100/75/50/10/0% comparison for broom, UFO, lantern and dew leaf, plus actual half-duration desktop broom, quarter-duration portrait UFO and matching quarter-duration landscape cultivators. The ignored output/guard-flows/spell-duration files are for user visual review. No image inspection or generation service is used.
+
+### Contrast backings for spell icons (D157 / I45)
+
+Board spell icons and compact hidden-opponent icons now have a fixed dark circular backing with a stepped pixel edge and a thin owning-hero-colour rim. Draw three integer-scanline paths (outer dark edge, hero rim, dark face) before the raster image and its elapsed-time copy. The backing is not filtered or duration-clipped, so it remains steady even when the sprite is almost fully darkened. It stays inside the existing48px viewport: no sprite shrink, added layout footprint, hitbox changes or new asset files.
+
+The shared viewport's backing is opt-in. Board and hidden-opponent calls enable it; per-target badges leave it off and retain their current dark rectangular badge surfaces. Pause/cast/reduced-motion and all duration/charge semantics remain unchanged. The existing capture-spell-duration script now includes backing in the stage matrix; real Game screenshots show it automatically. User retains visual review.

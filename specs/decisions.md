@@ -369,6 +369,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I44 | Add read-only remaining fractions from actual simulation deadlines/configured duration for all11 timed spells. Shared raster viewport clips a darkened copy over whole elapsed source-pixel rows; alpha is preserved and material shading remains visible. No wall-clock/CSS animation, new sprite files or mechanics changes. Existing target badges retain their normal colours; effects disappear on real expiry. Add actual-cast tests and stage/desktop/phone screenshots. This supersedes I43's absence of duration indicators. |
 
+| D157 | User approves dark circular backing with stepped pixel edges and a thin owning-hero-colour rim for board spell icons and compact opponent icons. Keep backing/rim fixed while artwork animates and darkens; per-target badges retain their existing dark backing. |
+
+| I45 | Add an optional code-drawn48px pixel-disc backing to the shared raster viewport, enabled explicitly for board/hidden-opponent instances and off by default for target badges. Three static integer-scanline silhouettes provide dark outer edge, hero rim and dark face beneath the raster/shading layers. Keep geometry, input transparency, source sheets and duration logic unchanged. Refresh stage/game screenshots; no new assets or rule changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

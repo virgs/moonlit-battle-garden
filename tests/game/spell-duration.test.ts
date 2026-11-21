@@ -36,3 +36,12 @@ it('clips only the darkened raster copy, preserves alpha and keeps individual SV
  expect(markup.match(/0 0 0 1 0/g)).toHaveLength(4);
  expect(durationRemaining(500,0,100)).toBe(1);expect(durationRemaining(100,200,100)).toBe(0);
 });
+it('keeps optional hero-colour backing unchanged as the artwork drains',()=>{
+ for(const character of ['champignon','andromoss','captain-bramble','duskmantle','sprig'] as const){
+  const draw=(remaining:number,backed=true)=>renderToStaticMarkup(createElement(SpellGlyph,{character,tier:2,time:250,remaining,backed}));
+  const full=draw(1),empty=draw(0),backing=(html:string)=>html.match(/<g class="spell-backing"[\s\S]*?<\/g>/)?.[0];
+  expect(backing(full)).toBeTruthy();expect(backing(empty)).toBe(backing(full));
+  expect(backing(full)).not.toContain('filter=');expect(backing(full)).not.toContain('clip-path=');
+  expect(draw(.5,false)).not.toContain('spell-backing');
+ }
+});
