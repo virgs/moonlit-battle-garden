@@ -20,10 +20,13 @@ export function scoreBarGeometry(width: number, height: number) {
   const stackHeroNames=!inlineHeroes||(shortHeroes?width<800:width<1200);
   const iconSize=height<=520?(width<1000?48:64):width<=360?48:width<=700?64:width<900?80:width<1200?96:128;
   const rowHeight=inlineHeroes?Math.max(artHeight,shortHeroes?iconSize/2:iconSize+(stackHeroNames?nameSize*1.1+8:0)):artHeight;
-  const nameHeight=inlineHeroes?0:iconSize+nameSize*1.1+8, trophyWidth=56*hudScale,trophyHeight=28*hudScale;
-  const total=rowHeight+nameHeight+2+trophyHeight;
+  const nameHeight=inlineHeroes?0:iconSize+nameSize*1.1+8;
+  const trophyWidth=56*hudScale*.8,trophyHeight=28*hudScale*.8;
+  const heroInset=Math.max(12,(trophyWidth-iconSize)/2+8);
+  const heroBottom=shortHeroes?rowHeight/2+iconSize/2+(stackHeroNames?4+nameSize*1.1:0):rowHeight+nameHeight+(inlineHeroes?0:2);
+  const total=heroBottom+6+trophyHeight+2;
   const headerHeight=height<=520?40:width<=700?60:72;
-  return {viewportWidth:width,x:(width-barWidth)/2,y:headerHeight,width:barWidth,height:total,reserve:Math.ceil(total+4),artHeight,nameSize,nameHeight,trophyWidth,trophyHeight,inlineHeroes,shortHeroes,stackHeroNames,iconSize,rowHeight};
+  return {viewportWidth:width,x:(width-barWidth)/2,y:headerHeight,width:barWidth,height:total,reserve:Math.ceil(total+4),artHeight,nameSize,nameHeight,trophyWidth,trophyHeight,inlineHeroes,shortHeroes,stackHeroNames,iconSize,rowHeight,heroInset};
 }
 
 // Fase.cpp: board origins were (50,200)/(450,200); earth origins

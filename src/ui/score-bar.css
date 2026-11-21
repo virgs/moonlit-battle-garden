@@ -5,16 +5,15 @@
 .score-legend>span{position:absolute;bottom:0;display:flex;align-items:center;justify-content:flex-start;gap:6px;text-align:center;height:100%;white-space:nowrap;overflow:visible}
 .score-legend>span:first-child{color:#a9c5ff}.score-legend>span:last-child{color:#ffaaaa;flex-direction:row-reverse}
 
-.opponent-charge{display:flex;align-items:center;justify-content:flex-end;gap:6px;height:28px;color:#ffaaaa;font-size:10px}.opponent-charge .sprite-stars{width:96px;height:24px}
+.opponent-charge{position:absolute;right:0;top:calc(100% - 28px);display:flex;align-items:center;justify-content:flex-end;gap:6px;height:28px;color:#ffaaaa;font-size:10px}.opponent-charge .sprite-stars{width:96px;height:24px}
 .landscape-board .opponent-charge{position:absolute;left:calc(100% + 12px);top:0;width:130px;justify-content:flex-start}
 
 .score-legend{--name-icon-space:calc(var(--hero-icon-size) + 8px)}
 .score-legend .character-icon{width:var(--hero-icon-size);height:var(--hero-icon-size)}
-.score-character-name{min-width:0;white-space:nowrap;flex-shrink:0;font-size:clamp(10px,calc((var(--name-width) - var(--name-icon-space)) / 8),var(--name-size))}
+.score-character-name{position:relative;display:inline-block;min-width:0;white-space:nowrap;flex-shrink:0;font-size:clamp(10px,calc((var(--name-width) - var(--name-icon-space)) / 8),var(--name-size))}
 .inline-heroes .score-legend{position:absolute;inset:0 0 auto;height:var(--score-row-height);margin-top:0}
 .inline-heroes .score-legend>span:first-child{justify-content:flex-start}
 .inline-heroes .score-legend>span:last-child{justify-content:flex-start;flex-direction:row-reverse}
-.inline-heroes .score-trophies{margin-top:2px}
 .score-legend .hidden-board-effects{right:-3px;left:auto;top:auto;bottom:-3px;transform:none;gap:1px}
 .score-legend .hidden-board-effect .one-star-sprite{width:16px;height:16px}
 .score-legend .effect-quota{font-size:9px}
@@ -32,3 +31,5 @@
 .short-heroes.stack-hero-names .score-legend>span:last-child .score-character-name{left:auto;right:0}
 .landscape-board .short-heroes .opponent-charge{left:50%;top:calc(var(--score-row-height) + 2px);width:88px;transform:translateX(-50%);justify-content:center}
 .landscape-board .short-heroes .opponent-charge .sprite-stars{width:88px;height:22px}
+
+.score-legend .score-trophies.portrait-aligned{position:absolute;top:calc(100% + 6px);width:var(--trophy-width);height:var(--trophy-height);display:block;pointer-events:none}

@@ -10,7 +10,7 @@ import { CharacterIcon } from './CharacterIcon';
 import { HiddenBoardEffects } from './OneStarEffects';
 import { StarMeter, Trophy } from './LegacyRewards';
 
-export function ScoreBar({ state, area, onPause, controlLabel, opponentStars, trophyCenters }: { state: MatchState; area: ArenaLayout['score']; onPause?: () => void; controlLabel?: string; opponentStars?: number; trophyCenters?: number[] }) {
+export function ScoreBar({ state, area, onPause, controlLabel, opponentStars }: { state: MatchState; area: ArenaLayout['score']; onPause?: () => void; controlLabel?: string; opponentStars?: number }) {
   const { bluePercent, leader } = roundStanding(state);
   const [paint, setPaint] = useState({ percent: 50, frame: 0 });
   const latest = useRef({ bluePercent, paused: state.paused, animate: state.phase === 'playing' });
@@ -30,8 +30,12 @@ export function ScoreBar({ state, area, onPause, controlLabel, opponentStars, tr
     return () => clearInterval(timer);
   }, []);
   const names = state.players.map(player => characters[player.character].name);
-  const nameWidth=area.inlineHeroes?Math.min(400,(area.viewportWidth-area.width)/2-28):Math.min(320,area.viewportWidth/2-24);
-  const namePositions=[12-area.x,area.viewportWidth-12-nameWidth-area.x];
+  const nameWidth=area.inlineHeroes?Math.min(400,(area.viewportWidth-area.width)/2-area.heroInset-16):Math.min(320,area.viewportWidth/2-area.heroInset-12);
+  const namePositions=[area.heroInset-area.x,area.viewportWidth-area.heroInset-nameWidth-area.x];
+  const trophy=(side:number)=>{
+    const offset=(area.iconSize-area.trophyWidth)/2;
+    return <span className="score-trophies portrait-aligned" aria-label={`${names[side]} rounds won`} style={area.stackHeroNames&&side===1?{right:offset}:{left:offset}}><Trophy key={`${side}-${state.players[side].wins}`} wins={state.players[side].wins} paused={state.paused} mirror={side===1}/></span>;
+  };
   const description = leader === null ? 'Even match' : `${names[leader]} leads`;
   return <section className={`score-bar ${area.inlineHeroes?'inline-heroes':'stacked-heroes'} ${area.shortHeroes?'short-heroes':''} ${area.stackHeroNames?'stack-hero-names':''}`} aria-label="Round standing" style={{ left: area.x, top: area.y, width: area.width, height: area.height, '--name-size': `${area.nameSize}px`, '--hero-icon-size': `${area.iconSize}px`, '--score-row-height': `${area.rowHeight}px`, '--name-height': `${area.nameHeight}px`, '--trophy-width': `${area.trophyWidth}px`, '--trophy-height': `${area.trophyHeight}px` } as CSSProperties}>
     <div className="score-track" role="meter" aria-label="Blue versus red round advantage" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(bluePercent)} aria-valuetext={`${description}. Score lead ${Math.abs(state.players[0].score - state.players[1].score)} of ${config.winScoreDifference} points needed to win.`}>
@@ -43,8 +47,8 @@ export function ScoreBar({ state, area, onPause, controlLabel, opponentStars, tr
       </svg>
       {onPause && <button className="score-pause" aria-label={controlLabel ?? (state.paused ? 'Resume' : 'Pause')} title="Tap the score bar or press Escape for game controls" onClick={onPause} />}
     </div>
-    <div className="score-legend">{names.map((name, side) => <span key={side} style={{ left: namePositions[side], width: nameWidth, '--name-width': `${nameWidth}px` } as CSSProperties}><span className="score-hero-icon"><CharacterIcon character={state.players[side].character} placeholder="box" />{opponentStars!==undefined&&side===1&&<HiddenBoardEffects state={state} side={1}/>}</span><span className="score-character-name">{name}</span></span>)}</div>
-    <div className={`score-trophies ${trophyCenters ? "column-aligned" : ""}`} aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} style={trophyCenters ? { position: "absolute", left: trophyCenters[side] - area.trophyWidth / 2 } : undefined} />)}</div>
+    <div className="score-legend">{names.map((name, side) => <span key={side} style={{ left: namePositions[side], width: nameWidth, '--name-width': `${nameWidth}px` } as CSSProperties}><span className="score-hero-icon"><CharacterIcon character={state.players[side].character} placeholder="box" />{opponentStars!==undefined&&side===1&&<HiddenBoardEffects state={state} side={1}/>}{!area.stackHeroNames&&trophy(side)}</span><span className="score-character-name"><span className="hero-name-text">{name}</span>{area.stackHeroNames&&trophy(side)}</span></span>)}</div>
+
     {opponentStars !== undefined && <div className="opponent-charge" role="group" aria-label={`Opponent magic: ${opponentStars} of 4 stars`}><StarMeter count={opponentStars} time={state.time} horizontal casting={!!state.casting} spent={state.casting?.player===1?state.casting.tier:undefined} settled={state.phase!=='playing'} /></div>}
   </section>;
 }

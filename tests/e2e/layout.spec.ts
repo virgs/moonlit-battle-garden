@@ -36,8 +36,8 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
         legendFont:getComputedStyle(legend).fontFamily, shadow:getComputedStyle(legend).textShadow,
         inline:document.querySelector('.score-bar')!.classList.contains('inline-heroes'),
         short:document.querySelector('.score-bar')!.classList.contains('short-heroes'),
-        names:[...legend.children].map(element => {const text=element.querySelector('.score-character-name')!;const range=document.createRange();range.selectNodeContents(text);return {text:element.textContent,fits:element.scrollWidth<=element.clientWidth,lines:range.getClientRects().length,...bounds(element)};}),
-        columnAligned:!!document.querySelector('.score-trophies.column-aligned'),
+        names:[...legend.children].map(element => {const text=element.querySelector('.hero-name-text')!;const range=document.createRange();range.selectNodeContents(text);return {text:element.textContent,fits:range.getBoundingClientRect().width<=element.clientWidth,lines:range.getClientRects().length,textBounds:bounds(text),...bounds(element)};}),
+        portraitAligned:document.querySelectorAll('.score-trophies.portrait-aligned').length===2,
         icons:[...legend.querySelectorAll('.character-icon')].map(element=>({...bounds(element),character:element.getAttribute('data-character'),state:element.getAttribute('data-state')})),
         trophies:[...document.querySelectorAll('.score-trophies .trophy-art')].map(element => { const {x,y,width,height}=element.getBoundingClientRect();return {x,y,width,height}; }),
         panels:[...document.querySelectorAll('.player-panel')].map(panel => ({
@@ -64,12 +64,12 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
     expect(geometry.shadow).toContain(' -2px -2px 0px'); expect(geometry.names.every(name=>name.fits&&name.lines===1)).toBe(true);
     for(const id of [0,1]) {
       const trophy=geometry.trophies[id], label=geometry.names[id], panel=geometry.panels[id], stars=panel.stars;
-      if(geometry.columnAligned) {
-        expect(trophy.x+trophy.width/2).toBeCloseTo(stars.x+stars.width/2,0);
-        expect(trophy.y+trophy.height).toBeLessThanOrEqual(stars.y);
-        expect(trophy.x).toBeGreaterThanOrEqual(0);expect(trophy.x+trophy.width).toBeLessThanOrEqual(width);
-      }
-      expect(label.y+label.height).toBeLessThanOrEqual(trophy.y);
+      expect(geometry.portraitAligned).toBe(true);
+      expect(trophy.x+trophy.width/2).toBeCloseTo(geometry.icons[id].x+geometry.icons[id].width/2,1);
+      expect(trophy.width).toBeCloseTo((width<700||(height<500&&width<1000)?112:168)*.8,1);
+      expect(trophy.y).toBeGreaterThanOrEqual(Math.max(geometry.icons[id].y+geometry.icons[id].height,label.textBounds.y+label.textBounds.height));
+      expect(trophy.y+trophy.height).toBeLessThanOrEqual(bar.y+bar.height);
+      expect(trophy.x).toBeGreaterThanOrEqual(0);expect(trophy.x+trophy.width).toBeLessThanOrEqual(width);
       if(geometry.inline){
         expect(label.y+label.height/2).toBeCloseTo(art.y+art.height/2,0);
         if(id===0)expect(label.x+label.width).toBeLessThan(art.x);else expect(label.x).toBeGreaterThan(art.x+art.width);

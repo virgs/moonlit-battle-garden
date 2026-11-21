@@ -29,6 +29,11 @@ try{
   try{
    const page=await context.newPage();await page.clock.install();await page.goto(`/output/guard-flows/hud-preview.html?mode=${mode}`);await expect(page.locator('canvas')).toBeVisible();await page.clock.pauseAt(new Date(await page.evaluate(()=>Date.now())+1000));await page.clock.runFor(700);await page.evaluate(()=>document.fonts.ready);
    await expect(page.locator('.score-trophies .trophy-art[data-wins="1"]')).toHaveCount(2);await expect(page.locator('.match-round-number,.round-number')).toHaveCount(0);
+   const alignment=await page.locator('.score-legend>span').evaluateAll(pairs=>pairs.map(pair=>{
+     const icon=pair.querySelector('.character-icon')!.getBoundingClientRect(),title=pair.querySelector('.hero-name-text')!.getBoundingClientRect(),trophy=pair.querySelector('.trophy-art')!.getBoundingClientRect();
+     return {iconCenter:icon.x+icon.width/2,trophyCenter:trophy.x+trophy.width/2,after:Math.max(icon.bottom,title.bottom),top:trophy.top,left:trophy.left,right:trophy.right};
+   }));
+   for(const item of alignment){expect(item.trophyCenter).toBeCloseTo(item.iconCenter,1);expect(item.top).toBeGreaterThanOrEqual(item.after);expect(item.left).toBeGreaterThanOrEqual(0);expect(item.right).toBeLessThanOrEqual(width);}
    await page.screenshot({path:join(output,`hud-trophies-${name}.png`),scale:'css'});console.log(`${name}: ${width}x${height}, one real round win per side`);
   }finally{await context.close();}
  }

@@ -50,8 +50,8 @@ it('recolors only the original green identity mask in the board base', async () 
   }
 });
 
-it('scales trophy dimensions and name fonts by two on phones and three on two-board desktop screens', () => {
+it('uses 80% trophy dimensions while retaining the existing name fonts', () => {
   const phone = scoreBarGeometry(390, 844), desktop = scoreBarGeometry(1440, 900);
-  expect(phone.trophyWidth).toBe(112); expect(phone.trophyHeight).toBe(56); expect(phone.nameSize).toBe(18);
-  expect(desktop.trophyWidth).toBe(168); expect(desktop.trophyHeight).toBe(84); expect(desktop.nameSize).toBe(30);
+  expect(phone.trophyWidth).toBeCloseTo(89.6); expect(phone.trophyHeight).toBeCloseTo(44.8); expect(phone.nameSize).toBe(18);
+  expect(desktop.trophyWidth).toBeCloseTo(134.4); expect(desktop.trophyHeight).toBeCloseTo(67.2); expect(desktop.nameSize).toBe(30);
 });

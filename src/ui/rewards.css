@@ -6,6 +6,5 @@
 @media(max-height:579px){.celebration-trophy{width:150px;height:75px;margin-bottom:0}}
 @media(prefers-reduced-motion:reduce){.celebration-trophy{animation:none}}
 
-.score-trophies.column-aligned{position:relative}
 
 .spell-tier-stars{--spell-star-size:18px;display:inline-block;flex:none;width:calc(var(--spell-star-columns)*var(--spell-star-size));height:var(--spell-star-size);overflow:hidden;image-rendering:pixelated;vertical-align:middle;filter:drop-shadow(0 1px 1px #000)}

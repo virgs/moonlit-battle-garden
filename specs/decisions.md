@@ -345,6 +345,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I38 | Use128px desktop edge portraits (12px inset), adaptive96/80/64/48px sizes elsewhere, full single-line names beside/below as space allows, roomy desktop/landscape bar flanks. Keep desktop trophies on star columns; short landscape uses bar trophy columns to avoid edge-portrait overlap and a compact centered opponent meter. Remove round-number HUD/countdown heading, keep timer/mode/countdown and internal rounds.231 tests/build pass;16 final viewport/meta/countdown browser cases pass (plus earlier one-star presentation regressions). Capture five actual Game screenshots with1–1 trophy state by advancing two real simulated rounds in a capture-only fixture, not changing production defaults. No image inspection or balance tuning. |
 
+| D151 | User confirms: reduce HUD trophies to80% on all screens, center each beneath its portrait; when the hero name is below the portrait, place the trophy below that name while retaining portrait centering. This supersedes star-container/bar-end alignment. |
+
+| I39 | Resize HUD trophies by0.8 and place each within its portrait anchor (horizontal names) or below its name anchor (stacked names), always sharing portrait center. Remove trophyCenters/star-column placement; reserve true edge-group extent and inset enough to avoid clipping on narrow phones. Preserve win-count animation keys and source aspect ratio.231 tests/build and30 desktop/mobile layout/reward/effect browser cases pass, checking80% dimensions, exact portrait centering, below-name ordering, viewport/board separation and landscape targets. Five1–1 capture previews additionally assert actual trophy alignment; no image inspection or mechanics changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
