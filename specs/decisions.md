@@ -357,6 +357,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I41 | Replace vector paths and old1★ loops with20 transparent48×48 raster sheets (8frames at8fps), hand-authored through integer-pixel shapes, stepped outlines, material ramps, upper-left highlights and lower-right shadows. Hero accents: Champignon rose#ed83ac, Andromoss cyan#65d9ea, Bramble ember#ed715c, Duskmantle violet#b292ef, Sprig green#a7d76b. All tiers share the same raster viewport/clock/reduced-motion logic and preserve existing gameplay anchors/charge/target indicators. Keep the prior1★ art archived; no PixelLab/AI service or hero art generation. Specs mark this pass ready for user visual review; no rule/balance/protocol changes. |
 
+| D154 | User likes I41's20 shaded raster spell effects but requests one separate iteration before adoption: thicker lines closer to existing game assets, a few more colours and more expressive movement. Keep every hero colour and spell idea. If the candidate is unsuccessful, adopt I41; preserve it exactly. |
+
+| I42 | Keep I41 sheets and active presentation config untouched. Create20 separate review-only48px/eight-frame sheets in pixel-spells-bold, with two-pixel major contours, extra material half-tones and stronger articulated actions. Extend authoring/capture scripts with --bold to build/preview the candidate without switching production. Candidate game previews override effect paths only in isolated ignored fixtures.253 tests, production build and candidate matrix/desktop/portrait/landscape cast-pause checks pass. Visual selection remains pending; no mechanics, AI, network or live artwork changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

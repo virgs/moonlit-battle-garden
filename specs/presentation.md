@@ -156,3 +156,11 @@ Each spell has a visible hero-colour element in every frame, while steel, wood, 
 Source artwork lives in scripts/art/spell-pixels.ts. `pnpm assets:spells` deterministically writes20 PNG sheets and their provenance/palette manifest in public/assets/effects/pixel-spells. This pass uses no PixelLab/AI generation or image inspection. Original one-star exports remain archived; the configured active sheets now all use the new raster directory. The asset audit reports56 ready files and5 optional portraits missing,0 invalid.
 
 The capture script now produces a five-hero × four-tier animated matrix with colour swatches, plus real desktop and single-board phone cast/pause examples in ignored output/guard-flows/pixel-spells. The user decides whether the visual result is approved; technical checks do not claim aesthetic approval.
+
+### Separate bolder review candidate (D154 / I42)
+
+The user likes I41 and requests another visual iteration before choosing. Preserve all baseline files in pixel-spells and keep them configured in the actual game. The20 new sheets in pixel-spells-bold are review candidates only; their manifest explicitly identifies the baseline and pending selection. Both sets retain the same hero accents, motifs,48px frame size and8fps/eight-frame contract.
+
+Candidate changes: two-pixel contours on large shapes; additional material half-tones; cap squash and spring, wider tool sweeps, moving fortress caps/gate, expanding spore rings, rabbit ear/pop poses, quarter-turn hourglass flips, converging stolen stars, UFO/bunny movement, bracing shields, flaring helmet plates, moving cage bars/briars, orbiting runes, billowing cloth, flaring lantern flames, scanning/blinking eyes, falling dew, wider shears and sprung cultivators. These are artwork poses only; no effect timing or game rules change.
+
+`pnpm assets:spells --bold` builds only the candidate. `pnpm exec vite-node scripts/capture-higher-spells.ts --bold` creates the same20-cell animated matrix and real desktop/phone cast/pause checks in ignored output/guard-flows/pixel-spells-bold. Its temporary fixtures change effect paths in memory; production presentation.yaml and baseline sheets remain untouched. Running either command without --bold retains baseline behavior. No image inspection or PixelLab service use; user review selects the version.

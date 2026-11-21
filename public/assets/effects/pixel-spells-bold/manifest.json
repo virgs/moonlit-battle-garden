@@ -1,0 +1,343 @@
+{
+  "method": "Hand-authored integer-pixel raster painting; no AI-generated or edited source images",
+  "source": "scripts/art/spell-pixels-bold.ts",
+  "reviewStatus": "Candidate only; baseline stays active until user chooses",
+  "baseline": "../pixel-spells/manifest.json",
+  "outline": "Two-pixel contours on major shapes",
+  "motion": "Articulated eight-pose action loops",
+  "lighting": "Upper-left highlights, bottom-right shadows; opaque palette clusters and transparent background",
+  "identities": {
+    "champignon": {
+      "name": "Rose pink",
+      "colour": "#ed83ac",
+      "ramp": [
+        "#703654",
+        "#ac486f",
+        "#ed83ac",
+        "#ffd2dc"
+      ]
+    },
+    "andromoss": {
+      "name": "Moon cyan",
+      "colour": "#65d9ea",
+      "ramp": [
+        "#20566f",
+        "#368da6",
+        "#65d9ea",
+        "#c5fcf0"
+      ]
+    },
+    "captain-bramble": {
+      "name": "Ember red",
+      "colour": "#ed715c",
+      "ramp": [
+        "#682c3e",
+        "#ac414d",
+        "#ed715c",
+        "#ffd1a0"
+      ]
+    },
+    "duskmantle": {
+      "name": "Twilight violet",
+      "colour": "#b292ef",
+      "ramp": [
+        "#433457",
+        "#76549d",
+        "#b292ef",
+        "#ead4ff"
+      ]
+    },
+    "sprig": {
+      "name": "Seedling green",
+      "colour": "#a7d76b",
+      "ramp": [
+        "#3a5744",
+        "#6a934d",
+        "#a7d76b",
+        "#e4f5b2"
+      ]
+    }
+  },
+  "assets": [
+    {
+      "character": "champignon",
+      "tier": 1,
+      "motif": "mushroom-buckler",
+      "signatureColour": "#ed83ac",
+      "file": "champignon-1.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "champignon",
+      "tier": 2,
+      "motif": "broom",
+      "signatureColour": "#ed83ac",
+      "file": "champignon-2.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "champignon",
+      "tier": 3,
+      "motif": "mushroom-fortress",
+      "signatureColour": "#ed83ac",
+      "file": "champignon-3.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "champignon",
+      "tier": 4,
+      "motif": "spore-cyclone",
+      "signatureColour": "#ed83ac",
+      "file": "champignon-4.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "andromoss",
+      "tier": 1,
+      "motif": "rabbit-portal",
+      "signatureColour": "#65d9ea",
+      "file": "andromoss-1.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "andromoss",
+      "tier": 2,
+      "motif": "alien-hourglass",
+      "signatureColour": "#65d9ea",
+      "file": "andromoss-2.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "andromoss",
+      "tier": 3,
+      "motif": "star-magnet",
+      "signatureColour": "#65d9ea",
+      "file": "andromoss-3.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "andromoss",
+      "tier": 4,
+      "motif": "rabbit-ufo",
+      "signatureColour": "#65d9ea",
+      "file": "andromoss-4.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "captain-bramble",
+      "tier": 1,
+      "motif": "ember-buckler",
+      "signatureColour": "#ed715c",
+      "file": "captain-bramble-1.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "captain-bramble",
+      "tier": 2,
+      "motif": "tin-helmet",
+      "signatureColour": "#ed715c",
+      "file": "captain-bramble-2.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "captain-bramble",
+      "tier": 3,
+      "motif": "helmet-sentinel",
+      "signatureColour": "#ed715c",
+      "file": "captain-bramble-3.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "captain-bramble",
+      "tier": 4,
+      "motif": "iron-briar-cage",
+      "signatureColour": "#ed715c",
+      "file": "captain-bramble-4.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "duskmantle",
+      "tier": 1,
+      "motif": "amethyst-rune",
+      "signatureColour": "#b292ef",
+      "file": "duskmantle-1.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "duskmantle",
+      "tier": 2,
+      "motif": "ink-veil",
+      "signatureColour": "#b292ef",
+      "file": "duskmantle-2.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "duskmantle",
+      "tier": 3,
+      "motif": "soul-lantern",
+      "signatureColour": "#b292ef",
+      "file": "duskmantle-3.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "duskmantle",
+      "tier": 4,
+      "motif": "thorn-eye",
+      "signatureColour": "#b292ef",
+      "file": "duskmantle-4.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "sprig",
+      "tier": 1,
+      "motif": "dewdrop-leaf",
+      "signatureColour": "#a7d76b",
+      "file": "sprig-1.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "sprig",
+      "tier": 2,
+      "motif": "working-rake",
+      "signatureColour": "#a7d76b",
+      "file": "sprig-2.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "sprig",
+      "tier": 3,
+      "motif": "garden-shears",
+      "signatureColour": "#a7d76b",
+      "file": "sprig-3.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    },
+    {
+      "character": "sprig",
+      "tier": 4,
+      "motif": "twin-cultivator",
+      "signatureColour": "#a7d76b",
+      "file": "sprig-4.png",
+      "width": 384,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "frames": 8,
+      "fps": 8,
+      "columns": 8
+    }
+  ]
+}
