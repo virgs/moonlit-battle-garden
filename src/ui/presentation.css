@@ -11,3 +11,8 @@
 .standing-hero{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;overflow:hidden}
 
 .cast-banner{grid-template-rows:minmax(0,1fr) auto;gap:8px;padding:12px}.cast-banner .cast-art,.cast-banner .cast-placeholder{min-height:0}.cast-cost{display:flex;justify-content:center;width:100%;border-bottom:3px solid #77a8ff;filter:drop-shadow(0 2px 3px #000);padding-bottom:4px}.cast-side-1 .cast-cost{border-color:#ff9292}.cast-stars{display:block;width:min(90%,var(--cast-stars-width));height:auto;max-height:48px;image-rendering:pixelated;overflow:hidden}
+
+/* Dim the entire arena/HUD once; the caster and star cost remain at full brightness. */
+.casting-scene{position:absolute;inset:0;z-index:6;pointer-events:none}
+.cast-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);pointer-events:none}
+.casting-scene .cast-banner{z-index:1}

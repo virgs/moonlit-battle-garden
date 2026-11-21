@@ -286,3 +286,14 @@ Validation for the one-star presentation pass:221 simulation/asset tests, produc
 
 
 The user approved Champignon/Bramble guard revision2. Full in-game flow recordings are reproducible with `pnpm exec vite-node scripts/capture-guard-flow.ts` (requires FFmpeg on PATH). Actual menu and star/cast input produces before/casting/effect PNGs and4.6-second1280×800 GIFs under ignored `output/guard-flows/`. Capture assertions verify casting,1★ cost and active loaded guard sprites; file metadata verifies46 frames at10 FPS. No image inspection or mechanics changes.
+
+
+### Casting backdrop and individual target statuses (D146)
+
+A full-arena50% black overlay sits above boards, all HUD and existing effects, below the casting hero and star-cost display. Both caster and stars retain full opacity. It appears only during the existing1.5 s casting hold, requires no additional warning/freeze, and leaves pause/menu above it.
+
+Individually affected targets carry compact pixel-style badges above their own hole/sprite, uniformly scaled with the board. Silver shield2/3 shows total hits remaining while armor exists, decrementing per strike and disappearing when armor is broken. Violet rune with−8/−6 shows extra miss penalty; reuse the existing single-loop curse art for both tiers. Gold+2 marks manual mole bonus points only during the actual7 s buff. Amber hourglass identifies targets with earned lifetime shortening; green leaf identifies targets with an earned lifetime extension, including stars/rabbits. Lifetime badges survive their originating aura while the target keeps the modification; cleansing removes shortening/curses/armor but keeps positive extension. No badges are inferred just from pending charges. Multiple actual modifiers can coexist, without altering hitboxes or rules.
+
+Target status is a read-only presentation helper using the real snapshot, with accessible descriptions on the hole controls. Badges never capture input, clear with their target/effect, freeze on pause and remain part of a frozen outcome scene. Replace the old canvas-only armor/curse arcs and the separate1★ per-mole placement with the shared badge layer; retain board-wide higher-tier placeholders. No new assets, AI, simulation or balance changes.
+
+D146 verification:225 simulation/presentation tests, production build and28 targeted desktop/mobile browser cases pass. Full arena50% dimming and caster/star separation are checked through computed styles/layer geometry, without image inspection. Real casts cover two/three-hit armor decrement, curses, manual bonus, shortened/extended lifetimes, mole alignment and pointer transparency. Refreshed full-flow GIFs and target screenshots are in ignored output/guard-flows, with index.html for user review. Rules/AI unchanged; no balance rerun or new art generation.

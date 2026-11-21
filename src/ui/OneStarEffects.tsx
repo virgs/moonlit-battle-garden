@@ -23,7 +23,7 @@ export function OneStarSprite({character,time,style}:{character:CharacterId;time
 export function OneStarBoardEffects({snapshot,garden}:{snapshot:Snapshot;garden:GardenLayout}) {
   const {state}=snapshot;
   if(state.phase!=='playing'||state.casting)return null;
-  return <>{oneStarEffects(state.players[garden.id],state.time).map(effect=><BoardEffect key={effect.kind} effect={effect} time={state.time} garden={garden}/>)}</>;
+  return <>{oneStarEffects(state.players[garden.id],state.time).filter(effect=>effect.kind!=='curse').map(effect=><BoardEffect key={effect.kind} effect={effect} time={state.time} garden={garden}/>)}</>;
 }
 function BoardEffect({effect,time,garden}:{effect:OneStarEffect;time:number;garden:GardenLayout}) {
   const size=(effect.kind==='curse'?38:effect.kind==='guard'?62:48)*garden.scale;

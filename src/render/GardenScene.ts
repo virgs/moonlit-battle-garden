@@ -129,15 +129,7 @@ export class GardenScene extends Phaser.Scene {
         this.targetMarks.fillStyle(0x86c99a, 0.06).fillRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
         this.targetMarks.lineStyle(garden.scale,0x86c99a,0.55).strokeRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
       }
-      player.holes.forEach((target, index) => {
-        if (!target || state.time - target.born < 180) return;
-        const hole = garden.holes[index], radius = 17 * garden.scale, y = hole.feet.y - 34 * garden.scale;
-        if (target.armor) {
-          this.targetMarks.lineStyle(3 * garden.scale, 0xbacddd, 0.95).beginPath().arc(hole.feet.x, y, radius, Math.PI, 0).strokePath();
-          for (let pip = 0; pip < target.armor; pip++) this.targetMarks.fillStyle(0xdde8e9).fillCircle(hole.feet.x + (pip - (target.armor - 1) / 2) * 9 * garden.scale, y - radius - 6 * garden.scale, 3 * garden.scale);
-        }
-        if (target.missBonus) this.targetMarks.lineStyle(2 * garden.scale, 0xe385eb, 0.95).strokeCircle(hole.feet.x, y, radius + 4 * garden.scale);
-      });
+
     }
     this.lastEvent = events.at(-1)?.id ?? this.lastEvent;
   }

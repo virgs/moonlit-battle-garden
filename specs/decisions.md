@@ -327,6 +327,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I34 | Add reproducible capture-guard-flow.ts using real menu/star/cast input and deterministic presentation stepping, without changing simulation. Record Champignon and Bramble at1280×800,46 frames/10 FPS/4.6 s each, plus before/casting/effect PNGs. DOM assertions verify cast/star cost and loaded guard effect; ffprobe verifies GIF dimensions/frame count/duration. Build passes. Local recordings are ignored under output/guard-flows; no deployment wait or image inspection. |
 
+| D146 | User requests the entire screen behind the casting hero be50% darker, and visible per-target marks for individually affected moles, including extra hits and extra point value. Keep caster/star cost bright, shared hold unchanged; clarify armor, curses, bonus points and changed lifetimes directly on affected targets. Reuse existing art/simple pixel glyphs; no new generation or spell tuning. |
+
+| I35 | Add a full-window rgba-black50% layer in a casting scene above HUD and below bright hero/stars (menu stays above). Replace canvas armor/curse arcs and separate1★ curse placement with unified, non-interactive target badges: shield total remaining hits; violet extra miss penalty; gold manual bonus; amber earned shortening; green earned extension. Snapshot-derived statuses/accessibility, actual lifetime persistence and cleansing, uniformly anchored to shared holes; no simulation/AI/asset changes.225 tests/build and28 desktop/mobile browser cases pass, including full-window layer geometry, charge/hit updates, curse/bonus/lifetime statuses, input and marker alignment. Refresh two full casting GIFs plus marker screenshots without image inspection. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -9,7 +9,7 @@ for(const hero of ['champignon','captain-bramble','andromoss','duskmantle','spri
   await own.locator('.hole[data-kind="star"]:enabled').first().click();await own.locator('.cast-button').click();
   await expect(page.locator('.cast-stars')).toHaveAttribute('data-cost','1');await expect(page.locator('.one-star-effect')).toHaveCount(0);
   await page.clock.runFor(1600);
-  const effect=page.locator(`.one-star-effect[data-character="${hero}"]`),sprites=effect.locator('.one-star-sprite');
+  const effect=page.locator(hero==='duskmantle'?'.target-status[data-status="curse"][data-tier="1"]':`.one-star-effect[data-character="${hero}"]`),sprites=effect.locator('.one-star-sprite');
   if(hero==='duskmantle')for(let n=0;n<100&&!await sprites.count();n++)await page.clock.runFor(100);
   await expect(effect).toBeVisible();await expect(sprites.first()).toHaveAttribute('data-asset','ready');
   expect(await effect.evaluate(element=>getComputedStyle(element).pointerEvents)).toBe('none');
@@ -28,7 +28,7 @@ for(const hero of ['champignon','captain-bramble','andromoss','duskmantle','spri
     await expect(effect).toHaveCount(0);
   }else if(hero==='duskmantle'){
     const marked=page.locator('.player-1 .hole[data-marked="true"]');await expect(marked.first()).toBeEnabled();
-    const hole=await marked.first().boundingBox(),marker=await sprites.first().boundingBox();expect(Math.abs((marker!.x+marker!.width/2)-(hole!.x+hole!.width/2))).toBeLessThan(2);
+    const hole=await marked.first().boundingBox(),marker=await effect.first().boundingBox();expect(Math.abs((marker!.x+marker!.width/2)-(hole!.x+hole!.width/2))).toBeLessThan(2);
     await marked.first().dispatchEvent('pointerdown',{button:0});await expect(effect.locator('.one-star-sprite')).toHaveCount(0);
   }else{
     const arena=page.getByRole('main',{name:'Battle arena'}),start=Number(await arena.getAttribute('data-time')),duration=hero==='andromoss'?8000:6000;

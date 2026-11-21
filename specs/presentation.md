@@ -83,3 +83,12 @@ Only when the opponent board is hidden, reuse the very same loop beside the affe
 
 
 Guard-loop retry (D144): revision2 removes the shared halo/ring entirely. Champignon uses a larger pink mushroom cap and pale stem with rising spores; Bramble uses a tall green thorned leaf shield with rim glints. Both remain8 frames at6 FPS on48px transparent canvases. The free PixelLab VFX renderer draws custom pixel motifs; no AI credits used, no model image review. Earlier recipes/export URLs are retained under previousVersions in provenance.json and physical assets in Gitbe5dd26. The other three loops and all gameplay remain unchanged. User visual approval pending.
+
+
+### Casting backdrop and individual target statuses (D146)
+
+A full-arena50% black overlay sits above boards, all HUD and existing effects, below the casting hero and star-cost display. Both caster and stars retain full opacity. It appears only during the existing1.5 s casting hold, requires no additional warning/freeze, and leaves pause/menu above it.
+
+Individually affected targets carry compact pixel-style badges above their own hole/sprite, uniformly scaled with the board. Silver shield2/3 shows total hits remaining while armor exists, decrementing per strike and disappearing when armor is broken. Violet rune with−8/−6 shows extra miss penalty; reuse the existing single-loop curse art for both tiers. Gold+2 marks manual mole bonus points only during the actual7 s buff. Amber hourglass identifies targets with earned lifetime shortening; green leaf identifies targets with an earned lifetime extension, including stars/rabbits. Lifetime badges survive their originating aura while the target keeps the modification; cleansing removes shortening/curses/armor but keeps positive extension. No badges are inferred just from pending charges. Multiple actual modifiers can coexist, without altering hitboxes or rules.
+
+Target status is a read-only presentation helper using the real snapshot, with accessible descriptions on the hole controls. Badges never capture input, clear with their target/effect, freeze on pause and remain part of a frozen outcome scene. Replace the old canvas-only armor/curse arcs and the separate1★ per-mole placement with the shared badge layer; retain board-wide higher-tier placeholders. No new assets, AI, simulation or balance changes.

@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import type { Session, Snapshot } from '../game/Session';
 import type { GardenLayout, Rect } from '../render/layout';
 import { keyboardLayouts } from '../game/controls';
+import { targetStatuses } from '../presentation/targetStatus';
 import { StarMeter } from './LegacyRewards';
 
 const position = (rect: Rect): CSSProperties => ({ left: rect.x, top: rect.y, width: rect.width, height: rect.height });
@@ -13,7 +14,7 @@ export function Board({ session, snapshot, garden }: { session: Session; snapsho
   const playing = snapshot.state.phase === 'playing' && !snapshot.state.paused && !snapshot.state.casting && (!snapshot.network || snapshot.network.status === 'connected');
   return <section className={`player-panel player-${id}`} aria-label={`${id === 1 && session.match.options.mode === 'ai' ? 'Computer' : `Player ${id + 1}`} garden`} data-character={player.character} data-mole-rush-active={player.moleRushUntil>snapshot.state.time} data-rabbit-pressure={player.decoysUntil>snapshot.state.time?4:player.invasionUntil>snapshot.state.time?1:0} data-guard-charges={player.mistakeShield} data-guard-permanent={player.shieldPermanent} data-tin-charges={player.tinCharges} data-tin-hits={player.tinHits} data-mark-charges={player.markCharges} data-mark-permanent={player.markPermanent} data-tending-active={player.tendingUntil > snapshot.state.time ? 'true' : 'false'} data-sweep-columns={player.sweepUntil > snapshot.state.time ? player.sweepColumns.join(',') : ''} data-automation-columns={player.automationUntil > snapshot.state.time ? player.automationColumns.join(',') : ''} data-score={player.score} data-board-x={garden.x} data-board-y={garden.y} data-board-scale={garden.scale}>
     <div className="hole-controls">{player.holes.map((target, hole) => <button
-      key={hole} type="button" className="hole" aria-label={`${target?.armor ? 'Armored ' : ''}${target?.missBonus ? 'Marked ' : ''}${target?.kind ?? 'Empty'} hole ${hole + 1}`} data-armor={target?.armor ?? 0} data-persistent-armor={!!target?.persistentArmor} data-marked={!!target?.missBonus} data-persistent-mark={!!target?.persistentMark}
+      key={hole} type="button" className="hole" aria-label={`${target?.armor ? 'Armored ' : ''}${target?.missBonus ? 'Marked ' : ''}${target?.kind ?? 'Empty'} hole ${hole + 1}`} data-armor={target?.armor ?? 0} data-persistent-armor={!!target?.persistentArmor} data-marked={!!target?.missBonus} data-persistent-mark={!!target?.persistentMark} aria-description={target?targetStatuses(player,target,snapshot.state.time).map(status=>status.label).join('. '):undefined}
       style={position(garden.holes[hole].hit)} data-rushed={!!target?.rushReductionMs} data-origin={target?.origin} data-kind={target?.kind ?? 'empty'} data-born={target?.born} data-expires={target?.expires} data-key={keyboardLayouts[id].labels[hole]} disabled={!playing || opponent}
       onPointerDown={event => { if (event.button === 0) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}
       onKeyDown={event => { if ((event.key === 'Enter' || event.key === ' ') && !event.repeat) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); } }}

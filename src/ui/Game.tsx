@@ -7,6 +7,7 @@ import { ArenaCanvas } from './ArenaCanvas';
 import { Board } from './Board';
 import { ScoreBar } from './ScoreBar';
 import { SpellEffects } from './SpellEffects';
+import { TargetMarkers } from './TargetMarkers';
 import { CastOverlay } from './CastOverlay';
 import { GameMenu } from './GameMenu';
 import { MatchEnd } from './MatchEnd';
@@ -53,8 +54,9 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
     <div className="match-hud">
       {layout.gardens.map(garden => <Board key={garden.id} session={session} snapshot={snapshot} garden={garden} />)}
       {layout.gardens.map(garden => <SpellEffects key={garden.id} snapshot={snapshot} garden={garden} />)}
-      {state.casting && <CastOverlay key={state.casting.player} snapshot={snapshot} player={state.casting.player} garden={layout.gardens.find(garden => garden.id === state.casting?.player) ?? layout.gardens[0]} />}
+      {layout.gardens.map(garden=><TargetMarkers key={garden.id} snapshot={snapshot} garden={garden}/>)}
     </div>
+    {state.casting&&<div className="casting-scene"><div className="cast-backdrop" aria-hidden="true"/><CastOverlay key={state.casting.player} snapshot={snapshot} player={state.casting.player} garden={layout.gardens.find(garden=>garden.id===state.casting?.player)??layout.gardens[0]}/></div>}
     {finished && (!disconnected || state.phase === 'match-over') && <MatchEnd key={`${state.phase}-${state.round}`} round={state.phase === 'round-over'} winner={state.result} character={state.winner === null ? undefined : state.players[state.winner].character} leave={state.phase === 'round-over' ? nextRound : leave} />}
     {state.phase !== 'match-over' && (state.paused || menuOpen || disconnected) && <GameMenu session={session} snapshot={snapshot} resume={openControls} quit={leave} />}
     {!finished && !state.paused && !menuOpen && !disconnected && state.phase === 'countdown' && <div className="match-overlay countdown-overlay" role="status" aria-label="Round countdown"><div className="round-countdown"><span className="round-number">Round {state.round}</span><span className="countdown-number">{Math.max(1, Math.ceil((state.countdownUntil - state.time) / 1000))}</span></div></div>}
