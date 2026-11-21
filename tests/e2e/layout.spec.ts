@@ -35,6 +35,7 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
         verticalStars:document.querySelectorAll('.player-panel .vertical-stars').length,
         legendFont:getComputedStyle(legend).fontFamily, shadow:getComputedStyle(legend).textShadow,
         inline:document.querySelector('.score-bar')!.classList.contains('inline-heroes'),
+        short:document.querySelector('.score-bar')!.classList.contains('short-heroes'),
         names:[...legend.children].map(element => {const text=element.querySelector('.score-character-name')!;const range=document.createRange();range.selectNodeContents(text);return {text:element.textContent,fits:element.scrollWidth<=element.clientWidth,lines:range.getClientRects().length,...bounds(element)};}),
         columnAligned:!!document.querySelector('.score-trophies.column-aligned'),
         icons:[...legend.querySelectorAll('.character-icon')].map(element=>({...bounds(element),character:element.getAttribute('data-character'),state:element.getAttribute('data-state')})),
@@ -50,8 +51,9 @@ for (const [group, sizes] of Object.entries(resizeGroups)) test(`minimal HUD pre
     const {bar,art}=geometry;
     expect(geometry.icons.map(icon=>icon.character)).toEqual(['captain-bramble','champignon']);
     for(const [id,icon] of geometry.icons.entries()){
-      expect(icon.state).toBe('ready');expect(icon.width).toBe(width<=700||height<=520?(height<=520?40:36):64);
-      expect(icon.height).toBe(icon.width);expect(icon.y+icon.height).toBeLessThanOrEqual(geometry.trophies[id].y);
+      expect(icon.state).toBe('ready');expect(icon.width).toBe(height<=520?(width<1000?48:64):width<=360?48:width<=700?64:width<900?80:width<1200?96:128);
+      expect(icon.height).toBe(icon.width);const trophy=geometry.trophies[id];expect(icon.y+icon.height<=trophy.y||icon.x+icon.width<=trophy.x||icon.x>=trophy.x+trophy.width).toBe(true);
+      expect(icon.y).toBeGreaterThanOrEqual(0);
       expect(icon.x).toBeGreaterThanOrEqual(0);expect(icon.x+icon.width).toBeLessThanOrEqual(width);
     }
     expect(art.width/art.height).toBeCloseTo(499/45,1); expect(geometry.meters).toBe(1);

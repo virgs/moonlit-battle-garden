@@ -15,9 +15,9 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     const countdown=page.getByRole('status',{name:'Round countdown'});
     await expect(countdown).toBeVisible();
     await page.evaluate(()=>document.fonts.ready);
-    await expect(page.locator('.round-number')).toHaveCSS('font-size','50px');
+    await expect(page.locator('.round-number')).toHaveCount(0);
     await expect(page.locator('.countdown-number')).toHaveCSS('font-size',`${Number(Math.min(225,height*.55).toFixed(1))}px`);
-    for(const selector of ['.round-number','.countdown-number']) {
+    for(const selector of ['.countdown-number']) {
       const bounds=(await page.locator(selector).boundingBox())!;
       expect(bounds.x).toBeGreaterThanOrEqual(0);expect(bounds.y).toBeGreaterThanOrEqual(0);
       expect(bounds.x+bounds.width).toBeLessThanOrEqual(width);expect(bounds.y+bounds.height).toBeLessThanOrEqual(height);

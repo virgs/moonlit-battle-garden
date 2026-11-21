@@ -8,6 +8,6 @@ export function MatchMeta({state,mode,paused=false}:{state:MatchState;mode:Match
   const elapsed=Math.max(0,state.time-state.roundStart);
   return <div className={`match-meta ${paused?'pause-match-meta':'match-meta-top'}`}>
     <span className="match-mode-name">{!paused&&<ModeIcon mode={mode} decorative />}<span>{menuLabels[mode]}</span></span>
-    <span className="match-round-clock"><span className="match-round-number" aria-label={`Round ${state.round}`}>{state.round}</span><time role="timer" aria-live="off" aria-label="Round elapsed time" dateTime={`PT${Math.floor(elapsed/1000)}S`} data-elapsed-ms={elapsed}>{roundClock(elapsed)}</time></span>
+    <span className="match-round-clock"><time role="timer" aria-live="off" aria-label="Round elapsed time" dateTime={`PT${Math.floor(elapsed/1000)}S`} data-elapsed-ms={elapsed}>{roundClock(elapsed)}</time></span>
   </div>;
 }

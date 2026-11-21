@@ -339,6 +339,12 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I37 | Enlarge HUD portraits32→64px,18→36px and20→40px using the previous width/height breakpoints; single-line full names use bounded per-side width and responsive font size. New shared geometry reserves row/icon height and flanks the aspect-preserved bar on wide desktop/roomy landscape; stacked labels elsewhere. Mirror pairs, retain trophy/star-column alignment, badge hidden effects on portrait corner and lower landscape opponent charge strip to avoid the name row.231 tests/build and22 distinct browser cases pass; final8 viewport cases explicitly verify longest Captain Bramble, no wrapping/clipping, doubled icon sizes, bar-row centering and shared anchors through320px–4K. Preserve44px landscape touch targets. Capture desktop/portrait/landscape actual screens for user review without image inspection. |
 
+| D149 | User requests HUD portraits doubled again and moved toward both screen edges/farther from the score bar, removes the round number because trophies communicate progress, and requests examples with one trophy per side including smaller screens. |
+
+| D150 | User explicitly allows smaller portraits on smaller screens; prioritize usable names, trophies and boards rather than forcing desktop size everywhere. |
+
+| I38 | Use128px desktop edge portraits (12px inset), adaptive96/80/64/48px sizes elsewhere, full single-line names beside/below as space allows, roomy desktop/landscape bar flanks. Keep desktop trophies on star columns; short landscape uses bar trophy columns to avoid edge-portrait overlap and a compact centered opponent meter. Remove round-number HUD/countdown heading, keep timer/mode/countdown and internal rounds.231 tests/build pass;16 final viewport/meta/countdown browser cases pass (plus earlier one-star presentation regressions). Capture five actual Game screenshots with1–1 trophy state by advancing two real simulated rounds in a capture-only fixture, not changing production defaults. No image inspection or balance tuning. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

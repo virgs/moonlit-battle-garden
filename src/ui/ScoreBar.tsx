@@ -30,13 +30,10 @@ export function ScoreBar({ state, area, onPause, controlLabel, opponentStars, tr
     return () => clearInterval(timer);
   }, []);
   const names = state.players.map(player => characters[player.character].name);
-  const centers = trophyCenters ?? [area.trophyWidth / 2, area.width - area.trophyWidth / 2];
-  const nameWidth=area.inlineHeroes?Math.min(300,(area.viewportWidth-area.width)/2-32):Math.min(280,area.viewportWidth/2-16);
-  const namePositions=centers.map((center,side)=>area.inlineHeroes
-    ? side===0?-nameWidth-16:area.width+16
-    : Math.max(side===0?8:area.viewportWidth/2+8,Math.min((side===0?area.viewportWidth/2:area.viewportWidth)-nameWidth-8,area.x+center-nameWidth/2))-area.x);
+  const nameWidth=area.inlineHeroes?Math.min(400,(area.viewportWidth-area.width)/2-28):Math.min(320,area.viewportWidth/2-24);
+  const namePositions=[12-area.x,area.viewportWidth-12-nameWidth-area.x];
   const description = leader === null ? 'Even match' : `${names[leader]} leads`;
-  return <section className={`score-bar ${area.inlineHeroes?'inline-heroes':'stacked-heroes'}`} aria-label="Round standing" style={{ left: area.x, top: area.y, width: area.width, height: area.height, '--name-size': `${area.nameSize}px`, '--hero-icon-size': `${area.iconSize}px`, '--score-row-height': `${area.rowHeight}px`, '--name-height': `${area.nameHeight}px`, '--trophy-width': `${area.trophyWidth}px`, '--trophy-height': `${area.trophyHeight}px` } as CSSProperties}>
+  return <section className={`score-bar ${area.inlineHeroes?'inline-heroes':'stacked-heroes'} ${area.shortHeroes?'short-heroes':''} ${area.stackHeroNames?'stack-hero-names':''}`} aria-label="Round standing" style={{ left: area.x, top: area.y, width: area.width, height: area.height, '--name-size': `${area.nameSize}px`, '--hero-icon-size': `${area.iconSize}px`, '--score-row-height': `${area.rowHeight}px`, '--name-height': `${area.nameHeight}px`, '--trophy-width': `${area.trophyWidth}px`, '--trophy-height': `${area.trophyHeight}px` } as CSSProperties}>
     <div className="score-track" role="meter" aria-label="Blue versus red round advantage" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(bluePercent)} aria-valuetext={`${description}. Score lead ${Math.abs(state.players[0].score - state.players[1].score)} of ${config.winScoreDifference} points needed to win.`}>
       <svg className="legacy-score-art" viewBox="0 0 499 45" aria-hidden="true" data-frame={paint.frame} data-offset={barSourceOffset(paint.percent)}>
         <svg x="3" y="2" width="493" height="41" viewBox="0 0 493 41" overflow="hidden">
@@ -48,6 +45,6 @@ export function ScoreBar({ state, area, onPause, controlLabel, opponentStars, tr
     </div>
     <div className="score-legend">{names.map((name, side) => <span key={side} style={{ left: namePositions[side], width: nameWidth, '--name-width': `${nameWidth}px` } as CSSProperties}><span className="score-hero-icon"><CharacterIcon character={state.players[side].character} placeholder="box" />{opponentStars!==undefined&&side===1&&<HiddenBoardEffects state={state} side={1}/>}</span><span className="score-character-name">{name}</span></span>)}</div>
     <div className={`score-trophies ${trophyCenters ? "column-aligned" : ""}`} aria-label="Rounds won">{state.players.map((player, side) => <Trophy key={`${side}-${player.wins}`} wins={player.wins} paused={state.paused} mirror={side === 1} style={trophyCenters ? { position: "absolute", left: trophyCenters[side] - area.trophyWidth / 2 } : undefined} />)}</div>
-    {opponentStars !== undefined && <div className="opponent-charge" role="group" aria-label={`Opponent magic: ${opponentStars} of 4 stars`}><span>Rival</span><StarMeter count={opponentStars} time={state.time} horizontal casting={!!state.casting} spent={state.casting?.player===1?state.casting.tier:undefined} settled={state.phase!=='playing'} /></div>}
+    {opponentStars !== undefined && <div className="opponent-charge" role="group" aria-label={`Opponent magic: ${opponentStars} of 4 stars`}><StarMeter count={opponentStars} time={state.time} horizontal casting={!!state.casting} spent={state.casting?.player===1?state.casting.tier:undefined} settled={state.phase!=='playing'} /></div>}
   </section>;
 }

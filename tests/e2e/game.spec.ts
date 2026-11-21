@@ -10,7 +10,7 @@ test('start a match, hit a visible mole, pause, and return to setup', async ({ p
   const garden = page.getByRole('region', { name: 'Player 1 garden', exact: true });
   await expect(page.locator('.arena-canvas canvas')).toBeVisible();
   await expect(page.locator('.match-meta .mode-icon')).toHaveAttribute('data-mode','ai');
-  await expect(page.locator('.match-round-number')).toHaveText('1');
+  await expect(page.locator('.match-round-number')).toHaveCount(0);
   await expect(page.locator('canvas')).toHaveCount(1);
   const mole = garden.locator('button[data-kind="mole"]').first();
   await expect(mole).toBeEnabled({ timeout: 10000 });

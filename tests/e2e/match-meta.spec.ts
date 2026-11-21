@@ -16,8 +16,7 @@ test('round clock follows active time and HUD clears the score bar on desktop an
     await page.clock.runFor(50);
     await expect(page.locator('.match-meta .mode-icon')).toHaveAttribute('data-mode','ai');
     await expect(page.locator('.match-mode-name')).toHaveText('Night Watch');
-    await expect(page.locator('.match-round-number')).toHaveText('1');
-    await expect(page.locator('.match-round-number')).toHaveAttribute('aria-label','Round 1');
+    await expect(page.locator('.match-round-number')).toHaveCount(0);
     expect(await clock.evaluate(element=>parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(24);
     // ResizeObserver and React commit asynchronously, independently of the mocked clock.
     await expect.poll(()=>page.evaluate(()=>{
