@@ -391,6 +391,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I49 | Activate a low-resolution pixel canvas on TitleScreen with a20s cosine left→right→left camera cycle and depth-scaled parallax; title/entry controls stay fixed. Reuse original CC0 cemetery layers/props, original mole/earth/star frames; add code-drawn temporary bat/owl/pumpkin actors with discrete wing/head/face poses. Use30fps paint cap, phone-scaled pan distance/actor placement, visibility handling, cleanup on exit and still reduced-motion scene. Preserve menu/game behavior and rules. Record a full-cycle GIF, desktop/phone stills and verify reversal, stable UI and controls. |
 
+| D163 | User authorizes full-height column action: Sprig drones swinging ropes and Champignon spore sweeps/whirlwinds, and asks for more elaborate animation across the other spells in the same spirit. Retain approved motifs, colours, gameplay and duration markers; defer new sprite generation. |
+
+| I50 | Add a read-only pixel-canvas spell scene driven by simulation snapshots/time: paired rotor drones with swinging/braided ropes on real column centers, rising spore helices/crowned storms, actual-hit bursts, guard growth/block flashes, invasion/rush pulses and real magic-rabbit arrival trails, veil ribbons, dew, cleanse leaf wave/ward, armor/curse target glints, soul trails from real rewarded hits and successful theft motes. Keep approved footer icons, their time fill, target markers and cast freeze. No hit delay/collision change: every selected column stays continuously active regardless of rope phase. Use code-drawn VFX placeholders, no new sprite assets. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -29,3 +29,5 @@
 .hidden-board-effects{max-width:min(160px,38vw);flex-wrap:wrap}
 
 .spell-glyph,.spell-glyph image{image-rendering:pixelated}
+
+.board-spell-scene{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}

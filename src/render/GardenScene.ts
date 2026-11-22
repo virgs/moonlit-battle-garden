@@ -126,8 +126,8 @@ export class GardenScene extends Phaser.Scene {
         const areas = garden.holes.filter((_, index) => index % 3 === column).map(hole => hole.hit);
         const x = Math.min(...areas.map(area => area.x)), y = Math.min(...areas.map(area => area.y));
         const right = Math.max(...areas.map(area => area.x + area.width)), bottom = Math.max(...areas.map(area => area.y + area.height));
-        this.targetMarks.fillStyle(0x86c99a, 0.06).fillRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
-        this.targetMarks.lineStyle(garden.scale,0x86c99a,0.55).strokeRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
+        this.targetMarks.fillStyle(player.sweepUntil>state.time&&player.sweepColumns.includes(column)?0xed83ac:0xa7d76b, 0.04).fillRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
+        this.targetMarks.lineStyle(garden.scale,player.sweepUntil>state.time&&player.sweepColumns.includes(column)?0xed83ac:0xa7d76b,0.35).strokeRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
       }
 
     }

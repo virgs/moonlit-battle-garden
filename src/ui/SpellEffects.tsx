@@ -5,10 +5,12 @@ import { higherSpellEffects,type SpellEffect } from '../presentation/spellEffect
 import { OneStarBoardEffects } from './OneStarEffects';
 import { SpellGlyph } from './SpellGlyph';
 import './spell-effects.css';
+import { BoardSpellScene } from './BoardSpellScene';
 export function SpellEffects({snapshot,garden}:{snapshot:Snapshot;garden:GardenLayout}){
   const {state}=snapshot;
   if(state.phase!=='playing'||state.casting)return null;
   return <div className="spell-effects" style={{left:garden.x,top:garden.y,width:garden.width,height:garden.height}} aria-hidden="true">
+    <BoardSpellScene snapshot={snapshot} garden={garden}/>
     <OneStarBoardEffects snapshot={snapshot} garden={garden}/>
     {higherSpellEffects(snapshot,garden.id).map(effect=><BoardEffect key={effect.kind} effect={effect} time={state.time} garden={garden}/>)}
   </div>;

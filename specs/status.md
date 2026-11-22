@@ -387,3 +387,11 @@ Implemented the cemetery-garden title scene with layered parallax, smooth20s hor
 Verification:271 tests,10 desktop/mobile front-screen browser cases and production build pass. Full-cycle recording checks left→right→left camera extrema/return, no UI drift, menu entry/scene unmount, phone layouts and live reduced-motion changes. Captures include a complete animated GIF and desktop/phone stills; no image inspection by the model.
 
 Column-spell review: recorded all4 existing column spells through cast, automatic hits and expiry. Controlled arrivals verify actual mole/star/rabbit rewards, star collection and one/two fixed column coverage.271 tests and production build pass;4 browser-driven captures pass. Current foot icons/green column highlights remain unchanged; no drone/rope animation added. User visual review and any proposed full-height action pass remain pending.
+
+### Elaborate column and supporting spell action (D163)
+
+Implemented full-height paired drones/swinging ropes for Sprig and spore streams/whirlwinds for Champignon, keeping the fixed-column rules and approved footer timers. Added supporting choreography for all20 spells, tied to actual active states/target modifiers/hit events; no fake target or hit presentation. Code-drawn VFX stand-ins preserve hero colours and reuse approved art. No new sprite generation, rule/bot/network changes or balance tuning.
+
+Verification includes all20 actual casts, normalized geometry at four desktop/phone sizes, pause/expiry and reduced-motion drawing, no simulation mutation and real guard-block versus armor-event distinction. Four updated column-flow captures verify rewards, star collection, spans and expiry; additional clips cover soul rewards, barrier consumption, actual pressure arrivals and cleansing/ward. Visual review remains with the user.
+
+I50 final checks:276 tests,28 desktop/mobile column/target browser cases and production build pass. Captures verify all4 column spans/rewards/expiry plus4 supporting scenes (souls, barrier, pressure, cleanse ward). Approved sprite sheets and gameplay files remain unchanged; no balance rerun is needed. Animations freeze with simulation time and reduced-motion tests keep decorative poses still.

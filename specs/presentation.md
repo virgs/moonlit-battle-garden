@@ -253,3 +253,21 @@ Ambient activity: staggered temporary pixel bats cross the sky; occasional origi
 `pnpm exec vite-node scripts/capture-column-spells.ts` records real casts for Champignon2★/4★ and Sprig2★/4★, including hero freeze, immediate initial hits, controlled new mole/star/rabbit arrivals, active icon depletion and actual expiry. The four GIFs and active stills live in ignored output/guard-flows/column-spells. Tests assert fixed column count, empty intercepted holes, actual normal reward/rabbit-penalty totals and star collection; the fixture alone seeds targets and exposes inspection helpers.
 
 Current visuals remain the previously approved footer broom/cyclone/rake/cultivator icons plus a faint green full-column fill/outline. No drone, hanging rope or animated full-height contact effect is implemented. Busiest column selection is fixed at cast time. Simulation hits the entire selected column(s) immediately and on each50ms tick, including newly spawned targets; armor consumes repeated strikes. User recalls the old drone/rope depiction and is reviewing how that compares. Reintroducing full-height action/ropes is a possible next presentation pass, not an adopted change here. No game code or art changes in this capture-only task.
+
+### Full spell choreography (D163 / I50)
+
+The earlier footer-only column review is superseded. A transparent pixel canvas now composes full-board action beneath the approved status/target icons, at the board's301×383 source resolution and uniform garden scale. Read-only spellSceneModel derives active effects, real column geometry, target modifiers and recent real hit/block events. paintSpellScene uses integer pixels; it owns no timers, randomness, input or rules. Pause/casting freezes through the existing simulation clock, and reduced motion uses still poses instead of decorative movement. Canvas is pointer-transparent.
+
+| Hero | Added gameplay motion |
+|---|---|
+|Champignon|Full-height rising spore streams on2★ and a denser crowned four-strand storm on4★; mushroom barrier growth and edge glints for guards.|
+|Andromoss|Portal/rush pressure pulses, speed lines on actual shortened moles, traces to actual newly spawned magical rabbits, and brief successful-theft resource motes. No fake targets.|
+|Bramble|Thorn barrier growth, real blocked-mistake flashes (including the last charge), quota forge glints and sparks around actual armored moles. Armor strikes are not mistaken for blocked mistakes.|
+|Duskmantle|Orbiting curse motes on actual marked moles, moving edge veils, lantern activity and soul trails from real mole-kill events during the bonus window.|
+|Sprig|Two code-drawn rotor drones per selected column, swinging a full-height rope;4★ uses two columns and braided strands. Dew around extended targets, edge leaves, an initial cleanse leaf wave and an active ward border.|
+
+Sprig ropes and Champignon streams follow each selected column's three actual hole centers, allowing the source art's varying x positions. Drones stay above the footer duration icons. Discrete impact bursts use actual events/hole coordinates. Original hero casts, duration icons,2× silhouette target markers and exact3/6/4/4-second column windows remain. Rope movement is illustrative: do not wait for physical rope contact or alter continuously active50ms auto-hits/rewards/rabbit penalties.
+
+All new action is code-drawn placeholder VFX in the approved hero palette; approved raster sheets are reused unchanged and no assets are generated. Existing column highlights are lightly tinted to the owning hero. Main simulation, AI, networking and gameplay are untouched.
+
+`pnpm exec vite-node scripts/capture-column-spells.ts` now records all four elaborate column flows in output/guard-flows/column-spells-elaborate (optional --only=champignon-4 etc). It verifies full-height spans, column count, actual arrival interception, rewards/star collection and expiry. `pnpm exec vite-node scripts/capture-spell-choreography.ts` records soul-reward hits, barrier blocks, real rabbit pressure and cleanse/ward effects (optional --only=ward etc), under output/guard-flows/spell-choreography. Outputs are ignored and visual review belongs to the user; no model image inspection.
