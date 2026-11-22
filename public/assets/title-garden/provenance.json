@@ -1,0 +1,50 @@
+{
+  "creator": "Luis Zuno (ansimuz)",
+  "source": "https://opengameart.org/content/gothicvania-cemetery-pack",
+  "download": "https://opengameart.org/sites/default/files/gothicvania-cemetery-files_1.zip",
+  "license": "CC0 1.0 Universal",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "processing": "Original creator PNG bytes unchanged; composed and animated by title scene code. No generated images.",
+  "assets": [
+    {
+      "file": "background.png",
+      "original": "background.png",
+      "sha256": "216c03e6068c5d9bc55b659654c34b18871ffd65af1c70f7c181b7b94120bdc0"
+    },
+    {
+      "file": "mountains.png",
+      "original": "mountains.png",
+      "sha256": "73edf71a9041051094e36c6113ef378ab9162c6c2e9e8ad1dda9aebf9deba94c"
+    },
+    {
+      "file": "graveyard.png",
+      "original": "graveyard.png",
+      "sha256": "426ca033232c329f879bb1d24f718ea7f3f05299595fa77b01d7e4ca0936a739"
+    },
+    {
+      "file": "tree-1.png",
+      "original": "sliced-objects/tree-1.png",
+      "sha256": "8670f85d54b44d7ec404cc44d8cdd9f776638216c753c9a4af927cf264a45bfa"
+    },
+    {
+      "file": "tree-3.png",
+      "original": "sliced-objects/tree-3.png",
+      "sha256": "4883b78e8a1904c327e96376ebae0fbbe703c7651fab9a1bfc05681e7ba98335"
+    },
+    {
+      "file": "stone-1.png",
+      "original": "sliced-objects/stone-1.png",
+      "sha256": "c2cb3106e2a0c451b37189993f5fbb59171163b4519ab805f1673de57c31b93d"
+    },
+    {
+      "file": "stone-3.png",
+      "original": "sliced-objects/stone-3.png",
+      "sha256": "eab6f7ab67199daa1efcf95623f73518849909f9c82d1274bc3c721997b9dca3"
+    },
+    {
+      "file": "bush-small.png",
+      "original": "sliced-objects/bush-small.png",
+      "sha256": "6a085b1ce27c1d3eb967e4faf9ddb2b9e9abaebe527d98c48e4457e04f4156c0"
+    }
+  ]
+}

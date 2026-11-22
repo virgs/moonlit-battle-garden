@@ -379,3 +379,9 @@ Target icons are doubled to36 logical pixels and armor hit text to24, with corne
 D159 verification:28 desktop/mobile target-marker and one-star browser cases pass, including click-through, above-hole alignment and armor count updates. Target captures assert36×36 logical glyph size; startup captures verify title bounds and actual title/menu/selection navigation. No simulation/bot/rule changes or balance reruns.
 
 Title cleanup/background review (D161): removed the eyebrow text.269 tests,10 desktop/mobile front-screen cases and production build pass. Captured three existing-art alternatives and the cleaned actual title; cemetery fixture explicitly verifies all three layers and four props. Existing home/castle choices unchanged. CraftPix options are documented with publisher links and verified layer metadata; no new downloads, image inspection or asset generation.
+
+### Living homescreen and horizontal ping-pong camera (D162)
+
+Implemented the cemetery-garden title scene with layered parallax, smooth20s horizontal out-and-back camera, mole tunnelling/peeks, dust and shooting stars; bat/owl/pumpkin actors are temporary code-drawn stand-ins. Title text/controls stay fixed; missing sprite generation remains deferred. Installed8 unchanged CC0 scenery PNGs with provenance; asset checker verifies hashes.64 ready files,5 optional portraits missing,0 invalid. No gameplay/network/bot changes.
+
+Verification:271 tests,10 desktop/mobile front-screen browser cases and production build pass. Full-cycle recording checks left→right→left camera extrema/return, no UI drift, menu entry/scene unmount, phone layouts and live reduced-motion changes. Captures include a complete animated GIF and desktop/phone stills; no image inspection by the model.

@@ -50,5 +50,12 @@ for (const home of catalog.homes) {
     }
   }
 }
+// Title scenery is original CC0 art copied unchanged; verify the installed bytes.
+const titleArt=JSON.parse(readFileSync('public/assets/title-garden/provenance.json','utf8')) as {assets:{file:string;sha256:string}[]};
+for(const asset of titleArt.assets){
+  const file=resolve('public/assets/title-garden',asset.file);
+  if(!existsSync(file)||createHash('sha256').update(readFileSync(file)).digest('hex')!==asset.sha256){invalid++;console.log(`INVALID title scenery: ${asset.file}`);}
+  else{present++;console.log(`READY   /assets/title-garden/${asset.file}`);}
+}
 console.log(`${present} ready, ${missing} awaiting final assets, ${invalid} invalid. Missing files use prototype fallbacks.`);
 if (invalid || (process.argv.includes('--strict') && missing)) process.exitCode = 1;

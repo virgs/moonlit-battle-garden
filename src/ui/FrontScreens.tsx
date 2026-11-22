@@ -7,6 +7,7 @@ import { characters } from '../game/config';
 import type { CharacterId } from '../game/types';
 import { Portrait } from './Portrait';
 import './front-screens.css';
+import { TitleGarden } from './TitleGarden';
 
 export type MenuPane = 'ai' | 'local' | 'online' | 'options' | 'help';
 const choices: { id: MenuPane; label: string }[] = [
@@ -23,7 +24,7 @@ export function TitleScreen({ enter }: { enter: () => void }) {
     };
     window.addEventListener('keydown',key); return () => window.removeEventListener('keydown',key);
   }, [enter]);
-  return <main className="front-screen title-screen" aria-label="Title screen"><Backdrop />
+  return <main className="front-screen title-screen" aria-label="Title screen"><TitleGarden />
     <div className="title-wordmark"><h1>Moonlit<span>Battle Garden</span></h1></div>
     <button className="title-enter" aria-label="Open main menu" onClick={enter}>Press any key or tap</button>
   </main>;

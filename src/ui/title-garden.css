@@ -1,0 +1,2 @@
+.title-garden{position:absolute;inset:0;z-index:-2;width:100%;height:100%;background-position:center;background-size:cover;image-rendering:pixelated;pointer-events:none}
+.title-screen::after{background:radial-gradient(ellipse at 50% 44%,#03091152 0%,#03091114 65%,#03091159 100%)}

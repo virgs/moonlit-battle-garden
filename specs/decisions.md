@@ -387,6 +387,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I48 | Remove the title eyebrow, keep the live backdrop unchanged, and capture review-only options from existing CC0 home/cemetery art. Cached GothicVania Cemetery source includes separate background/mountains/graveyard PNGs and tree/gravestone props; compose them in an ignored title fixture. Research CraftPix free1-bit Graveyard, Forest and Trees, and Vampires Locations/Dead Forest. Only the first two explicitly advertise parallax layers. No CraftPix pack installed; forest download leads to sign-in and graveyard download cannot be fetched by web tools. No image inspection or asset generation. |
 
+| D162 | User requests the homescreen with the previously discussed ambient activity and explicitly ping-ponged horizontal camera movement, then asks to keep going. Use the existing cemetery-garden art; missing creatures remain placeholders and no new sprite generation is authorized. |
+
+| I49 | Activate a low-resolution pixel canvas on TitleScreen with a20s cosine left→right→left camera cycle and depth-scaled parallax; title/entry controls stay fixed. Reuse original CC0 cemetery layers/props, original mole/earth/star frames; add code-drawn temporary bat/owl/pumpkin actors with discrete wing/head/face poses. Use30fps paint cap, phone-scaled pan distance/actor placement, visibility handling, cleanup on exit and still reduced-motion scene. Preserve menu/game behavior and rules. Record a full-cycle GIF, desktop/phone stills and verify reversal, stable UI and controls. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

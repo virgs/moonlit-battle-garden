@@ -36,3 +36,7 @@ Named hero victory illustrations `legacy/champignon-hero.png` and `legacy/androm
 ## Sourced character homes
 
 Champignon's Sporelight Keep uses Castle in the Dark (biodegradableguy) and Forest Whisper Theme (Cleyton Kauffman). Andromoss's Moonlit Hideout uses Dark forest (Vladimir Hovakimyan / Val_DeMar) and Magic Town (controllerhead). All four source works are CC0 1.0. See [credits and source details](homes/CREDITS.md), homes/provenance.json for exact URLs/hashes/preparation, and homes/LICENSE-CC0.txt. The original castle and shared music remain runtime error fallbacks. The new static backgrounds preserve source pixels and uniform scaling; no new imagery or music was generated.
+
+## Title garden scenery
+
+`title-garden/` contains unchanged PNGs from Luis Zuno's (@ansimuz) GothicVania Cemetery pack, licensed CC0. Source/license links and per-file SHA-256 hashes are in its provenance.json and LICENSE.txt. Existing characters.png and legacy/earth.png supply mole/star/dust frames; no new sprite generation was used. Bat, owl and pumpkin actors currently use temporary code-drawn stand-ins.
