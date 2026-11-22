@@ -395,3 +395,9 @@ Implemented full-height paired drones/swinging ropes for Sprig and spore streams
 Verification includes all20 actual casts, normalized geometry at four desktop/phone sizes, pause/expiry and reduced-motion drawing, no simulation mutation and real guard-block versus armor-event distinction. Four updated column-flow captures verify rewards, star collection, spans and expiry; additional clips cover soul rewards, barrier consumption, actual pressure arrivals and cleansing/ward. Visual review remains with the user.
 
 I50 final checks:276 tests,28 desktop/mobile column/target browser cases and production build pass. Captures verify all4 column spans/rewards/expiry plus4 supporting scenes (souls, barrier, pressure, cleanse ward). Approved sprite sheets and gameplay files remain unchanged; no balance rerun is needed. Animations freeze with simulation time and reduced-motion tests keep decorative poses still.
+
+### Smoother perspective-aligned spell action (D164)
+
+Removed column borders/fills; drones now have top/front volume, foreshortened rotor planes, smooth banking/hover and attached flexible ropes. Spore streams breathe and fade particles. Shared choreography uses a2× pixel canvas and bounded between-tick decorative motion, with pause/resume/reduced-motion and stale-snapshot safeguards. No simulation, AI, network, spell powers or approved art changes.
+
+Verification:277 tests and production build pass.20 desktop/mobile column/duration cases pass, with the6 clock/duration cases rechecked after pause/resume refinement. Four20fps captures verify real automatic hits, rewards, stars and expiry, plus board-focused detail clips. Geometry tests verify rope attachment, smooth endpoint motion and bounded decorative time. Asset sheets are unchanged; no balance rerun required.

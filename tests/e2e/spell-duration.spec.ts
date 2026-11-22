@@ -30,3 +30,14 @@ test('single-board phone indicator shares the hidden enemy effect countdown',asy
  await expect(icon).toHaveCount(1);const elapsed=Number(await arena.getAttribute('data-time'))-started;expect(Number(await icon.getAttribute('data-remaining'))).toBeCloseTo(1-elapsed/8000,2);expect(Number(await icon.getAttribute('data-dark-rows'))).toBeGreaterThan(0);
  await page.keyboard.press('Escape');const frozen=await icon.getAttribute('data-remaining');await page.clock.runFor(1000);await expect(icon).toHaveAttribute('data-remaining',frozen!);
 });
+test('decorative poses advance between fixed game ticks and stop immediately on pause',async({page})=>{
+ await prepare(page,'champignon',2,'local');await page.clock.runFor(1500);
+ const scene=page.locator('.board-spell-scene').first();await expect(scene).toBeVisible();let sawBetweenTicks=false;
+ for(let i=0;i<16;i++){
+  const before=await scene.getAttribute('data-time'),visual=Number(await scene.getAttribute('data-visual-time'));await page.clock.runFor(6);
+  const after=await scene.getAttribute('data-time'),next=Number(await scene.getAttribute('data-visual-time'));
+  if(before===after&&next>visual)sawBetweenTicks=true;
+  expect(next-Number(after)).toBeGreaterThanOrEqual(0);expect(next-Number(after)).toBeLessThanOrEqual(49.01);
+ }
+ expect(sawBetweenTicks).toBe(true);await page.keyboard.press('Escape');const frozen=await scene.getAttribute('data-visual-time');await page.clock.runFor(500);await expect(scene).toHaveAttribute('data-visual-time',frozen!);await page.getByRole('button',{name:'Resume',exact:true}).click();expect(Number(await scene.getAttribute('data-visual-time'))).toBeGreaterThanOrEqual(Number(frozen));
+});

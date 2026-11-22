@@ -43,3 +43,11 @@ it('reacts to real blocked mistakes including the last charge, not armor strikes
  m.action({type:'hit',player:0,hole:8});expect(read().blocks).toHaveLength(1);m.action({type:'hit',player:0,hole:8});expect(m.state.players[0].mistakeShield).toBe(0);expect(read().blocks).toHaveLength(2);
  m.advance(500);m.state.players[0].holes[4]={id:90,kind:'mole',born:m.state.time,expires:m.state.time+2000,armor:1,persistentArmor:true};m.action({type:'hit',player:0,hole:4});expect(read().blocks).toHaveLength(0);
 });
+it('keeps smooth cosmetic time bounded and joins rope ends to the banked drones',async()=>{
+ const {spellMotionTime,droneRig,columnRopePoint}=await import('../../src/presentation/spellScene');
+ expect(spellMotionTime(5000,16)).toBe(5016);expect(spellMotionTime(5000,500)).toBe(5049);expect(spellMotionTime(5000,16,true)).toBe(5000);expect(spellMotionTime(5000,16,false,true)).toBe(5000);
+ const column=columnEffectGeometry(createArenaLayout(1280,800,'local').gardens[0],0);
+ const rig=droneRig(column,5000),a=columnRopePoint(column,5000,0),b=columnRopePoint(column,5000,1);
+ expect(a.x).toBeCloseTo(rig.top.x,5);expect(a.y).toBeCloseTo(rig.top.y+7,5);expect(b.x).toBeCloseTo(rig.bottom.x,5);expect(b.y).toBeCloseTo(rig.bottom.y-5,5);
+ expect(Math.abs(rig.top.bank)).toBeLessThan(.15);expect(Math.abs(columnRopePoint(column,5001,.5).x-columnRopePoint(column,5000,.5).x)).toBeLessThan(.1);
+});

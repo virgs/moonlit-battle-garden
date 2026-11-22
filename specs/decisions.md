@@ -395,6 +395,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I50 | Add a read-only pixel-canvas spell scene driven by simulation snapshots/time: paired rotor drones with swinging/braided ropes on real column centers, rising spore helices/crowned storms, actual-hit bursts, guard growth/block flashes, invasion/rush pulses and real magic-rabbit arrival trails, veil ribbons, dew, cleanse leaf wave/ward, armor/curse target glints, soul trails from real rewarded hits and successful theft motes. Keep approved footer icons, their time fill, target markers and cast freeze. No hit delay/collision change: every selected column stays continuously active regardless of rope phase. Use code-drawn VFX placeholders, no new sprite assets. |
 
+| D164 | User wants more dynamic, smoother Battle Gaiden-like spell motion, drone perspective matching the board, and removal of the column borders. Preserve pixel style and gameplay. |
+
+| I51 | Remove native column outlines and fills entirely. Replace frontal drones with shaded foreshortened top/front hulls and elliptical rotor planes; add continuous rotor rotation, hover/banking and endpoint-connected flexible rope waves. Draw choreography on a2× canvas using half-source-pixel placement. Interpolate decorative phase via requestAnimationFrame for at most49ms beyond each confirmed50ms tick; stop on pause/casting/stale snapshots, preserve phase across pause/resume, and keep reduced motion still. Breathing spore streams and edge-faded particles are smoother too. Record20fps full flows and board close-ups; no rule, hit timing, duration, AI or network changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

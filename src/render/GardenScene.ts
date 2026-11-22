@@ -20,7 +20,6 @@ type GardenView = {
 
 export class GardenScene extends Phaser.Scene {
   private gardens: GardenView[] = [];
-  private targetMarks!: Phaser.GameObjects.Graphics;
   private backdrop!: Phaser.GameObjects.Graphics;
   private lastLayout: ArenaLayout | null = null;
   private lastEvent = 0;
@@ -55,7 +54,6 @@ export class GardenScene extends Phaser.Scene {
         previous: Array.from({ length: 9 }, () => null),
       });
     }
-    this.targetMarks = this.add.graphics().setDepth(3);
     this.game.canvas.dataset.boardColors = '000080,800000';
     this.game.canvas.setAttribute('aria-hidden', 'true');
     this.game.canvas.dataset.homeBackground = this.home.background.fallback;
@@ -105,7 +103,6 @@ export class GardenScene extends Phaser.Scene {
     const layout = this.getLayout();
     if (layout !== this.lastLayout) this.arrange(layout);
     const { state, events } = this.getSnapshot();
-    this.targetMarks.clear();
     for (const garden of layout.gardens) {
       const view = this.gardens[garden.id];
       view.dust.forEach((dust, index) => {
@@ -120,15 +117,7 @@ export class GardenScene extends Phaser.Scene {
         }
       }
       this.updateTargets(garden.id, state.time);
-      const player = state.players[garden.id];
-      const activeColumns = new Set([...(player.automationUntil > state.time ? player.automationColumns : []), ...(player.sweepUntil > state.time ? player.sweepColumns : [])]);
-      for (const column of activeColumns) {
-        const areas = garden.holes.filter((_, index) => index % 3 === column).map(hole => hole.hit);
-        const x = Math.min(...areas.map(area => area.x)), y = Math.min(...areas.map(area => area.y));
-        const right = Math.max(...areas.map(area => area.x + area.width)), bottom = Math.max(...areas.map(area => area.y + area.height));
-        this.targetMarks.fillStyle(player.sweepUntil>state.time&&player.sweepColumns.includes(column)?0xed83ac:0xa7d76b, 0.04).fillRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
-        this.targetMarks.lineStyle(garden.scale,player.sweepUntil>state.time&&player.sweepColumns.includes(column)?0xed83ac:0xa7d76b,0.35).strokeRoundedRect(x,y,right-x,bottom-y,6*garden.scale);
-      }
+
 
     }
     this.lastEvent = events.at(-1)?.id ?? this.lastEvent;
