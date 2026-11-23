@@ -234,3 +234,6 @@ D179/I63: current provisional wave tuning responds to the human opening-difficul
 
 
 D180/I64: stars are offered half as often through a configurable2× multiplier of their whole schedule. Baseline slots are10/28/44/60/78/94 active seconds, while natural waves stay25s. Existing score-deficit clock adjustment, per-round reset, live-star cap and shared lifetimes remain. This slows star arrival, not its sprite animation.
+
+
+D181/I65: non-gameplay actions receive distinct move/confirm/back/error SFX across title, setup, online lobby and pause/result controls. They follow the saved/current sound setting; muting is immediate and unmuting confirms. No sound on hover alone, initial rendering, text entry or remote lobby updates. Reuse downloaded CC0 cues without generated audio.

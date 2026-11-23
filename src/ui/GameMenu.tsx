@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { menuAudio } from '../presentation/MenuAudio';
 import { assetUrl } from '../assets/url';
 import type { Session, Snapshot } from '../game/Session';
 import { characters } from '../game/config';
@@ -25,7 +26,7 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
       if(event.repeat||event.ctrlKey||event.metaKey||event.altKey)return;
       const buttons=[...actions.current!.querySelectorAll<HTMLButtonElement>('button')],available=buttons.flatMap((button,index)=>button.disabled?[]:[index]);
       if(['ArrowDown','ArrowUp','ArrowRight','ArrowLeft'].includes(event.key)){
-        event.preventDefault();const index=available.indexOf(selected),step=event.key==='ArrowDown'||event.key==='ArrowRight'?1:-1;setSelected(available[(index+step+available.length)%available.length]);
+        event.preventDefault();const index=available.indexOf(selected),step=event.key==='ArrowDown'||event.key==='ArrowRight'?1:-1;const next=available[(index+step+available.length)%available.length];if(next!==selected)menuAudio.play('menuMove');setSelected(next);
       }
       if(event.code==='Enter'||event.code==='NumpadEnter'){event.preventDefault();event.stopImmediatePropagation();buttons[selected]?.click();}
     };
@@ -38,7 +39,7 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
     </header>
     <nav ref={actions} className="menu-actions" aria-label="Match controls">
       <button className={selected===0?'is-selected':undefined} onPointerEnter={()=>!disconnected&&setSelected(0)} disabled={!!disconnected} onClick={resume}>Resume</button>
-      <button className={selected===1?'is-selected':undefined} onPointerEnter={()=>setSelected(1)} aria-pressed={session.muted} onClick={() => session.toggleSound()}>{session.muted ? 'Unmute' : 'Mute'}</button>
+      <button className={selected===1?'is-selected':undefined} onPointerEnter={()=>setSelected(1)} aria-pressed={session.muted} onClick={() => {session.toggleSound();menuAudio.setEnabled(!session.muted);if(!session.muted)menuAudio.play('menuConfirm');}}>{session.muted ? 'Unmute' : 'Mute'}</button>
       <button className={selected===2?'is-selected':undefined} onPointerEnter={()=>setSelected(2)} onClick={quit}>Quit</button>
     </nav>
     <div className="menu-reference" role="region" aria-label="Controls and magic">

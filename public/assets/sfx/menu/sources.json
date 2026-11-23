@@ -1,0 +1,33 @@
+{
+  "creator": "Kenney",
+  "pack": "Interface Sounds 1.0",
+  "license": "CC0-1.0",
+  "source": "https://kenney.nl/assets/interface-sounds",
+  "downloadMirror": "https://github.com/Calinou/kenney-interface-sounds",
+  "sounds": {
+    "move": {
+      "sourceFile": "select_001.wav",
+      "sha256": "3d9e86003f8ebd1a3f6f3d8af65b6b682562a46d532ccd204dcba21305b950ff",
+      "durationSeconds": 0.062,
+      "edits": "none"
+    },
+    "confirm": {
+      "sourceFile": "confirmation_001.wav",
+      "sha256": "f9d0ef5a5c740c2ac250ac3876db9e4340669044a5bf78ae09192918db3e2ebc",
+      "durationSeconds": 0.295,
+      "edits": "none"
+    },
+    "back": {
+      "sourceFile": "back_001.wav",
+      "sha256": "6fb44d6dc1fd0bbc1e7abb586bab4a838719f91428af2648a37d4acdc7530617",
+      "durationSeconds": 0.068,
+      "edits": "none"
+    },
+    "error": {
+      "sourceFile": "error_001.wav",
+      "sha256": "d77546b0baa89f37eca6b86f59b54a654ce5afe3d5a73492d0963168cc4ab5bf",
+      "durationSeconds": 0.173,
+      "edits": "none"
+    }
+  }
+}

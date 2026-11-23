@@ -457,6 +457,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I64 | Add configurable starScheduleScale=2 to the full virtual-clock opportunity schedule: tied-board slots5/14/22/30/39/47s become10/28/44/60/78/94s. This doubles the first wait and every subsequent gap, providing3 slots per50s instead of25s without stretching the natural25s waves. Preserve5% trailing-board clock adjustment, one-live-star/free-hole checks, skipped blocked slots, per-round reset and pause/cast freezing. Star target lifetime/rewards, capacity, spell costs/effects and AI policy are unchanged. Production phone smoke now plays mole targets while waiting for the later first star. Full100-paired-seed roster diagnostics retain pooled/per-level matrices and coverage/strategy caveats. |
 
+| D181 | User requests SFX on the other screens: mode/hero arrows, Confirm, Back and other appropriate user actions. Reuse free downloaded sounds and respect the existing mute setting. |
+
+| I65 | Install four unmodified Kenney Interface Sounds CC0 cues: movement, confirmation, back/cancel and invalid-action error. Trigger them from logical action callbacks for title entry; mode, hero and difficulty browsing (keyboard/buttons/swipes); hero confirmation/change; stage backtracking; match start; pause-menu selection/open/resume/quit; round continuation/result return; room create/join/cancel; invite copy and invalid invite/clipboard errors. No hover/mount/remote-selection/typing sounds or generic click listener, avoiding double cues and noisy redraws. Mute silences existing/pending UI voices immediately; unmute explicitly confirms, and saved sound-off applies before front-screen actions. Use the existing bounded short-effect player, separate UI voice/mute lifetime from gameplay, and share decoded buffers per AudioContext with retry after failed loads. Unlock short effects without priming menu music. Preserve licenses/source hashes. No generated audio, rules, bot or network changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

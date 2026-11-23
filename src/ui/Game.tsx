@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
 import { MatchMeta } from './MatchMeta';
+import { menuAudio } from '../presentation/MenuAudio';
 import { keyboardAction } from '../game/controls';
 import { useGameInteraction } from './useGameInteraction';
 import type { Session } from '../game/Session';
@@ -23,8 +24,13 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
   const [menuOpen, setMenuOpen] = useState(false);
   const menuVisible = useRef(false);
   menuVisible.current = menuOpen;
-  const openControls = () => online ? setMenuOpen(value => !value) : session.togglePause();
-  const nextRound = useCallback(() => session.nextRound(), [session]);
+  useEffect(()=>{menuAudio.setEnabled(!session.muted);},[session.muted]);
+  const openControls = () => {
+    menuAudio.play((online?menuVisible.current:session.match.state.paused)?'menuBack':'menuConfirm');
+    if(online)setMenuOpen(value=>!value);else session.togglePause();
+  };
+  const leaveGame=()=>{menuAudio.play('menuBack');leave();};
+  const nextRound = useCallback(() => {menuAudio.play('menuConfirm');session.nextRound();}, [session]);
   const finished = state.phase === 'round-over' || state.phase === 'match-over';
   useEffect(() => { if (finished) setMenuOpen(false); }, [finished]);
   const link = snapshot.network;
@@ -35,7 +41,7 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
       if (['round-over', 'match-over'].includes(session.getSnapshot().state.phase)) return;
       if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
       if (event.code === 'Tab' && event.shiftKey) return;
-      if (event.code === 'Escape') { if (session.match.options.mode === 'online') setMenuOpen(value => !value); else session.togglePause(); return; }
+      if (event.code === 'Escape') { openControls(); return; }
       if (menuVisible.current) return;
       const action = keyboardAction(event.code, session.match.options.mode);
       if (action) { event.preventDefault(); session.act(action); }
@@ -56,8 +62,8 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
       {layout.gardens.map(garden=><TargetMarkers key={garden.id} snapshot={snapshot} garden={garden}/>)}
     </div>
     {state.casting&&<div className="casting-scene"><div className="cast-backdrop" aria-hidden="true"/><CastOverlay key={state.casting.player} snapshot={snapshot} player={state.casting.player} garden={layout.gardens.find(garden=>garden.id===state.casting?.player)??layout.gardens[0]}/></div>}
-    {finished && (!disconnected || state.phase === 'match-over') && <MatchEnd key={`${state.phase}-${state.round}`} round={state.phase === 'round-over'} winner={state.result} character={state.winner === null ? undefined : state.players[state.winner].character} leave={state.phase === 'round-over' ? nextRound : leave} />}
-    {state.phase !== 'match-over' && (state.paused || menuOpen || disconnected) && <GameMenu session={session} snapshot={snapshot} resume={openControls} quit={leave} />}
+    {finished && (!disconnected || state.phase === 'match-over') && <MatchEnd key={`${state.phase}-${state.round}`} round={state.phase === 'round-over'} winner={state.result} character={state.winner === null ? undefined : state.players[state.winner].character} leave={state.phase === 'round-over' ? nextRound : leaveGame} />}
+    {state.phase !== 'match-over' && (state.paused || menuOpen || disconnected) && <GameMenu session={session} snapshot={snapshot} resume={openControls} quit={leaveGame} />}
     {!finished && !state.paused && !menuOpen && !disconnected && state.phase === 'countdown' && <div className="match-overlay countdown-overlay" role="status" aria-label="Round countdown"><div className="round-countdown"><span className="countdown-number">{Math.max(1, Math.ceil((state.countdownUntil - state.time) / 1000))}</span></div></div>}
   </main>;
 }

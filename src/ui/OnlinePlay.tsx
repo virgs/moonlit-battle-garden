@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
+import { menuAudio } from '../presentation/MenuAudio';
 import { PeerRoom } from '../network/PeerRoom';
 import type { Session } from '../game/Session';
 import { ModeIcon } from './ModeIcon';
@@ -29,21 +30,22 @@ export function OnlinePlay({ initialCharacter, leave, renderLobby, sound, change
         invite: id => { if (!host) { const url = new URL(location.href); url.search = ''; url.hash = ''; url.searchParams.set('join', id); setInvite(url.toString()); } },
         selection:setSelection, status: setStatus, start: next => { if(sound)next.enableSound(); setSession(next); },
       });
-    } catch { setStatus('Could not open a connection. Check your network settings and try again.'); setBusy(false); }
+      menuAudio.play('menuConfirm');
+    } catch { menuAudio.play('menuError');setStatus('Could not open a connection. Check your network settings and try again.'); setBusy(false); }
   };
   const join = () => {
     let host = code.trim();
     try { host = new URL(host).searchParams.get('join') ?? ''; } catch { /* a plain room ID */ }
-    if (!/^[a-zA-Z0-9_-]{1,100}$/.test(host)) { setStatus('Paste a valid garden invite link or room ID.'); return; }
+    if (!/^[a-zA-Z0-9_-]{1,100}$/.test(host)) { menuAudio.play('menuError');setStatus('Paste a valid garden invite link or room ID.'); return; }
     begin(host);
   };
   if (session) return <Suspense fallback={<p className="development-note">Opening the garden…</p>}><Game session={session} leave={() => { session.stop(); leave(session.muted); }} /></Suspense>;
-  const cancel=()=>{room.current?.dispose();room.current=null;discardPrimedMusic();setBusy(false);setInvite('');setSelecting(false);setSelection(null);setStatus('Create a garden or join a friend’s invite.');};
-  const share=invite&&!selection?.connected&&<div className="selection-share"><label>Share this invite<input aria-label="Share this invite" readOnly value={invite} /></label><button className="front-link" onClick={async()=>{try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(invite);setStatus('Invite copied. Waiting for your opponent…');}catch{setStatus('Could not copy the invite. Allow clipboard access and try again.');}}}><KeyHint label="Enter" />Copy invite</button></div>;
+  const cancel=()=>{menuAudio.play('menuBack');room.current?.dispose();room.current=null;discardPrimedMusic();setBusy(false);setInvite('');setSelecting(false);setSelection(null);setStatus('Create a garden or join a friend’s invite.');};
+  const share=invite&&!selection?.connected&&<div className="selection-share"><label>Share this invite<input aria-label="Share this invite" readOnly value={invite} /></label><button className="front-link" onClick={async()=>{try{if(!navigator.clipboard)throw new Error();await navigator.clipboard.writeText(invite);menuAudio.play('menuConfirm');setStatus('Invite copied. Waiting for your opponent…');}catch{menuAudio.play('menuError');setStatus('Could not copy the invite. Allow clipboard access and try again.');}}}><KeyHint label="Enter" />Copy invite</button></div>;
   if(selecting)return <CharacterSelection mode="online" slots={[
     {character:selection?.players[0].character??character,ready:selection?.players[0].ready??false,controlled:true,canConfirm:!!selection?.connected,label:'You'},
     {character:selection?.players[1]?.character??null,ready:selection?.players[1]?.ready??false,controlled:false,label:'Rival'},
-  ]} pick={(_id,value)=>{setCharacter(value);changeCharacter(value);room.current?.select(value,false);}} ready={(_id,value)=>{if(value&&sound)prepareAudio();room.current?.select(character,value);}} back={cancel} footer={share} status={selection?.connected?(selection.players.every(pick=>pick?.ready)?'Starting…':undefined):status} />;
+  ]} pick={(_id,value)=>{if(value!==character)menuAudio.play('menuMove');setCharacter(value);changeCharacter(value);room.current?.select(value,false);}} ready={(_id,value)=>{menuAudio.play(value?'menuConfirm':'menuBack');if(value&&sound)prepareAudio();room.current?.select(character,value);}} back={cancel} footer={share} status={selection?.connected?(selection.players.every(pick=>pick?.ready)?'Starting…':undefined):status} />;
   return renderLobby(<div className="online-lobby">
     <h2 className="mode-title"><ModeIcon mode="online" decorative />{menuLabels.online}</h2>
     <p className="front-note">Online · Invite a friend to a private garden.</p>

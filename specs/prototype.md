@@ -362,3 +362,8 @@ Mode confirmation lives in the bottom-right Back/Confirm footer. Game choices us
 ### Slower star supply (D180 / I64)
 
 Current starScheduleScale=2 multiplies the full opportunity deadline, including cycle offsets. Unscaled slots5/14/22 per25s therefore become10/28/44 per50s, followed by60/78/94s. Gaps9/8/8s become18/16/16s; average opportunity spacing8.33→16.67s. This is the tied-board baseline in active gameplay time, excluding pause/cast holds. The trailing board retains its bounded5% virtual-clock acceleration. Each round restarts the same star schedule. One-live-star checks, full-board skipped opportunities and the shared target lifetime curve remain. No longer rise/retreat animation, extra visible lifetime, reward/capacity change or spell/AI tuning. See reports/slower-stars-review.md for diagnostics.
+
+
+### Menu action sounds (D181 / I65)
+
+Title entry, mode/hero/difficulty browsing, confirmation/backtracking, match start, pause/resume/quit and result continuation use four short downloaded Kenney CC0 cues (move/confirm/back/error), also reused for online room/invite actions. Keyboard, button and swipe routes meet at the same logical callbacks; disabled/no-op actions and repeated keydown do not emit cues. Pointer hover alone, component mounts, text input and remote-selection updates are silent. The sound toggle applies before front-screen actions and during paused gameplay; mute stops UI voices/pending playback, unmute plays confirmation. UI feedback uses the existing short-effect engine with its own voice lifecycle and shared per-context decode cache. No gameplay or balance changes.

@@ -61,3 +61,8 @@ The historical per-spell placeholder list above is superseded by the approved ru
 Title actors use nine native frames per horizontal strip: bat/pumpkin48×48 and owl48×64. Uniform draw scaling preserves the owl aspect ratio. Wing frames run at12fps; slower owl/pumpkin poses are decorative and independent of match time. Reduced motion holds frame0. Models do not visually inspect user artwork.
 
 New sound files in `sfx/spells/` are downloaded CC0 Kenney clips, unmodified; see the bundled license and source hashes. All spell numbers, target timing and guard/armor semantics remain authoritative in the simulation.
+
+
+## Menu feedback sounds
+
+`sfx/menu/{move,confirm,back,error}.wav` contains four original unmodified Kenney CC0 Interface Sounds clips. License and source hashes are beside them. Logical UI actions trigger these cues, including keyboard/buttons/swipes, with saved/current mute handling. Menu effects unlock Web Audio on the user gesture without priming background music; they share decoded files with the game while owning their own playback/mute lifecycle. No generated audio or new image assets.

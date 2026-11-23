@@ -1,19 +1,21 @@
 import { assetUrl } from '../assets/url';
 import { soundContext } from './audioGesture';
 import { presentation } from './config';
-import { soundFiles } from './soundFiles';
+import { soundFiles, type MenuCue } from './soundFiles';
 import type { GameEvent } from '../game/types';
 import type { Snapshot } from '../game/Session';
 
 const path = (file: string) => `/assets/sfx/${file}`;
 
 type Cue = keyof typeof soundFiles;
-const volumes: Record<Cue, number> = { spore:.22,thorn:.2,portal:.16,whisper:.18,leaf:.18, armor:.2, pop:.12, hit:.24, impact:.14, rabbit:.25, starAppear:.18, star:.25, wrong:.2, cast:.25, sweep:.2, end:.3 };
+const volumes: Record<Cue, number> = { menuMove:.12,menuConfirm:.18,menuBack:.15,menuError:.14, spore:.22,thorn:.2,portal:.16,whisper:.18,leaf:.18, armor:.2, pop:.12, hit:.24, impact:.14, rabbit:.25, starAppear:.18, star:.25, wrong:.2, cast:.25, sweep:.2, end:.3 };
+
+// UI and arena players share decoded files, while retaining separate voices/mute lifecycles.
+const decodedBuffers=new WeakMap<AudioContext,Map<string,Promise<AudioBuffer|null>>>();
 
 /** Cosmetic variation never consumes gameplay RNG. Native Web Audio supports overlapping short effects. */
 export class SoundEffects {
   private context = soundContext();
-  private buffers = new Map<string, Promise<AudioBuffer | null>>();
   private sources = new Set<AudioBufferSourceNode>();
   private fallback = new Map<string, HTMLAudioElement[]>();
   private counts = new Map<string, number>();
@@ -28,10 +30,13 @@ export class SoundEffects {
   private disposed = false;
 
   private buffer(src: string): Promise<AudioBuffer | null> {
-    if (!this.buffers.has(src)) this.buffers.set(src, fetch(assetUrl(src)).then(response => response.ok ? response.arrayBuffer() : Promise.reject())
-      .then(bytes => this.context!.decodeAudioData(bytes)).catch(() => null));
-    return this.buffers.get(src)!;
+    let buffers=decodedBuffers.get(this.context!);
+    if(!buffers){buffers=new Map();decodedBuffers.set(this.context!,buffers);}
+    if (!buffers.has(src)) buffers.set(src, fetch(assetUrl(src)).then(response => response.ok ? response.arrayBuffer() : Promise.reject())
+      .then(bytes => this.context!.decodeAudioData(bytes)).catch(() => {buffers!.delete(src);return null;}));
+    return buffers.get(src)!;
   }
+  playMenu(cue:MenuCue):void { this.play(cue); }
   preload(): void {
     if (this.context) for (const files of Object.values(soundFiles)) for (const file of files) void this.buffer(path(file));
   }
