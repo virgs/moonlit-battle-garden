@@ -8,11 +8,13 @@ import { signatureColours } from '../../src/presentation/spellIdentity';
 function decode(path:string){
  const png=readFileSync(path),width=png.readUInt32BE(16),height=png.readUInt32BE(20),chunks:Buffer[]=[];
  for(let offset=8;offset<png.length;){const length=png.readUInt32BE(offset);if(png.toString('ascii',offset+4,offset+8)==='IDAT')chunks.push(png.subarray(offset+8,offset+8+length));offset+=12+length;}
+ let invalidAlpha=0;
  const raw=inflateSync(Buffer.concat(chunks)),poses=Array.from({length:8},()=>[] as string[]);
  for(let y=0;y<height;y++)for(let x=0;x<width;x++){
   const pixel=raw.subarray(y*(width*4+1)+1+x*4,y*(width*4+1)+1+x*4+4);
-  expect([0,255]).toContain(pixel[3]);poses[Math.floor(x/48)].push(pixel[3]?'#'+pixel.subarray(0,3).toString('hex'):'');
+  if(pixel[3]!==0&&pixel[3]!==255)invalidAlpha++;poses[Math.floor(x/48)].push(pixel[3]?'#'+pixel.subarray(0,3).toString('hex'):'');
  }
+ expect(invalidAlpha,`${path}: non-binary alpha pixels`).toBe(0);
  return {png,width,height,poses};
 }
 it('adopts20 approved bolder loops while retaining the prior artwork',()=>{

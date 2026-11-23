@@ -129,7 +129,7 @@ export class Match {
     if (!target) { if (!automated) this.penalize(id, config.penalties.empty, undefined, undefined, 'empty'); return; }
     if (target.kind === 'mole' && target.armor) {
       target.armor--;
-      this.emit(id, 'shield', undefined, undefined, 'mole');
+      this.emit(id, 'shield', hole, undefined, 'mole');
       return;
     }
     if(automated && player.character==='sprig')this.statistics[id][target.kind==='mole'?'automationMoleHits':target.kind==='star'?'automationStarHits':'automationRabbitHits']++;

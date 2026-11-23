@@ -31,3 +31,10 @@ it('keeps earned lifetime cues beyond aura expiry, combines them and removes onl
   cleanse(p,m.state.time);expect(targetStatuses(p,t,m.state.time).map(s=>s.kind)).toEqual(['tending']);expect(targetStatuses(p,t,t.expires)).toEqual([]);
   for(const kind of ['rabbit','star'] as const)expect(targetStatuses(p,{...t,kind},m.state.time).map(s=>s.kind)).toEqual(['tending']);
 });
+
+it('identifies the armored hole without playing a mole death until the killing hit',async()=>{
+ const {playsTargetHit}=await import('../../src/render/targetAnimation');
+ const m=game('captain-bramble'),p=m.state.players[1],t=mole(m);cast(m,4);modifyTarget(p,t,m.state.time,true);p.holes[4]=t;
+ m.action({type:'hit',player:1,hole:4});const shield=m.events.at(-1)!;expect(shield).toMatchObject({kind:'shield',hole:4,targetKind:'mole'});expect(playsTargetHit(shield)).toBe(false);expect(p.holes[4]).toBe(t);
+ m.action({type:'hit',player:1,hole:4});m.action({type:'hit',player:1,hole:4});expect(playsTargetHit(m.events.at(-1)!)).toBe(true);expect(p.holes[4]).toBeNull();
+});

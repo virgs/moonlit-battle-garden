@@ -7,13 +7,13 @@ import { modifyTarget } from '../../src/game/targetModifiers';
 import { createArenaLayout } from '../../src/render/layout';
 import { TargetMarkers } from '../../src/ui/TargetMarkers';
 import { SpellGlyph } from '../../src/ui/SpellGlyph';
-it('only shows actionable armor hit counts while keeping point details accessible',()=>{
+it('shows armor as shield layers without badge numbers while keeping details accessible',()=>{
  const m=new Match({characters:['duskmantle','captain-bramble'],mode:'local',difficulty:'hard',seed:41});m.advance(config.countdownMs);
  m.state.players[1].stars=4;m.action({type:'cast',player:1});m.advance(config.spells.castFreezeMs);
  m.state.players[0].stars=3;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs);
  const p=m.state.players[0];p.holes[4]={id:42,kind:'mole',born:m.state.time,expires:m.state.time+2000};modifyTarget(p,p.holes[4]!,m.state.time,true);
  const draw=()=>renderToStaticMarkup(createElement(TargetMarkers,{snapshot:{state:m.state,events:m.events},garden:createArenaLayout(1280,800,'local').gardens[0]}));
- const html=draw();expect(html.replace(/<[^>]*>/g,'')).toBe('3');expect(html).toContain('Manual elimination earns 2 bonus points');expect(html.match(/data-outlined="true"/g)).toHaveLength(2);expect(html).not.toContain('spell-backing');expect(html).not.toContain('data-remaining');
+ const html=draw();expect(html.replace(/<[^>]*>/g,'')).toBe('');expect(html).toContain('data-layers="2"');expect(html).toContain('3 hits remaining');expect(html).toContain('Manual elimination earns 2 bonus points');expect(html.match(/data-outlined="true"/g)).toHaveLength(1);expect(html).not.toContain('spell-backing');expect(html).not.toContain('data-remaining');
  p.holes[4]!.armor=0;p.holes[4]!.missBonus=8;
  expect(draw().replace(/<[^>]*>/g,'')).toBe('');expect(draw()).toContain('Missing this mole costs 8 extra points');
 });

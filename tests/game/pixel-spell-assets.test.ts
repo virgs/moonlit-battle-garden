@@ -13,15 +13,16 @@ it('ships20 shaded raster loops with hero colours, hard alpha and genuinely diff
   const chunks:Buffer[]=[];for(let offset=8;offset<png.length;){const length=png.readUInt32BE(offset),kind=png.toString('ascii',offset+4,offset+8);if(kind==='IDAT')chunks.push(png.subarray(offset+8,offset+8+length));offset+=12+length;}
   const raw=inflateSync(Buffer.concat(chunks)),poses=new Set<string>();
   for(let frame=0;frame<8;frame++){
-   const palette=new Set<string>(),alpha:number[]=[],rgba:number[]=[];
+   const palette=new Set<string>(),alpha:number[]=[],rgba:number[]=[];let invalidAlpha=0;
    for(let y=0;y<48;y++){
     expect(raw[y*(width*4+1)]).toBe(0);
     for(let x=0;x<48;x++){
      const pixel=raw.subarray(y*(width*4+1)+1+(frame*48+x)*4,y*(width*4+1)+1+(frame*48+x)*4+4);
-     expect([0,255]).toContain(pixel[3]);alpha.push(pixel[3]);rgba.push(...pixel);
+     if(pixel[3]!==0&&pixel[3]!==255)invalidAlpha++;alpha.push(pixel[3]);rgba.push(...pixel);
      if(pixel[3])palette.add('#'+pixel.subarray(0,3).toString('hex'));
     }
    }
+   expect(invalidAlpha,`${hero}${tier} frame${frame}: non-binary alpha pixels`).toBe(0);
    expect(palette.size,`${hero}${tier} shading`).toBeGreaterThanOrEqual(8);
    expect(palette,`${hero}${tier} identity`).toContain(signatureColours[hero]);
    poses.add(Buffer.from(rgba).toString('base64'));

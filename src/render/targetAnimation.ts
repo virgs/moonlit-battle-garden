@@ -1,5 +1,5 @@
 import { config } from '../game/config';
-import type { Target, TargetKind } from '../game/types';
+import type { Target, TargetKind, GameEvent } from '../game/types';
 
 export const targetOffsets: Record<TargetKind, number> = { mole: 0, star: 8, rabbit: 16 };
 export const targetFrameMs = 1000 / 12;
@@ -27,4 +27,9 @@ export function targetFrame(target: Target, time: number, reduced = false): numb
 }
 export function hitFrame(kind: TargetKind, elapsed: number, reduced = false): number {
   return 24 + targetOffsets[kind] + (reduced ? 7 : Math.min(7, Math.floor(Math.max(0, elapsed) / targetFrameMs)));
+}
+
+/** Armor contact is a shield reaction, not a target death animation. */
+export function playsTargetHit(event:GameEvent):boolean {
+ return !(event.kind==='shield'&&event.targetKind==='mole'&&!event.reason);
 }

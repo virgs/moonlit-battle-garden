@@ -7,7 +7,7 @@ import type { ArenaLayout } from './layout';
 import type { CharacterHome } from '../game/homes';
 import { earthPlacements, earthFrameSize, rootStripTop, recolorBoard } from './legacyPresentation';
 
-import { targetFrame, hitFrame, targetHitDuration } from './targetAnimation';
+import { targetFrame, hitFrame, targetHitDuration, playsTargetHit } from './targetAnimation';
 type GardenView = {
   image: Phaser.GameObjects.Image;
   sprites: Phaser.GameObjects.Sprite[];
@@ -111,7 +111,7 @@ export class GardenScene extends Phaser.Scene {
         dust.setFrame(this.reducedMotion.matches ? 0 : placement.reverse ? 3 - phase : phase);
       });
       for (const event of events.filter(item => item.id > this.lastEvent && item.player === garden.id)) {
-        if (event.hole !== undefined) {
+        if (event.hole !== undefined && playsTargetHit(event)) {
           const kind = event.targetKind ?? view.previous[event.hole];
           if (kind) view.flashes[event.hole] = { until: event.time + targetHitDuration, kind };
         }

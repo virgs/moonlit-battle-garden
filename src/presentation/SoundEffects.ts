@@ -8,7 +8,7 @@ import type { Snapshot } from '../game/Session';
 const path = (file: string) => `/assets/sfx/${file}`;
 
 type Cue = keyof typeof soundFiles;
-const volumes: Record<Cue, number> = { pop:.12, hit:.24, impact:.14, rabbit:.25, starAppear:.18, star:.25, wrong:.2, cast:.25, sweep:.2, end:.3 };
+const volumes: Record<Cue, number> = { armor:.2, pop:.12, hit:.24, impact:.14, rabbit:.25, starAppear:.18, star:.25, wrong:.2, cast:.25, sweep:.2, end:.3 };
 
 /** Cosmetic variation never consumes gameplay RNG. Native Web Audio supports overlapping short effects. */
 export class SoundEffects {
@@ -32,7 +32,7 @@ export class SoundEffects {
   preload(): void {
     if (this.context) for (const files of Object.values(soundFiles)) for (const file of files) void this.buffer(path(file));
   }
-  private playFile(src: string, volume: number): void {
+  private playFile(src: string, volume: number, rate=1): void {
     if (this.muted || this.disposed) return;
     const generation = this.generation;
     if (this.context) {
@@ -42,7 +42,7 @@ export class SoundEffects {
         if (this.context!.state !== 'running') return;
         if (this.sources.size >= 12) { const oldest = this.sources.values().next().value; oldest?.stop(); this.sources.delete(oldest!); }
         const voice = this.context!.createBufferSource(), gain = this.context!.createGain();
-        gain.gain.value = volume; voice.buffer = buffer;
+        gain.gain.value = volume; voice.buffer = buffer; voice.playbackRate.value=rate;
         voice.connect(gain); gain.connect(this.context!.destination);
         voice.onended = () => { this.sources.delete(voice); voice.disconnect(); gain.disconnect(); };
         this.sources.add(voice); voice.start();
@@ -51,13 +51,13 @@ export class SoundEffects {
       const pool = this.fallback.get(src) ?? [];
       let audio = pool.find(item => item.paused);
       if (!audio && pool.length < 3) { audio = new Audio(assetUrl(src)); pool.push(audio); this.fallback.set(src, pool); }
-      audio ??= pool[0]; audio.volume = volume; audio.currentTime = 0;
+      audio ??= pool[0]; audio.volume = volume; audio.currentTime = 0; audio.playbackRate=rate;
       void audio.play().catch(() => {});
     }
   }
   private play(cue: Cue): void {
     const count = this.counts.get(cue) ?? 0; this.counts.set(cue, count + 1);
-    const choices = soundFiles[cue]; this.playFile(path(choices[count % choices.length]), volumes[cue]);
+    const choices = soundFiles[cue]; this.playFile(path(choices[count % choices.length]), volumes[cue],cue==='armor'?1.5:1);
   }
   sync(snapshot: Snapshot): void {
     const { state, events } = snapshot;
@@ -76,6 +76,7 @@ export class SoundEffects {
   }
   private event(event: GameEvent, snapshot: Snapshot): void {
     if (event.kind === 'hit') { this.play('hit'); this.play('impact'); }
+    if(event.kind==='shield'&&event.targetKind==='mole'&&!event.reason)this.play('armor');
     if (event.kind === 'star') this.play('star');
     if (event.kind === 'penalty' || event.kind === 'shield') {
       if (event.targetKind === 'rabbit') { this.play('rabbit'); this.play('impact'); }

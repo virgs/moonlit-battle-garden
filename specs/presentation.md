@@ -291,3 +291,9 @@ Champignon2★ uses one shaded, dark-outlined4px spore ribbon;4★ uses three5px
 ### Champignon readability correction (D166)
 
 Supersedes I52’s Champignon intensity:2★ uses one1.5px core,4★ two2px cores; soft dark edges are2px wider. Front/rear core alpha is0.65/0.3, outline0.4/0.18. Cycles slow to about1.13s/0.94s. Only3/5 small spores rise at a slower rate, with no travelling mushroom caps. Top mushroom/crown, real-hit glints and all spell rules remain. Sprig is unchanged. Captures: output/guard-flows/column-spells-readable.
+
+### Per-target force fields (D167)
+
+Bramble2★/4★ use one/two stepped red shield layers around the actual mole hit area instead of above-target armor badges/numbers. The center has only6% tint, with red edges and cream highlights. The visual reveal follows the mole's existing rise/retreat phase; reduced motion uses a full still shell. Actual armor-hit events carry their hole coordinate, driving280ms shield flashes/fragments even when the final layer disappears. Each removed layer plays one of the existing impact2/4 sounds at1.5× playback rate, without the death cue. Mute/disposal and event deduplication apply normally. Remaining hits stay in accessible labels. Other target cues remain unchanged.
+
+Only Bramble currently has target armor; stone/brick treatment and matching sounds are a future identity option for another hero, not a new spell or roster change. Rules/rewards/durations/AI are unchanged; the simulation event gains existing optional hole metadata only.

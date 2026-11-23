@@ -38,3 +38,12 @@ it('consumes muted events without replaying them on unmute and cycles hit variat
   for(let id=2;id<=4;id++){match.events.push({id,time:0,round:1,player:0,kind:'hit'});effects.sync({state:match.state,events:match.events});}
   expect(AudioStub.played.filter(src=>/\/die/.test(src))).toEqual(['/assets/sfx/die0.wav','/assets/sfx/die1.wav','/assets/sfx/die2.wav']);
 });
+
+it('plays a shield impact on each armor layer without a mole death sound or replay',()=>{
+ vi.stubGlobal('Audio',AudioStub);const match=create(),effects=new SoundEffects();
+ match.events=[{id:1,time:0,round:1,player:0,kind:'shield',targetKind:'mole',hole:4}];
+ effects.sync({state:match.state,events:match.events});expect(AudioStub.played).toEqual(['/assets/sfx/original-impacto2.wav']);
+ effects.sync({state:match.state,events:match.events});expect(AudioStub.played).toHaveLength(1);
+ effects.setMuted(true);match.events.push({id:2,time:0,round:1,player:0,kind:'shield',targetKind:'mole',hole:4});effects.sync({state:match.state,events:match.events});expect(AudioStub.played).toHaveLength(1);
+ effects.dispose();
+});

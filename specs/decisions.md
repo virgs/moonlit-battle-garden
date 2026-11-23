@@ -405,6 +405,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D166 | Champignon’s bold column effects obscure targets and move too vigorously. Thin and soften ribbons, slow their motion, reduce4★ to two strands, remove travelling mushroom caps and reduce spores. Sprig stays unchanged. |
 
+| D167 | Replace Bramble’s extra-hit target badges/numbers with red force fields around the mole: one layer for one extra hit, two for two. Each consumed layer flashes/fragments with matching impact SFX. Preserve face readability and target animation alignment. User suggests stone/brick textures with matching SFX for another hero’s similar future spell; no other current hero has extra-hit armor. User requests deployment and a playable link after completion. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

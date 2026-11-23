@@ -411,3 +411,9 @@ Verification:278 tests pass (two workers after the existing heavy artwork scan t
 ### Champignon effect readability (D166)
 
 Reduced ribbon core thickness by about60%, softened outline/core opacity, slowed cycles by about2.5×, removed travelling mushroom caps, reduced spores to3/5 and4★ strands to two. Sprig and gameplay unchanged.278 tests and production build pass. Both Champignon browser flow captures pass coverage, immediate-hit/reward/star/expiry checks; review clips in output/guard-flows/column-spells-readable.
+
+### Bramble target shields and publication (D167)
+
+Extra-hit armor is now a translucent red stepped force field around the mole, with one/two visible layers, readable faces, rise/retreat reveal and reduced-motion stillness. Removed armor badge/number; accessible hit counts remain. Actual layer hits emit hole metadata and flash/fragments for280ms, play existing impact variants at1.5× pitch, and explicitly avoid mole death animation/audio. Stone/brick treatment is reserved for another future hero's armor; no other current hero has that mechanic. No balance/rule changes.
+
+Verification:280 tests,30 desktop/mobile target/spell/audio browser checks and production build pass. Fixed the prior Pages timeout by accumulating invalid-alpha counts instead of invoking an assertion per pixel in two existing artwork tests; all pixel validations remain and the full default suite now completes in about1s locally. User requested publishing this revision and providing the playable Pages link.
