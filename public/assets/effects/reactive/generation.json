@@ -2,7 +2,7 @@
   "provider": "PixelLab",
   "frames": 9,
   "fps": 12,
-  "status": "drafts for user visual review",
+  "status": "approved by user",
   "processing": "Original frames packed unchanged; no image inspection, resizing, palette editing or cleanup.",
   "assets": [
     {

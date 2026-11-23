@@ -431,6 +431,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I58 | Add nine native PixelLab animation families (9 frames at12fps;48px,64px ward). A pure presentation model derives actors from actual state/events; Phaser renders target effects behind bodies and guardians react to real mistake holes. All target badges become accessible metadata only; visible guard badges are replaced by2/5 actual guardians, hidden-opponent summaries remain. Add exact optional visual event details for theft taken/received, manual bonus, curse hit/miss, guard remaining/tier, veil, cleanse and ward block; record first extendedAt. Empty/miss events now carry real hole/kind without triggering false death/column bursts. Ruleset18 keeps peers on the same visual schema; IDs remain localView-safe. Preserve original sounds and all spell numbers. No balance tuning. |
 
+| D174 | User approves the complete reactive spell animation set from D173/I58 ("It all looks great"). Adopt all nine PixelLab families and fourteen upgraded tiers. Further polish is discussion only until selected; preserve the approved look and mechanics. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
