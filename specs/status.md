@@ -427,3 +427,13 @@ Installed PixelLab draft hollow shield/base/shimmer/break sprites and three menu
 Main navigation now has only the three modes. Confirmed heroes darken under Selected stamps, keep their victory animations and lose top-right Ready labels. AI selection advances to a separate keyboard/swipe/button difficulty carousel with medium default and persistent locks/choice on Back. Local/online flow and simulation are unchanged. Sound controls remain in pause.
 
 Verification:281 tests,42 desktop/mobile browser checks,4 final armor clipping/layer rechecks, production build and the Pages production-base phone smoke test pass. Fresh real-cast/hit shield screenshots and a four-panel UI review are in output/guard-flows/pixellab-shield-review and output/guard-flows/pixellab-ui-review. No balance tuning or roster additions.
+
+### Inline AI controls, stable cards and round bubble (D169 / I54)
+
+Removed the unused lighter illustration placeholder from the mode menu. Kept Selected stamps; difficulty now appears in reserved space beneath the confirmed computer card on the same screen. Unlocking hides it without moving cards, reconfirming restores the chosen level, and Battle enters directly. Local/online do not gain difficulty controls.
+
+Fixed hero boxes isolate intrinsic PNG/SVG dimensions; fitted art cannot resize stage/grid. Fixed single-line name rows and reserved spell/control rows keep card dimensions/placement unchanged across all five heroes. Responsive portrait/landscape rules preserve source aspect ratios. Updated front-menu test helpers and home-asset flow for direct match entry.
+
+Installed a new round hollow64×64 PixelLab bubble draft with5-frame shimmer/pop clips (3 generations), keeping the previous organic draft files available. Mole sprites remain unchanged; native bubble frames are packed unchanged into320×64 sheets, with existing layer/SFX/accessibility behavior. User judges visuals; model does not inspect images.
+
+Verification:281 tests and production build pass;28 menu/selection checks,8 stronger all-hero placement rechecks,4 new-bubble armor cases and the production-base phone smoke test pass. Fresh desktop/phone menu/inline-selection screenshots and round-bubble target captures are in output/guard-flows/inline-selection-review and output/guard-flows/round-bubble-review. No simulation, AI tuning or spell rules change.

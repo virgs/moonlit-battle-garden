@@ -13,7 +13,7 @@ pnpm install
 pnpm dev
 ```
 
-The title screen now shows a layered cemetery garden with a horizontal camera moving left, right and back, mole/dust activity and temporary animated bat/owl/pumpkin actors. Reduced-motion settings show a still scene. Press any key or tap at the title screen, then choose a mode in the main menu, then use the two character carousels to choose Sir Champignon, Andromoss, Captain Bramble, Duskmantle or Sprig and confirm them with a Selected stamp. AI play then opens a separate Easy/Medium/Hard difficulty carousel. Play against a computer opponent, a second human on the same computer, or an online rival by invite. First to two round wins takes the match.
+The title screen now shows a layered cemetery garden with a horizontal camera moving left, right and back, mole/dust activity and temporary animated bat/owl/pumpkin actors. Reduced-motion settings show a still scene. Press any key or tap at the title screen, then choose a mode in the main menu, then use the two character carousels to choose Sir Champignon, Andromoss, Captain Bramble, Duskmantle or Sprig and confirm them with a Selected stamp. AI play shows an Easy/Medium/Hard difficulty carousel beneath the selected computer hero. Play against a computer opponent, a second human on the same computer, or an online rival by invite. First to two round wins takes the match.
 
 - Player 1: QWE / ASD / ZXC. Cast with R.
 - Player 2: numpad 789 / 456 / 123. Cast with numpad +.

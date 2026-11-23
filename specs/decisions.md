@@ -411,6 +411,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I53 | Generate one64×80 hollow red shield plus5-frame subtle shimmer and5-frame break sheets in PixelLab, reuse for one/two layers and existing armor-hit SFX. Generate three64×64 mode icons (enchanted lantern, crossed trowels, thorn gateway), shared everywhere through ModeIcon. Keep generated originals/frames unchanged; user judges visuals. AI retains two editable character carousels, then Next opens difficulty with keyboard/swipe/buttons, default medium; Back preserves locks and difficulty. Local/online start flow stays unchanged. No spell/rule/AI tuning or new roster assets. |
 
+| D169 | Remove the unnecessary lighter right-side illustration rectangle from mode selection. Keep the Selected stamp. Move AI difficulty under the selected AI hero on the same character screen, instead of a separate screen. Fix carousel dimensions and menu repositioning across differently sized heroes. User requests a rounder force-field appearance and asks whether mole sprite regeneration is needed. |
+
+| I54 | Remove the unused mode illustration placeholder. Render an inline difficulty carousel in a reserved slot beneath the confirmed computer card, preserving medium default and choice across unlock/reconfirm; Battle starts directly. Reserve matching space on the human AI-mode card. Isolate intrinsic sprite sizes with fixed/contained art boxes and absolute-fit previews, fixed name/spell rows and non-shrinking controls; maintain source aspect ratios. Keep shields separate from mole art, using a new round hollow PixelLab bubble draft and pop/shimmer clips so existing target animations remain reusable. No mole regeneration, no rules/tuning changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

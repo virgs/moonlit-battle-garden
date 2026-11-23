@@ -1,0 +1,17 @@
+{
+  "provider": "PixelLab",
+  "status": "round bubble draft for user visual review",
+  "size": [
+    64,
+    64
+  ],
+  "frames": 5,
+  "idleFps": 8,
+  "breakDurationMs": 280,
+  "jobs": {
+    "base": "68484b07-9565-4425-b261-5272333927b4",
+    "idle": "183faf3d-2e3f-4c5d-8bb7-efe516af5e9d",
+    "break": "bcb43660-08d4-484e-a093-ee0d286bbfaa"
+  },
+  "processing": "Frames packed unchanged; original organic draft retained in base/idle/break.png. Mole sprite sheets unchanged."
+}

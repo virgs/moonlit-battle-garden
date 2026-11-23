@@ -7,7 +7,6 @@ export async function openSelection(page:Page,mode:'ai'|'local'='ai') {
 }
 export async function enterMatch(page:Page) {
   for(const slot of await page.locator('.character-carousel').all())if(await slot.getAttribute('data-ready')==='false')await slot.locator('.carousel-confirm').click();
-  const next=page.getByRole('button',{name:'Choose difficulty',exact:true});if(await next.count())await next.click();
   await page.getByRole('button',{name:'Enter the garden',exact:true}).click();
 }
 

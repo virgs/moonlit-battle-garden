@@ -13,7 +13,7 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     if(testInfo.project.name==='mobile')await page.getByRole('button',{name:'Open main menu'}).tap();
     else await page.keyboard.press('Enter');
     await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
-    await expect(page.locator('.match-screen')).toHaveCount(0);
+    await expect(page.locator('.match-screen')).toHaveCount(0);await expect(page.locator('.mode-art-placeholder')).toHaveCount(0);
     await expect(page.locator('.front-nav .mode-icon')).toHaveCount(3);
     await expect(page.getByRole('button',{name:'Back to title',exact:true})).toContainText('Back to title');
     for(const option of ['Night Watch','Garden Grudge','Beyond the Hedge'])await expect(page.getByRole('button',{name:option,exact:true})).toBeInViewport();

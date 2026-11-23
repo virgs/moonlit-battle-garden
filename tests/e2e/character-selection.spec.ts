@@ -41,8 +41,8 @@ test('single player still shows a second editable opponent carousel',async({page
   await page.getByRole('button',{name:'Change selection for Computer'}).click();
   await chooseCharacter(page,'Computer','champignon');
   await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');
-  await expect(page.getByRole('button',{name:'Choose difficulty'})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'Enter the garden'})).toBeDisabled();
   await page.keyboard.press('NumpadAdd');await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','true');
   await page.keyboard.press('KeyR');await expect(page.locator('.carousel-side-0')).toHaveAttribute('data-ready','true');await page.keyboard.press('Enter');
-  await expect(page.getByRole('main',{name:'Difficulty selection'})).toBeVisible();await page.keyboard.press('Enter');await expect(page.locator('.match-screen')).toBeVisible();
+  await expect(page.locator('.match-screen')).toBeVisible();
 });

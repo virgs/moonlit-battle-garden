@@ -307,3 +307,11 @@ The procedural shield paths are replaced by native64×80 PixelLab raster sprites
 Only Night Watch, Garden Grudge and Beyond the Hedge remain in the main navigation. Their new64×64 PixelLab lantern/trowels/gateway icons replace the SVG mode pictograms across menus, selection, HUD and pause. Mute and controls remain in pause. Selected hero art is dimmed to48% brightness under a cream Selected stamp; victory animation still plays. The top-right Ready label is removed for all modes.
 
 After both AI slots are confirmed, Next opens a separate difficulty carousel (Easy/Medium/Hard, medium initially). Left/right keys, arrows, swipe and direct dot buttons select a level; Enter/Battle starts the actual chosen difficulty. Back/Escape restores the confirmed character screen, preserving level and locks. Local and online do not gain this step. All gameplay values remain unchanged.
+
+### Stable selection cards and inline AI difficulty (D169 / I54)
+
+The right-side mode illustration rectangle was an unused placeholder and is removed. Confirmed hero stamps are retained. Superseding I53's separate difficulty screen, Easy/Medium/Hard now lives directly beneath the selected computer hero's card; unlocking hides the controls, reconfirming restores the previous level. Both AI-mode columns reserve equal difficulty space, and Battle starts directly. Keyboard arrows operate only the focused difficulty carousel, without changing the selected hero.
+
+Hero preview boxes have fixed layout sizes, size/layout containment and absolutely fitted image/SVG children; intrinsic frame dimensions cannot resize the grid. Names have a fixed single-line row, spell rows reserve two lines, and controls do not shrink. Original sprite aspect ratios are preserved. Phone/short landscape sizes use fixed responsive dimensions. Browser geometry checks traverse all five heroes and compare card placement, art boxes, names, spells and controls across desktop, portrait,320px portrait and landscape.
+
+A separate round hollow bubble overlay is preferred to regenerating all mole rise/idle/hit/retreat sprites. New PixelLab bubble drafts use64×64 native frames; existing1/2 armor layers and hit-event/SFX behavior remain. The user judges appearance; model does not inspect images.

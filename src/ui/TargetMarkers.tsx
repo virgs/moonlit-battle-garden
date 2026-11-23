@@ -39,5 +39,5 @@ export function TargetMarkers({snapshot,garden}:{snapshot:Snapshot;garden:Garden
 function ShieldSprite({kind,frame}:{kind:'idle'|'break';frame:number}){
  const reduced=typeof window!=='undefined'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const pose=reduced?0:frame;
- return <svg className="shield-sprite" viewBox="0 0 64 80" overflow="hidden" aria-hidden="true" data-art="pixellab" data-frame={pose}><image href={assetUrl(`/assets/effects/bramble-shield/${kind}.png`)} x={-pose*64} width={320} height={80}/></svg>;
+ return <svg className="shield-sprite" viewBox="0 0 64 64" overflow="hidden" aria-hidden="true" data-art="pixellab" data-frame={pose}><image href={assetUrl(`/assets/effects/bramble-shield/bubble-${kind}.png`)} x={-pose*64} width={320} height={64}/></svg>;
 }
