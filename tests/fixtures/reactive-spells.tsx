@@ -28,6 +28,7 @@ if(sample==='ward'){cast(1,1);spawn(0,4);cast(1,2);}
 notify();
 document.documentElement.dataset.reviewScenario=sample==='overload'?'synthetic-overload':sample;
 const review={
+ charge(player:PlayerId=0){m.state.players[player].nextCast=0;m.state.players[player].stars=1;notify();},
  fire(action:'block'|'strike'|'miss'|'cleanse'|'incoming'|'begin-cast'){
   if(action==='block')session.act({type:'hit',player:0,hole:8});
   if(action==='strike')session.act({type:'hit',player:0,hole:4});

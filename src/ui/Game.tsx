@@ -34,6 +34,7 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
     const keyboard = (event: KeyboardEvent) => {
       if (['round-over', 'match-over'].includes(session.getSnapshot().state.phase)) return;
       if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (event.code === 'Tab' && event.shiftKey) return;
       if (event.code === 'Escape') { if (session.match.options.mode === 'online') setMenuOpen(value => !value); else session.togglePause(); return; }
       if (menuVisible.current) return;
       const action = keyboardAction(event.code, session.match.options.mode);

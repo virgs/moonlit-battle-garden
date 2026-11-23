@@ -6,7 +6,7 @@ export function useGameInteraction() {
     const tab = (event: KeyboardEvent) => {
       if (event.key !== 'Tab' && event.code !== 'Tab') return;
       event.preventDefault();
-      event.stopImmediatePropagation();
+      // The arena may handle Tab as magic; browser focus navigation stays disabled.
     };
     const selection = (event: Event) => event.preventDefault();
     window.addEventListener('keydown', tab, true);

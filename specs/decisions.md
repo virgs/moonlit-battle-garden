@@ -441,6 +441,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I60 | Shared physical-code mapping routes both grids (also number-row digits on laptops) and R/numpad+ to local player0 in AI/online modes; local two-human mode keeps letters/R on player0 and numpad/+ on player1. Capture and cancel Tab/Shift+Tab keydown/keyup before menu, focus or result handlers; preserve arrow/Enter menu navigation. Apply standard/WebKit user-select:none globally plus selectstart prevention, remove invite auto-selection and the obsolete pause Tab focus cycle. Copy Invite remains a button action. Match rules, bot timing and balance are unchanged. |
 
+| D177 | Replace magic keys R and numpad+ with Tab and the right-hand Enter key (physical NumpadEnter), respectively. This creates an explicit gameplay-casting exception to the earlier blanket Tab rule. |
+
+| I61 | Tab casts for the letter-side human and NumpadEnter casts for the numpad-side human; either casts for the sole local human in AI/online modes. Remove R/+ casting bindings. Keep main Enter for ordinary UI activation, and retain the separate existing R/+ character-confirm shortcuts. Prevent native Tab/Shift+Tab focus movement globally while allowing the arena to receive Tab. Shift+Tab, repeats/modifier shortcuts, paused/menu states and result screens do not cast. Update pause glyphs and help; use existing blank/Enter artwork with a small Tab label, no generated assets. No spell/rule/bot changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -10,5 +10,11 @@ it('both physical layouts target the local human in solo and online play, includ
 });
 it('keeps separate humans in local multiplayer and ignores unrelated browser keys',()=>{
  keyboardLayouts.forEach((layout,player)=>{layout.codes.forEach((code,hole)=>expect(keyboardAction(code,'local')).toEqual({type:'hit',player,hole}));expect(keyboardAction(layout.castCode,'local')).toEqual({type:'cast',player});});
- for(const code of ['Tab','Escape','ArrowUp','Space','KeyT'])expect(keyboardAction(code,'ai')).toBeNull();
+ for(const code of ['KeyR','NumpadAdd','Enter','Escape','ArrowUp','Space','KeyT'])expect(keyboardAction(code,'ai')).toBeNull();
+});
+
+it('maps Tab and the distinct keypad Enter to their respective human, keeping main Enter for menus',()=>{
+ expect(keyboardAction('Tab','local')).toEqual({type:'cast',player:0});expect(keyboardAction('NumpadEnter','local')).toEqual({type:'cast',player:1});
+ for(const mode of ['ai','online'] as const){expect(keyboardAction('Tab',mode)).toEqual({type:'cast',player:0});expect(keyboardAction('NumpadEnter',mode)).toEqual({type:'cast',player:0});}
+ expect(keyboardAction('Enter','local')).toBeNull();
 });
