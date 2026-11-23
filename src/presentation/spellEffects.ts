@@ -21,7 +21,7 @@ export function higherSpellEffects(snapshot:Snapshot,side:PlayerId):SpellEffect[
   const cast=[...snapshot.events].reverse().find(e=>e.kind==='cast'&&e.player===side&&e.round===state.round);
   // Three-star cost leaves zero; only a successful steal receives this brief cue.
   const earnedAfterCast=cast?snapshot.events.filter(e=>e.player===side&&e.id>cast.id&&e.kind==='star').length:0;
-  const stolen=Math.max(0,p.stars-earnedAfterCast);
+  const stolen=cast?.visual?.theftReceived??Math.max(0,p.stars-earnedAfterCast);
   if(p.character==='andromoss'&&cast?.tier===3&&time-cast.time<1000&&stolen>0)add('steal','andromoss',3,stolen);
   for(const effect of effects){
     const timer=effect.kind==='sweep'?[p.sweepUntil,p.sweepTier===4?config.rosterSpells.royalSweepMs:config.rosterSpells.cleanSweepMs]

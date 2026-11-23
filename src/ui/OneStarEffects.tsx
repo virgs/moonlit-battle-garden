@@ -24,7 +24,7 @@ function BoardEffect({effect,time,garden}:{effect:OneStarEffect;time:number;gard
   const positions=effect.kind==='curse'
     ? effect.holes.map(hole=>point(garden.holes[hole].feet.x-garden.x,garden.holes[hole].hit.y-garden.y-6*garden.scale))
     : effect.kind==='guard'
-      ? Array.from({length:effect.count},(_,index)=>point(garden.width*(index===0?.35:.65),garden.height*.9))
+      ? []
       : [[0,.3],[1,.3],[0,.7],[1,.7]].map(([x,y])=>point(garden.width*x,garden.height*y));
   return <div className={`spell-effect effect-${effect.kind} one-star-effect`} data-effect={effect.kind} data-character={effect.character} data-tier="1" data-charges={effect.count} data-affected-player={garden.id}>
     {positions.map((style,index)=><OneStarSprite key={effect.kind==='curse'?effect.holes[index]:index} character={effect.character} time={time} style={style} remaining={effect.remaining} backed/>)}

@@ -335,3 +335,28 @@ One extra hit shows the84px primary arch. Two add a144px secondary arch,4 frames
 Supersedes the upper-only angular mask from I56. Approved source art now shows300° of its radial energy band, with a symmetric60° opening centered downwards (±30° from the downward axis). The same angle applies to pops. `shieldArcs.degrees` is the single presentation setting for changing coverage. Existing rear depth,84/144px sizes,8.15625px logical gap, center, animation and hit behavior remain. No new art or generation.
 
 The visible arcs count extra hits, not total hits:2 arcs =3 total hits remaining;1 arc =2;0 arcs = the final normal hit. Every armor strike removes one arc. Browser checks explicitly confirm that the mole is still alive and unarmored after the last arc disappears.
+
+### Full reactive spell presentation (D173 / I58)
+
+Fourteen remaining spell tiers now have native gameplay actors using nine generated PixelLab families, each9 frames at12fps. Guardians/portal/rush/curse/mist/soul/dew frames are48×48; ward frames64×64. Frames are packed unchanged; provider jobs, prompts, dimensions and motion instructions are in public/assets/effects/reactive/generation.json. Eighteen successful generations (nine bases/nine loops); the user reviews all images, with no model visual inspection.
+
+| Hero / stars | Unchanged rule | Reactive depiction |
+|---|---|---|
+| Champignon1★ /3★ | Block2/5 mistakes; no expiry | Rose mushroom guardians idle along the lower garden; the consumed guardian leaps to the actual mistake hole and bursts into spores. |
+| Bramble1★ /3★ | Block2/5 mistakes; no expiry | Red living thorn buds use the same actual-charge logic, with their own expressive looping art and intercept reaction. |
+| Andromoss1★ /4★ | Rabbit every1s /0.75s for8s | Cyan ground portals open only beneath real magic-origin rabbit arrivals and close as they emerge. |
+| Andromoss2★ /4★ | New moles85% lifetime for8s | Cyan ribbons orbit only shortened moles, accelerating with the target's actual lifetime progress. |
+| Andromoss3★ | Instant all-star theft, capacity capped | Original star sprites travel between the real HUD meters in either direction; only actual received stars arrive, excess fades, and an empty theft fizzles. Hidden caster feedback uses the compact meter. |
+| Duskmantle1★ /4★ | Next3/6 moles marked; missed mark+8/+6; no expiry | Violet living shadows cling beneath actual marked moles, dissolve on a real kill, or snap on a real extra miss penalty. A guard-absorbed miss does not invent lost points. |
+| Duskmantle2★ | Target dimming6s; AI+200ms | Airy violet edge/target wisps; existing72% target opacity remains. Hit wisps part and dissipate without hiding faces. |
+| Duskmantle3★ | Manual mole kills+2 for7s | Small souls circle eligible moles; only genuinely rewarded manual kills release a soul toward the score bar, including a reward just before aura expiry. Automated kills emit none. |
+| Sprig1★ | Current/new targets+750ms once;6s aura | Leaves unfurl under each actually extended mole/rabbit/star and a dew sparkle marks the exact initial grant. Recasts do not replay grants for already extended targets. |
+| Sprig3★ | Instant cleanse; one-spell ward6s | A leaf wave accompanies cleansing, followed by an airy living wreath. A real blocked hostile cast disperses it; hidden opponent wards burst around their HUD portrait. |
+
+Approved drone/rope and spore column action,300° armor arcs, hero casts, star-cost displays, original sound/music and all mechanics remain. All visible target badges are removed, while hit-button descriptions and accessible status metadata remain. Visible guard badge icons are replaced by the guardians themselves; hidden-board compact charge/effect indicators remain, as do timed spell duration icons.
+
+The native ReactiveSpells renderer uses a pure reactiveSpellActors model, pooled sprites and a bounded49ms cosmetic interpolation over confirmed simulation time. Target effects and guardian intercepts stay below target bodies; earned soul/star transfers can travel in front as short feedback. Original target rise/hit/hide frames are unchanged. Existing actors hold during hero casting; new effects appear after the freeze. Pause/end states hold poses; reduced motion removes spatial movement and uses still frames while retaining functional feedback/fades. Readability does not rely on lowering normal mole opacity.
+
+Exact presentation metadata is optional GameEvent.visual: actual theftTaken/theftReceived (including0), bonusPoints only on rewarded manual kills, marked kills, extra markPenalty, guardRemaining/guardTier, veiled hits, cleanse casts and wardBlocked casts. Targets record extendedAt only on their first real extension. These fields change no rewards, timing, RNG, stars or AI decisions. Empty/miss events carry actual hole coordinates; they do not play target death animations or false column impact bursts. Ruleset18 synchronizes the event schema; metadata has no extra player IDs to remap.
+
+Controlled fixtures under tests/fixtures use real Session/Match casts/hits/spawn modifiers; they are not production entry points. scripts/capture-reactive-spells.ts records fifteen states (the fourteen upgraded tiers plus empty theft); --only=<case> / --only=guards supports focused recaptures. scripts/compose-reactive-review.ts creates the animated review matrix from those recorded GIFs. Artifacts live under ignored output/guard-flows/reactive-spells.

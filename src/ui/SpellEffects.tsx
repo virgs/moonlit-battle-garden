@@ -17,6 +17,7 @@ export function SpellEffects({snapshot,garden}:{snapshot:Snapshot;garden:GardenL
 }
 function BoardEffect({effect,time,garden}:{effect:SpellEffect;time:number;garden:GardenLayout}){
   const {kind,character,tier,count,columns}=effect,s=garden.scale;
+  if(kind==='guard')return <div className="spell-effect higher-spell-effect effect-guard" data-effect={kind} data-character={character} data-tier={tier} data-charges={count} data-asset="native" data-affected-player={garden.id}/>;
   const positions=columns.length?columns.map(column=>({x:garden.holes[column+6].feet.x-garden.x,y:garden.height*.89}))
     :kind==='veil'?[{x:0,y:garden.height*.3},{x:garden.width,y:garden.height*.7}]
     :kind==='rush'||kind==='decoys'?[{x:garden.width*.12,y:garden.height*.12},{x:garden.width*.88,y:garden.height*.12}]

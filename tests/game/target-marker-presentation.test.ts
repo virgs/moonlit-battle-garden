@@ -14,7 +14,7 @@ it('shows armor as shield layers without badge numbers while keeping details acc
  m.state.players[0].stars=3;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs);
  const p=m.state.players[0];p.holes[4]={id:42,kind:'mole',born:m.state.time,expires:m.state.time+2000};modifyTarget(p,p.holes[4]!,m.state.time,true);
  const draw=()=>renderToStaticMarkup(createElement(TargetMarkers,{snapshot:{state:m.state,events:m.events},garden:createArenaLayout(1280,800,'local').gardens[0]}));
- const html=draw();expect(html.replace(/<[^>]*>/g,'')).toBe('');expect(html).toContain('data-layers="2"');expect(html).toContain('3 hits remaining');expect(html).toContain('Manual elimination earns 2 bonus points');expect(html.match(/data-outlined="true"/g)).toHaveLength(1);expect(html).not.toContain('spell-backing');expect(html).not.toContain('data-remaining');
+ const html=draw();expect(html.replace(/<[^>]*>/g,'')).toBe('');expect(html).toContain('data-layers="2"');expect(html).toContain('3 hits remaining');expect(html).toContain('Manual elimination earns 2 bonus points');expect(html).not.toContain('data-outlined');expect(html).toContain('data-renderer="phaser-reactive"');expect(html).not.toContain('spell-backing');expect(html).not.toContain('data-remaining');
  p.holes[4]!.armor=0;p.holes[4]!.missBonus=8;
  expect(draw().replace(/<[^>]*>/g,'')).toBe('');expect(draw()).toContain('Missing this mole costs 8 extra points');
 });

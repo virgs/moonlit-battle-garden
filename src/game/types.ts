@@ -5,7 +5,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 export type PlayerId = 0 | 1;
 export type TargetKind = 'mole' | 'rabbit' | 'star';
 export type Phase = 'countdown' | 'playing' | 'round-over' | 'match-over';
-export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic'; armor?: number; persistentArmor?: boolean; persistentMark?: boolean; missBonus?: number; rushed?: boolean; rushReductionMs?: number; extended?: boolean };
+export type Target = { id: number; kind: TargetKind; born: number; expires: number; origin?: 'natural' | 'star' | 'magic'; armor?: number; persistentArmor?: boolean; persistentMark?: boolean; missBonus?: number; rushed?: boolean; rushReductionMs?: number; extendedAt?: number; extended?: boolean };
 export type PendingSpell = { tier: number; at: number; from: PlayerId };
 export type Player = {
   character: CharacterId;
@@ -81,4 +81,5 @@ export type MatchOptions = {
   seed: number;
 };
 export type GameAction = { type: 'hit'; player: PlayerId; hole: number } | { type: 'cast'; player: PlayerId };
-export type GameEvent = { id: number; time: number; round: number; player: PlayerId; kind: 'hit' | 'star' | 'penalty' | 'shield' | 'cast'; hole?: number; tier?: number; targetKind?: TargetKind; reason?: 'empty' | 'miss' | 'rabbit' };
+export type SpellVisual={bonusPoints?:number;marked?:boolean;markPenalty?:number;guardRemaining?:number;guardTier?:number;veiled?:boolean;theftTaken?:number;theftReceived?:number;wardBlocked?:boolean;cleanse?:boolean};
+export type GameEvent = { id: number; time: number; round: number; player: PlayerId; kind: 'hit' | 'star' | 'penalty' | 'shield' | 'cast'; hole?: number; tier?: number; targetKind?: TargetKind; reason?: 'empty' | 'miss' | 'rabbit'; visual?:SpellVisual };

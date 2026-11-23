@@ -23,6 +23,6 @@ export function BoardSpellScene({snapshot,garden}:{snapshot:Snapshot;garden:Gard
   };
   draw(received);return()=>cancelAnimationFrame(request);
  },[snapshot,garden,reduced,droneSheet]);
- if(!model.effects.length&&!model.blocks.length&&!model.targets.some(t=>t.statuses.length))return null;
+ if(!model.columns.length)return null;
  return <canvas ref={ref} className="board-spell-scene" width={602} height={766} aria-hidden="true" data-drone-art={droneSheet?'legacy':'loading'} data-time={model.time} data-columns={model.columns.map(c=>c.column).join(',')} data-column-spans={model.columns.map(c=>Math.round(c.bottom-c.top)).join(',')} data-choreography={model.effects.map(e=>`${e.character}:${e.tier}:${e.kind}`).join(',')} data-reduced={reduced}/>;
 }

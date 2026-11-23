@@ -1,0 +1,99 @@
+{
+  "provider": "PixelLab",
+  "frames": 9,
+  "fps": 12,
+  "status": "drafts for user visual review",
+  "processing": "Original frames packed unchanged; no image inspection, resizing, palette editing or cleanup.",
+  "assets": [
+    {
+      "key": "mushroom",
+      "hero": "champignon",
+      "tier": 1,
+      "size": 48,
+      "base": "d2905a2b-4a72-4f06-a317-8e14b589206a",
+      "animation": "24144a54-f912-4c4f-879e-bb0be2e42d3f",
+      "description": "A lively small mushroom guardian creature: rose-pink cap, cream stalk, determined tiny face, springy squat pose and little spore puffs. Not a badge, no frame.",
+      "motion": "Loop: a small mushroom guardian crouches, gives an alert little hop and sways its cap, spores puff gently from its cap edges, then returns to its ready pose. Lively readable poses, fixed center, no disappearance."
+    },
+    {
+      "key": "thorn",
+      "hero": "captain-bramble",
+      "tier": 1,
+      "size": 48,
+      "base": "6a2e92b1-ecc5-4d71-aab8-bded83354d9e",
+      "animation": "0883c9ea-e733-400c-b0e0-495fed1e3291",
+      "description": "A living red bramble bud guardian, curling thorn tendrils like little arms, glowing red core, bold thorn clusters, poised to lash and catch a mistake. No badge, no frame.",
+      "motion": "Loop: a living bramble bud wriggles, unfurls and recoils its thorn arms with an alert defensive stance, red core pulses. Expressive organic motion, keep the bud centered and always present."
+    },
+    {
+      "key": "portal",
+      "hero": "andromoss",
+      "tier": 1,
+      "size": 48,
+      "base": "5064c8e4-98eb-431f-b5fb-c4f2e2c622cb",
+      "animation": "8e57b7e6-b242-4676-9fc6-1b5d5f491c01",
+      "description": "An open cyan magical portal lying on the garden ground in low top-down perspective: hollow elliptical luminous rim, spiralling cyan-blue energy and small sparks. Empty transparent center. No rabbit, no creature.",
+      "motion": "Loop: cyan energy spirals quickly around the portal rim, sparks chase around the ellipse and the ring breathes. Keep the center transparent and the ground perspective; no rabbit or new objects."
+    },
+    {
+      "key": "rush",
+      "hero": "andromoss",
+      "tier": 2,
+      "size": 48,
+      "base": "1f7da305-74c7-4053-9145-f5fc45f3da96",
+      "animation": "6591f522-46de-44e7-9b0e-a61198e1fc8c",
+      "description": "Two flowing cyan speed ribbons curving around an empty center, lively electric comet trails framing a mole without hiding it. No character, no clock or icon, no frame.",
+      "motion": "Loop: cyan speed ribbons sweep rapidly clockwise around the hollow center, tails stretch and curl into the next pose, sparks trail and fade. Strong smooth flowing motion, no character."
+    },
+    {
+      "key": "curse",
+      "hero": "duskmantle",
+      "tier": 1,
+      "size": 48,
+      "base": "6495d8fb-ad2e-4d53-ae84-039ee05b846a",
+      "animation": "d9ac1c22-61a9-4086-8a8b-c92721420b42",
+      "description": "A sinister violet living shadow puddle on garden ground in low top-down perspective, curling smoky claws reaching inward from its edges, two tiny purple glowing eyes. A soft squat shadow, not an emblem or badge.",
+      "motion": "Loop: the violet living shadow ripples and its smoky claws curl inward then reach outward, sinister eyes blink. Keep the low ground puddle silhouette and open readable center, no mole."
+    },
+    {
+      "key": "veil",
+      "hero": "duskmantle",
+      "tier": 2,
+      "size": 48,
+      "base": "0f230110-d46f-4a54-a344-b51d182f6481",
+      "animation": "e89caa53-4c3c-4958-995e-cca9b8a742f3",
+      "description": "A loose wisp of dark violet mist and flowing scarf-like smoke curls, wispy transparent gaps and violet highlights. Small airy atmospheric magic, not a solid cloud or badge.",
+      "motion": "Loop: violet mist curls and streams sideways like a soft scarf, wisps stretch, split and reunite with plenty of transparent gaps. Stay airy; no opaque smoke wall."
+    },
+    {
+      "key": "soul",
+      "hero": "duskmantle",
+      "tier": 3,
+      "size": 48,
+      "base": "367bb832-f1a2-45ba-bb11-22f546dd349c",
+      "animation": "560d1fd6-4ca8-4b34-9dd8-190b74255ae3",
+      "description": "A small expressive violet soul wisp with cream glowing eyes and a tapering twisting spectral tail, ready to swoop upward. No badge, no frame.",
+      "motion": "Loop: a violet soul wisp swims upward in place, eyes blink, its long tail waves dramatically left and right. Expressive flowing movement, no disappearance."
+    },
+    {
+      "key": "dew",
+      "hero": "sprig",
+      "tier": 1,
+      "size": 48,
+      "base": "3f713af5-1b19-4692-9d55-91a1be016eb9",
+      "animation": "b919e3da-55de-4681-a355-44ca8bbcf458",
+      "description": "Two fresh spring-green leaves unfurling outward around a luminous dew droplet, small golden-green sparkles, low top-down garden ground effect, open transparent center. Not an icon in a frame.",
+      "motion": "Loop: green leaves unfurl and flex, the luminous dew droplet bobs and glistens, small golden-green sparkles rise and fade. Clear expressive magical growth, keep empty center."
+    },
+    {
+      "key": "ward",
+      "hero": "sprig",
+      "tier": 3,
+      "size": 64,
+      "base": "250d892e-93a1-4afd-92a2-fabb8c8b3c3f",
+      "animation": "203ffe91-06ab-4a3e-8848-6b824f980aa8",
+      "description": "A living airy wreath of spring-green leaves with warm cream highlights, hollow empty transparent center and loose leaves spiralling at the edges, magical protective garden aura, not a solid medallion.",
+      "motion": "Loop: green leaves circulate around the hollow wreath, individual leaves unfurl and flutter, little loose leaves peel off and return. Lively airy magic, keep the center entirely transparent."
+    }
+  ]
+}

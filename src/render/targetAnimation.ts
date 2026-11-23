@@ -31,5 +31,5 @@ export function hitFrame(kind: TargetKind, elapsed: number, reduced = false): nu
 
 /** Armor contact is a shield reaction, not a target death animation. */
 export function playsTargetHit(event:GameEvent):boolean {
- return !(event.kind==='shield'&&event.targetKind==='mole'&&!event.reason);
+ return event.reason!=='empty'&&event.reason!=='miss'&&!(event.kind==='shield'&&event.targetKind==='mole'&&!event.reason);
 }

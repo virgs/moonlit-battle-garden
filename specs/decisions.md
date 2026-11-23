@@ -427,6 +427,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I57 | Choose300° with a symmetric60° bottom opening, controlled by shieldArcs.degrees. Replace the upper-only source clip with an angular cut centered on the downward axis, retaining the approved radial band, source pixels, gap, sizes and animation. Apply the same opening to pops. Tests verify symmetry, included side/lower-side pixels, excluded bottom pixels and the surviving normal-hit mole after the final arc is consumed. No asset generation or rules change. |
 
+| D173 | User authorizes all proposed reactive spell animations: expressive guardians, rabbit portals, speed ribbons, actual star theft/failure, curse shadows, veiling mist, rewarded soul wisps, growth/dew, cleanse/ward. Use dynamic polished PixelLab art and replace target badges. Retain approved columns/armor, rules and readability. |
+
+| I58 | Add nine native PixelLab animation families (9 frames at12fps;48px,64px ward). A pure presentation model derives actors from actual state/events; Phaser renders target effects behind bodies and guardians react to real mistake holes. All target badges become accessible metadata only; visible guard badges are replaced by2/5 actual guardians, hidden-opponent summaries remain. Add exact optional visual event details for theft taken/received, manual bonus, curse hit/miss, guard remaining/tier, veil, cleanse and ward block; record first extendedAt. Empty/miss events now carry real hole/kind without triggering false death/column bursts. Ruleset18 keeps peers on the same visual schema; IDs remain localView-safe. Preserve original sounds and all spell numbers. No balance tuning. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

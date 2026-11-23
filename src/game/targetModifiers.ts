@@ -3,7 +3,7 @@ import type { MatchState, Player, Target } from './types';
 
 /** A target receives its lifetime bonus at most once, including across recasts. */
 export function extendTarget(target:Target,time:number):void {
-  if(!target.extended&&target.expires>time) {target.expires+=config.rosterSpells.extensionMs;target.extended=true;}
+  if(!target.extended&&target.expires>time) {target.expires+=config.rosterSpells.extensionMs;target.extended=true;target.extendedAt=time;}
 }
 
 /** Shared spawn modifiers: tending reaches all kinds; armor and marks only moles. */

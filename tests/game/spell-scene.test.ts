@@ -62,3 +62,7 @@ it('reuses original Sprig poses without stretching and staggers the two columns'
  for(const draw of draws){expect(draw[0]).toBe(sheet);expect(Number(draw[7])/Number(draw[8])).toBeCloseTo(85/361);}
  draws.length=0;paintSpellScene(ctx,model,garden,true,model.time+500,sheet);expect(draws.map(d=>d[1])).toEqual([0,0]);
 });
+
+it('does not invent column impact bursts for empty hits or missed moles',()=>{
+ const m=game('champignon',2);m.advance(config.spells.castFreezeMs);const garden=createArenaLayout(1280,800,'local').gardens[0];m.action({type:'hit',player:0,hole:0});expect(m.events.at(-1)).toMatchObject({reason:'empty',hole:0});expect(spellSceneModel({state:m.state,events:m.events},garden).hits).toEqual([]);
+});

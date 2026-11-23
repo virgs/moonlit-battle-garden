@@ -1,0 +1,21 @@
+/** In-game visual review only; actual Session casts/hits and generated raster art. */
+import {chromium,expect} from '@playwright/test';import {createServer} from 'vite';import {mkdirSync,writeFileSync} from 'node:fs';import {execFileSync} from 'node:child_process';import {resolve,join} from 'node:path';import type {ReactiveReview} from '../tests/fixtures/reactive-spells';
+const out=resolve('output/guard-flows/reactive-spells');mkdirSync(out,{recursive:true});
+const cases=[['champ1','Champignon 1★ · 2 guardians','block'],['champ3','Champignon 3★ · 5 guardians','block'],['bramble1','Bramble 1★ · 2 guardians','block'],['bramble3','Bramble 3★ · 5 guardians','block'],['pressure1','Andromoss 1★ · rabbit portals / 8s',''],['rush','Andromoss 2★ · speed ribbons / 8s',''],['theft','Andromoss 3★ · actual star theft',''],['pressure4','Andromoss 4★ · portals + rush / 8s',''],['curse1','Duskmantle 1★ · mark dissolves on hit','strike'],['veil','Duskmantle 2★ · mist parts / 6s','strike'],['bonus','Duskmantle 3★ · rewarded soul / 7s','strike'],['curse4','Duskmantle 4★ · missed mark snaps','miss'],['tending','Sprig 1★ · growth + dew / 6s',''],['ward','Sprig 3★ · cleanse then spell block / 6s','cleanse'],['theft-empty','Andromoss 3★ · empty theft fizzles','']] as const;
+const only=process.argv.find(arg=>arg.startsWith('--only='))?.slice(7);
+const server=await createServer({server:{host:'127.0.0.1',port:4199,strictPort:true}});await server.listen();const browser=await chromium.launch();
+try{for(const [sample,,action]of cases.filter(([key])=>!only||key===only||only==='guards'&&(key.startsWith('champ')||key.startsWith('bramble')))){
+ const dir=join(out,sample+'-frames');mkdirSync(dir,{recursive:true});const page=await browser.newPage({viewport:{width:640,height:760}});await page.clock.install();await page.clock.pauseAt(new Date());await page.goto(`http://127.0.0.1:4199/tests/fixtures/reactive-spells.html?case=${sample}&mode=ai`);await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);await page.clock.runFor(50);
+ for(let f=0;f<36;f++){
+  if(f===9&&action){await page.evaluate(action=>(window as unknown as {reactiveReview:ReactiveReview}).reactiveReview.fire(action),action as Parameters<ReactiveReview['fire']>[0]);await page.clock.runFor(20);}
+  if(f===23&&sample==='ward'){await page.evaluate(()=>(window as unknown as {reactiveReview:ReactiveReview}).reactiveReview.fire('incoming'));await page.clock.runFor(20);}
+  const actors=JSON.parse((await page.locator('.arena-canvas canvas').getAttribute('data-reactive-spells'))??'[]');expect(actors.every((a:{texture:string})=>a.texture==='targets'||a.texture.startsWith('reactive-'))).toBe(true);
+  if(f===2)await page.screenshot({path:join(out,sample+'-active.png')});
+  if(f===11&&action)await page.screenshot({path:join(out,sample+'-reaction.png')});
+  await page.screenshot({path:join(dir,String(f).padStart(3,'0')+'.png')});await page.clock.runFor(83);
+ }
+ execFileSync('ffmpeg',['-y','-framerate','12','-i',join(dir,'%03d.png'),'-filter_complex','scale=320:-1:flags=neighbor,split[a][b];[a]palettegen[p];[b][p]paletteuse','-loop','0',join(out,sample+'.gif')],{stdio:'ignore'});await page.close();console.log(sample+' captured.');
+}
+writeFileSync(join(out,'gallery.html'),`<!doctype html><html><style>body{margin:0;background:#101a21;color:#efe0be;font:18px Georgia}h1{margin:16px 20px}main{display:grid;grid-template-columns:repeat(4,320px);gap:12px;padding:16px}figure{margin:0}figcaption{height:46px;font-size:16px}img{display:block;width:320px;height:380px;object-fit:contain}a{color:inherit}</style><h1>Reactive spell animations · actual gameplay</h1><main>${cases.map(([key,label])=>`<figure><figcaption>${label}</figcaption><a href="${key}.gif"><img src="${key==='ward'?key+'-reaction':key+'-active'}.png"></a></figure>`).join('')}</main></html>`);
+const page=await browser.newPage({viewport:{width:1348,height:1850}});await page.goto('http://127.0.0.1:4199/output/guard-flows/reactive-spells/gallery.html');await page.waitForLoadState('networkidle');await page.screenshot({path:join(out,'matrix.png'),fullPage:true});await page.close();console.log('15 actual spell states/reactions and a review matrix captured; no image inspection.');
+}finally{await browser.close();await server.close();}

@@ -16,7 +16,7 @@ export function spellSceneModel(snapshot:Snapshot,garden:GardenLayout){
   ...oneStarEffects(p,state.time).map(e=>({...e,tier:1,columns:[]})),...higherSpellEffects(snapshot,garden.id),
  ]:[];
  const targets=state.phase==='playing'&&!state.casting?p.holes.flatMap((target,hole)=>target&&target.expires>state.time?[{hole,target,statuses:targetStatuses(p,target,state.time)}]:[]):[];
- const hits:GameEvent[]=effects.length?snapshot.events.filter(e=>e.player===garden.id&&e.round===state.round&&e.hole!==undefined&&state.time-e.time>=0&&state.time-e.time<600&&(e.kind==='hit'||e.kind==='star'||e.kind==='penalty')):[];
+ const hits:GameEvent[]=effects.length?snapshot.events.filter(e=>e.player===garden.id&&e.round===state.round&&e.hole!==undefined&&e.reason!=='empty'&&e.reason!=='miss'&&state.time-e.time>=0&&state.time-e.time<600&&(e.kind==='hit'||e.kind==='star'||e.kind==='penalty')):[];
  const blocks=state.phase==='playing'&&!state.casting?snapshot.events.filter(e=>e.player===garden.id&&e.round===state.round&&e.kind==='shield'&&e.reason&&state.time-e.time>=0&&state.time-e.time<400):[];
  return {time:state.time,owner:p.character,effects,targets,hits,blocks,columns:effects.flatMap(effect=>effect.columns.map(col=>({...columnEffectGeometry(garden,col),character:effect.character,tier:effect.tier}))) };
 }

@@ -1,3 +1,4 @@
+import {ReactiveSpells} from './ReactiveSpells';
 import { assetUrl } from '../assets/url';
 import Phaser from 'phaser';
 import type { Snapshot } from '../game/Session';
@@ -26,11 +27,13 @@ export class GardenScene extends Phaser.Scene {
   private lastLayout: ArenaLayout | null = null;
   private lastEvent = 0;
   private shieldRound=0;
+  private reactive!:ReactiveSpells;
   private background!: Phaser.GameObjects.Image;
   private reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   constructor(private getSnapshot: () => Snapshot, private getLayout: () => ArenaLayout, private home: CharacterHome) { super('gardens'); }
   preload(): void {
+    ReactiveSpells.preload(this);
     this.load.image('garden', assetUrl('/assets/legacy/garden.png'));
     this.load.spritesheet('targets', assetUrl('/assets/characters.png'), { frameWidth: 90, frameHeight: 90 });
     this.load.spritesheet('earth', assetUrl('/assets/legacy/earth.png'), { frameWidth: earthFrameSize, frameHeight: earthFrameSize });
@@ -39,6 +42,7 @@ export class GardenScene extends Phaser.Scene {
     this.load.image('home', assetUrl(this.home.background.fallback));
   }
   create(): void {
+    this.reactive=new ReactiveSpells(this);
     this.backdrop = this.add.graphics();
     this.background = this.add.image(0, 0, 'home').setTint(this.home.background.fallbackTint).setAlpha(this.home.background.fallbackOpacity);
     // Derive clipped textures once; the approved source pixels and animation stay intact.
@@ -143,6 +147,7 @@ export class GardenScene extends Phaser.Scene {
 
 
     }
+    this.reactive.update(this.getSnapshot(),layout,this.reducedMotion.matches);
     const shields=layout.gardens.flatMap(g=>this.gardens[g.id].shields.flatMap((s,hole)=>s.outer.visible||s.burst.visible?[{player:g.id,hole,layers:s.secondary.visible?2:s.outer.visible?1:0,shape:'bottom-open-arcs',degrees:shieldArcs.degrees,bottomGap:360-shieldArcs.degrees,gap:s.secondary.visible?shieldArcGap(s.outer.scaleX*64/shieldArcs.primarySize):null,frame:s.outer.frame.name,burst:s.burst.visible,burstFrame:s.burst.frame.name,depth:s.outer.depth,targetDepth:this.gardens[g.id].sprites[hole].depth,targetAlpha:this.gardens[g.id].sprites[hole].alpha}]:[]));
     const diagnostic=JSON.stringify(shields);if(this.game.canvas.dataset.shields!==diagnostic)this.game.canvas.dataset.shields=diagnostic;
     this.lastEvent = events.at(-1)?.id ?? this.lastEvent;

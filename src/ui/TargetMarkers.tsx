@@ -1,11 +1,8 @@
 import type { CSSProperties } from 'react';
 import type { Snapshot } from '../game/Session';
-import { config } from '../game/config';
 import { targetStatuses } from '../presentation/targetStatus';
 import type { GardenLayout } from '../render/layout';
-import { OneStarSprite } from './OneStarEffects';
 import './target-markers.css';
-import { SpellGlyph } from './SpellGlyph';
 
 /** Non-interactive target cues anchored to the same hole geometry as the sprites. */
 export function TargetMarkers({snapshot,garden}:{snapshot:Snapshot;garden:GardenLayout}) {
@@ -24,9 +21,7 @@ export function TargetMarkers({snapshot,garden}:{snapshot:Snapshot;garden:Garden
           {impact&&<span className="shield-impact" aria-hidden="true"/>}
         </span>}
         <div className="target-status-row" data-target-id={target.id} data-hole={hole} style={{left:position.feet.x-garden.x,top:position.hit.y-garden.y-2*garden.scale,'--marker-unit':`${garden.scale}px`,'--marker-width':`${78*garden.scale}px`} as CSSProperties}>
-        {statuses.filter(status=>status.kind!=='armor').map(status=><span className={`target-status status-${status.kind}`} key={status.kind} data-status={status.kind} data-value={status.value} data-effect={status.kind==='curse'?'curse':undefined} data-character={status.kind==='curse'?'duskmantle':undefined} data-tier={status.kind==='curse'?(status.value===config.rosterSpells.markBonus?1:4):undefined} data-affected-player={garden.id} role="img" aria-label={status.label}>
-          {status.kind==='curse'&&status.value===config.rosterSpells.markBonus?<OneStarSprite character="duskmantle" time={state.time} outlined/>:status.kind==='curse'?<SpellGlyph character="duskmantle" tier={4} time={state.time} outlined/>:status.kind==='bonus'?<SpellGlyph character="duskmantle" tier={3} time={state.time} outlined/>:status.kind==='rush'?<SpellGlyph character="andromoss" tier={2} time={state.time} outlined/>:<SpellGlyph character="sprig" tier={1} time={state.time} outlined/>}
-        </span>)}
+        {statuses.filter(status=>status.kind!=='armor').map(status=><span className={`target-status status-${status.kind}`} key={status.kind} data-status={status.kind} data-value={status.value} data-renderer="phaser-reactive" data-affected-player={garden.id} role="img" aria-label={status.label}/>)}
       </div></div>;
     })}
   </div>;

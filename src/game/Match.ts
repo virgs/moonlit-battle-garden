@@ -78,7 +78,7 @@ export class Match {
         if (target && target.expires <= state.time) {
           if(target.extended)this.statistics[id as PlayerId][target.kind==='mole'?'tendingMoleExpiries':target.kind==='star'?'tendingStarExpiries':'tendingRabbitExpiries']++;
           if (target.kind === 'mole' && target.rushReductionMs)this.statistics[id as PlayerId].rushedMoleMisses++;
-          if (target.kind === 'mole') this.penalize(id as PlayerId, config.penalties.miss + (target.missBonus ?? 0), undefined, undefined, 'miss');
+          if (target.kind === 'mole') this.penalize(id as PlayerId, config.penalties.miss + (target.missBonus ?? 0), hole, 'mole', 'miss');
           player.holes[hole] = null;
         }
       });
@@ -100,9 +100,14 @@ export class Match {
       if (this.options.diagnosticMode === 'reaction') return;
       const tier = this.state.players[action.player].stars;
       if (this.isolatedTier(action.player) && tier !== this.isolatedTier(action.player)) return;
+      const rival=this.state.players[action.player===0?1:0],rivalStars=rival.stars,rivalWard=rival.magicShieldUntil>this.state.time;
       if (castSpell(this.state, action.player)) {
         if(config.spells.warningMs===0)resolveSpells(this.state,[this.starCapacityFor(0),this.starCapacityFor(1)],this.statistics);
-        this.emit(action.player, 'cast', undefined, tier);
+        const actor=this.state.players[action.player],visual:NonNullable<GameEvent['visual']>={};
+        if(actor.character==='andromoss'&&tier===3){visual.theftTaken=Math.max(0,rivalStars-rival.stars);visual.theftReceived=actor.stars;}
+        if(rivalWard&&rival.magicShieldUntil===0)visual.wardBlocked=true;
+        if(actor.character==='sprig'&&tier===3)visual.cleanse=true;
+        this.emit(action.player, 'cast', undefined, tier,undefined,undefined,Object.keys(visual).length?visual:undefined);
         this.state.casting = { player: action.player, tier, remainingMs: config.spells.castFreezeMs };
         const caster=this.state.players[action.player];
         if(caster.character==='champignon'&&(tier===2||tier===4))this.hitColumns(action.player,caster.sweepColumns);
@@ -126,7 +131,7 @@ export class Match {
   /** Manual hits and all automatic hits share the same base rewards and penalties. */
   private hitTarget(id: PlayerId, hole: number, automated = false): void {
     const player = this.state.players[id], target = player.holes[hole];
-    if (!target) { if (!automated) this.penalize(id, config.penalties.empty, undefined, undefined, 'empty'); return; }
+    if (!target) { if (!automated) this.penalize(id, config.penalties.empty, hole, undefined, 'empty'); return; }
     if (target.kind === 'mole' && target.armor) {
       target.armor--;
       this.emit(id, 'shield', hole, undefined, 'mole');
@@ -155,7 +160,8 @@ export class Match {
       this.statistics[id].starsCollected += Math.min(1, this.starCapacityFor(id) - player.stars);
       player.stars = Math.min(this.starCapacityFor(id), player.stars + 1);
     }
-    this.emit(id, target.kind === 'star' ? 'star' : 'hit', hole, undefined, target.kind);
+    const visual:NonNullable<GameEvent['visual']>={};if(bonus)visual.bonusPoints=bonus;if(target.missBonus)visual.marked=true;if(player.camouflageUntil>this.state.time)visual.veiled=true;
+    this.emit(id, target.kind === 'star' ? 'star' : 'hit', hole, undefined, target.kind,undefined,Object.keys(visual).length?visual:undefined);
   }
 
   private penalize(id: PlayerId, amount: number, hole?: number, targetKind?: TargetKind, reason?: GameEvent['reason']): void {
@@ -165,17 +171,18 @@ export class Match {
       this.statistics[id].guardBlocks++;
       this.statistics[id].guardPointsPrevented += amount;
       message(player, 'Guard absorbed a mistake', this.state.time);
-      this.emit(id, 'shield', hole, undefined, targetKind, reason);
+      this.emit(id, 'shield', hole, undefined, targetKind, reason,{guardRemaining:player.mistakeShield,guardTier:player.shieldTier});
     } else {
       player.score -= amount;
       this.statistics[id].pointsLost += amount;
       if(reason==='miss')this.statistics[id].markBonusPointsLost+=Math.max(0,amount-config.penalties.miss);
-      this.emit(id, 'penalty', hole, undefined, targetKind, reason);
+      const visual:NonNullable<GameEvent['visual']>={};if(reason==='miss'&&amount>config.penalties.miss)visual.markPenalty=amount-config.penalties.miss;if(player.camouflageUntil>this.state.time)visual.veiled=true;
+      this.emit(id, 'penalty', hole, undefined, targetKind, reason,Object.keys(visual).length?visual:undefined);
     }
   }
 
-  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number, tier?: number, targetKind?: TargetKind, reason?: GameEvent['reason']): void {
-    this.events.push({ id: ++this.eventId, time: this.state.time, round: this.state.round, player, kind, hole, tier, targetKind, reason });
+  private emit(player: PlayerId, kind: GameEvent['kind'], hole?: number, tier?: number, targetKind?: TargetKind, reason?: GameEvent['reason'],visual?:GameEvent['visual']): void {
+    this.events.push({ id: ++this.eventId, time: this.state.time, round: this.state.round, player, kind, hole, tier, targetKind, reason,...(visual?{visual}:{}) });
     this.events = this.events.slice(-32);
   }
 
