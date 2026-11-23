@@ -64,7 +64,7 @@ test('pause has left actions, board-shaped sprite key maps and spell titles on t
   }
 });
 
-test('pause action keyboard navigation toggles sound, traps focus and resumes', async ({ page }) => {
+test('pause action arrow navigation toggles sound, ignores Tab and resumes', async ({ page }) => {
   await openMenu(page);
   await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeFocused();
   await page.keyboard.press('ArrowRight');
@@ -77,8 +77,9 @@ test('pause action keyboard navigation toggles sound, traps focus and resumes', 
   await expect(page.getByRole('button', { name: 'Unmute', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.keyboard.press('ArrowDown');
   await expect(page.getByRole('button', { name: 'Quit', exact: true })).toBeFocused();
-  await page.keyboard.press('Tab'); await expect(page.locator('.menu-reference')).toBeFocused();
-  await page.keyboard.press('Tab'); await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeFocused();
+  await page.keyboard.press('Tab'); await expect(page.getByRole('button', { name: 'Quit', exact: true })).toBeFocused();
+  await page.keyboard.press('Shift+Tab'); await expect(page.getByRole('button', { name: 'Quit', exact: true })).toBeFocused();
+  await page.keyboard.press('ArrowDown'); await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.locator('.player-0 .hole').first()).toBeEnabled();

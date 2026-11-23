@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react';
 import { MatchMeta } from './MatchMeta';
-import { keyboardLayouts } from '../game/controls';
+import { keyboardAction } from '../game/controls';
+import { useGameInteraction } from './useGameInteraction';
 import type { Session } from '../game/Session';
 import { createArenaLayout } from '../render/layout';
 import { ArenaCanvas } from './ArenaCanvas';
@@ -14,6 +15,7 @@ import { MatchEnd } from './MatchEnd';
 import './match.css';
 
 export function Game({ session, leave }: { session: Session; leave: () => void }) {
+  useGameInteraction();
   const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
   const [layout, setLayout] = useState(() => createArenaLayout(window.innerWidth, window.innerHeight, session.match.options.mode));
   const { state } = snapshot;
@@ -34,12 +36,8 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
       if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
       if (event.code === 'Escape') { if (session.match.options.mode === 'online') setMenuOpen(value => !value); else session.togglePause(); return; }
       if (menuVisible.current) return;
-      for (const id of [0, 1] as const) {
-        if (id === 1 && session.match.options.mode !== 'local') continue;
-        const hole = (keyboardLayouts[id].codes as readonly string[]).indexOf(event.code);
-        if (hole >= 0) { event.preventDefault(); session.act({ type: 'hit', player: id, hole }); }
-        if (event.code === keyboardLayouts[id].castCode) { event.preventDefault(); session.act({ type: 'cast', player: id }); }
-      }
+      const action = keyboardAction(event.code, session.match.options.mode);
+      if (action) { event.preventDefault(); session.act(action); }
     };
     const visibility = () => { if (session.match.options.mode !== 'online' && document.hidden && !session.match.state.paused) session.togglePause(); };
     window.addEventListener('keydown', keyboard);

@@ -437,6 +437,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I59 | Import seven already-generated PixelLab nine-frame sheets unchanged: four one-shot guardian/curse/ward finishers and bat/owl/pumpkin title loops. Guardians finish at the actual blocked hole; curse snaps require an actual extra miss penalty; ward bursts require actual consumption. Fade mist, soul aura, ward and columns against their real deadlines; growth leaves fade against each target expiry so granted time survives the casting window. Keep primary armor/curse prominent and separate/soften secondary particles during overlaps. Five unmodified Kenney Interface Sounds CC0 clips provide hero-associated spell cues, coalesced to avoid rapid audio pileup; preserve recovered sounds, mute behavior and voice cap. Source, original license and hashes are bundled. No AI audio is retained. No rules, tuning, bot strategy or network changes. Native source frames are packed without model image inspection; these new art additions await user review. Physical-phone performance/touch QA still requires an available device; browser emulation is not a physical-device result. |
 
+| D176 | When only one human plays, accept both QWE/ASD/ZXC and numpad789/456/123 for their board. Disable all Tab behavior throughout the game and prevent selecting game text for copying. |
+
+| I60 | Shared physical-code mapping routes both grids (also number-row digits on laptops) and R/numpad+ to local player0 in AI/online modes; local two-human mode keeps letters/R on player0 and numpad/+ on player1. Capture and cancel Tab/Shift+Tab keydown/keyup before menu, focus or result handlers; preserve arrow/Enter menu navigation. Apply standard/WebKit user-select:none globally plus selectstart prevention, remove invite auto-selection and the obsolete pause Tab focus cycle. Copy Invite remains a button action. Match rules, bot timing and balance are unchanged. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

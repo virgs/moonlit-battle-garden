@@ -26,11 +26,6 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
       const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
       buttons[(index + (event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length]?.focus();
     }
-    if (event.key === 'Tab') {
-      const stops = [...dialog.current!.querySelectorAll<HTMLElement>('button:not(:disabled),[tabindex="0"]')];
-      if (event.shiftKey && document.activeElement === stops[0]) { event.preventDefault(); stops.at(-1)?.focus(); }
-      else if (!event.shiftKey && document.activeElement === stops.at(-1)) { event.preventDefault(); stops[0]?.focus(); }
-    }
   };
   return <div className="match-overlay menu-overlay"><section ref={dialog} className="game-menu" role="dialog" aria-modal="true" aria-labelledby="game-menu-title" onKeyDown={keyboard}>
     <header className="menu-heading"><h2 id="game-menu-title"><ModeIcon mode={session.match.options.mode} decorative /><span>{heading}</span></h2>

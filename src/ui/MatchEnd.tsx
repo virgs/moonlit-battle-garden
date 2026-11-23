@@ -14,7 +14,7 @@ export function MatchEnd({ winner, leave, round = false, character }: { winner: 
   useEffect(() => {
     if (!ready) return;
     const key = (event: KeyboardEvent) => {
-      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || ['Shift', 'Control', 'Alt', 'Meta'].includes(event.key)) return;
+      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || ['Tab', 'Shift', 'Control', 'Alt', 'Meta'].includes(event.key)) return;
       event.preventDefault(); leave();
     };
     const pointer = (event: MouseEvent) => { if (event.button === 0) { event.preventDefault(); leave(); } };
