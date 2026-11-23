@@ -33,6 +33,6 @@ it('covers both ramp and late phases deterministically with no character-specifi
   expect(first.cohorts).toHaveLength(6);expect(first.casts).toBe(0);
   const peak=first.cohorts.find(c=>c.stage==='steady'&&c.phase==='peak')!;
   expect(peak.kinds.mole.offered).toBeGreaterThan(0);expect(peak.kinds.star.offered).toBeGreaterThan(0);
-  expect(peak.kinds.mole.minLifetimeMs).toBeGreaterThanOrEqual(500);
-  expect(peak.kinds.mole.maxLifetimeMs).toBeLessThanOrEqual(528);
+  expect(peak.kinds.mole.minLifetimeMs).toBeGreaterThanOrEqual(config.pacing.minLifetimeMs);
+  expect(peak.kinds.mole.maxLifetimeMs).toBeLessThanOrEqual(config.pacing.endLifetimeMs*config.pacing.lifetimePeak);
 });

@@ -145,9 +145,12 @@ it('respects actual spawn floors and concurrency even when the lead reverses eve
   }
 });
 
-it('uses the approved half-second late peaks and a shared lifetime for every target type',()=>{
-  expect(pacingAt(64000).lifetimeMs).toBeCloseTo(528);
-  expect(pacingAt(75000).lifetimeMs).toBeCloseTo(648);
+it('provides a gentler first peak, a slower baseline ramp and a shared lifetime for every target type',()=>{
+  expect(pacingAt(16000).lifetimeMs).toBeCloseTo(2280);
+  expect(pacingAt(16000).intervalMs).toBeCloseTo(786.5);
+  expect(config.pacing.rampMs).toBe(120000);
+  expect(pacingAt(139000).lifetimeMs).toBeCloseTo(720);
+  expect(pacingAt(150000).lifetimeMs).toBeCloseTo(864);
   const match=create();match.state.players[0].decoysUntil=100000;
   const traces=collect(match,75000)[0];
   expect(new Set(traces.map(t=>t.kind))).toEqual(new Set(['mole','star','rabbit']));

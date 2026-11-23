@@ -15,9 +15,11 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     if(testInfo.project.name==='mobile')await page.getByRole('button',{name:'Open main menu'}).tap();
     else await page.keyboard.press('Enter');
     await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
+    await expect(page.locator('.front-panel>.front-action')).toHaveCount(0);await expect(page.getByRole('button',{name:'Confirm mode',exact:true})).toHaveText('Confirm');
+    const footer=await page.locator('.front-footer').boundingBox();expect(footer!.y).toBeGreaterThan(height*.75);expect(await page.evaluate(()=>document.activeElement===document.body)).toBe(true);
     await expect(page.locator('.match-screen')).toHaveCount(0);await expect(page.locator('.mode-art-placeholder')).toHaveCount(0);
     await expect(page.locator('.front-nav .mode-icon')).toHaveCount(3);
-    await expect(page.getByRole('button',{name:'Back to title',exact:true})).toContainText('Back to title');
+    await expect(page.getByRole('button',{name:'Back to title',exact:true})).toContainText('Back');
     for(const option of ['Night Watch','Garden Grudge','Beyond the Hedge'])await expect(page.getByRole('button',{name:option,exact:true})).toBeInViewport();
     await expect(page.getByRole('heading',{name:'Night Watch',exact:true})).toBeVisible();
     await page.screenshot({path:testInfo.outputPath(`${name}-menu.png`)});
@@ -36,9 +38,16 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
 }
 
 test('three-mode keyboard menu and pause sound preference work without shed or notes entries',async({page})=>{
- await page.goto('/');await page.keyboard.press('Enter');await expect(page.getByRole('button',{name:'Night Watch',exact:true})).toBeFocused();
+ await page.goto('/');await page.keyboard.press('Enter');await expect(page.getByRole('button',{name:'Night Watch',exact:true})).toHaveAttribute('aria-pressed','true');
  await expect(page.getByRole('button',{name:'Garden Shed',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'Field Notes',exact:true})).toHaveCount(0);
- await page.keyboard.press('ArrowUp');await expect(page.getByRole('button',{name:'Beyond the Hedge',exact:true})).toBeFocused();await page.keyboard.press('ArrowDown');await page.getByRole('button',{name:'Night Watch',exact:true}).click();await enterMatch(page);
+ await page.keyboard.press('ArrowUp');await expect(page.getByRole('button',{name:'Beyond the Hedge',exact:true})).toHaveAttribute('aria-pressed','true');await page.keyboard.press('ArrowDown');await page.getByRole('button',{name:'Night Watch',exact:true}).click();await enterMatch(page);
  await expect(page.locator('.player-0 .hole').first()).toBeEnabled({timeout:9000});await page.keyboard.press('Escape');await page.getByRole('button',{name:'Mute',exact:true}).click();await page.getByRole('button',{name:'Quit',exact:true}).click();await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
  await page.getByRole('button',{name:'Night Watch',exact:true}).click();await enterMatch(page);await expect(page.locator('.player-0 .hole').first()).toBeEnabled({timeout:9000});await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Unmute',exact:true})).toBeVisible();
+});
+
+test('bottom-right Back and Confirm controls work without browser focus or the central choose button',async({page})=>{
+ await page.goto('/');await page.keyboard.press('Enter');await expect(page.getByText('Choose characters',{exact:true})).toHaveCount(0);
+ await page.getByRole('button',{name:'Confirm mode',exact:true}).click();await expect(page.locator('.selection-screen')).toHaveAttribute('data-step','player');await page.keyboard.press('Escape');
+ await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');await expect(page.locator('.selection-screen')).toHaveClass(/selection-local/);expect(await page.evaluate(()=>document.activeElement===document.body)).toBe(true);await page.keyboard.press('Escape');
+ await page.keyboard.press('ArrowDown');await page.getByRole('button',{name:'Confirm mode',exact:true}).click();await expect(page.getByRole('textbox',{name:'Share this invite'})).toBeVisible();
 });

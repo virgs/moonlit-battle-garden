@@ -226,3 +226,8 @@ Future-mole armor/marks ignore stars/rabbits and existing targets. Pending quota
 AI opportunities follow the changed slots: Champignon3★ uses the same urgent-mole guard opportunity as Bramble3★,4★ uses its actual one-column opportunity, and persistent harmful effects remain visible to cleanse/caster avoidance. Seeded delay/reaction settings stay unchanged; full-kit generic priorities remain provisional. Protocol17 rejects mismatched rules. No new art. Historical timed Tin Caps/one-star guards and pulsed two-star Tines remain explicit controls only.
 
 Current pooled/per-level matrices and before→after reminders: [simplified-kit review](../reports/simplified-kits-review.md). Previous reviews are historical. Human balance remains unverified.
+
+
+D178/I62: menus use bottom-right Back/Confirm controls and logical keyboard selection, with no retained native focus on game buttons/carousels. Solo setup explicitly confirms own hero, then opponent, then difficulty. AI preview art is not a selected stamp until confirmed.
+
+D179/I63: current provisional wave tuning responds to the human opening-difficulty report. Targets are longer-lived, early peak offers slower and the baseline ramp120s; the25s breathing cycle and per-round reset stay. No AI or spell strength changes. Current exact values and diagnostics are in prototype.md and reports/gentler-pacing-review.md.

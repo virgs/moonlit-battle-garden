@@ -22,3 +22,5 @@
 .front-link .key-hint{--control-size:30px}.front-footer button{font-size:18px;min-height:44px}.front-action{font-size:36px}.front-footer button:has(>.key-hint){gap:12px}
 @media(max-width:700px){.key-hint{--control-size:30px}.front-link .key-hint{--control-size:28px}.front-footer button{font-size:16px}.front-action{font-size:31px}}
 @media(max-height:520px){.key-hint{--control-size:28px}.front-footer button{font-size:14px;min-height:32px}.front-nav button{font-size:24px;padding:5px 0}.front-nav{gap:2px}.front-action{font-size:28px}}
+
+.front-footer{display:flex;justify-content:flex-end;align-items:center;gap:clamp(24px,4vw,56px)}

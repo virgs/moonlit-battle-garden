@@ -1,7 +1,7 @@
 import { Bot } from './Bot';
 import { Match } from './Match';
 import { config } from './config';
-import { pacingAt } from './pacing';
+import { pacingAt, waveDurationMs } from './pacing';
 import type { CharacterId, Difficulty, PlayerId, Target, TargetKind } from './types';
 
 export type ReactionCount = { offered: number; hit: number; expired: number; hitAgeMs: number; minLifetimeMs: number | null; maxLifetimeMs: number | null };
@@ -10,7 +10,7 @@ export type ReactionResult = { character: CharacterId; difficulty: Difficulty; s
 export const reactionCount = ():ReactionCount => ({offered:0,hit:0,expired:0,hitAgeMs:0,minLifetimeMs:null,maxLifetimeMs:null});
 
 /** Fixed-length, spell-free round using the actual Match, SpawnDirector and Bot. */
-export function reactionDiagnostic(character: CharacterId, difficulty: Difficulty, seed: number, activeMs = 120000): ReactionResult {
+export function reactionDiagnostic(character: CharacterId, difficulty: Difficulty, seed: number, activeMs = Math.max(120000, config.pacing.rampMs + waveDurationMs * 2)): ReactionResult {
   if (!Number.isInteger(activeMs) || activeMs < config.tickMs || activeMs % config.tickMs) throw Error('Reaction duration must be a positive tick multiple');
   const match = new Match({characters:[character,character],mode:'local',difficulty,seed,diagnosticMode:'reaction'});
   const bots = [new Bot(difficulty,seed^0x123456,0),new Bot(difficulty,seed^0x654321,1)];

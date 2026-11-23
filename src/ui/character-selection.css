@@ -30,3 +30,5 @@
 
 @media(max-width:700px) and (orientation:portrait){.carousel-name{font-size:clamp(16px,4.7vw,23px)}}
 @media(max-height:520px){.selection-ai .carousel-art{height:60px}.selection-ai .carousel-spells{font-size:15px}.selection-ai .carousel-name{font-size:23px}}
+
+.selection-actions{justify-content:flex-end;gap:clamp(24px,4vw,56px)}

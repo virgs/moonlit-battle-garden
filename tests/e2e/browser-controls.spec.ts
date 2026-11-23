@@ -17,7 +17,7 @@ test('Tab never moves focus across title, menus, selection, arena and pause; gam
  expect(await page.evaluate(()=>document.dispatchEvent(new Event('selectstart',{bubbles:true,cancelable:true})))).toBe(false);
  await page.getByRole('button',{name:'Night Watch',exact:true}).click();await tabKeepsFocus(page);await enterMatch(page);
  await expect(page.locator('.player-0 .hole').first()).toBeEnabled({timeout:9000});await tabKeepsFocus(page);await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toBeVisible();await tabKeepsFocus(page);
- await page.keyboard.press('ArrowDown');await expect(page.getByRole('button',{name:'Mute',exact:true})).toBeFocused();
+ await page.keyboard.press('ArrowDown');await expect(page.getByRole('button',{name:'Mute',exact:true})).toHaveClass(/is-selected/);
  await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);await tabKeepsFocus(page);
 });
 

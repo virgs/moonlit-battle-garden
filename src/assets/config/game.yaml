@@ -8,19 +8,19 @@ pacing:
   buildMs: 12000
   peakMs: 5000
   recoveryMs: 8000
-  rampMs: 60000
+  rampMs: 120000
   firstSpawnMs: 250
-  startIntervalMs: 1350
-  endIntervalMs: 600
+  startIntervalMs: 1550
+  endIntervalMs: 650
   intervalCalm: 1.1
-  intervalPeak: 0.40
-  minIntervalMs: 300
+  intervalPeak: 0.55
+  minIntervalMs: 350
   jitter: 0.08
-  startLifetimeMs: 2200
-  endLifetimeMs: 600
+  startLifetimeMs: 2800
+  endLifetimeMs: 800
   lifetimeCalm: 1.08
-  lifetimePeak: 0.88
-  minLifetimeMs: 500
+  lifetimePeak: 0.90
+  minLifetimeMs: 650
   scoreIntervalReduction: 0.05
   scoreLifetimeReduction: 0.05
   startNaturalCap: 2

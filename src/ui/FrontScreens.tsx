@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode, type KeyboardEvent } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { ModeIcon } from './ModeIcon';
 import { KeyHint } from './ControlKey';
 import { menuLabels } from './menuContent';
@@ -30,24 +30,33 @@ export function TitleScreen({ enter }: { enter: () => void }) {
   </main>;
 }
 
-export function FrontMenu({ pane, choose, activate, title, children }: { pane: MenuPane; choose: (pane: MenuPane) => void; activate: (pane: MenuPane) => void; title: () => void; children: ReactNode }) {
-  const nav = useRef<HTMLElement>(null), panel = useRef<HTMLElement>(null);
-  useEffect(() => { nav.current?.querySelector<HTMLButtonElement>('[aria-pressed="true"]')?.focus({ preventScroll:true }); }, []);
-  const navigate = (event: KeyboardEvent<HTMLElement>) => {
-    const index = choices.findIndex(choice => choice.id === pane);
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault(); const next = (index+(event.key === 'ArrowDown' ? 1 : -1)+choices.length)%choices.length;
-      choose(choices[next].id); nav.current?.querySelectorAll('button')[next]?.focus();
-    }
-    if (event.key === 'ArrowRight') { event.preventDefault(); panel.current?.querySelector<HTMLElement>('button:not(:disabled),input:not(:disabled),select:not(:disabled)')?.focus(); }
+export function FrontMenu({ pane, choose, activate, title, children, pending=false }: { pane: MenuPane; choose: (pane: MenuPane) => void; activate: (pane: MenuPane) => void; title: () => void; children: ReactNode; pending?:boolean }) {
+  const panel = useRef<HTMLElement>(null);
+  const confirm = () => {
+    if(pending)return;
+    if(pane==='ai'||pane==='local'){activate(pane);return;}
+    const buttons=[...panel.current!.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')];
+    const joining=panel.current?.querySelector<HTMLInputElement>('input')?.value.trim();
+    (joining?buttons.at(-1):buttons[0])?.click();
   };
-  return <main className="front-screen front-menu" aria-label="Main menu" onKeyDown={event => { if(event.key==='Escape') { event.preventDefault();title(); } }}><Backdrop />
+  useEffect(()=>{
+    const key=(event:KeyboardEvent)=>{
+      if(event.repeat||event.ctrlKey||event.metaKey||event.altKey)return;
+      if(event.key==='Escape'){event.preventDefault();title();return;}
+      if(event.target instanceof HTMLInputElement||event.target instanceof HTMLSelectElement)return;
+      const index=choices.findIndex(choice=>choice.id===pane);
+      if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();choose(choices[(index+(event.key==='ArrowDown'?1:-1)+choices.length)%choices.length].id);}
+      if(event.key==='Enter'){event.preventDefault();confirm();}
+    };
+    window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);
+  });
+  return <main className="front-screen front-menu" aria-label="Main menu"><Backdrop />
     <header className="front-heading"><a href={import.meta.env.BASE_URL} aria-label="Moonlit Battle Garden home">Moonlit <span>Battle Garden</span></a></header>
     <div className="front-content">
-      <nav ref={nav} className="front-nav" aria-label="Game mode" onKeyDown={navigate}>{choices.map(choice => <button key={choice.id} aria-pressed={pane===choice.id} onClick={()=>activate(choice.id)}><ModeIcon mode={choice.id} decorative /><span>{choice.label}</span><KeyHint label="Enter" /></button>)}</nav>
+      <nav className="front-nav" aria-label="Game mode">{choices.map(choice => <button key={choice.id} aria-pressed={pane===choice.id} onClick={()=>activate(choice.id)}><ModeIcon mode={choice.id} decorative /><span>{choice.label}</span></button>)}</nav>
       <section ref={panel} className="front-panel" aria-label="Game setup" key={pane}>{children}</section>
     </div>
-    <footer className="front-footer"><button aria-label="Back to title" onClick={title}><KeyHint label="Esc" />Back to title</button></footer>
+    <footer className="front-footer"><button aria-label="Back to title" onClick={title}><KeyHint label="Esc" />Back</button><button aria-label="Confirm mode" disabled={pending} onClick={confirm}><KeyHint label="Enter" />Confirm</button></footer>
   </main>;
 }
 

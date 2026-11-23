@@ -1,4 +1,4 @@
-import { useEffect, useRef, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { assetUrl } from '../assets/url';
 import type { Session, Snapshot } from '../game/Session';
 import { characters } from '../game/config';
@@ -18,26 +18,30 @@ export function GameMenu({ session, snapshot, resume, quit }: { session: Session
   const ended = status === 'ended';
   const online = session.match.options.mode === 'online';
   const heading = disconnected ? ended ? 'Garden disconnected' : 'Reconnecting…' : online ? 'Game menu' : 'Pause';
-  useEffect(() => { dialog.current?.querySelector<HTMLButtonElement>('button:not(:disabled)')?.focus({ preventScroll: true }); }, [disconnected]);
-  const keyboard = (event: KeyboardEvent) => {
-    const buttons = [...actions.current!.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')];
-    if ((['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(event.key)) && actions.current?.contains(document.activeElement)) {
-      event.preventDefault();
-      const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
-      buttons[(index + (event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length]?.focus();
-    }
-  };
-  return <div className="match-overlay menu-overlay"><section ref={dialog} className="game-menu" role="dialog" aria-modal="true" aria-labelledby="game-menu-title" onKeyDown={keyboard}>
+  const [selected,setSelected]=useState(0);
+  useEffect(()=>{setSelected(disconnected?1:0);},[disconnected]);
+  useEffect(()=>{
+    const key=(event:KeyboardEvent)=>{
+      if(event.repeat||event.ctrlKey||event.metaKey||event.altKey)return;
+      const buttons=[...actions.current!.querySelectorAll<HTMLButtonElement>('button')],available=buttons.flatMap((button,index)=>button.disabled?[]:[index]);
+      if(['ArrowDown','ArrowUp','ArrowRight','ArrowLeft'].includes(event.key)){
+        event.preventDefault();const index=available.indexOf(selected),step=event.key==='ArrowDown'||event.key==='ArrowRight'?1:-1;setSelected(available[(index+step+available.length)%available.length]);
+      }
+      if(event.code==='Enter'||event.code==='NumpadEnter'){event.preventDefault();event.stopImmediatePropagation();buttons[selected]?.click();}
+    };
+    window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);
+  },[selected]);
+  return <div className="match-overlay menu-overlay"><section ref={dialog} className="game-menu" role="dialog" aria-modal="true" aria-labelledby="game-menu-title">
     <header className="menu-heading"><h2 id="game-menu-title"><ModeIcon mode={session.match.options.mode} decorative /><span>{heading}</span></h2>
       <MatchMeta state={snapshot.state} mode={session.match.options.mode} paused />
       {(disconnected || online) && <p className="menu-status" role="status">{disconnected ? ended ? 'The connection has ended.' : 'Reconnecting automatically. The game is frozen.' : 'The online match keeps running.'}</p>}
     </header>
     <nav ref={actions} className="menu-actions" aria-label="Match controls">
-      <button disabled={!!disconnected} onClick={resume}>Resume</button>
-      <button aria-pressed={session.muted} onClick={() => session.toggleSound()}>{session.muted ? 'Unmute' : 'Mute'}</button>
-      <button onClick={quit}>Quit</button>
+      <button className={selected===0?'is-selected':undefined} onPointerEnter={()=>!disconnected&&setSelected(0)} disabled={!!disconnected} onClick={resume}>Resume</button>
+      <button className={selected===1?'is-selected':undefined} onPointerEnter={()=>setSelected(1)} aria-pressed={session.muted} onClick={() => session.toggleSound()}>{session.muted ? 'Unmute' : 'Mute'}</button>
+      <button className={selected===2?'is-selected':undefined} onPointerEnter={()=>setSelected(2)} onClick={quit}>Quit</button>
     </nav>
-    <div className="menu-reference" tabIndex={0} role="region" aria-label="Controls and magic">
+    <div className="menu-reference" role="region" aria-label="Controls and magic">
       <div className="menu-heroes">{snapshot.state.players.map((player, id) => {
         const controlled = id === 0 || session.match.options.mode === 'local';
         const layout = keyboardLayouts[id];

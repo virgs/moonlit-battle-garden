@@ -8,7 +8,7 @@ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['la
   await expect(page.getByText('Choose your champions',{exact:true})).toHaveCount(0);
   await expect(page.locator('.carousel-player h2,.carousel-remote-note')).toHaveCount(0);
   await expect(first).toHaveAttribute('data-character','champignon');await expect(second).toHaveAttribute('data-character','andromoss');
-  await first.focus();await page.keyboard.press('ArrowRight');await expect(first).toHaveAttribute('data-character','andromoss');
+  await page.keyboard.press('ArrowRight');await expect(first).toHaveAttribute('data-character','andromoss');
   await expect(second).toHaveAttribute('data-character','andromoss');
   await page.keyboard.press('ArrowLeft');await expect(first).toHaveAttribute('data-character','champignon');
   await page.keyboard.press('KeyR');
@@ -18,7 +18,7 @@ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['la
   await expect.poll(()=>clip.getAttribute('data-frame')).toBe('8');
   await page.waitForTimeout(200);await expect(clip).toHaveAttribute('data-frame','8');
   await expect(page.getByRole('button',{name:'Next character for Player 1'})).toBeDisabled();
-  await expect(page.getByRole('button',{name:'Enter the garden'})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'Confirm selection',exact:true})).toBeEnabled();
   await page.evaluate(()=>document.fonts.ready);
   await page.screenshot({scale:'css',path:testInfo.outputPath(`${name}-selection.png`)});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight)).toBe(true);
@@ -27,22 +27,12 @@ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['la
   await expect(first.locator('.carousel-art')).toHaveAttribute('data-animation','idle');
   await page.keyboard.press('Escape');await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
 });
-test('single player still shows a second editable opponent carousel',async({page},testInfo)=>{
-  await openSelection(page);await expect(page.locator('.character-carousel')).toHaveCount(2);
-  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','true');
-  await expect(page.locator('.carousel-side-1 .victory-sheet')).toBeVisible();
-  await page.evaluate(()=>document.fonts.ready);
-  await page.screenshot({scale:'css',path:testInfo.outputPath('ai-selection.png')});
-  const stage=(await page.locator('.carousel-side-0 .carousel-stage').boundingBox())!;
-  await page.mouse.move(stage.x+stage.width*.7,stage.y+stage.height/2);await page.mouse.down();
-  await page.mouse.move(stage.x+stage.width*.3,stage.y+stage.height/2,{steps:5});await page.mouse.up();
-  await expect(page.locator('.carousel-side-0')).toHaveAttribute('data-character','andromoss');
-  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','andromoss');
-  await page.getByRole('button',{name:'Change selection for Computer'}).click();
-  await chooseCharacter(page,'Computer','champignon');
-  await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');
-  await expect(page.getByRole('button',{name:'Enter the garden'})).toBeDisabled();
-  await page.keyboard.press('NumpadAdd');await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','true');
-  await page.keyboard.press('KeyR');await expect(page.locator('.carousel-side-0')).toHaveAttribute('data-ready','true');await page.keyboard.press('Enter');
-  await expect(page.locator('.match-screen')).toBeVisible();
+test('solo selection requires own hero, then opponent, then difficulty, without DOM focus',async({page})=>{
+ await openSelection(page);const first=page.locator('.carousel-side-0'),second=page.locator('.carousel-side-1'),screen=page.getByRole('main',{name:'Character selection'});
+ await expect(screen).toHaveAttribute('data-step','player');await expect(page.locator('.selected-stamp')).toHaveCount(0);await expect(second).toHaveAttribute('data-ready','false');await expect(page.getByRole('button',{name:'Confirm Computer',exact:true})).toBeDisabled();await expect(page.locator('.difficulty-carousel')).toHaveCount(0);
+ await page.getByRole('button',{name:'Confirm Player 1',exact:true}).focus();expect(await page.evaluate(()=>document.activeElement===document.body)).toBe(true);await expect(page.getByRole('button',{name:'Confirm Player 1',exact:true})).toHaveCSS('outline-style','none');
+ await page.keyboard.press('NumpadAdd');await expect(second).toHaveAttribute('data-ready','false');await page.keyboard.press('ArrowRight');await expect(first).toHaveAttribute('data-character','andromoss');
+ await page.keyboard.press('Enter');await expect(screen).toHaveAttribute('data-step','opponent');await expect(page.locator('.selected-stamp')).toHaveCount(1);await page.keyboard.press('ArrowLeft');await expect(second).toHaveAttribute('data-character','champignon');await page.keyboard.press('Enter');
+ await expect(screen).toHaveAttribute('data-step','difficulty');await expect(page.locator('.selected-stamp')).toHaveCount(2);await page.keyboard.press('ArrowRight');await expect(page.locator('.difficulty-carousel')).toHaveAttribute('data-difficulty','hard');expect(await page.evaluate(()=>document.activeElement===document.body)).toBe(true);
+ await page.keyboard.press('Escape');await expect(screen).toHaveAttribute('data-step','opponent');await expect(page.locator('.selected-stamp')).toHaveCount(1);await page.keyboard.press('Enter');await page.keyboard.press('Enter');await expect(page.locator('.match-screen')).toHaveAttribute('data-difficulty','hard');
 });

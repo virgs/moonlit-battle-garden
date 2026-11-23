@@ -37,6 +37,8 @@ test('two browsers join a real WebRTC match, map local sides, sync inputs withou
   await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','andromoss');
   await page.getByRole('button',{name:'Previous character for You'}).click();
   await expect(guest.locator('.carousel-side-1')).toHaveAttribute('data-character','champignon');
+  await page.locator('.carousel-side-1 .carousel-name').click();
+  await expect(page.getByRole('button',{name:'Confirm selection',exact:true})).toBeEnabled();
   await guest.getByRole('button',{name:'Confirm You'}).click();
   await expect(page.locator('.carousel-side-1')).toHaveAttribute('data-ready','true');
   await expect(page.locator('.match-screen')).toHaveCount(0);
