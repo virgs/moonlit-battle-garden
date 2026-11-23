@@ -401,3 +401,9 @@ I50 final checks:276 tests,28 desktop/mobile column/target browser cases and pro
 Removed column borders/fills; drones now have top/front volume, foreshortened rotor planes, smooth banking/hover and attached flexible ropes. Spore streams breathe and fade particles. Shared choreography uses a2× pixel canvas and bounded between-tick decorative motion, with pause/resume/reduced-motion and stale-snapshot safeguards. No simulation, AI, network, spell powers or approved art changes.
 
 Verification:277 tests and production build pass.20 desktop/mobile column/duration cases pass, with the6 clock/duration cases rechecked after pause/resume refinement. Four20fps captures verify real automatic hits, rewards, stars and expiry, plus board-focused detail clips. Geometry tests verify rope attachment, smooth endpoint motion and bounded decorative time. Asset sheets are unchanged; no balance rerun required.
+
+### Original drones and bolder Champignon columns (D165)
+
+Reused the unchanged original two-frame drone/rope sheet for Sprig2★/4★ at12fps, with uniform scaling, sway/tilt, green glints and staggered4★ columns. Champignon2★/4★ now use thicker shaded highlighted spore ribbons, faster spirals, mushroom particles and real-hit bursts. No new generated art, rules or balance changes.
+
+Verification:278 tests pass (two workers after the existing heavy artwork scan timed out under concurrent browser/capture load); production build and20 desktop/mobile browser checks pass. All4 full-flow recordings verify loaded legacy drone art, fixed coverage, immediate arrivals, normal rewards, star collection and expiry. GIFs/stills are in ignored output/guard-flows/column-spells-bold. Visual judgment remains with the user.

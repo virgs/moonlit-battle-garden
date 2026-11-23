@@ -1,0 +1,1 @@
+helicopter-killer.png: unchanged original two-frame 85×361 drone/rope sheet from virgs/molecideGaiden, assets/images/helicopter-killer.png. Reused at its original 12 fps. Source: https://github.com/virgs/molecideGaiden. See ../MOLECIDE-LICENSE.txt.

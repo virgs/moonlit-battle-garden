@@ -4,7 +4,7 @@ import { columnCenterX,columnRopePoint,droneRig } from '../presentation/spellSce
 import { signatureColours } from '../presentation/spellIdentity';
 type Model=ReturnType<typeof spellSceneModel>;
 /** Pixel primitives for temporary animated VFX, not newly generated sprite assets. */
-export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:GardenLayout,reduced:boolean,motionTime=model.time){
+export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:GardenLayout,reduced:boolean,motionTime=model.time,droneSheet?:HTMLImageElement){
  ctx.clearRect(0,0,301,383);ctx.imageSmoothingEnabled=false;
  const visualTime=reduced?model.time:motionTime,time=reduced?0:visualTime,frame=Math.floor(time/100),ink='#14212b';
  let paintColour='',paintAlpha=-1;
@@ -46,6 +46,16 @@ export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:
   const colour=signatureColours[column.character],height=column.bottom-column.top;
   const centerAt=(y:number)=>columnCenterX(column,y);
   if(column.character==='sprig'){
+   if(droneSheet){
+    // Preserve both original hand-drawn poses and their thick rope/rotor silhouettes.
+    const scale=height/361,width=85*scale,phase=time/310+column.column*1.9;
+    const x=centerAt((column.top+column.bottom)/2)+Math.sin(phase)*5,y=(column.top+column.bottom)/2;
+    ctx.save();ctx.globalAlpha=1;ctx.translate(x,y);ctx.rotate(Math.sin(phase+Math.PI/2)*.025);
+    ctx.drawImage(droneSheet,(reduced?0:Math.floor(time*12/1000+column.column))%2*85,0,85,361,-width/2,-height/2,width,height);
+    ctx.restore();paintColour='';paintAlpha=-1;
+    // Small green signature lights relate the reused artwork to Sprig's spell icons.
+    glint(x,column.top+9,colour,2);glint(x,column.bottom-9,colour,2);
+   }else{
    const rig=droneRig(column,time),pulse=model.hits.filter(e=>e.hole!%3===column.column).reduce((sum,e)=>sum+Math.exp(-(visualTime-e.time)/220)*Math.sin((visualTime-e.time)/28)*2,0);
    for(let strand=0;strand<(column.tier===4?2:1);strand++){
     const points=Array.from({length:101},(_,i)=>columnRopePoint(column,time,i/100,strand?1:0,pulse,rig));
@@ -53,15 +63,31 @@ export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:
     for(let i=0;i<100;i++){const a=points[i],b=points[i+1];line(a.x,a.y,b.x,b.y,strand?'#ead5a2':colour,1,.85);}
    }
    drone(rig.top.x,rig.top.y,column.tier,rig.top.bank);drone(rig.bottom.x,rig.bottom.y,column.tier,rig.bottom.bank);
+   }
    for(let row=0;row<3;row++){const p=column.holes[row];if((frame+row)%5===0)glint(p.x+Math.sin(time/570-p.y/60)*8,p.y,colour,2);}
   }else{
-   const strands=column.tier===4?4:2;
-   for(let strand=0;strand<strands;strand++)for(let y=column.top;y<column.bottom;y+=4){
-    const radius=(column.tier===4?23:15)*(.55+.45*(1-(y-column.top)/height))*(.86+.14*Math.sin(time/420+y/60)),phase=time/270-y/28+strand*Math.PI*2/strands;
-    const x=centerAt(y)+Math.sin(phase)*radius,next=centerAt(y+4)+Math.sin(phase-4/28)*radius;
-    line(x,y,next,y+4,colour,column.tier===4?2:1,Math.cos(phase)>.1?.5:.18);
+   const strong=column.tier===4,strands=strong?3:1;
+   // Opaque, shaded ribbons travel rapidly; the rear pass stays behind the front pass.
+   for(const front of [false,true])for(let strand=0;strand<strands;strand++)for(let y=column.top;y<column.bottom;y+=2){
+    const phase=time/(strong?61:76)-y/25+strand*Math.PI*2/strands+column.column;
+    if((Math.cos(phase)>0)!==front)continue;
+    const radius=(strong?24:17)*(.65+.35*(1-(y-column.top)/height));
+    const x=centerAt(y)+Math.sin(phase)*radius,next=centerAt(y+2)+Math.sin(phase-2/25)*radius;
+    const width=strong?5:4,shade=front?colour:'#985573';
+    line(x-2,y-1,next-2,y+1,ink,width+4,front?.95:.8);
+    line(x,y,next,y+2,shade,width,front?1:.85);
+    if(front)line(x+1,y,next+1,y+2,'#ffe0b5',1,.95);
    }
-   for(let i=0;i<(column.tier===4?16:9);i++){const y=column.bottom-((time/8+i*31)%height),x=centerAt(y)+Math.sin(time/350+i)*19;const fade=Math.min(1,(y-column.top)/18,(column.bottom-y)/18);mote(x,y,i%3?colour:'#f3d6a4',Math.max(0,fade));}
+   for(let i=0;i<(strong?13:7);i++){
+    const y=column.bottom-((time/(strong?3:4)+i*43)%height),phase=time/95+i*2.4;
+    const x=centerAt(y)+Math.sin(phase)*(strong?24:17),fade=Math.max(0,Math.min(1,(y-column.top)/10,(column.bottom-y)/10));
+    mote(x,y,i%3?colour:'#ffe0b5',fade);
+    if(i%3===0){cap(x,y,colour);glint(x+8,y-4,'#ffe0b5',2);}
+   }
+   for(const hit of model.hits.filter(e=>e.hole!%3===column.column)){
+    const p=point(hit.hole!),age=(visualTime-hit.time)/260;if(age<0||age>1)continue;
+    for(let i=0;i<5;i++){const a=i*Math.PI*2/5+age;glint(p.x+Math.cos(a)*age*23,p.y+Math.sin(a)*age*13,colour,Math.max(1,3-age*2));}
+   }
    const capY=column.top+(column.tier===4?16:0);cap(centerAt(column.top),capY,colour);if(column.tier===4){rect(centerAt(column.top)-7,capY-12,14,4,'#c4a36c');rect(centerAt(column.top)-8,capY-16,3,5,'#f0d48e');rect(centerAt(column.top)-1,capY-18,3,7,'#f0d48e');rect(centerAt(column.top)+6,capY-16,3,5,'#f0d48e');}
   }
  }

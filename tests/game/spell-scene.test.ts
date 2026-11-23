@@ -51,3 +51,14 @@ it('keeps smooth cosmetic time bounded and joins rope ends to the banked drones'
  expect(a.x).toBeCloseTo(rig.top.x,5);expect(a.y).toBeCloseTo(rig.top.y+7,5);expect(b.x).toBeCloseTo(rig.bottom.x,5);expect(b.y).toBeCloseTo(rig.bottom.y-5,5);
  expect(Math.abs(rig.top.bank)).toBeLessThan(.15);expect(Math.abs(columnRopePoint(column,5001,.5).x-columnRopePoint(column,5000,.5).x)).toBeLessThan(.1);
 });
+
+it('reuses original Sprig poses without stretching and staggers the two columns',()=>{
+ const m=game('sprig',4);m.advance(config.spells.castFreezeMs);
+ const garden=createArenaLayout(1280,800,'local').gardens[0],model=spellSceneModel({state:m.state,events:m.events},garden),draws:unknown[][]=[];
+ const ctx={clearRect:()=>{},fillRect:()=>{},save:()=>{},restore:()=>{},translate:()=>{},rotate:()=>{},drawImage:(...args:unknown[])=>draws.push(args)} as unknown as CanvasRenderingContext2D;
+ const sheet={} as HTMLImageElement;
+ paintSpellScene(ctx,model,garden,false,model.time,sheet);
+ expect(draws).toHaveLength(2);expect(draws.map(d=>d[1]).sort()).toEqual([0,85]);
+ for(const draw of draws){expect(draw[0]).toBe(sheet);expect(Number(draw[7])/Number(draw[8])).toBeCloseTo(85/361);}
+ draws.length=0;paintSpellScene(ctx,model,garden,true,model.time+500,sheet);expect(draws.map(d=>d[1])).toEqual([0,0]);
+});

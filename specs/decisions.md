@@ -399,6 +399,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I51 | Remove native column outlines and fills entirely. Replace frontal drones with shaded foreshortened top/front hulls and elliptical rotor planes; add continuous rotor rotation, hover/banking and endpoint-connected flexible rope waves. Draw choreography on a2× canvas using half-source-pixel placement. Interpolate decorative phase via requestAnimationFrame for at most49ms beyond each confirmed50ms tick; stop on pause/casting/stale snapshots, preserve phase across pause/resume, and keep reduced motion still. Breathing spore streams and edge-faded particles are smoother too. Record20fps full flows and board close-ups; no rule, hit timing, duration, AI or network changes. |
 
+| D165 | User approves reusing the original drone/rope animation for Sprig 2★/4★, and bolder faster spore ribbons/whirlwinds for Champignon 2★/4★. Keep columns borderless and rules unchanged. |
+
+| I52 | Reuse molecideGaiden’s unchanged 85×361 two-pose helicopter-killer sheet at its original12fps and uniform scale, adding small whole-rig sway/tilt and staggering the two4★ columns. Retain green signature glints and procedural fallback while loading. Champignon uses dark-outlined4/5px shaded ribbons with cream highlights, roughly0.48/0.38s cycles, chunky mushrooms and real-hit bursts. No new generated assets or simulation changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.
