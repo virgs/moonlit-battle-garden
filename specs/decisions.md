@@ -419,6 +419,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I55 | Move all shield artwork into Phaser at depth0.5, above board0 and below unchanged mole sprites1/hit sprites2; keep the HUD armor element accessibility/metadata-only. Install a lineless PixelLab plasma-arc draft with9-frame12fps circulation and5-frame280ms energy-pop. One extra hit draws one aura; two draw a larger aura plus a phase-offset inner aura. All timing follows simulation time and freezes on pause/cast; reduced motion uses a still pose. Round changes clear remembered impacts. Native renderer diagnostics verify actual depth, full mole alpha, frame motion and hit/layer state. No mole sprite regeneration or rule/tuning changes. |
 
+| D171 | User approves the rear energy barrier look/animation and requests upper arches instead of circles: one extra hit shows one arch; two extra hits show two arches with a visible gap. |
+
+| I56 | Reuse the approved raster/animation with no new generation. Derive upper-band-only Phaser textures once at scene creation, preserving source pixels within the mask. Keep an84px primary arch and add a144px phase-offset secondary arch for two extra hits; native radial clipping guarantees an8.15625px logical gap before responsive scale/pulse/reveal. Losing a layer removes the secondary arch without resizing/repositioning the primary. Clip pop effects to the upper region and size them to the consumed layer. Existing rear depth, timing, pause/reduced motion, SFX and rules remain. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

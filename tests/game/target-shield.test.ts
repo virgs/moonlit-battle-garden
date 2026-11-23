@@ -1,5 +1,5 @@
 import {expect,it} from 'vitest';
-import {targetShield} from '../../src/render/targetShield';
+import {targetShield,shieldArcPixel,shieldArcGap,shieldArcs} from '../../src/render/targetShield';
 const mole={id:1,kind:'mole' as const,born:0,expires:10000,armor:2};
 it('shows only real remaining armor and plays an animated energy pose',()=>{
  expect(targetShield(mole,1000).layers).toBe(2);expect(targetShield({...mole,armor:1},1000).layers).toBe(1);expect(targetShield({...mole,armor:0},1000).layers).toBe(0);expect(targetShield(mole,10000).layers).toBe(0);expect(targetShield({...mole,kind:'rabbit'},1000).layers).toBe(0);
@@ -10,4 +10,11 @@ expect(targetShield(mole,1000,true).frame).toBe(0);expect(targetShield(mole,1500
 });
 it('pops only after a real armor hit and ends at the exact280ms deadline',()=>{
  expect(targetShield(mole,1000).burst).toBe(false);expect(targetShield(mole,1000,false,1000)).toMatchObject({burst:true,burstFrame:0});expect(targetShield({...mole,armor:0},1279,false,1000)).toMatchObject({layers:0,burst:true,burstFrame:4});expect(targetShield(mole,1280,false,1000).burst).toBe(false);
+});
+
+it('retains only the approved upper energy band and leaves a clear gap between two arches',()=>{
+ expect(shieldArcPixel(32,5)).toBe(true);expect(shieldArcPixel(8,16)).toBe(true);
+ expect(shieldArcPixel(32,32)).toBe(false);expect(shieldArcPixel(32,58)).toBe(false);expect(shieldArcPixel(0,0)).toBe(false);
+ for(const scale of [.4,.6,1,2])expect(shieldArcGap(scale)).toBeGreaterThan(8*scale);
+ expect(shieldArcs.primarySize).toBe(84); // The remaining arch does not resize after a layer is lost.
 });
