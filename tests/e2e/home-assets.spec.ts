@@ -19,6 +19,7 @@ for(const character of ['champignon','andromoss'] as const)test(`${character}: s
     await page.getByRole('button',{name:'Confirm Computer'}).click();
   }else await page.getByRole('button',{name:'Next character for Player 1'}).click();
   await page.getByRole('button',{name:'Confirm Player 1'}).click();
+  await page.getByRole('button',{name:'Choose difficulty',exact:true}).click();
   await page.getByRole('button',{name:'Enter the garden',exact:true}).click();
   await expect(page.locator('canvas')).toHaveAttribute('data-home-background',`/assets/homes/${character}/background.png`);
   const playback=()=>page.evaluate(()=>{

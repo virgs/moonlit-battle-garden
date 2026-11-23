@@ -12,7 +12,7 @@ import { TitleGarden } from './TitleGarden';
 export type MenuPane = 'ai' | 'local' | 'online' | 'options' | 'help';
 const choices: { id: MenuPane; label: string }[] = [
   { id:'ai', label:menuLabels.ai }, { id:'local', label:menuLabels.local },
-  { id:'online', label:menuLabels.online }, { id:'options', label:menuLabels.options }, { id:'help', label:menuLabels.help },
+  { id:'online', label:menuLabels.online },
 ];
 export function Backdrop() { return <img className="front-backdrop" src={assetUrl('/assets/background-castle.png')} alt="" aria-hidden="true" />; }
 

@@ -5,6 +5,7 @@ import { targetStatuses } from '../presentation/targetStatus';
 import type { GardenLayout } from '../render/layout';
 import { OneStarSprite } from './OneStarEffects';
 import './target-markers.css';
+import { assetUrl } from '../assets/url';
 import { targetFrame } from '../render/targetAnimation';
 import { SpellGlyph } from './SpellGlyph';
 
@@ -23,11 +24,8 @@ export function TargetMarkers({snapshot,garden}:{snapshot:Snapshot;garden:Garden
       const shieldStyle={left:position.feet.x-garden.x,top:position.feet.y-garden.y-77*garden.scale,width:78*garden.scale,height:80*garden.scale,'--shield-reveal':Math.max(.15,reveal),'--shield-flash':impact?1-(state.time-impact.time)/280:0} as CSSProperties;
       return <div className="target-marker-group" key={target.id} data-target-id={target.id} data-hole={hole}>
         {(armor||impact)&&<span className="target-force-field" data-status={armor?'armor':undefined} data-value={armor?.value} data-layers={armor?armor.value-1:0} data-affected-player={garden.id} style={shieldStyle} role="img" aria-label={armor?.label??'Shield layer broken'}>
-          <svg viewBox="0 0 78 80" aria-hidden="true" shapeRendering="crispEdges">
-            {armor&&<g className="shield-shell"><path d="M24 5H54V9H64V17H70V29H73V53H69V65H61V72H49V75H29V72H17V65H9V53H5V29H8V17H14V9H24Z" fill="#ed715c" fillOpacity=".06" stroke="#ed715c" strokeWidth="2"/><path d="M15 25V18H22V13H34 M64 51V59H59V65H49" fill="none" stroke="#ffdab0" strokeWidth="2"/>
-            {armor.value>=3&&<path d="M23 20V16H32 M55 16H60V23H64V33 M63 55V61H55 M21 63H16V52" fill="none" stroke="#ed715c" strokeWidth="3"/>}</g>}
-            {impact&&<g className="shield-impact" style={{opacity:1-(state.time-impact.time)/280}}><path d="M9 14L3 8 M65 13L73 5 M6 51L0 55 M69 57L77 62 M29 6L26 0 M49 72L53 79" stroke="#ffdab0" strokeWidth="3"/><path d="M20 10L16 3 M62 35L76 31 M19 69L12 77" stroke="#ed715c" strokeWidth="3"/></g>}
-          </svg>
+          {armor&&<span className="shield-shell"><ShieldSprite kind="idle" frame={Math.floor(state.time/125)%5}/>{armor.value>=3&&<span className="shield-inner"><ShieldSprite kind="idle" frame={(Math.floor(state.time/125)+2)%5}/></span>}</span>}
+          {impact&&<span className="shield-impact"><ShieldSprite kind="break" frame={Math.min(4,Math.floor((state.time-impact.time)/56))}/></span>}
         </span>}
         <div className="target-status-row" data-target-id={target.id} data-hole={hole} style={{left:position.feet.x-garden.x,top:position.hit.y-garden.y-2*garden.scale,'--marker-unit':`${garden.scale}px`,'--marker-width':`${78*garden.scale}px`} as CSSProperties}>
         {statuses.filter(status=>status.kind!=='armor').map(status=><span className={`target-status status-${status.kind}`} key={status.kind} data-status={status.kind} data-value={status.value} data-effect={status.kind==='curse'?'curse':undefined} data-character={status.kind==='curse'?'duskmantle':undefined} data-tier={status.kind==='curse'?(status.value===config.rosterSpells.markBonus?1:4):undefined} data-affected-player={garden.id} role="img" aria-label={status.label}>
@@ -36,4 +34,10 @@ export function TargetMarkers({snapshot,garden}:{snapshot:Snapshot;garden:Garden
       </div></div>;
     })}
   </div>;
+}
+
+function ShieldSprite({kind,frame}:{kind:'idle'|'break';frame:number}){
+ const reduced=typeof window!=='undefined'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const pose=reduced?0:frame;
+ return <svg className="shield-sprite" viewBox="0 0 64 80" overflow="hidden" aria-hidden="true" data-art="pixellab" data-frame={pose}><image href={assetUrl(`/assets/effects/bramble-shield/${kind}.png`)} x={-pose*64} width={320} height={80}/></svg>;
 }

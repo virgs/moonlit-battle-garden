@@ -1,3 +1,4 @@
+import {readFileSync} from 'node:fs';
 import { expect,it } from 'vitest';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -22,4 +23,11 @@ it('builds silhouette outlines from the clipped current frame and lets the halo 
  expect(html).toContain('overflow="visible"');expect(html).toContain('operator="dilate"');expect(html).toContain('flood-color="#65d9ea"');
  expect(html).toMatch(/<g filter="url\(#[^"]+-outline\)"><g clip-path="url\(#[^"]+-frame\)"><image/);
  expect(html).not.toContain('spell-backing');expect(html).not.toContain('spell-elapsed');
+});
+
+it('uses native PixelLab raster sheets for armor, with no geometric shield paths',()=>{
+ const m=new Match({characters:['champignon','captain-bramble'],mode:'local',difficulty:'medium',seed:1});m.advance(config.countdownMs);m.state.players[0].holes[4]={id:1,kind:'mole',born:m.state.time-1000,expires:m.state.time+2000,armor:2};
+ const html=renderToStaticMarkup(createElement(TargetMarkers,{snapshot:{state:m.state,events:m.events},garden:createArenaLayout(1280,800,'local').gardens[0]}));expect(html).toContain('data-art="pixellab"');expect(html).not.toContain('<path');expect(html).not.toContain('target-hit-count');
+ for(const kind of ['idle','break']){const png=readFileSync(`public/assets/effects/bramble-shield/${kind}.png`);expect([png.readUInt32BE(16),png.readUInt32BE(20)]).toEqual([320,80]);}
+ for(const mode of ['ai','local','online']){const png=readFileSync(`public/assets/ui/modes/${mode}.png`);expect([png.readUInt32BE(16),png.readUInt32BE(20)]).toEqual([64,64]);}
 });

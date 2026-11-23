@@ -407,6 +407,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D167 | Replace Bramble’s extra-hit target badges/numbers with red force fields around the mole: one layer for one extra hit, two for two. Each consumed layer flashes/fragments with matching impact SFX. Preserve face readability and target animation alignment. User suggests stone/brick textures with matching SFX for another hero’s similar future spell; no other current hero has extra-hit armor. User requests deployment and a playable link after completion. |
 
+| D168 | User rejects geometric force fields and explicitly requests PixelLab art, overriding deferred generation for these shields. Remove Garden Shed/Field Notes from the mode menu; replace remaining mode pictograms with fancier icons. Make confirmed heroes clearly selected via darkening and a Selected stamp; remove top-right Ready. AI difficulty becomes a separate Easy/Medium/Hard carousel after character selection, replacing the dropdown. |
+
+| I53 | Generate one64×80 hollow red shield plus5-frame subtle shimmer and5-frame break sheets in PixelLab, reuse for one/two layers and existing armor-hit SFX. Generate three64×64 mode icons (enchanted lantern, crossed trowels, thorn gateway), shared everywhere through ModeIcon. Keep generated originals/frames unchanged; user judges visuals. AI retains two editable character carousels, then Next opens difficulty with keyboard/swipe/buttons, default medium; Back preserves locks and difficulty. Local/online start flow stays unchanged. No spell/rule/AI tuning or new roster assets. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

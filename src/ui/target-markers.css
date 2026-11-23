@@ -9,3 +9,7 @@
 .shield-shell{filter:brightness(calc(1 + var(--shield-flash)*1.5))}
 
 @media(prefers-reduced-motion:reduce){.target-force-field{clip-path:none}}
+
+.shield-shell,.shield-inner,.shield-impact{position:absolute;inset:0;display:block}.shield-inner{transform:scale(.78);opacity:.85}.shield-sprite{image-rendering:pixelated}.shield-impact{filter:drop-shadow(1px 1px #431d31)}
+
+.target-force-field .shield-sprite{overflow:hidden;image-rendering:pixelated}

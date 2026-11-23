@@ -14,9 +14,9 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     else await page.keyboard.press('Enter');
     await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
     await expect(page.locator('.match-screen')).toHaveCount(0);
-    await expect(page.locator('.front-nav .mode-icon')).toHaveCount(5);
+    await expect(page.locator('.front-nav .mode-icon')).toHaveCount(3);
     await expect(page.getByRole('button',{name:'Back to title',exact:true})).toContainText('Back to title');
-    for(const option of ['Night Watch','Garden Grudge','Beyond the Hedge','Garden Shed','Field Notes'])await expect(page.getByRole('button',{name:option,exact:true})).toBeInViewport();
+    for(const option of ['Night Watch','Garden Grudge','Beyond the Hedge'])await expect(page.getByRole('button',{name:option,exact:true})).toBeInViewport();
     await expect(page.getByRole('heading',{name:'Night Watch',exact:true})).toBeVisible();
     await page.screenshot({path:testInfo.outputPath(`${name}-menu.png`)});
     await page.getByRole('button',{name:'Beyond the Hedge',exact:true}).click();
@@ -33,24 +33,10 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
   });
 }
 
-test('keyboard menu navigation and sound preference survive reload and apply to matches',async({page})=>{
-  await page.goto('/');await page.keyboard.press('Enter');
-  await expect(page.getByRole('button',{name:'Night Watch',exact:true})).toBeFocused();
-  await page.keyboard.press('ArrowUp');
-  await expect(page.getByRole('heading',{name:'Field Notes',exact:true})).toBeVisible();
-  await page.keyboard.press('ArrowUp');
-  const sound=page.getByRole('checkbox',{name:'Enable sound and music'});
-  await expect(sound).toBeChecked();await sound.uncheck();
-  await page.reload();await page.keyboard.press('Enter');
-  await page.getByRole('button',{name:'Garden Shed',exact:true}).click();await expect(sound).not.toBeChecked();
-  await page.getByRole('button',{name:'Night Watch',exact:true}).click();
-  await expect(page.getByRole('main',{name:'Character selection'})).toBeVisible();
-  await enterMatch(page);
-  await expect(page.locator('.player-0 .hole').first()).toBeEnabled({timeout:9000});
-  await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Unmute',exact:true})).toBeVisible();
-  await page.getByRole('button',{name:'Unmute',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Mute',exact:true})).toBeVisible();
-  await page.getByRole('button',{name:'Quit',exact:true}).click();
-  await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
-  await page.keyboard.press('Escape');await expect(page.getByRole('main',{name:'Title screen'})).toBeVisible();
+test('three-mode keyboard menu and pause sound preference work without shed or notes entries',async({page})=>{
+ await page.goto('/');await page.keyboard.press('Enter');await expect(page.getByRole('button',{name:'Night Watch',exact:true})).toBeFocused();
+ await expect(page.getByRole('button',{name:'Garden Shed',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'Field Notes',exact:true})).toHaveCount(0);
+ await page.keyboard.press('ArrowUp');await expect(page.getByRole('button',{name:'Beyond the Hedge',exact:true})).toBeFocused();await page.keyboard.press('ArrowDown');await page.getByRole('button',{name:'Night Watch',exact:true}).click();await enterMatch(page);
+ await expect(page.locator('.player-0 .hole').first()).toBeEnabled({timeout:9000});await page.keyboard.press('Escape');await page.getByRole('button',{name:'Mute',exact:true}).click();await page.getByRole('button',{name:'Quit',exact:true}).click();await expect(page.getByRole('main',{name:'Main menu'})).toBeVisible();
+ await page.getByRole('button',{name:'Night Watch',exact:true}).click();await enterMatch(page);await expect(page.locator('.player-0 .hole').first()).toBeEnabled({timeout:9000});await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Unmute',exact:true})).toBeVisible();
 });

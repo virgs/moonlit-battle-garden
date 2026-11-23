@@ -299,3 +299,11 @@ Bramble2★/4★ use one/two stepped red shield layers around the actual mole hi
 Only Bramble currently has target armor; stone/brick treatment and matching sounds are a future identity option for another hero, not a new spell or roster change. Rules/rewards/durations/AI are unchanged; the simulation event gains existing optional hole metadata only.
 
 Small-screen hole touch areas have a44×44px minimum centered on the original hit rectangle. Sprite/target-effect positions still use the source garden geometry.
+
+### PixelLab shield art and clearer front flow (D168 / I53)
+
+The procedural shield paths are replaced by native64×80 PixelLab raster sprites, packed unchanged into320×80 sheets with5 frames. Idle shimmer uses8fps; real-hit breaks use the same280ms window. Two extra hits draw a second78%-scale hollow layer; one extra hit draws one. Actual layer hit detection, existing impact SFX, accessible remaining-hit labels, phase reveal and reduced motion remain. Geometry no longer draws the force-field artwork. Generation IDs and dimensions are recorded beside the assets. Draft visual review belongs to the user, without model image inspection.
+
+Only Night Watch, Garden Grudge and Beyond the Hedge remain in the main navigation. Their new64×64 PixelLab lantern/trowels/gateway icons replace the SVG mode pictograms across menus, selection, HUD and pause. Mute and controls remain in pause. Selected hero art is dimmed to48% brightness under a cream Selected stamp; victory animation still plays. The top-right Ready label is removed for all modes.
+
+After both AI slots are confirmed, Next opens a separate difficulty carousel (Easy/Medium/Hard, medium initially). Left/right keys, arrows, swipe and direct dot buttons select a level; Enter/Battle starts the actual chosen difficulty. Back/Escape restores the confirmed character screen, preserving level and locks. Local and online do not gain this step. All gameplay values remain unchanged.

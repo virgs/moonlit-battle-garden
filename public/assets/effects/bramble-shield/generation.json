@@ -1,0 +1,22 @@
+{
+  "provider": "PixelLab",
+  "status": "draft for user visual review",
+  "size": [
+    64,
+    80
+  ],
+  "idle": {
+    "job": "8dae755b-3b2e-4a8e-85e9-ddff09b4e43f",
+    "frames": 5,
+    "fps": 8
+  },
+  "break": {
+    "job": "bfbc66eb-fb0d-44a2-a926-10721fe8f0e7",
+    "frames": 5,
+    "durationMs": 280
+  },
+  "base": {
+    "job": "1b22fe44-fbf4-4334-88ba-7fd17eccac43"
+  },
+  "processing": "Unchanged generated frames packed horizontally; no resizing or recolouring."
+}

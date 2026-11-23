@@ -47,7 +47,7 @@ export function Game({ session, leave }: { session: Session; leave: () => void }
     return () => { session.stop(); window.removeEventListener('keydown', keyboard); document.removeEventListener('visibilitychange', visibility); };
   }, [session]);
 
-  return <main className={`match-screen ${layout.single ? 'single-board' : 'two-boards'} ${layout.landscape ? 'landscape-board' : ''} ${session.match.options.mode}`} style={{ '--score-bottom': `${layout.score.y + layout.score.height + 8}px` } as CSSProperties} aria-label="Battle arena" data-home-character={session.home.owner} data-round={state.round} data-phase={state.phase} data-time={state.time}>
+  return <main className={`match-screen ${layout.single ? 'single-board' : 'two-boards'} ${layout.landscape ? 'landscape-board' : ''} ${session.match.options.mode}`} style={{ '--score-bottom': `${layout.score.y + layout.score.height + 8}px` } as CSSProperties} aria-label="Battle arena" data-home-character={session.home.owner} data-difficulty={session.match.options.difficulty} data-round={state.round} data-phase={state.phase} data-time={state.time}>
     <ArenaCanvas session={session} snapshot={snapshot} layout={layout} onLayout={setLayout} />
     <ScoreBar state={state} area={layout.score} opponentStars={layout.single ? state.players[1].stars : undefined} onPause={disconnected || finished || state.paused || menuOpen ? undefined : openControls} controlLabel={online ? 'Game menu' : undefined} />
     {!state.paused&&!menuOpen&&!disconnected&&<MatchMeta state={state} mode={session.match.options.mode} />}

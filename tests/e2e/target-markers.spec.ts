@@ -24,7 +24,7 @@ for(const [hero,tier,status,value] of [['captain-bramble',2,'armor',2],['captain
   const row=marker.first().locator('..'),hole=Number(await row.getAttribute('data-hole')),targetId=await row.getAttribute('data-target-id'),target=page.locator('.player-1 .hole').nth(hole);
   await expect(target).toHaveAttribute('data-kind','mole');expect(await marker.first().evaluate(e=>getComputedStyle(e).pointerEvents)).toBe('none');
   if(status==='armor'){
-    await expect(marker.first().locator('.spell-glyph')).toHaveCount(0);await expect(marker.first()).toHaveText('');await expect(marker.first()).toHaveAttribute('data-layers',String(value-1));
+    await expect(marker.first().locator('.spell-glyph')).toHaveCount(0);expect(await marker.first().locator('.shield-shell>.shield-sprite').first().evaluate(e=>getComputedStyle(e).overflow)).toBe('hidden');await expect(marker.first()).toHaveText('');await expect(marker.first()).toHaveAttribute('data-layers',String(value-1));
     const box=(await marker.first().boundingBox())!,targetBox=(await target.boundingBox())!;expect(Math.abs(box.x+box.width/2-targetBox.x-targetBox.width/2)).toBeLessThan(2);expect(Math.abs(box.y-targetBox.y)).toBeLessThan(2);
   }else{await expect(marker.first().locator('.spell-glyph')).toHaveAttribute('data-outlined','true');await expect(marker.first()).toHaveText('');}
   await page.screenshot({path:info.outputPath(`${hero}-${tier}-target.png`)});

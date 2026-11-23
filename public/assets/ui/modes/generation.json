@@ -1,0 +1,18 @@
+{
+  "provider": "PixelLab",
+  "size": [
+    64,
+    64
+  ],
+  "jobs": {
+    "ai": "5da16ff8-5500-466c-a6a5-be36d5351ecb",
+    "local": "31f7acb7-7e64-4cb9-9ca7-c5d1753334a9",
+    "online": "7628c4ef-7ebd-49ab-a26b-afefcf2d3f4c"
+  },
+  "motifs": {
+    "ai": "enchanted crescent lantern",
+    "local": "crossed blue/red gardening trowels",
+    "online": "enchanted thorn gateway"
+  },
+  "status": "draft for user visual review"
+}
