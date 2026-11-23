@@ -4,12 +4,5 @@
 .target-status .spell-glyph{display:block;width:calc(36*var(--marker-unit));height:calc(36*var(--marker-unit));image-rendering:pixelated;flex-shrink:0}
 .status-curse{color:#e6b9f3}.status-bonus{color:#f4d97d}.status-rush{color:#f2b17e}.status-tending{color:#b0e7a0}
 
-.target-force-field{position:absolute;transform:translateX(-50%);pointer-events:none;clip-path:inset(calc((1 - var(--shield-reveal))*100%) -8% -12%);filter:drop-shadow(1px 1px 0 #291d2b)}
-.target-force-field svg{display:block;width:100%;height:100%;overflow:visible}
-.shield-shell{filter:brightness(calc(1 + var(--shield-flash)*1.5))}
-
-@media(prefers-reduced-motion:reduce){.target-force-field{clip-path:none}}
-
-.shield-shell,.shield-inner,.shield-impact{position:absolute;inset:0;display:block}.shield-inner{transform:scale(.78);opacity:.85}.shield-sprite{image-rendering:pixelated}.shield-impact{filter:drop-shadow(1px 1px #431d31)}
-
-.target-force-field .shield-sprite{overflow:hidden;image-rendering:pixelated}
+.target-force-field{position:absolute;transform:translateX(-50%);pointer-events:none;background:transparent}
+.shield-impact{position:absolute;inset:0;pointer-events:none}

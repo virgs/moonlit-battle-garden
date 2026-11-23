@@ -315,3 +315,11 @@ The right-side mode illustration rectangle was an unused placeholder and is remo
 Hero preview boxes have fixed layout sizes, size/layout containment and absolutely fitted image/SVG children; intrinsic frame dimensions cannot resize the grid. Names have a fixed single-line row, spell rows reserve two lines, and controls do not shrink. Original sprite aspect ratios are preserved. Phone/short landscape sizes use fixed responsive dimensions. Browser geometry checks traverse all five heroes and compare card placement, art boxes, names, spells and controls across desktop, portrait,320px portrait and landscape.
 
 A separate round hollow bubble overlay is preferred to regenerating all mole rise/idle/hit/retreat sprites. New PixelLab bubble drafts use64×64 native frames; existing1/2 armor layers and hit-event/SFX behavior remain. The user judges appearance; model does not inspect images.
+
+### Rear energy barrier, no mole occlusion (D170 / I55)
+
+Supersedes the foreground bubble overlay: board images are depth0, shields/pop sprites0.5, ordinary target sprites1 and outgoing hit sprites2. Shield art cannot paint over the mole's face/body. Targets retain their normal opacity (existing camouflage alone can lower it). Foreground armor DOM elements now carry accessible remaining-hit labels and metadata only, with no image/SVG artwork.
+
+The new PixelLab energy draft uses lineless coral/peach/white plasma crescents,9 native64×64 frames at12fps, a2.5% breathing pulse and a5-frame280ms energy pop. Previous rejected drafts remain as files; new source IDs live in energy-generation.json. No image inspection by the model; user judges appearance. Frames are only packed horizontally, unchanged. One layer is84 logical pixels wide, two use94px outer/80px inner with a4-frame offset. Rise/retreat scale and position follow the existing target transition. Real armor hits trigger pops without mole death feedback. Pause/casting freeze all poses; reduced motion holds the barrier still. Clear impact memory at new rounds. Rules, hit counts and SFX remain unchanged.
+
+Browser checks inspect actual sprite depth/alpha/frame/layer diagnostics on the arena canvas, rather than treating an empty foreground marker as evidence of rendered art. They verify animation, pause, reduced motion and two→one→zero layers on desktop and phone.

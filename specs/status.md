@@ -437,3 +437,11 @@ Fixed hero boxes isolate intrinsic PNG/SVG dimensions; fitted art cannot resize 
 Installed a new round hollow64×64 PixelLab bubble draft with5-frame shimmer/pop clips (3 generations), keeping the previous organic draft files available. Mole sprites remain unchanged; native bubble frames are packed unchanged into320×64 sheets, with existing layer/SFX/accessibility behavior. User judges visuals; model does not inspect images.
 
 Verification:281 tests and production build pass;28 menu/selection checks,8 stronger all-hero placement rechecks,4 new-bubble armor cases and the production-base phone smoke test pass. Fresh desktop/phone menu/inline-selection screenshots and round-bubble target captures are in output/guard-flows/inline-selection-review and output/guard-flows/round-bubble-review. No simulation, AI tuning or spell rules change.
+
+### Animated barrier behind the mole (D170 / I55)
+
+Moved armor visuals out of the foreground HUD into Phaser: board0 < energy barrier/pop0.5 < mole1 < hit sprite2. HUD markers keep accessible hit counts and metadata, drawing no shield images. Mole art and normal opacity are unchanged. Native round changes clear shield impact memory.
+
+Installed a new PixelLab lineless energy-arc draft:9-frame64×64 circulation at12fps,2.5% breathing pulse and5-frame280ms energy pop (3 generations). Original generated pixels are packed unchanged; source IDs are in energy-generation.json. One/two remaining extra hits show one/two offset auras; real hits consume layers, with existing impact SFX and no premature death animation. Pause/casting freeze poses and reduced motion holds a still frame. No model visual inspection; user reviews GIF/screenshots.
+
+Verification:284 tests,14 desktop/mobile target browser checks, production build and production-base phone smoke test pass. Native diagnostics verify real render depth, mole alpha1, frame motion, pause/reduced motion and2→1→0 layer removal. Real-hit desktop/phone captures plus a12fps animated target close-up are in output/guard-flows/rear-energy-review. No rules, AI, tuning or networking changes.

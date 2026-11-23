@@ -7,11 +7,13 @@ import type { ArenaLayout } from './layout';
 import type { CharacterHome } from '../game/homes';
 import { earthPlacements, earthFrameSize, rootStripTop, recolorBoard } from './legacyPresentation';
 
+import {targetShield} from './targetShield';
 import { targetFrame, hitFrame, targetHitDuration, playsTargetHit } from './targetAnimation';
 type GardenView = {
   image: Phaser.GameObjects.Image;
   sprites: Phaser.GameObjects.Sprite[];
   hitSprites: Phaser.GameObjects.Sprite[];
+  shields:{outer:Phaser.GameObjects.Sprite;inner:Phaser.GameObjects.Sprite;burst:Phaser.GameObjects.Sprite;hitTime:number}[];
   rootStrip: Phaser.GameObjects.Image;
   dust: Phaser.GameObjects.Sprite[];
   flashes: { until: number; kind: TargetKind }[];
@@ -23,6 +25,7 @@ export class GardenScene extends Phaser.Scene {
   private backdrop!: Phaser.GameObjects.Graphics;
   private lastLayout: ArenaLayout | null = null;
   private lastEvent = 0;
+  private shieldRound=0;
   private background!: Phaser.GameObjects.Image;
   private reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -31,6 +34,8 @@ export class GardenScene extends Phaser.Scene {
     this.load.image('garden', assetUrl('/assets/legacy/garden.png'));
     this.load.spritesheet('targets', assetUrl('/assets/characters.png'), { frameWidth: 90, frameHeight: 90 });
     this.load.spritesheet('earth', assetUrl('/assets/legacy/earth.png'), { frameWidth: earthFrameSize, frameHeight: earthFrameSize });
+    this.load.spritesheet('shield-energy',assetUrl('/assets/effects/bramble-shield/energy-idle.png'),{frameWidth:64,frameHeight:64});
+    this.load.spritesheet('shield-pop',assetUrl('/assets/effects/bramble-shield/energy-break.png'),{frameWidth:64,frameHeight:64});
     this.load.image('home', assetUrl(this.home.background.fallback));
   }
   create(): void {
@@ -47,8 +52,9 @@ export class GardenScene extends Phaser.Scene {
       this.gardens.push({
         image: this.add.image(0, 0, `garden-${id}`).setOrigin(0).setCrop(0, 0, gardenArt.width, rootStripTop),
         rootStrip: this.add.image(0, 0, `garden-${id}`).setOrigin(0).setCrop(0, rootStripTop, gardenArt.width, gardenArt.height - rootStripTop).setFlipX(id === 1),
-        sprites: Array.from({ length: 9 }, () => this.add.sprite(0, 0, 'targets').setOrigin(0.5, 1).setVisible(false)),
+        sprites: Array.from({ length: 9 }, () => this.add.sprite(0, 0, 'targets').setOrigin(0.5, 1).setDepth(1).setVisible(false)),
         hitSprites: Array.from({ length: 9 }, () => this.add.sprite(0, 0, 'targets').setOrigin(0.5, 1).setDepth(2).setVisible(false)),
+        shields:Array.from({length:9},()=>({outer:this.add.sprite(0,0,'shield-energy').setDepth(.5).setVisible(false),inner:this.add.sprite(0,0,'shield-energy').setDepth(.5).setVisible(false),burst:this.add.sprite(0,0,'shield-pop').setDepth(.5).setVisible(false),hitTime:-Infinity})),
         dust: earthPlacements[id as PlayerId].map(() => this.add.sprite(0, 0, 'earth').setOrigin(0).setVisible(false)),
         flashes: Array.from({ length: 9 }, () => ({ until: 0, kind: 'mole' as const })),
         previous: Array.from({ length: 9 }, () => null),
@@ -82,7 +88,7 @@ export class GardenScene extends Phaser.Scene {
     this.gardens.forEach(view => {
       view.image.setVisible(false);
       view.rootStrip.setVisible(false);
-      [...view.sprites, ...view.hitSprites, ...view.dust].forEach(sprite => sprite.setVisible(false));
+      [...view.sprites, ...view.hitSprites, ...view.dust,...view.shields.flatMap(s=>[s.outer,s.inner,s.burst])].forEach(sprite => sprite.setVisible(false));
     });
     for (const garden of layout.gardens) {
       const view = this.gardens[garden.id];
@@ -103,6 +109,7 @@ export class GardenScene extends Phaser.Scene {
     const layout = this.getLayout();
     if (layout !== this.lastLayout) this.arrange(layout);
     const { state, events } = this.getSnapshot();
+    if(this.shieldRound!==state.round){this.gardens.forEach(v=>v.shields.forEach(s=>s.hitTime=-Infinity));this.shieldRound=state.round;}
     for (const garden of layout.gardens) {
       const view = this.gardens[garden.id];
       view.dust.forEach((dust, index) => {
@@ -110,6 +117,7 @@ export class GardenScene extends Phaser.Scene {
         const phase = (Math.floor(state.time / (1000 / 12)) + placement.phase) % 4;
         dust.setFrame(this.reducedMotion.matches ? 0 : placement.reverse ? 3 - phase : phase);
       });
+      for(const event of events.filter(e=>e.id>this.lastEvent&&e.player===garden.id&&e.hole!==undefined&&e.kind==='shield'&&e.targetKind==='mole'&&!e.reason))view.shields[event.hole!].hitTime=event.time;
       for (const event of events.filter(item => item.id > this.lastEvent && item.player === garden.id)) {
         if (event.hole !== undefined && playsTargetHit(event)) {
           const kind = event.targetKind ?? view.previous[event.hole];
@@ -117,9 +125,19 @@ export class GardenScene extends Phaser.Scene {
         }
       }
       this.updateTargets(garden.id, state.time);
+      const p=state.players[garden.id];
+      garden.holes.forEach((hole,index)=>{
+       const s=view.shields[index],pose=targetShield(p.holes[index],state.time,this.reducedMotion.matches,s.hitTime),size=(pose.layers>1?94:84)*garden.scale*pose.pulse;
+       const x=hole.feet.x,y=hole.feet.y-37*garden.scale*pose.reveal;
+       s.outer.setVisible(pose.layers>0).setPosition(x,y).setScale(size/64*(.55+.45*pose.reveal)).setFrame(pose.frame).setAlpha(.85*pose.reveal);
+       s.inner.setVisible(pose.layers>1).setPosition(x,y).setScale(80*garden.scale/64*(.55+.45*pose.reveal)).setFrame((pose.frame+4)%9).setAlpha(.7*pose.reveal);
+       s.burst.setVisible(pose.burst).setPosition(x,hole.feet.y-37*garden.scale).setScale(94*garden.scale/64).setFrame(pose.burstFrame);
+      });
 
 
     }
+    const shields=layout.gardens.flatMap(g=>this.gardens[g.id].shields.flatMap((s,hole)=>s.outer.visible||s.burst.visible?[{player:g.id,hole,layers:s.inner.visible?2:s.outer.visible?1:0,frame:s.outer.frame.name,burst:s.burst.visible,burstFrame:s.burst.frame.name,depth:s.outer.depth,targetDepth:this.gardens[g.id].sprites[hole].depth,targetAlpha:this.gardens[g.id].sprites[hole].alpha}]:[]));
+    const diagnostic=JSON.stringify(shields);if(this.game.canvas.dataset.shields!==diagnostic)this.game.canvas.dataset.shields=diagnostic;
     this.lastEvent = events.at(-1)?.id ?? this.lastEvent;
   }
   private updateTargets(id: PlayerId, time: number): void {

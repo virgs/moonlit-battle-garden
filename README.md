@@ -4,7 +4,7 @@ A browser remake of Dig Hole Battle Garden: competitive Whac-A-Mole with charact
 
 Current rules are the [simplified five-hero spell matrix](specs/characters.md#current-simplified-spell-matrix-d140d141), with [pooled/per-level balance matrices](reports/simplified-kits-review.md). These D140/D141 rules supersede the historical tuning notes below.
 
-[Spell artwork and placement](specs/presentation.md): all20 gameplay loops use the approved bolder pixel-art set, with distinct hero colours. The earlier raster set is archived; gameplay rules are unchanged. Timed spell icons darken from top to bottom as their active time runs out, retaining their silhouette; target badges and charge-based spells keep their normal colours. Column spells now have full-height drone ropes or spore streams; supporting particle/barrier/target animations follow actual game time and events.
+[Spell artwork and placement](specs/presentation.md): all20 gameplay loops use the approved bolder pixel-art set, with distinct hero colours. The earlier raster set is archived; gameplay rules are unchanged. Timed spell icons darken from top to bottom as their active time runs out, retaining their silhouette; target badges and charge-based spells keep their normal colours. Column spells now have full-height drone ropes or spore streams; supporting particle/barrier/target animations follow actual game time and events. Extra-hit energy barriers animate behind fully visible mole sprites.
 
 ## Play locally
 

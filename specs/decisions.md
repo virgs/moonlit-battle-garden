@@ -415,6 +415,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I54 | Remove the unused mode illustration placeholder. Render an inline difficulty carousel in a reserved slot beneath the confirmed computer card, preserving medium default and choice across unlock/reconfirm; Battle starts directly. Reserve matching space on the human AI-mode card. Isolate intrinsic sprite sizes with fixed/contained art boxes and absolute-fit previews, fixed name/spell rows and non-shrinking controls; maintain source aspect ratios. Keep shields separate from mole art, using a new round hollow PixelLab bubble draft and pop/shimmer clips so existing target animations remain reusable. No mole regeneration, no rules/tuning changes. |
 
+| D170 | User rejects the seal-like bubble and foreground occlusion. Shield must be behind the mole and resemble an animated SNES action-game energy barrier (Mega Man X reference), keeping the mole visible. |
+
+| I55 | Move all shield artwork into Phaser at depth0.5, above board0 and below unchanged mole sprites1/hit sprites2; keep the HUD armor element accessibility/metadata-only. Install a lineless PixelLab plasma-arc draft with9-frame12fps circulation and5-frame280ms energy-pop. One extra hit draws one aura; two draw a larger aura plus a phase-offset inner aura. All timing follows simulation time and freezes on pause/cast; reduced motion uses a still pose. Round changes clear remembered impacts. Native renderer diagnostics verify actual depth, full mole alpha, frame motion and hit/layer state. No mole sprite regeneration or rule/tuning changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

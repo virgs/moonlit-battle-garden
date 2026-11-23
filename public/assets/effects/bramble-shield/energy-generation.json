@@ -1,0 +1,18 @@
+{
+  "provider": "PixelLab",
+  "status": "animated energy barrier draft for user review",
+  "size": [
+    64,
+    64
+  ],
+  "idleFrames": 9,
+  "idleFps": 12,
+  "breakFrames": 5,
+  "breakDurationMs": 280,
+  "jobs": {
+    "base": "10c288d1-7026-43a9-8577-c81b9e12d79c",
+    "idle": "6de6232c-a68c-4fc1-99c4-3e4db6f54411",
+    "break": "2602d52d-dbc6-402b-9e77-74ef5fa9cf9c"
+  },
+  "processing": "Frames packed unchanged. Native renderer depth0.5 behind unmodified mole sprites at depth1; no foreground shield artwork."
+}
