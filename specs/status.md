@@ -451,3 +451,9 @@ Verification:284 tests,14 desktop/mobile target browser checks, production build
 Reused the approved energy PNGs/animation with no new assets or generations. Runtime textures retain only the upper curved band, so lower circles and interior energy are absent. One extra hit shows one84px arch; two add a144px phase-offset outer arch with a guaranteed positive8.15625px logical radial gap before responsive scale. Arches are lifted to a center52px above the feet. Losing the outer layer leaves the primary size/position unchanged; clipped energy pops follow the consumed arch. Rear depth, animation, SFX, pause/reduced motion and all rules remain.
 
 Verification:285 tests,4 desktop/mobile armor browser cases, production build and production-base phone check pass. Unit checks cover upper-only clipping and gap at several scales. Fresh desktop/phone screenshots and a12fps GIF demonstrate2→1→0 real layer hits in output/guard-flows/energy-arches-review; capture diagnostics verify rear depth, full mole opacity and positive two-arch gaps. User performs visual review; model does not inspect images. Approved source asset files are unchanged.
+
+### 300° bottom-open shield arcs (D172 / I57)
+
+Expanded the approved animated energy band to300° with a centered symmetric60° bottom opening, including pop frames. Sizes, radial separation, rear layering, pulse and source art are unchanged. Coverage is configurable through shieldArcs.degrees. No generation or rules changes.
+
+Confirmed semantics: two arcs mean three total hits remaining, one means two, zero means the final normal hit. The last armor strike removes the final arc while leaving an alive unarmored mole.285 tests,4 desktop/mobile armor browser cases and production build pass. Updated real-hit screenshots/GIF in output/guard-flows/energy-300-review; user performs image review.

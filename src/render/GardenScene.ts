@@ -143,7 +143,7 @@ export class GardenScene extends Phaser.Scene {
 
 
     }
-    const shields=layout.gardens.flatMap(g=>this.gardens[g.id].shields.flatMap((s,hole)=>s.outer.visible||s.burst.visible?[{player:g.id,hole,layers:s.secondary.visible?2:s.outer.visible?1:0,shape:'upper-arcs',gap:s.secondary.visible?shieldArcGap(s.outer.scaleX*64/shieldArcs.primarySize):null,frame:s.outer.frame.name,burst:s.burst.visible,burstFrame:s.burst.frame.name,depth:s.outer.depth,targetDepth:this.gardens[g.id].sprites[hole].depth,targetAlpha:this.gardens[g.id].sprites[hole].alpha}]:[]));
+    const shields=layout.gardens.flatMap(g=>this.gardens[g.id].shields.flatMap((s,hole)=>s.outer.visible||s.burst.visible?[{player:g.id,hole,layers:s.secondary.visible?2:s.outer.visible?1:0,shape:'bottom-open-arcs',degrees:shieldArcs.degrees,bottomGap:360-shieldArcs.degrees,gap:s.secondary.visible?shieldArcGap(s.outer.scaleX*64/shieldArcs.primarySize):null,frame:s.outer.frame.name,burst:s.burst.visible,burstFrame:s.burst.frame.name,depth:s.outer.depth,targetDepth:this.gardens[g.id].sprites[hole].depth,targetAlpha:this.gardens[g.id].sprites[hole].alpha}]:[]));
     const diagnostic=JSON.stringify(shields);if(this.game.canvas.dataset.shields!==diagnostic)this.game.canvas.dataset.shields=diagnostic;
     this.lastEvent = events.at(-1)?.id ?? this.lastEvent;
   }

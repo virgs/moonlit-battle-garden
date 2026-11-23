@@ -423,6 +423,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I56 | Reuse the approved raster/animation with no new generation. Derive upper-band-only Phaser textures once at scene creation, preserving source pixels within the mask. Keep an84px primary arch and add a144px phase-offset secondary arch for two extra hits; native radial clipping guarantees an8.15625px logical gap before responsive scale/pulse/reveal. Losing a layer removes the secondary arch without resizing/repositioning the primary. Clip pop effects to the upper region and size them to the consumed layer. Existing rear depth, timing, pause/reduced motion, SFX and rules remain. |
 
+| D172 | User asks for270° or300° shield arcs with the opening centered at the bottom, keeping the approved look/animation. Clarify that arcs count extra hits: two/one/zero arcs mean three/two/one total hits remaining. |
+
+| I57 | Choose300° with a symmetric60° bottom opening, controlled by shieldArcs.degrees. Replace the upper-only source clip with an angular cut centered on the downward axis, retaining the approved radial band, source pixels, gap, sizes and animation. Apply the same opening to pops. Tests verify symmetry, included side/lower-side pixels, excluded bottom pixels and the surviving normal-hit mole after the final arc is consumed. No asset generation or rules change. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

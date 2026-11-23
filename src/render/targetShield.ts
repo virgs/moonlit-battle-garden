@@ -9,11 +9,12 @@ export function targetShield(target:Target|null,time:number,reduced=false,hitTim
  return {layers,frame:reduced?0:Math.floor(time/(1000/12))%9,burst,burstFrame:reduced?2:Math.min(4,Math.max(0,Math.floor(age/56))),reveal:Math.max(.15,reveal),pulse:reduced?1:1+Math.sin(time/100)*.025};
 }
 
-/** Clip the approved raster to its upper curved band; never draw a replacement outline. */
-export const shieldArcs={frameSize:64,innerRadius:22,outerRadius:31.5,topLimit:24,primarySize:84,secondarySize:144,centerOffset:52};
+/** Clip the approved raster to a bottom-open curved band; never draw a replacement outline. */
+export const shieldArcs={frameSize:64,innerRadius:22,outerRadius:31.5,degrees:300,primarySize:84,secondarySize:144,centerOffset:52};
 export function shieldArcPixel(x:number,y:number,burst=false):boolean{
  const radius=Math.hypot(x+.5-32,y+.5-32);
- return y<shieldArcs.topLimit&&radius>=(burst?18:shieldArcs.innerRadius)&&radius<=shieldArcs.outerRadius;
+ const fromBottom=Math.abs(Math.atan2(x+.5-32,y+.5-32));
+ return radius>=(burst?18:shieldArcs.innerRadius)&&radius<=shieldArcs.outerRadius&&fromBottom>=(360-shieldArcs.degrees)/2*Math.PI/180;
 }
 export function shieldArcGap(scale=1):number{
  return (shieldArcs.secondarySize*shieldArcs.innerRadius/shieldArcs.frameSize-shieldArcs.primarySize*shieldArcs.outerRadius/shieldArcs.frameSize)*scale;

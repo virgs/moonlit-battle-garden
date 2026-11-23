@@ -329,3 +329,9 @@ Browser checks inspect actual sprite depth/alpha/frame/layer diagnostics on the 
 Approved energy source PNGs and9-frame12fps animation remain unchanged. At scene creation, derive clipped canvas textures for the upper curved band (native64px frame, source y<24, radius22–31.5); popping uses the same upper area with radius18–31.5. No replacement vector stroke or new PixelLab generation. All remaining source colours/alpha are unchanged.
 
 One extra hit shows the84px primary arch. Two add a144px secondary arch,4 frames out of phase, with a guaranteed8.15625 logical-pixel minimum radial gap before uniform responsive scale/pulse/reveal. Both share a center52 logical pixels above the mole feet, lifting the curved bands above its head. Removing the outer arch leaves the primary at its original size/position; pop size follows the consumed layer. The lower circle and interior are absent. All graphics remain behind the mole, preserving normal alpha and existing SFX, timings, freeze and reduced-motion behavior. Browser native diagnostics include upper-arc shape and the current gap.
+
+### 300° arcs with a centered bottom opening (D172 / I57)
+
+Supersedes the upper-only angular mask from I56. Approved source art now shows300° of its radial energy band, with a symmetric60° opening centered downwards (±30° from the downward axis). The same angle applies to pops. `shieldArcs.degrees` is the single presentation setting for changing coverage. Existing rear depth,84/144px sizes,8.15625px logical gap, center, animation and hit behavior remain. No new art or generation.
+
+The visible arcs count extra hits, not total hits:2 arcs =3 total hits remaining;1 arc =2;0 arcs = the final normal hit. Every armor strike removes one arc. Browser checks explicitly confirm that the mole is still alive and unarmored after the last arc disappears.
