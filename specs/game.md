@@ -231,3 +231,6 @@ Current pooled/per-level matrices and before→after reminders: [simplified-kit 
 D178/I62: menus use bottom-right Back/Confirm controls and logical keyboard selection, with no retained native focus on game buttons/carousels. Solo setup explicitly confirms own hero, then opponent, then difficulty. AI preview art is not a selected stamp until confirmed.
 
 D179/I63: current provisional wave tuning responds to the human opening-difficulty report. Targets are longer-lived, early peak offers slower and the baseline ramp120s; the25s breathing cycle and per-round reset stay. No AI or spell strength changes. Current exact values and diagnostics are in prototype.md and reports/gentler-pacing-review.md.
+
+
+D180/I64: stars are offered half as often through a configurable2× multiplier of their whole schedule. Baseline slots are10/28/44/60/78/94 active seconds, while natural waves stay25s. Existing score-deficit clock adjustment, per-round reset, live-star cap and shared lifetimes remain. This slows star arrival, not its sprite animation.

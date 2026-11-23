@@ -31,7 +31,7 @@ it('extends each current/new target kind once, excludes the end boundary and ret
 });
 
 it('applies the aura to actual natural/star/magical arrivals, then stops extending new spawns',()=>{
-  const match=aura();match.advance(4500);cast(match);const p=match.state.players[0],until=p.tendingUntil;
+  const match=aura();match.advance(config.pacing.starOffsetsMs[0]*config.pacing.starScheduleScale-500);cast(match);const p=match.state.players[0],until=p.tendingUntil;
   p.nextSpawn=match.state.time+250;p.decoysUntil=match.state.time+10000;
   const seen=new Set<number>(),origins=new Set<string>();let after=0;
   for(let n=0;n<5000/config.tickMs;n++) {

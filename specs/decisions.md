@@ -453,6 +453,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I63 | Keep25s build/peak/recovery waves, star offsets, identical per-round rules and5% trailing-board adjustments. Ramp60→120s; baseline lifetime2200→600ms becomes2800→800ms; peak lifetime multiplier.88→.90 and safety floor500→650ms. Baseline spawn interval1350→600ms becomes1550→650ms; peak multiplier.40→.55 and interval floor300→350ms. At16s/equal scores, lifetime1561→2280ms and interval460→786.5ms. All target kinds follow the same curve; existing earned shortening/extension semantics remain. AI hit/cast timing and all spells are unchanged. Reaction diagnostics now extend beyond the configured ramp by two full waves so late cohorts are still measured. Full-kit100-paired-seed diagnostics:7500 matches, zero caps; retain pooled/per-level matrices, coverage bias and long-tail findings in gentler-pacing-review.md. No balancing toward bot-only50%. |
 
+| D180 | User wants stars to take longer to appear, at least doubling the wait, to reduce how often magic can be used. Interpret this as appearance frequency rather than a slower rise animation or longer visible lifetime. |
+
+| I64 | Add configurable starScheduleScale=2 to the full virtual-clock opportunity schedule: tied-board slots5/14/22/30/39/47s become10/28/44/60/78/94s. This doubles the first wait and every subsequent gap, providing3 slots per50s instead of25s without stretching the natural25s waves. Preserve5% trailing-board clock adjustment, one-live-star/free-hole checks, skipped blocked slots, per-round reset and pause/cast freezing. Star target lifetime/rewards, capacity, spell costs/effects and AI policy are unchanged. Production phone smoke now plays mole targets while waiting for the later first star. Full100-paired-seed roster diagnostics retain pooled/per-level matrices and coverage/strategy caveats. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

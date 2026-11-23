@@ -21,7 +21,14 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await expect(page.locator('.player-1')).toHaveCount(0);
   await expect(page.locator('.mobile-opponent')).toHaveCount(0);
   const star = board.locator('.hole[data-kind="star"]').first();
-  await expect(star).toBeEnabled({ timeout: 8000 });
+  // Exercise normal touch play while waiting for the deliberately later star.
+  await expect.poll(async()=>{
+    if(await star.count())return true;
+    const mole=board.locator('.hole[data-kind="mole"]:enabled').first();
+    if(await mole.count())await mole.tap();
+    return false;
+  },{timeout:13000,intervals:[100]}).toBe(true);
+  await expect(star).toBeEnabled();
   await star.tap();
   await expect(board.locator('.stars')).toHaveAttribute('aria-label', '1 stars');
   await expect(board.locator('.cast-button')).toBeEnabled();

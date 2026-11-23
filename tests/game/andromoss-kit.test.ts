@@ -29,7 +29,7 @@ it('2 affects only new moles once, allows425ms below the natural floor, and excl
   const boundary={...target(m),born:p.moleRushUntil,expires:p.moleRushUntil+500};modifyTarget(p,boundary,p.moleRushUntil,true);expect(boundary.expires-boundary.born).toBe(500);
 });
 it('real new moles use85% of wave lifetime while actual rabbits/stars retain their wave lifetime',()=>{
-  const m=game();m.advance(60000);cast(m,4);const p=m.state.players[1];p.nextSpawn=m.state.time+250;
+  const m=game();m.advance(config.pacing.starOffsetsMs[2]*config.pacing.starScheduleScale-500);cast(m,4);const p=m.state.players[1];p.nextSpawn=m.state.time+250;
   const seen=new Set<number>(),kinds=new Set<TargetKind>();
   for(let n=0;n<160;n++){
     m.advance(50);

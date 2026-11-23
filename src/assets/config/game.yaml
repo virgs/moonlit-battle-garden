@@ -32,6 +32,7 @@ pacing:
   rabbitPeakExtra: 0.03
   maxRabbitStreak: 2
   starOffsetsMs: [5000, 14000, 22000]
+  starScheduleScale: 2
 points:
   mole: 10
   star: 25

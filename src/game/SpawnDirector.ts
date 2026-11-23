@@ -57,7 +57,7 @@ export class SpawnDirector {
       }
       const offsets = config.pacing.starOffsetsMs;
       const ordinal = this.starIndex[id];
-      const nextStar = Math.floor(ordinal / offsets.length) * waveDurationMs + offsets[ordinal % offsets.length];
+      const nextStar = (Math.floor(ordinal / offsets.length) * waveDurationMs + offsets[ordinal % offsets.length]) * config.pacing.starScheduleScale;
       if (this.clock[id] >= nextStar) {
         this.starIndex[id]++;
         if (Number.isFinite(player.nextSpawn) && !player.holes.some(target => target?.kind === 'star')) this.place(state, id, 'star', pace.starLifetimeMs, 'star');

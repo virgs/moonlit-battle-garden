@@ -54,13 +54,14 @@ it('uses reproducible independent natural schedules for the two boards', () => {
 it('schedules stars independently, even when magic adds extra targets', () => {
   const normal = create(), attacked = create();
   attacked.state.players[0].decoysUntil = 100000;
-  const baseline = collect(normal, waveDurationMs * 2);
-  const changed = collect(attacked, waveDurationMs * 2);
+  const duration=waveDurationMs*config.pacing.starScheduleScale*2;
+  const baseline = collect(normal, duration);
+  const changed = collect(attacked, duration);
   expect(demand(changed[0])).toEqual(demand(baseline[0]));
   expect(demand(changed[1])).toEqual(demand(baseline[1]));
   expect(changed[0].some(target => target.origin === 'magic')).toBe(true);
   const stars = changed[0].filter(target => target.kind === 'star').map(target => target.born);
-  expect(stars).toEqual([...config.pacing.starOffsetsMs, ...config.pacing.starOffsetsMs.map(time => time + waveDurationMs)]);
+  expect(stars).toEqual([10000,28000,44000,60000,78000,94000]);
 });
 it('resets the same demand curve in later rounds without depending on match score', () => {
   const match = create(); const first = collect(match, waveDurationMs * 2);
@@ -95,7 +96,7 @@ it.each([0, 1] as const)('gives trailing board %i faster offers, earlier stars a
   expect(demand(faster[leader])).toEqual(demand(normal[leader]));
   expect(faster[loser].filter(target => target.origin === 'natural').length).toBeGreaterThan(normal[loser].filter(target => target.origin === 'natural').length);
   const stars = faster[loser].filter(target => target.kind === 'star');
-  expect(stars[0].born).toBeLessThan(config.pacing.starOffsetsMs[0]);
+  expect(stars[0].born).toBeLessThan(config.pacing.starOffsetsMs[0]*config.pacing.starScheduleScale);
   expect(stars.length).toBeGreaterThan(normal[loser].filter(target => target.kind === 'star').length);
   for (const target of faster[loser]) {
     const pace = playerPacingAt(target.born, -80, 0);
@@ -160,4 +161,10 @@ it('provides a gentler first peak, a slower baseline ramp and a shared lifetime 
     expect(target.expires-target.born).toBe(Math.round(pace.lifetimeMs));
     expect(pace.starLifetimeMs).toBe(pace.lifetimeMs);
   }
+});
+
+it('halves star supply without stretching waves or extending star lifetimes',()=>{
+ expect(config.pacing.starScheduleScale).toBe(2);expect(waveDurationMs).toBe(25000);
+ const m=create(),stars=collect(m,100000)[0].filter(t=>t.kind==='star');expect(stars.map(t=>t.born)).toEqual([10000,28000,44000,60000,78000,94000]);
+ for(const t of stars)expect(t.expires-t.born).toBe(Math.round(pacingAt(t.born).lifetimeMs));
 });
