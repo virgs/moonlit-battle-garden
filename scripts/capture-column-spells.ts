@@ -5,8 +5,8 @@ import { mkdirSync,writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { resolve,join } from 'node:path';
 import { createArenaLayout } from '../src/render/layout';
-const out=resolve('output/guard-flows/column-spells-bold');mkdirSync(out,{recursive:true});
-writeFileSync(join(out,'review.html'),'<!doctype html><html><meta name="viewport" content="width=device-width,initial-scale=1"><div id="root"></div><script type="module" src="/output/guard-flows/column-spells-bold/review.tsx"></script></html>');
+const out=resolve('output/guard-flows/column-spells-readable');mkdirSync(out,{recursive:true});
+writeFileSync(join(out,'review.html'),'<!doctype html><html><meta name="viewport" content="width=device-width,initial-scale=1"><div id="root"></div><script type="module" src="/output/guard-flows/column-spells-readable/review.tsx"></script></html>');
 writeFileSync(join(out,'review.tsx'),`
 import {createRoot} from 'react-dom/client';import {Game} from '/src/ui/Game';import {Session} from '/src/game/Session';import {config} from '/src/game/config';import {modifyTarget} from '/src/game/targetModifiers';import '/src/ui/style.css';
 const q=new URLSearchParams(location.search),hero=q.get('hero')||'champignon',tier=Number(q.get('tier')||2),session=new Session({characters:[hero,'captain-bramble'],mode:'local',difficulty:'easy',seed:41}),m=session.match;m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);
@@ -21,7 +21,7 @@ const only=process.argv.find(arg=>arg.startsWith('--only='))?.slice(7);
 try{
  for(const [hero,tier,duration] of ([['champignon',2,3000],['champignon',4,6000],['sprig',2,4000],['sprig',4,4000]] as const).filter(([hero,tier])=>!only||only===hero+'-'+tier)){
   const name=hero+'-'+tier,frames=join(out,name+'-frames');mkdirSync(frames,{recursive:true});
-  const context=await browser.newContext({viewport:{width:1280,height:800},baseURL:'http://127.0.0.1:4194'}),page=await context.newPage();await page.clock.install();await page.clock.pauseAt(new Date());await page.goto('/output/guard-flows/column-spells-bold/review.html?hero='+hero+'&tier='+tier);await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);await page.clock.runFor(100);
+  const context=await browser.newContext({viewport:{width:1280,height:800},baseURL:'http://127.0.0.1:4194'}),page=await context.newPage();await page.clock.install();await page.clock.pauseAt(new Date());await page.goto('/output/guard-flows/column-spells-readable/review.html?hero='+hero+'&tier='+tier);await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);await page.clock.runFor(100);
   const garden=page.locator('.player-0'),attribute=hero==='champignon'?'data-sweep-columns':'data-automation-columns',effect=page.locator(hero==='champignon'?'.effect-sweep':'.effect-automation');
   const bounds=createArenaLayout(1280,800,'local').gardens[0];
   const count=Math.ceil((2000+duration+500)/50);

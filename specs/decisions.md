@@ -403,6 +403,8 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I52 | Reuse molecideGaiden’s unchanged 85×361 two-pose helicopter-killer sheet at its original12fps and uniform scale, adding small whole-rig sway/tilt and staggering the two4★ columns. Retain green signature glints and procedural fallback while loading. Champignon uses dark-outlined4/5px shaded ribbons with cream highlights, roughly0.48/0.38s cycles, chunky mushrooms and real-hit bursts. No new generated assets or simulation changes. |
 
+| D166 | Champignon’s bold column effects obscure targets and move too vigorously. Thin and soften ribbons, slow their motion, reduce4★ to two strands, remove travelling mushroom caps and reduce spores. Sprig stays unchanged. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

@@ -287,3 +287,7 @@ Updated capture-column-spells writes20fps full flows and board-focused detail GI
 Sprig2★/4★ now draw the original molecideGaiden helicopter-killer.png: two85×361 frames at12fps, scaled uniformly to column height. A small whole-rig sway/tilt supplements the authored rope/rotor poses; two-column4★ uses opposite frame phases and different sway phases. The previous procedural rig remains a loading/error fallback. Small green glints preserve Sprig identity. Source and existing license are recorded under public/assets/legacy/CREDITS.md. No asset generation.
 
 Champignon2★ uses one shaded, dark-outlined4px spore ribbon;4★ uses three5px ribbons over a broader radius. Cream highlights, chunky rising mushroom caps, front/rear shading and real-hit radial glints add volume. Cycles are approximately0.48s/0.38s. The same snapshot-bound cosmetic clock, pause/cast/reduced-motion behavior, fixed columns, duration icons and all gameplay rules remain. Captures are now in output/guard-flows/column-spells-bold. User performs visual review; assistant does not inspect images.
+
+### Champignon readability correction (D166)
+
+Supersedes I52’s Champignon intensity:2★ uses one1.5px core,4★ two2px cores; soft dark edges are2px wider. Front/rear core alpha is0.65/0.3, outline0.4/0.18. Cycles slow to about1.13s/0.94s. Only3/5 small spores rise at a slower rate, with no travelling mushroom caps. Top mushroom/crown, real-hit glints and all spell rules remain. Sprig is unchanged. Captures: output/guard-flows/column-spells-readable.

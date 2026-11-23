@@ -66,23 +66,22 @@ export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:
    }
    for(let row=0;row<3;row++){const p=column.holes[row];if((frame+row)%5===0)glint(p.x+Math.sin(time/570-p.y/60)*8,p.y,colour,2);}
   }else{
-   const strong=column.tier===4,strands=strong?3:1;
-   // Opaque, shaded ribbons travel rapidly; the rear pass stays behind the front pass.
+   const strong=column.tier===4,strands=strong?2:1;
+   // Sparse translucent ribbons leave the targets readable through the effect.
    for(const front of [false,true])for(let strand=0;strand<strands;strand++)for(let y=column.top;y<column.bottom;y+=2){
-    const phase=time/(strong?61:76)-y/25+strand*Math.PI*2/strands+column.column;
+    const phase=time/(strong?150:180)-y/25+strand*Math.PI*2/strands+column.column;
     if((Math.cos(phase)>0)!==front)continue;
     const radius=(strong?24:17)*(.65+.35*(1-(y-column.top)/height));
     const x=centerAt(y)+Math.sin(phase)*radius,next=centerAt(y+2)+Math.sin(phase-2/25)*radius;
-    const width=strong?5:4,shade=front?colour:'#985573';
-    line(x-2,y-1,next-2,y+1,ink,width+4,front?.95:.8);
-    line(x,y,next,y+2,shade,width,front?1:.85);
-    if(front)line(x+1,y,next+1,y+2,'#ffe0b5',1,.95);
+    const width=strong?2:1.5,shade=front?colour:'#985573';
+    line(x-1,y,next-1,y+2,ink,width+2,front?.4:.18);
+    line(x,y,next,y+2,shade,width,front?.65:.3);
+    if(front)line(x+1,y,next+1,y+2,'#ffe0b5',.5,.45);
    }
-   for(let i=0;i<(strong?13:7);i++){
-    const y=column.bottom-((time/(strong?3:4)+i*43)%height),phase=time/95+i*2.4;
+   for(let i=0;i<(strong?5:3);i++){
+    const y=column.bottom-((time/(strong?8:10)+i*43)%height),phase=time/240+i*2.4;
     const x=centerAt(y)+Math.sin(phase)*(strong?24:17),fade=Math.max(0,Math.min(1,(y-column.top)/10,(column.bottom-y)/10));
-    mote(x,y,i%3?colour:'#ffe0b5',fade);
-    if(i%3===0){cap(x,y,colour);glint(x+8,y-4,'#ffe0b5',2);}
+    mote(x,y,i%3?colour:'#ffe0b5',fade*.6);
    }
    for(const hit of model.hits.filter(e=>e.hole!%3===column.column)){
     const p=point(hit.hole!),age=(visualTime-hit.time)/260;if(age<0||age>1)continue;
