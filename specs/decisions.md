@@ -433,6 +433,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | D174 | User approves the complete reactive spell animation set from D173/I58 ("It all looks great"). Adopt all nine PixelLab families and fourteen upgraded tiers. Further polish is discussion only until selected; preserve the approved look and mechanics. |
 
+| D175 | User authorizes the proposed polish: distinct sound cues, dedicated finishing reactions, softer timed endings, overlapping-effect readability and homescreen creature sprites. Keep the approved art direction and all spell mechanics. User prefers free downloaded SFX packs to audio generation and continues to reserve image review for themselves. |
+
+| I59 | Import seven already-generated PixelLab nine-frame sheets unchanged: four one-shot guardian/curse/ward finishers and bat/owl/pumpkin title loops. Guardians finish at the actual blocked hole; curse snaps require an actual extra miss penalty; ward bursts require actual consumption. Fade mist, soul aura, ward and columns against their real deadlines; growth leaves fade against each target expiry so granted time survives the casting window. Keep primary armor/curse prominent and separate/soften secondary particles during overlaps. Five unmodified Kenney Interface Sounds CC0 clips provide hero-associated spell cues, coalesced to avoid rapid audio pileup; preserve recovered sounds, mute behavior and voice cap. Source, original license and hashes are bundled. No AI audio is retained. No rules, tuning, bot strategy or network changes. Native source frames are packed without model image inspection; these new art additions await user review. Physical-phone performance/touch QA still requires an available device; browser emulation is not a physical-device result. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

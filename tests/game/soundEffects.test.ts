@@ -26,7 +26,7 @@ it('plays original spawn, charge, hit, impact, rabbit, cast and game-over cues o
   emit({kind:'penalty',reason:'empty'}); expect(AudioStub.played.at(-1)).toMatch(/wrongHit\.wav$/);
   const beforeMiss=AudioStub.played.length; emit({kind:'penalty',reason:'miss'}); expect(AudioStub.played).toHaveLength(beforeMiss);
   emit({kind:'star'}); expect(AudioStub.played.at(-1)).toMatch(/starHit\.wav$/);
-  emit({kind:'cast',tier:2}); expect(AudioStub.played.slice(-2)).toEqual(['/assets/sfx/specialBarHit.wav','/assets/sfx/original-morreEspecial.wav']);
+  emit({kind:'cast',tier:2}); expect(AudioStub.played.slice(-2)).toEqual(['/assets/sfx/spells/spore.wav','/assets/sfx/original-morreEspecial.wav']);
   match.state.phase='match-over';sync(); expect(AudioStub.played.at(-1)).toMatch(/gameOver\.wav$/);
   const ended=AudioStub.played.length;sync();expect(AudioStub.played).toHaveLength(ended);
   effects.dispose();expect(AudioStub.instances.every(audio=>audio.paused)).toBe(true);
@@ -46,4 +46,19 @@ it('plays a shield impact on each armor layer without a mole death sound or repl
  effects.sync({state:match.state,events:match.events});expect(AudioStub.played).toHaveLength(1);
  effects.setMuted(true);match.events.push({id:2,time:0,round:1,player:0,kind:'shield',targetKind:'mole',hole:4});effects.sync({state:match.state,events:match.events});expect(AudioStub.played).toHaveLength(1);
  effects.dispose();
+});
+
+it('routes each hero to its downloaded CC0 cue and coalesces overlapping rapid reactions',()=>{
+ vi.stubGlobal('Audio',AudioStub);
+ for(const [character,cue] of [['champignon','spore'],['andromoss','portal'],['captain-bramble','thorn'],['duskmantle','whisper'],['sprig','leaf']] as const){
+  const m=new Match({mode:'local',characters:[character,'champignon'],difficulty:'easy',seed:1}),fx=new SoundEffects();
+  m.events=[{id:1,time:0,round:1,player:0,kind:'cast',tier:1}];fx.sync({state:m.state,events:m.events});expect(AudioStub.played.at(-1)).toBe(`/assets/sfx/spells/${cue}.wav`);
+  m.events.push({id:2,time:50,round:1,player:0,kind:'cast',tier:1});m.state.time=50;const count=AudioStub.played.length;fx.sync({state:m.state,events:m.events});expect(AudioStub.played).toHaveLength(count);
+  m.events.push({id:3,time:250,round:1,player:0,kind:'cast',tier:1});m.state.time=250;fx.sync({state:m.state,events:m.events});expect(AudioStub.played).toHaveLength(count+1);fx.dispose();
+ }
+});
+it('records unmodified downloaded sound provenance and includes the original license',async()=>{
+ const {readFileSync}=await import('node:fs'),{createHash}=await import('node:crypto');const root='public/assets/sfx/spells/',sources=JSON.parse(readFileSync(root+'sources.json','utf8'));
+ expect(sources.license).toBe('CC0-1.0');expect(readFileSync(root+'LICENSE.txt','utf8')).toContain('Kenney');
+ for(const [cue,record]of Object.entries(sources.sounds) as [string,{sha256:string;edits:string}][]){expect(createHash('sha256').update(readFileSync(root+cue+'.wav')).digest('hex')).toBe(record.sha256);expect(record.edits).toBe('none');}
 });

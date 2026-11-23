@@ -7,8 +7,8 @@ import {modifyTarget} from '../../src/game/targetModifiers';
 import type {CharacterId,PlayerId,TargetKind} from '../../src/game/types';
 import '../../src/ui/style.css';
 const q=new URLSearchParams(location.search),sample=q.get('case')??'champ1',phone=q.get('mode')==='ai';
-const character:CharacterId=sample==='ward-opponent'?'duskmantle':sample.startsWith('theft-opponent')?'champignon':sample.startsWith('champ')?'champignon':sample.startsWith('bramble')?'captain-bramble':sample.startsWith('theft')?'andromoss':sample==='bonus'?'duskmantle':sample==='tending'||sample==='ward'?'sprig':'champignon';
-const rival:CharacterId=sample==='ward-opponent'?'sprig':sample.startsWith('theft-opponent')?'andromoss':sample==='pressure1'||sample==='pressure4'||sample==='rush'?'andromoss':sample.startsWith('curse')||sample==='veil'||sample==='ward'?'duskmantle':'champignon';
+const character:CharacterId=sample==='ward-opponent'?'duskmantle':sample.startsWith('theft-opponent')?'champignon':sample.startsWith('champ')?'champignon':sample.startsWith('bramble')?'captain-bramble':sample.startsWith('theft')?'andromoss':sample==='bonus'?'duskmantle':sample==='tending'||sample==='ward'||sample==='overlap'||sample==='overload'?'sprig':'champignon';
+const rival:CharacterId=sample==='ward-opponent'?'sprig':sample.startsWith('theft-opponent')?'andromoss':sample==='pressure1'||sample==='pressure4'||sample==='rush'?'andromoss':sample.startsWith('curse')||sample==='veil'||sample==='ward'||sample==='overlap'||sample==='overload'?'duskmantle':'champignon';
 const session=new Session({characters:[character,rival],mode:phone?'ai':'local',difficulty:'medium',seed:41}),m=session.match;
 m.advance(config.countdownMs);m.state.players.forEach(p=>p.nextSpawn=Infinity);
 let serial=200;
@@ -22,9 +22,11 @@ if(sample.startsWith('curse')){spawn(0,0);cast(1,Number(sample.at(-1)));spawn(0,
 if(sample==='veil'){spawn(0,4);cast(1,2);}
 if(sample==='bonus'){cast(0,3);spawn(0,4);}
 if(sample==='tending'){spawn(0,0,'star');spawn(0,4);spawn(0,8,'rabbit');cast(0,1);}
+if(sample==='overlap'||sample==='overload'){cast(0,1);cast(1,1);spawn(0,4);cast(1,2);if(sample==='overload'){const p=m.state.players[0],target=p.holes[4]!;target.armor=2;Object.assign(target,{persistentArmor:true});target.rushReductionMs=150;p.drainUntil=m.state.time+7000;}}
 if(sample==='ward-opponent'){cast(1,3);spawn(0,4);}
 if(sample==='ward'){cast(1,1);spawn(0,4);cast(1,2);}
 notify();
+document.documentElement.dataset.reviewScenario=sample==='overload'?'synthetic-overload':sample;
 const review={
  fire(action:'block'|'strike'|'miss'|'cleanse'|'incoming'|'begin-cast'){
   if(action==='block')session.act({type:'hit',player:0,hole:8});

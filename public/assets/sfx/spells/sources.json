@@ -1,0 +1,39 @@
+{
+  "creator": "Kenney",
+  "pack": "Interface Sounds 1.0",
+  "license": "CC0-1.0",
+  "source": "https://kenney.nl/assets/interface-sounds",
+  "downloadMirror": "https://github.com/Calinou/kenney-interface-sounds",
+  "sounds": {
+    "spore": {
+      "sourceFile": "pluck_001.wav",
+      "sha256": "7d676b0b09b56f7e5964ad274feb7e7307a4e552bed8cd98e1e3cecfb9c10c36",
+      "durationSeconds": 0.112,
+      "edits": "none"
+    },
+    "thorn": {
+      "sourceFile": "scratch_003.wav",
+      "sha256": "a780f81592bf48e5615824193bccfbad1ae9673f734e43a4b2bb604a65009b7e",
+      "durationSeconds": 0.125,
+      "edits": "none"
+    },
+    "portal": {
+      "sourceFile": "maximize_007.wav",
+      "sha256": "ef388248f8b2286e085e6975a347a76c6c7887f3e543cea705a8e2be5a6046bb",
+      "durationSeconds": 0.193,
+      "edits": "none"
+    },
+    "whisper": {
+      "sourceFile": "minimize_004.wav",
+      "sha256": "2a287540381ae5df05369015e315663b179ce9248f203d7eb8bf0950338ce4f8",
+      "durationSeconds": 0.431,
+      "edits": "none"
+    },
+    "leaf": {
+      "sourceFile": "glass_004.wav",
+      "sha256": "54dd436b826bed6360cc32c059776dc98942bb5abd35b036c8fda075482adef7",
+      "durationSeconds": 0.713,
+      "edits": "none"
+    }
+  }
+}

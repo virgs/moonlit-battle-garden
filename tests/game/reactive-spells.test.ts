@@ -9,7 +9,7 @@ const game=(hero:'champignon'|'captain-bramble'|'andromoss'|'duskmantle'|'sprig'
 const view=(m:Match)=>({state:m.state,events:m.events});
 const cast=(m:Match,tier:number)=>{m.state.players[0].stars=tier;m.action({type:'cast',player:0});m.advance(config.spells.castFreezeMs);};
 const target=(m:Match,id=99)=>({id,kind:'mole' as const,born:m.state.time-800,expires:m.state.time+2000});
-it('ships nine original nine-frame PixelLab animation families',()=>{for(const [key,size]of Object.entries(reactiveAssets)){const data=readFileSync(`public/assets/effects/reactive/${key}.png`);expect([data.readUInt32BE(16),data.readUInt32BE(20)]).toEqual([size*9,size]);}});
+it('ships thirteen native nine-frame PixelLab loops and finishing reactions',()=>{for(const [key,size]of Object.entries(reactiveAssets)){const data=readFileSync(`public/assets/effects/reactive/${key}.png`);expect([data.readUInt32BE(16),data.readUInt32BE(20)]).toEqual([size*9,size]);}});
 it('guardians represent actual remaining charges and intercept the last blocked empty hit at its real hole',()=>{
  for(const hero of ['champignon','captain-bramble'] as const){const m=game(hero);cast(m,1);expect(reactiveSpellActors(view(m),0).filter(a=>a.kind==='guardian')).toHaveLength(2);m.action({type:'hit',player:0,hole:8});expect(m.events.at(-1)).toMatchObject({kind:'shield',hole:8,visual:{guardRemaining:1}});m.action({type:'hit',player:0,hole:7});const actors=reactiveSpellActors(view(m),0);expect(actors.filter(a=>a.kind==='guardian')).toHaveLength(0);expect(actors.filter(a=>a.kind==='guard-intercept')).toHaveLength(2);expect(m.state.players[0].score).toBe(0);const last=reactiveSpellActors(view(m),0,true).find(a=>a.kind==='guard-intercept'&&a.key===`block-${m.events.at(-1)!.id}`)!;expect(last.x).toBeCloseTo(148);expect(last.y).toBeCloseTo(284);}
 });
@@ -39,4 +39,29 @@ it('records removed versus received stars separately when the receiver capacity 
 it('reduced-motion target growth and reaction cues keep their position, size and pose still',()=>{
  const m=game('sprig'),p=m.state.players[0];p.holes[4]={...target(m),born:m.state.time,missBonus:8,extended:true,extendedAt:m.state.time};m.events.push({id:10,time:m.state.time,round:1,player:0,kind:'penalty',hole:0,reason:'miss',visual:{markPenalty:8}});
  const poses=()=>reactiveSpellActors(view(m),0,true).map(({key,x,y,size,frame,rotation})=>({key,x,y,size,frame,rotation}));const first=poses();m.state.time+=150;expect(poses()).toEqual(first);
+});
+
+it('plays dedicated guard finishers only after an actual interception, at the blocked hole',()=>{
+ for(const hero of ['champignon','captain-bramble'] as const){const m=game(hero);cast(m,1);m.action({type:'hit',player:0,hole:8});const start=m.state.time;
+ expect(reactiveSpellActors(view(m),0).some(a=>a.kind==='guard-finish')).toBe(false);
+ m.state.time=start+600;const a=reactiveSpellActors(view(m),0).find(a=>a.kind==='guard-finish')!;
+ expect(a.art).toBe(hero==='champignon'?'mushroom-finish':'thorn-finish');expect(a.frame).toBe(0);expect(a.x).toBe(248);expect(a.y).toBe(283);
+ m.state.time=start+900;expect(reactiveSpellActors(view(m),0).find(a=>a.kind==='guard-finish')!.frame).toBe(6);
+ m.state.time=start+1100;expect(reactiveSpellActors(view(m),0).some(a=>a.kind==='guard-finish')).toBe(false);expect(m.state.players[0].mistakeShield).toBe(1);
+ }
+});
+it('fades against authoritative deadlines without ending granted target time early or inventing rewards',()=>{
+ const m=game('sprig'),p=m.state.players[0];p.holes[4]=target(m);extendTarget(p.holes[4]!,m.state.time);p.tendingUntil=m.state.time+100;p.magicShieldUntil=m.state.time+1000;p.camouflageUntil=m.state.time+1000;p.drainUntil=m.state.time+1000;
+ const read=()=>reactiveSpellActors(view(m),0),initial=read();m.state.time+=750;const end=read();
+ for(const kind of ['living-ward','veil-mist','bonus-mole'])expect(end.find(a=>a.kind===kind)!.alpha).toBeLessThan(initial.find(a=>a.kind===kind)!.alpha);
+ expect(end.find(a=>a.kind==='extended-target')!.alpha).toBe(initial.find(a=>a.kind==='extended-target')!.alpha); // The target retains its extension after the granting window.
+ m.state.time=p.holes[4]!.expires-100;expect(read().find(a=>a.kind==='extended-target')!.alpha).toBeCloseTo(.16);expect(read().find(a=>a.kind==='extended-target')!.tint).toBeDefined();
+ expect(read().some(a=>a.art==='ward-finish'||a.kind==='soul-reward')).toBe(false);expect(m.events.filter(e=>e.kind==='hit')).toEqual([]);
+ m.state.time=p.holes[4]!.expires;expect(read().some(a=>a.kind==='extended-target')).toBe(false);
+});
+it('keeps the curse prominent and separates secondary growth/mist in a real Sprig versus Duskmantle overlap',()=>{
+ const m=game('sprig'),p=m.state.players[0];p.holes[4]={...target(m),missBonus:8,persistentMark:true};extendTarget(p.holes[4]!,m.state.time);p.camouflageUntil=m.state.time+6000;
+ const before=JSON.stringify(m.state),a=reactiveSpellActors(view(m),0);
+ expect(a.find(a=>a.kind==='marked-mole')!.alpha).toBe(.9);expect(a.find(a=>a.kind==='extended-target')!.alpha).toBe(.55);expect(a.filter(a=>a.kind==='veiled-target').every(a=>a.alpha===.14)).toBe(true);
+ expect(a.find(a=>a.kind==='extended-target')!.x).not.toBe(a.find(a=>a.kind==='marked-mole')!.x);expect(a.every(a=>a.depth<1)).toBe(true);expect(JSON.stringify(m.state)).toBe(before);
 });

@@ -7,8 +7,8 @@ type Model=ReturnType<typeof spellSceneModel>;
 export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:GardenLayout,reduced:boolean,motionTime=model.time,droneSheet?:HTMLImageElement){
  ctx.clearRect(0,0,301,383);ctx.imageSmoothingEnabled=false;
  const visualTime=reduced?model.time:motionTime,time=reduced?0:visualTime,frame=Math.floor(time/100),ink='#14212b';
- let paintColour='',paintAlpha=-1;
- const rect=(x:number,y:number,w:number,h:number,colour:string,alpha=1)=>{if(alpha!==paintAlpha){ctx.globalAlpha=alpha;paintAlpha=alpha;}if(colour!==paintColour){ctx.fillStyle=colour;paintColour=colour;}ctx.fillRect(Math.round(x*2)/2,Math.round(y*2)/2,w,h);};
+ let paintColour='',paintAlpha=-1,scopeAlpha=1;
+ const rect=(x:number,y:number,w:number,h:number,colour:string,alpha=1)=>{alpha*=scopeAlpha;if(alpha!==paintAlpha){ctx.globalAlpha=alpha;paintAlpha=alpha;}if(colour!==paintColour){ctx.fillStyle=colour;paintColour=colour;}ctx.fillRect(Math.round(x*2)/2,Math.round(y*2)/2,w,h);};
  const line=(x:number,y:number,xx:number,yy:number,colour:string,width=1,alpha=1)=>{const n=Math.max(1,Math.ceil(Math.max(Math.abs(xx-x),Math.abs(yy-y))));for(let i=0;i<=n;i++)rect(x+(xx-x)*i/n,y+(yy-y)*i/n,width,width,colour,alpha);};
  const glint=(x:number,y:number,colour:string,size=2)=>{rect(x-size,y,size*2+1,1,colour,.8);rect(x,y-size,1,size*2+1,colour,.8);};
  const mote=(x:number,y:number,colour:string,alpha=1)=>{rect(x-1,y-1,4,4,ink,.65*alpha);rect(x,y,2,2,colour,.85*alpha);};
@@ -40,6 +40,7 @@ export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:
  const point=(hole:number)=>({x:(garden.holes[hole].feet.x-garden.x)/garden.scale,y:(garden.holes[hole].feet.y-garden.y)/garden.scale-35});
  // Ropes/spirals follow the real three hole centers, including their nonuniform x positions.
  for(const column of model.columns){
+  scopeAlpha=Math.max(0,Math.min(1,(column.remainingMs-(visualTime-model.time))/300));
   const colour=signatureColours[column.character],height=column.bottom-column.top;
   const centerAt=(y:number)=>columnCenterX(column,y);
   if(column.character==='sprig'){
@@ -47,7 +48,7 @@ export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:
     // Preserve both original hand-drawn poses and their thick rope/rotor silhouettes.
     const scale=height/361,width=85*scale,phase=time/310+column.column*1.9;
     const x=centerAt((column.top+column.bottom)/2)+Math.sin(phase)*5,y=(column.top+column.bottom)/2;
-    ctx.save();ctx.globalAlpha=1;ctx.translate(x,y);ctx.rotate(Math.sin(phase+Math.PI/2)*.025);
+    ctx.save();ctx.globalAlpha=scopeAlpha;ctx.translate(x,y);ctx.rotate(Math.sin(phase+Math.PI/2)*.025);
     ctx.drawImage(droneSheet,(reduced?0:Math.floor(time*12/1000+column.column))%2*85,0,85,361,-width/2,-height/2,width,height);
     ctx.restore();paintColour='';paintAlpha=-1;
     // Small green signature lights relate the reused artwork to Sprig's spell icons.
@@ -87,6 +88,7 @@ export function paintSpellScene(ctx:CanvasRenderingContext2D,model:Model,garden:
    const capY=column.top+(column.tier===4?16:0);cap(centerAt(column.top),capY,colour);if(column.tier===4){rect(centerAt(column.top)-7,capY-12,14,4,'#c4a36c');rect(centerAt(column.top)-8,capY-16,3,5,'#f0d48e');rect(centerAt(column.top)-1,capY-18,3,7,'#f0d48e');rect(centerAt(column.top)+6,capY-16,3,5,'#f0d48e');}
   }
  }
+ scopeAlpha=1;
  // Column hit bursts remain; target/guardian magic now uses native PixelLab actors.
  for(const event of model.hits){
   const p=point(event.hole!),age=visualTime-event.time,progress=reduced?0:age/600;

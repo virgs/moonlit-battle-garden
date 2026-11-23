@@ -52,3 +52,12 @@ Current result: **36 ready, 25 missing, 0 invalid** including staged homes. Miss
 ## One-star effects: ready for user visual review
 
 The five one-star gameplay loops now live at `/assets/effects/one-star/{hero}.png`, with GIF previews, frame metadata and editable source/provenance alongside. Eight48×48 frames,6 FPS, looped by simulation time; each descriptor records its actual sheet columns. Both board and hidden-board HUD use the same sprite and uniform scaling. Existing character casts remain shared across all spell tiers. No activation/ending variants were created. `/assets/effects/one-star/index.html` previews all five at3×; visual review remains with the user.
+
+
+## Adopted reactive effects and latest polish
+
+The historical per-spell placeholder list above is superseded by the approved runtime effects in `effects/reactive/`, the approved energy arcs and column renderers. Nine looping PixelLab families use native48×48 frames (ward64×64),9 frames per horizontal strip at12fps. Four additional one-shot strips (`mushroom-finish`, `thorn-finish`, `curse-finish`, `ward-finish`) share the same native dimensions and9 frames. Source generation IDs are beside each new strip. Finisher windows are500ms after guardian interception,650ms for curse miss/ward consumption; only the relevant actual simulation event triggers one.
+
+Title actors use nine native frames per horizontal strip: bat/pumpkin48×48 and owl48×64. Uniform draw scaling preserves the owl aspect ratio. Wing frames run at12fps; slower owl/pumpkin poses are decorative and independent of match time. Reduced motion holds frame0. Models do not visually inspect user artwork.
+
+New sound files in `sfx/spells/` are downloaded CC0 Kenney clips, unmodified; see the bundled license and source hashes. All spell numbers, target timing and guard/armor semantics remain authoritative in the simulation.

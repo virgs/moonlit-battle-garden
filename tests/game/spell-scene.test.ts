@@ -66,3 +66,10 @@ it('reuses original Sprig poses without stretching and staggers the two columns'
 it('does not invent column impact bursts for empty hits or missed moles',()=>{
  const m=game('champignon',2);m.advance(config.spells.castFreezeMs);const garden=createArenaLayout(1280,800,'local').gardens[0];m.action({type:'hit',player:0,hole:0});expect(m.events.at(-1)).toMatchObject({reason:'empty',hole:0});expect(spellSceneModel({state:m.state,events:m.events},garden).hits).toEqual([]);
 });
+
+it('fades column art over its last300ms while automation keeps its authoritative deadline',()=>{
+ for(const hero of ['champignon','sprig'] as const){const m=game(hero,2);m.advance(config.spells.castFreezeMs);const p=m.state.players[0],deadline=hero==='champignon'?p.sweepUntil:p.automationUntil,garden=createArenaLayout(1280,800,'local').gardens[0];m.state.time=deadline-150;const before=JSON.stringify(m.state),model=spellSceneModel({state:m.state,events:m.events},garden),alpha:number[]=[];
+ const ctx={globalAlpha:1,clearRect:()=>{},fillRect:()=>alpha.push(ctx.globalAlpha)} as unknown as CanvasRenderingContext2D;paintSpellScene(ctx,model,garden,false);expect(model.columns[0].remainingMs).toBe(150);expect(Math.max(...alpha)).toBeLessThanOrEqual(.5);expect(Math.max(...alpha)).toBeGreaterThan(0);expect(JSON.stringify(m.state)).toBe(before);
+ m.state.time=deadline;expect(spellSceneModel({state:m.state,events:m.events},garden).columns).toEqual([]);
+ }
+});

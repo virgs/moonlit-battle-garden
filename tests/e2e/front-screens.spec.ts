@@ -7,6 +7,8 @@ for (const [name,width,height] of [['desktop',1440,900],['phone-portrait',390,84
     await page.goto('/');
     await page.evaluate(()=>document.fonts.ready);
     await expect(page.getByRole('main',{name:'Title screen'})).toBeVisible();
+    await expect(page.locator('.title-garden')).toHaveAttribute('data-ready','true');
+    await expect(page.locator('.title-garden')).toHaveAttribute('data-actor-art','pixellab');
     await page.keyboard.press('Tab');
     await expect(page.getByRole('main',{name:'Title screen'})).toBeVisible();
     await page.screenshot({path:testInfo.outputPath(`${name}-title.png`)});

@@ -8,7 +8,7 @@ import type { Snapshot } from '../game/Session';
 const path = (file: string) => `/assets/sfx/${file}`;
 
 type Cue = keyof typeof soundFiles;
-const volumes: Record<Cue, number> = { armor:.2, pop:.12, hit:.24, impact:.14, rabbit:.25, starAppear:.18, star:.25, wrong:.2, cast:.25, sweep:.2, end:.3 };
+const volumes: Record<Cue, number> = { spore:.22,thorn:.2,portal:.16,whisper:.18,leaf:.18, armor:.2, pop:.12, hit:.24, impact:.14, rabbit:.25, starAppear:.18, star:.25, wrong:.2, cast:.25, sweep:.2, end:.3 };
 
 /** Cosmetic variation never consumes gameplay RNG. Native Web Audio supports overlapping short effects. */
 export class SoundEffects {
@@ -19,6 +19,9 @@ export class SoundEffects {
   private counts = new Map<string, number>();
   private targets = new Set<number>();
   private lastEvent = 0;
+  private cueTimes=new Map<Cue,number>();
+  private lastTime=-1;
+  private readonly heroCue={champignon:'spore', 'captain-bramble':'thorn', andromoss:'portal',duskmantle:'whisper',sprig:'leaf'} as const;
   private phase: Snapshot['state']['phase'] | null = null;
   private generation = 0;
   private muted = false;
@@ -59,16 +62,19 @@ export class SoundEffects {
     const count = this.counts.get(cue) ?? 0; this.counts.set(cue, count + 1);
     const choices = soundFiles[cue]; this.playFile(path(choices[count % choices.length]), volumes[cue],cue==='armor'?1.5:1);
   }
+  private themed(cue:Cue,time:number,spacing=180):void{const last=this.cueTimes.get(cue)??-Infinity;if(time-last<spacing)return;this.cueTimes.set(cue,time);this.play(cue);}
   sync(snapshot: Snapshot): void {
     const { state, events } = snapshot;
-    const current = new Set<number>(); let pop = false, starAppear = false;
+    if(state.time<this.lastTime){this.cueTimes.clear();this.targets.clear();this.lastEvent=0;}
+    this.lastTime=state.time;
+    const current = new Set<number>(); let pop = false, starAppear = false,portal=false,dew=false;
     for (const player of state.players) for (const target of player.holes) if (target) {
       current.add(target.id);
-      if (!this.targets.has(target.id)) { if (target.kind === 'star') starAppear = true; else pop = true; }
+      if (!this.targets.has(target.id)) { if(target.kind==='rabbit'&&target.origin==='magic')portal=true;if(target.extended)dew=true; if (target.kind === 'star') starAppear = true; else pop = true; }
     }
     this.targets = current;
     // Coalesce simultaneous target offers, as the original browser SoundManager did.
-    if (pop) this.play('pop'); if (starAppear) this.play('starAppear');
+    if (pop) this.play('pop'); if (starAppear) this.play('starAppear');if(portal)this.themed('portal',state.time,350);if(dew)this.themed('leaf',state.time,400);
     for (const event of events.filter(item => item.id > this.lastEvent)) this.event(event, snapshot);
     this.lastEvent = events.at(-1)?.id ?? this.lastEvent;
     if (state.phase === 'match-over' && this.phase !== 'match-over') this.play('end');
@@ -77,6 +83,9 @@ export class SoundEffects {
   private event(event: GameEvent, snapshot: Snapshot): void {
     if (event.kind === 'hit') { this.play('hit'); this.play('impact'); }
     if(event.kind==='shield'&&event.targetKind==='mole'&&!event.reason)this.play('armor');
+    if(event.kind==='shield'&&event.reason)this.themed(this.heroCue[snapshot.state.players[event.player].character],event.time);
+    if(event.visual?.markPenalty||event.visual?.bonusPoints)this.themed('whisper',event.time);
+    if(event.visual?.wardBlocked)this.themed('leaf',event.time);
     if (event.kind === 'star') this.play('star');
     if (event.kind === 'penalty' || event.kind === 'shield') {
       if (event.targetKind === 'rabbit') { this.play('rabbit'); this.play('impact'); }
@@ -85,7 +94,7 @@ export class SoundEffects {
     if (event.kind === 'cast') {
       const character = snapshot.state.players[event.player].character;
       const clip = event.tier ? presentation[character].casts[event.tier] : null;
-      if (clip?.sound) this.playFile(clip.sound, .3); else this.play('cast');
+      if (clip?.sound) this.playFile(clip.sound, .3); else this.themed(this.heroCue[character],event.time);
       if (character === 'champignon' && (event.tier === 2 || event.tier === 4)) this.play('sweep');
     }
   }

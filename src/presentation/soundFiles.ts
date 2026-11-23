@@ -1,4 +1,5 @@
 export const soundFiles = {
+  spore:['spells/spore.wav'],thorn:['spells/thorn.wav'],portal:['spells/portal.wav'],whisper:['spells/whisper.wav'],leaf:['spells/leaf.wav'],
   pop: ['charPop.mp3', 'original-digpop.wav'],
   hit: ['die0.wav','die1.wav','die2.wav','die3.mp3','die4.mp3', ...Array.from({length:10},(_,i)=>`original-morre${i+1}.wav`)],
   impact: ['original-impacto1.wav','original-impacto2.wav','original-impacto3.wav','original-impacto4.wav'],

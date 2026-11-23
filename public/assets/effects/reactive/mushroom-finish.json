@@ -1,0 +1,8 @@
+{
+  "generator": "PixelLab",
+  "jobId": "9f598bcd-12e5-4f57-aaf3-fd83e7c9f13f",
+  "frames": 9,
+  "sourceFrames": "original frame followed by eight generated frames",
+  "processing": "Horizontal packing only; no resizing, recoloring, trimming or model visual inspection",
+  "role": "one-shot spell finishing reaction"
+}

@@ -1,0 +1,8 @@
+{
+  "generator": "PixelLab",
+  "jobId": "b242382e-37f4-46b0-a179-fff4e86f7013",
+  "frames": 9,
+  "sourceFrames": "original frame followed by eight generated frames",
+  "processing": "Horizontal packing only; no resizing, recoloring, trimming or model visual inspection",
+  "role": "looping title actor"
+}

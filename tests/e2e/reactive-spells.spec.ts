@@ -22,3 +22,15 @@ test('native actors animate, freeze on pause/cast and remain still with reduced 
 test('an opponent ward block has visible feedback even when its garden is hidden',async({page})=>{
  await open(page,'ward-opponent');await fire(page,'incoming');const effects=await actors(page);expect(effects.some(a=>a.player===1&&a.kind===(page.viewportSize()!.width<700?'hidden-ward-block':'living-ward'))).toBe(true);await page.clock.runFor(700);expect((await actors(page)).some(a=>a.player===1&&(a.kind==='hidden-ward-block'||a.kind==='living-ward'))).toBe(false);
 });
+
+test('dedicated guard and curse finishers advance actual sprite frames then disappear',async({page})=>{
+ await open(page,'bramble1');await fire(page,'block');await page.clock.runFor(600);const first=(await actors(page)).find(a=>a.kind==='guard-finish')!;expect(first.texture).toBe('reactive-thorn-finish');await page.clock.runFor(150);expect((await actors(page)).find(a=>a.kind==='guard-finish')!.frame).not.toBe(first.frame);await page.clock.runFor(400);expect((await actors(page)).some(a=>a.kind==='guard-finish')).toBe(false);
+ await open(page,'curse4');await fire(page,'miss');expect((await actors(page)).find(a=>a.kind==='curse-snap')!.texture).toBe('reactive-curse-finish');
+});
+test('overlapping real spells and a labelled synthetic overload retain primary target cues and accessible touch controls',async({page})=>{
+ for(const sample of ['overlap','overload']){await open(page,sample);const a=await actors(page);expect(a.find(a=>a.kind==='marked-mole')!.alpha).toBe(.9);expect(a.find(a=>a.kind==='extended-target')!.alpha).toBe(.55);expect(a.filter(a=>a.kind==='veiled-target').every(a=>a.alpha===.14)).toBe(true);
+  if(sample==='overload'){await expect(page.locator('html')).toHaveAttribute('data-review-scenario','synthetic-overload');const shields=JSON.parse((await page.locator('.arena-canvas canvas').getAttribute('data-shields'))!);expect(shields[0]).toMatchObject({layers:2,targetAlpha:.72,targetDepth:1});expect(a.find(a=>a.kind==='shortened-mole')!.depth).toBeLessThan(.5);}
+  const targets=await page.locator('.player-0 .hole').evaluateAll(elements=>elements.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};}));for(const r of targets){expect(r.w).toBeGreaterThanOrEqual(44);expect(r.h).toBeGreaterThanOrEqual(44);expect(r.x).toBeGreaterThanOrEqual(0);expect(r.y).toBeGreaterThanOrEqual(0);}
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ }
+});
