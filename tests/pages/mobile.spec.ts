@@ -1,3 +1,4 @@
+import { enterMatch } from '../e2e/frontMenu';
 import { expect, test } from '@playwright/test';
 
 test('Pages subpath loads runtime art/audio and supports touch holes and magic in phone orientations', async ({ page }, testInfo) => {
@@ -10,12 +11,11 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   expect(await page.evaluate(() => document.fonts.check('400 30px Almendra') && document.fonts.check('400 15px Literata'))).toBe(true);
   await expect(page.getByRole('link', { name: 'Moonlit Battle Garden home' })).toHaveAttribute('href', '/moonlit-battle-garden/');
   await page.getByRole('button', { name:'Night Watch',exact:true }).tap();
-  await page.getByRole('button', { name:'Confirm Player 1' }).tap();
-  await page.getByRole('button', { name: /Enter the garden/ }).tap();
-  await expect(page.locator('canvas')).toBeVisible();
+  await enterMatch(page);
+  await expect(page.locator('.arena-canvas canvas')).toBeVisible();
   const owner=await page.locator('.match-screen').getAttribute('data-home-character');
   expect(['champignon','andromoss']).toContain(owner);
-  await expect(page.locator('canvas')).toHaveAttribute('data-home-background',`/assets/homes/${owner}/background.png`);
+  await expect(page.locator('.arena-canvas canvas')).toHaveAttribute('data-home-background',`/assets/homes/${owner}/background.png`);
   await expect(page.locator('.match-overlay')).toBeHidden({ timeout: 8000 });
   const board = page.locator('.player-0');
   await expect(page.locator('.player-1')).toHaveCount(0);
@@ -27,7 +27,7 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await expect(board.locator('.cast-button')).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath('phone-portrait.png') });
   await board.locator('.cast-button').tap();
-  await expect(page.locator('.cast-banner')).toHaveAttribute('data-asset', 'fallback');
+  await expect(page.locator('.cast-banner')).toHaveAttribute('data-asset', 'ready');
   await expect(board.locator('.hole:enabled')).toHaveCount(0);
   await expect(board.locator('.stars')).toHaveAttribute('aria-label', '0 stars');
   await page.getByRole('button', { name: 'Pause', exact: true }).tap();
@@ -36,8 +36,8 @@ test('Pages subpath loads runtime art/audio and supports touch holes and magic i
   await page.addStyleTag({ content: '.match-overlay{visibility:hidden!important}' });
   for (const [width, height, filename] of [[320, 568, 'phone-small.png'], [844, 390, 'phone-landscape.png']] as const) {
     await page.setViewportSize({ width, height });
-    await expect(page.locator('canvas')).toHaveAttribute('width', String(width));
-    await expect(page.locator('canvas')).toHaveAttribute('height', String(height));
+    await expect(page.locator('.arena-canvas canvas')).toHaveAttribute('width', String(width));
+    await expect(page.locator('.arena-canvas canvas')).toHaveAttribute('height', String(height));
     const button = await board.locator('.cast-button').boundingBox();
     expect(button!.height).toBeGreaterThanOrEqual(44);
     expect(button!.x).toBeGreaterThanOrEqual(0); expect(button!.x + button!.width).toBeLessThanOrEqual(width);
