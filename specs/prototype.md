@@ -367,3 +367,8 @@ Current starScheduleScale=2 multiplies the full opportunity deadline, including 
 ### Menu action sounds (D181 / I65)
 
 Title entry, mode/hero/difficulty browsing, confirmation/backtracking, match start, pause/resume/quit and result continuation use four short downloaded Kenney CC0 cues (move/confirm/back/error), also reused for online room/invite actions. Keyboard, button and swipe routes meet at the same logical callbacks; disabled/no-op actions and repeated keydown do not emit cues. Pointer hover alone, component mounts, text input and remote-selection updates are silent. The sound toggle applies before front-screen actions and during paused gameplay; mute stops UI voices/pending playback, unmute plays confirmation. UI feedback uses the existing short-effect engine with its own voice lifecycle and shared per-context decode cache. No gameplay or balance changes.
+
+
+### Hero preview/result cadence (D182 / I66)
+
+All five heroes use6fps idle (five poses, roughly833ms loops) and12fps victory (nine poses,750ms loops); casting remains9fps plus its existing hold. A shared elapsed-time/requestAnimationFrame player catches up after late paints and only updates changed poses, rather than accumulating timer-callback delay. Selection victory plays once and holds the last pose; result victory loops. Character/clip changes reset correctly, missing/invalid sheets retain still fallbacks, hidden tabs hold time, and live reduced-motion settings return to frame0. PNGs, framing, sprite scales, rules and gameplay clocks are unchanged. No new artwork, blending or balance run.

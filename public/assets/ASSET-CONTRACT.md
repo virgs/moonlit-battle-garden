@@ -8,8 +8,8 @@ A **hero** has idle, victory and **one shared casting animation**. Each **indivi
 
 | File under `characters/CHARACTER/` | Native contract |
 |---|---|
-| `standing.png` | 960×192 PNG: five 192×192 frames at 3 fps, looping |
-| `victory.png` | 1728×192 PNG: nine 192×192 frames at 8 fps |
+| `standing.png` | 960×192 PNG: five 192×192 frames at 6 fps, looping |
+| `victory.png` | 1728×192 PNG: nine 192×192 frames at 12 fps |
 | `cast.png` | 1728×192 PNG: nine 192×192 frames at 9 fps plus 500 ms final hold, shared by all four spells |
 | `icon.png` | Transparent 192×192 head-and-shoulders image for HUD, pause and round result |
 
@@ -66,3 +66,6 @@ New sound files in `sfx/spells/` are downloaded CC0 Kenney clips, unmodified; se
 ## Menu feedback sounds
 
 `sfx/menu/{move,confirm,back,error}.wav` contains four original unmodified Kenney CC0 Interface Sounds clips. License and source hashes are beside them. Logical UI actions trigger these cues, including keyboard/buttons/swipes, with saved/current mute handling. Menu effects unlock Web Audio on the user gesture without priming background music; they share decoded files with the game while owning their own playback/mute lifecycle. No generated audio or new image assets.
+
+
+D182/I66: idle/victory rendering uses elapsed-time-based6/12fps playback across all five heroes. Five/nine source poses and all PNG bytes are unchanged; no interpolation or frame generation. One-shot victories hold their final pose, loops repeat, background tabs hold time and reduced motion uses frame0. Casting timing remains unchanged.

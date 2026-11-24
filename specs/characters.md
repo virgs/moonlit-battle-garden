@@ -113,13 +113,13 @@ The user requests expressive victory and casting actions: unmistakable body/limb
 
 Animation briefs (generated clips await user visual review):
 
-- Idle: gentle breathing and a tiny plume sway. Keep the head direction, stance, broom and shield steady; no broad weight shifts, head turns or arm gestures. Five frames at 3 fps.
+- Idle: gentle breathing and a tiny plume sway. Keep the head direction, stance, broom and shield steady; no broad weight shifts, head turns or arm gestures. Five frames, currently played at 6 fps.
 - Victory: crouch in anticipation, an exuberant full-body hop or proud step, an unmistakable raised broom/shield salute, then a readable proud landing/settle.
 - Shared casting: brace and wind up, twist the torso into a broad broom sweep, present the shield, then follow through and settle. Add a compact golden-green magical spore trail that follows the broom bristles, with a few sparkles/motes dispersing behind it. Fit the established 1.5-second cast freeze and retain the separate stars-spent overlay.
 
 For casting and victory, favor clear anticipation, action, follow-through and a short held pose over numerous small in-between changes. Keep equipment attached, preserve colors and leave enough canvas margin for gestures without clipping.
 
-The current sheets contain the starting pose plus four generated idle frames (five total, 3 fps) and eight generated victory/casting frames (nine total; victory 8 fps, cast 9 fps plus 500 ms final-pose hold). All four casting tiers reference the same sheet. No generated spell-effect overlays or additional character assets are part of this pass.
+The current sheets contain the starting pose plus four generated idle frames (five total, 6 fps) and eight generated victory/casting frames (nine total; victory 12 fps, cast 9 fps plus 500 ms final-pose hold). All four casting tiers reference the same sheet. No generated spell-effect overlays or additional character assets are part of this pass.
 
 ### Defaults for every future character
 
@@ -391,3 +391,6 @@ Future-mole armor/marks ignore stars/rabbits and existing targets. Pending quota
 AI opportunities follow the changed slots: Champignon3★ uses the same urgent-mole guard opportunity as Bramble3★,4★ uses its actual one-column opportunity, and persistent harmful effects remain visible to cleanse/caster avoidance. Seeded delay/reaction settings stay unchanged; full-kit generic priorities remain provisional. Protocol17 rejects mismatched rules. No new art. Historical timed Tin Caps/one-star guards and pulsed two-star Tines remain explicit controls only.
 
 Current pooled/per-level matrices and before→after reminders: [simplified-kit review](../reports/simplified-kits-review.md). Previous reviews are historical. Human balance remains unverified.
+
+
+D182/I66 updates playback only: all approved idle/victory sheets now run at6/12fps using elapsed-time display timing. Original PNGs and generation provenance remain unchanged. Reduced motion uses a still pose and hidden tabs hold animation time. Source frame counts still bound smoothness; any later in-between-frame art remains deferred.

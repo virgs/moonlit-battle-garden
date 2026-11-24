@@ -48,3 +48,9 @@ export function heroStill(character: CharacterId): string {
   if (character === 'captain-bramble' || character === 'duskmantle') return `/assets/characters/${character}/base.png`;
   return `/assets/legacy/${character}-hero.png`;
 }
+
+/** Frame choice follows elapsed time, so late paints do not slow down the clip. */
+export function heroFrameAt(clip:Pick<CastClip,'frameCount'|'fps'>,elapsed:number,loop=true):number {
+  const index=Math.floor(Math.max(0,elapsed)*clip.fps/1000);
+  return loop?index%clip.frameCount:Math.min(clip.frameCount-1,index);
+}
