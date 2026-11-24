@@ -524,3 +524,10 @@ Verification:308 simulation/presentation tests,28 relevant desktop/mobile browse
 Raised idle3→6fps and victory8→12fps for all five approved heroes, preserving the five/nine-frame source PNGs and9fps casting. Replaced duplicated interval counters with one elapsed-time/requestAnimationFrame hook: delayed paints catch up; only changed poses update; selection victories stop at their final pose; looping celebrations repeat normally. Readiness is tied to the actual clip to avoid showing a previous hero's frame, and new clips reset to0. Hidden tabs hold/rebase playback rather than jumping, and reduced-motion changes work live. No asset generation, model image inspection, frame blending, physics, spell, AI or networking changes. Source pose counts still limit ultimate smoothness.
 
 Verification:310 simulation/presentation tests,26 relevant desktop/mobile browser cases, production build and production-base phone smoke pass. Tests check actual6/12fps pose progression across all heroes, late-frame catch-up, one-shot final holds, live reduced motion, hero reset, background hold/resume, carousel layout and full result flow. A technical equality check found no byte-identical first/last endpoints in the ten approved sheets; no images were displayed or reviewed by the model.
+
+
+### Twelve FPS for both hero loops (D183 / I67)
+
+Adopted12fps for both idle and victory across all five heroes after the user authorized12 or9fps. Idle rises6→12fps; victory stays12fps. Existing five/nine source poses, elapsed-time playback, reduced motion, hidden-tab holds and one-shot final poses remain. Idle loop period is roughly417ms and victory750ms. No art generation, image inspection, casting or game/balance changes.
+
+Verification:310 tests,14 desktop/mobile hero playback checks and production build pass, including all five heroes, late-frame catch-up, reduced motion, hero reset and background hold/resume.

@@ -465,6 +465,10 @@ This file records the discussion's current state. An accepted concept is not a c
 
 | I66 | Set all five heroes' idle3→6fps and victory8→12fps, retaining five/nine source frames and unchanged9fps casting. Both previews and result celebrations use a shared elapsed-time/requestAnimationFrame hook instead of incrementing one frame per interval. Only changed poses update React; late paints catch up, one-shot selection victories hold the final pose without a running loop, new clips reset to frame0 and invalid assets retain still fallbacks. Hidden tabs hold/rebase their clock; live reduced-motion changes use frame0 and restart normally when disabled. Preserve crisp source pixels/uniform scaling; no frame blending, new in-betweens or gameplay/AI/network changes. Timing improves cadence but does not add source poses or establish user visual approval. |
 
+| D183 | User authorizes12fps for both hero idle and victory, offering9fps as an alternative. Choose12fps for the requested smoother pose cadence. |
+
+| I67 | Raise idle6→12fps for all five heroes; victory remains12fps. Keep approved five/nine-frame sheets and the elapsed-time/reduced-motion/hidden-tab playback from I66. Idle loops are now about417ms; victory loops remain750ms. No sprite edits/generation, casting, game rules or balance changes. |
+
 ## Current proposals, not yet confirmed
 
 - Current roster: the five approved heroes per D100; the original two-character implementation milestone is historical.

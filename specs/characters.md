@@ -113,13 +113,13 @@ The user requests expressive victory and casting actions: unmistakable body/limb
 
 Animation briefs (generated clips await user visual review):
 
-- Idle: gentle breathing and a tiny plume sway. Keep the head direction, stance, broom and shield steady; no broad weight shifts, head turns or arm gestures. Five frames, currently played at 6 fps.
+- Idle: gentle breathing and a tiny plume sway. Keep the head direction, stance, broom and shield steady; no broad weight shifts, head turns or arm gestures. Five frames, currently played at 12 fps.
 - Victory: crouch in anticipation, an exuberant full-body hop or proud step, an unmistakable raised broom/shield salute, then a readable proud landing/settle.
 - Shared casting: brace and wind up, twist the torso into a broad broom sweep, present the shield, then follow through and settle. Add a compact golden-green magical spore trail that follows the broom bristles, with a few sparkles/motes dispersing behind it. Fit the established 1.5-second cast freeze and retain the separate stars-spent overlay.
 
 For casting and victory, favor clear anticipation, action, follow-through and a short held pose over numerous small in-between changes. Keep equipment attached, preserve colors and leave enough canvas margin for gestures without clipping.
 
-The current sheets contain the starting pose plus four generated idle frames (five total, 6 fps) and eight generated victory/casting frames (nine total; victory 12 fps, cast 9 fps plus 500 ms final-pose hold). All four casting tiers reference the same sheet. No generated spell-effect overlays or additional character assets are part of this pass.
+The current sheets contain the starting pose plus four generated idle frames (five total, 12 fps) and eight generated victory/casting frames (nine total; victory 12 fps, cast 9 fps plus 500 ms final-pose hold). All four casting tiers reference the same sheet. No generated spell-effect overlays or additional character assets are part of this pass.
 
 ### Defaults for every future character
 
@@ -394,3 +394,5 @@ Current pooled/per-level matrices and before→after reminders: [simplified-kit 
 
 
 D182/I66 updates playback only: all approved idle/victory sheets now run at6/12fps using elapsed-time display timing. Original PNGs and generation provenance remain unchanged. Reduced motion uses a still pose and hidden tabs hold animation time. Source frame counts still bound smoothness; any later in-between-frame art remains deferred.
+
+D183/I67 supersedes the idle rate in D182: idle and victory both play at12fps, using the same approved sheets and shared clock.

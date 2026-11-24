@@ -10,7 +10,7 @@ castDefaults:
 characters:
   champignon:
     victory: { src: /assets/characters/champignon/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 12, holdMs: 0, sound: null }
-    standing: { src: /assets/characters/champignon/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 6, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/champignon/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 12, holdMs: 0, sound: null }
     icon: /assets/characters/champignon/icon.png
     portrait: /assets/characters/champignon/portrait.png
     effects:
@@ -41,7 +41,7 @@ characters:
       4: *champignonCast
   andromoss:
     victory: { src: /assets/characters/andromoss/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 12, holdMs: 0, sound: null }
-    standing: { src: /assets/characters/andromoss/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 6, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/andromoss/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 12, holdMs: 0, sound: null }
     icon: /assets/characters/andromoss/icon.png
     portrait: /assets/characters/andromoss/portrait.png
     effects:
@@ -73,7 +73,7 @@ characters:
 
   captain-bramble:
     victory: { src: /assets/characters/captain-bramble/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 12, holdMs: 0, sound: null }
-    standing: { src: /assets/characters/captain-bramble/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 6, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/captain-bramble/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 12, holdMs: 0, sound: null }
     icon: /assets/characters/captain-bramble/icon.png
     portrait: /assets/characters/captain-bramble/portrait.png
     effects:
@@ -105,7 +105,7 @@ characters:
 
   duskmantle:
     victory: { src: /assets/characters/duskmantle/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 12, holdMs: 0, sound: null }
-    standing: { src: /assets/characters/duskmantle/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 6, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/duskmantle/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 12, holdMs: 0, sound: null }
     icon: /assets/characters/duskmantle/icon.png
     portrait: /assets/characters/duskmantle/portrait.png
     effects:
@@ -137,7 +137,7 @@ characters:
 
   sprig:
     victory: { src: /assets/characters/sprig/victory.png, frameWidth: 192, frameHeight: 192, frameCount: 9, columns: 9, fps: 12, holdMs: 0, sound: null }
-    standing: { src: /assets/characters/sprig/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 6, holdMs: 0, sound: null }
+    standing: { src: /assets/characters/sprig/standing.png, frameWidth: 192, frameHeight: 192, frameCount: 5, columns: 5, fps: 12, holdMs: 0, sound: null }
     icon: /assets/characters/sprig/icon.png
     portrait: /assets/characters/sprig/portrait.png
     effects:

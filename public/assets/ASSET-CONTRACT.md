@@ -8,7 +8,7 @@ A **hero** has idle, victory and **one shared casting animation**. Each **indivi
 
 | File under `characters/CHARACTER/` | Native contract |
 |---|---|
-| `standing.png` | 960×192 PNG: five 192×192 frames at 6 fps, looping |
+| `standing.png` | 960×192 PNG: five 192×192 frames at 12 fps, looping |
 | `victory.png` | 1728×192 PNG: nine 192×192 frames at 12 fps |
 | `cast.png` | 1728×192 PNG: nine 192×192 frames at 9 fps plus 500 ms final hold, shared by all four spells |
 | `icon.png` | Transparent 192×192 head-and-shoulders image for HUD, pause and round result |
@@ -69,3 +69,5 @@ New sound files in `sfx/spells/` are downloaded CC0 Kenney clips, unmodified; se
 
 
 D182/I66: idle/victory rendering uses elapsed-time-based6/12fps playback across all five heroes. Five/nine source poses and all PNG bytes are unchanged; no interpolation or frame generation. One-shot victories hold their final pose, loops repeat, background tabs hold time and reduced motion uses frame0. Casting timing remains unchanged.
+
+D183/I67 supersedes the idle rate above: both idle and victory now play at12fps. Source frame counts, PNG bytes and elapsed-time playback are unchanged.
